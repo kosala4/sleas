@@ -18,222 +18,346 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		                    <div class="panel-body">
                                 <?php echo form_open('admin/add_student_details', 'role="form" id="addStaffForm"'); ?>
 		                            <div class="form-body">
-                                        
-                                        <div class="personal_details">
-                                            <h3>Personal Information</h3><hr>
-
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label><span style="color:red;">*</span>NIC</label>
-                                                    <input type="text" class="form-control validate[required]" name="nic" id="nic" placeholder="Religion" data-prompt-position="topLeft" />
+                                        <div class="panel-group" id="accordion">
+                                            
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                  <h4 class="panel-title">
+                                                      <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+        Personal Information</a>
+                                                    </h4>
                                                 </div>
+                                                <div id="collapse1" class="panel-collapse collapse in">
+                                                    <div class="panel-body personal_details">
+                                                    <!--<h3>Personal Information</h3><hr>-->
 
-                                                <div class="form-group">
-                                                    <label>Title</label>
-                                                    <input type="text" class="form-control validate[required]" name="appno" id="appno" placeholder="Application Number" data-prompt-position="topLeft" />
-                                                </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label><span style="color:red;">*</span>NIC</label>
+                                                            <input type="text" class="form-control validate[required]" name="nic" id="nic" placeholder="NIC No" data-prompt-position="topLeft" />
+                                                        </div>
 
-                                                <div class="form-group">
-                                                    <label>Date of Birth</label>
-                                                    <input type="text" class="form-control date-picker" name="dob" id="dob">
-                                                </div>
-
-                                            </div>
-                                            <div class="col-md-6">
-
-                                                <div class="form-group">
-                                                    <label>First Name</label>
-                                                    <input type="text" class="form-control validate[required]" name="fname" id="fname" placeholder="Full Name" data-prompt-position="topLeft" />
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label>Middle Name</label>
-                                                    <input type="text" class="form-control validate[required]" name="mname" id="mname" placeholder="Middle Name" data-prompt-position="topLeft" />
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label>Last Name</label>
-                                                    <input type="text" class="form-control validate[required]" name="lname" id="lname" placeholder="Last Name" data-prompt-position="topLeft" />
-                                                </div>
-
-                                            </div>
-                                        </div><!--End of Personal details-->
-
-                                        <div class="contact_details">
-                                            <h3>Contact Information (Permanent)</h3><hr>
-                                            <div class="col-md-6">
-
-                                                <div class="form-group">
-                                                    <label>Address Line 1</label>
-                                                    <input type="text" class="form-control validate[required]" name="address1" id="address1" placeholder="Address Line 1" data-prompt-position="topLeft" />
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label>Address Line 2</label>
-                                                    <input type="text" class="form-control validate[required]" name="address2" id="address2" placeholder="Address Line 2" data-prompt-position="topLeft" />
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label>Address Line 3</label>
-                                                    <input type="text" class="form-control validate[required]" name="address3" id="address3" placeholder="Address Line 3" data-prompt-position="topLeft" />
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label>Postal Code</label>
-                                                    <input type="text" class="form-control validate[required]" name="pocode" id="pocode" placeholder="Postal Code" data-prompt-position="topLeft" />
-                                                </div>
-
-                                            </div>
-                                            <div class="col-md-6">
-
-                                                <div class="form-group">
-                                                    <label>Land phone no 01</label>
-                                                    <input type="text" class="form-control validate[custom[phone]]" name="landp" id="landp" placeholder="Land No" data-prompt-position="topLeft" />
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label>Land phone no 02</label>
-                                                    <input type="text" class="form-control validate[custom[phone]]" name="landp" id="landp" placeholder="Land No" data-prompt-position="topLeft" />
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label>Mobile phone no</label>
-                                                    <input type="text" class="form-control validate[custom[phone]]" name="mobile" id="mobile" placeholder="Mobile No" data-prompt-position="topLeft" />
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label>Email address</label>
-                                                    <input type="text" class="form-control validate[custom[email]]" name="email" id="email" placeholder="Email Address" data-prompt-position="topLeft" />
-                                                </div>
-
-                                            </div>
-                                        </div> <!--End of Contact details Permanent-->
-
-                                        <div class="contact_details-temp">
-                                            <h3>Contact Information (Tempory)</h3><hr>
-                                            <div class="col-md-6">
-
-                                                <div class="form-group">
-                                                    <label>Address Line 1</label>
-                                                    <input type="text" class="form-control validate[required]" name="address1" id="address1" placeholder="Address Line 1" data-prompt-position="topLeft" />
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label>Address Line 2</label>
-                                                    <input type="text" class="form-control validate[required]" name="address2" id="address2" placeholder="Address Line 2" data-prompt-position="topLeft" />
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label>Address Line 3</label>
-                                                    <input type="text" class="form-control validate[required]" name="address3" id="address3" placeholder="Address Line 3" data-prompt-position="topLeft" />
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label>Postal Code</label>
-                                                    <input type="text" class="form-control validate[required]" name="pocode" id="pocode" placeholder="Postal Code" data-prompt-position="topLeft" />
-                                                </div>
-
-                                            </div>
-                                            <div class="col-md-6">
-
-                                                <div class="form-group">
-                                                    <label>Land phone no 01</label>
-                                                    <input type="text" class="form-control validate[custom[phone]]" name="landp" id="landp" placeholder="Land No" data-prompt-position="topLeft" />
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label>Land phone no 02</label>
-                                                    <input type="text" class="form-control validate[custom[phone]]" name="landp" id="landp" placeholder="Land No" data-prompt-position="topLeft" />
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label>Mobile phone no</label>
-                                                    <input type="text" class="form-control validate[custom[phone]]" name="mobile" id="mobile" placeholder="Mobile No" data-prompt-position="topLeft" />
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label>Email address</label>
-                                                    <input type="text" class="form-control validate[custom[email]]" name="email" id="email" placeholder="Email Address" data-prompt-position="topLeft" />
-                                                </div>
-
-                                            </div>
-                                        </div> <!--End of Contact details Tempory-->
-
-                                        <div class="general-service">
-                                            <h3>General service information</h3><hr>
-
-                                            <div class="col-md-12">
-                                                <div class="col-md-6">
-
-                                                    <div class="form-group">
-                                                        <label>Date of first join to the SLEAS</label>
-                                                        <input type="text" class="form-control date-picker" name="date-join" id="date-join-gen">
-                                                    </div>
-
-                                                    <div class="form-group ">
-                                                        <label>Way of joined the SLEAS</label>
-                                                        <select class="select2 " name="way_joined" id="way_joined" style="width:100%;">
-                                                            <option value="" selected>Please select </option>
-                                                            <option value="open">Open</option>
-                                                            <option value="limited">Limited</option>
-                                                            <option value="merit">Merit</option>
-                                                            <option value="supern">Super Numeral (PVC)</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    
-                                                    <div class="gen-serv-set1" style="display:none;">
-
-                                                        <div class="form-group ">
-                                                            <label>SLEAS Cadre when joining the SLEAS</label>
-                                                            <select class="select2 " name="cadre" id="cadre" style="width:100%;">
+                                                        <div class="form-group">
+                                                            <label>Title</label>
+                                                            <select class="select2 " name="title" id="title" style="width:100%;">
                                                                 <option value="" selected>Please select </option>
-                                                                <option value="general-carder">General Cadre</option>
-                                                                <option value="special-carder">Special Cadre</option>
+                                                                <option value="rev">Rev.</option>
+                                                                <option value="mr">Mr.</option>
+                                                                <option value="mrs">mrs.</option>
+                                                                <option value="ms">Ms.</option>
                                                             </select>
                                                         </div>
 
-                                                        <div class="form-group ">
-                                                            <label>SLEAS Grade  when joining the SLEAS</label>
-                                                            <select class="select2 " name="grade-general" id="grade-join" style="width:100%;">
-                                                                <option value="" selected>Please select </option>
-                                                                <option value="special">Special</option>
-                                                                <option value="grade1">Grade I</option>
-                                                                <option value="grade2">Grade II</option>
-                                                                <option value="grade3">Grade III</option>
-                                                            </select>
+                                                        <div class="form-group">
+                                                            <label>First Name</label>
+                                                            <input type="text" class="form-control validate[required]" name="fname" id="fname" placeholder="Full Name" data-prompt-position="topLeft" />
                                                         </div>
+
+                                                        <div class="form-group">
+                                                            <label>Middle Name</label>
+                                                            <input type="text" class="form-control validate[required]" name="mname" id="mname" placeholder="Middle Name" data-prompt-position="topLeft" />
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label>Last Name</label>
+                                                            <input type="text" class="form-control validate[required]" name="lname" id="lname" placeholder="Last Name" data-prompt-position="topLeft" />
+                                                        </div>
+
                                                     </div>
-                                                    <div class="gen-serv-set2" style="display:none;">
+                                                    <div class="col-md-6">
 
-                                                        <div class="form-group ">
-                                                            <label>SLEAS Grade  when joining the SLEAS</label>
-                                                            <select class="select2 " name="grade-special" id="grade-join2" style="width:100%;">
+                                                        <div class="form-group">
+                                                            <label>Date of Birth</label>
+                                                            <input type="text" class="form-control date-picker" name="dob" id="dob">
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label>Ethnicity</label>
+                                                            <select class="select2 " name="ethnicity" id="ethnicity" style="width:100%;">
                                                                 <option value="" selected>Please select </option>
-                                                                <option value="grade2">Grade II</option>
-                                                                <option value="grade3">Grade III</option>
+                                                                <option value="rev">Rev.</option>
+                                                                <option value="mr">Mr.</option>
+                                                                <option value="mrs">mrs.</option>
+                                                                <option value="ms">Ms.</option>
                                                             </select>
                                                         </div>
 
-                                                        <div class="form-group ">
-                                                            <label>Subject</label>
-                                                            <select class="select2 " name="grade-special-subject" id="grade-join2-subject" style="width:100%;">
+                                                        <div class="form-group">
+                                                            <label>Gender</label>
+                                                            <select class="select2 " name="gender" id="gender" style="width:100%;">
                                                                 <option value="" selected>Please select </option>
-                                                                <option value="grade2">Grade II</option>
-                                                                <option value="grade3">Grade III</option>
+                                                                <option value="male">Male</option>
+                                                                <option value="female">Female</option>
+                                                            </select>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label>Civil Status</label>
+                                                            <select class="select2 " name="civil-st" id="civil-st" style="width:100%;">
+                                                                <option value="" selected>Please select </option>
+                                                                <option value="single">Single</option>
+                                                                <option value="married">Married</option>
                                                             </select>
                                                         </div>
 
                                                     </div>
+                                                </div><!--End of Personal details-->
                                                 </div>
+                                            </div><!--End of Personal details-->
+                                            
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                  <h4 class="panel-title">
+                                                      <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+        Contact Information (Permanent)</a>
+                                                    </h4>
+                                                </div>
+                                                <div id="collapse2" class="panel-collapse collapse">
+                                                    <div class="panel-body contact_details">
+                                                    <!--<h3>Contact Information (Permanent)</h3><hr>-->
+                                                    <div class="col-md-6">
 
-                                            </div>
+                                                        <div class="form-group">
+                                                            <label>Address Line 1</label>
+                                                            <input type="text" class="form-control validate[required]" name="address1" id="address1" placeholder="Address Line 1" data-prompt-position="topLeft" />
+                                                        </div>
 
-                                        </div><!--End of General-Service-->
+                                                        <div class="form-group">
+                                                            <label>Address Line 2</label>
+                                                            <input type="text" class="form-control validate[required]" name="address2" id="address2" placeholder="Address Line 2" data-prompt-position="topLeft" />
+                                                        </div>
 
-                                        <div class="current-service">
-                                        <h3>Current service information</h3><hr>
+                                                        <div class="form-group">
+                                                            <label>Address Line 3</label>
+                                                            <input type="text" class="form-control validate[required]" name="address3" id="address3" placeholder="Address Line 3" data-prompt-position="topLeft" />
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label>Postal Code</label>
+                                                            <input type="text" class="form-control validate[required]" name="pocode" id="pocode" placeholder="Postal Code" data-prompt-position="topLeft" />
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="col-md-6">
+
+                                                        <div class="form-group">
+                                                            <label>Land phone no 01</label>
+                                                            <input type="text" class="form-control validate[custom[phone]]" name="landp" id="landp" placeholder="Land No" data-prompt-position="topLeft" />
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label>Land phone no 02</label>
+                                                            <input type="text" class="form-control validate[custom[phone]]" name="landp" id="landp" placeholder="Land No" data-prompt-position="topLeft" />
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label>Mobile phone no</label>
+                                                            <input type="text" class="form-control validate[custom[phone]]" name="mobile" id="mobile" placeholder="Mobile No" data-prompt-position="topLeft" />
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label>Email address</label>
+                                                            <input type="text" class="form-control validate[custom[email]]" name="email" id="email" placeholder="Email Address" data-prompt-position="topLeft" />
+                                                        </div>
+
+                                                    </div>
+                                                </div> <!--End of Contact details Permanent-->
+                                                </div>
+                                            </div><!--End of Contact details Permanent-->
+                                            
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                  <h4 class="panel-title">
+                                                      <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
+        Contact Information (Tempory)</a>
+                                                    </h4>
+                                                </div>
+                                                <div id="collapse3" class="panel-collapse collapse">
+
+                                                    <div class="panel-body contact_details-temp">
+                                                    <!--<h3>Contact Information (Tempory)</h3><hr>-->
+                                                    <div class="col-md-6">
+
+                                                        <div class="form-group">
+                                                            <label>Address Line 1</label>
+                                                            <input type="text" class="form-control validate[required]" name="address1" id="address1" placeholder="Address Line 1" data-prompt-position="topLeft" />
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label>Address Line 2</label>
+                                                            <input type="text" class="form-control validate[required]" name="address2" id="address2" placeholder="Address Line 2" data-prompt-position="topLeft" />
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label>Address Line 3</label>
+                                                            <input type="text" class="form-control validate[required]" name="address3" id="address3" placeholder="Address Line 3" data-prompt-position="topLeft" />
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label>Postal Code</label>
+                                                            <input type="text" class="form-control validate[required]" name="pocode" id="pocode" placeholder="Postal Code" data-prompt-position="topLeft" />
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="col-md-6">
+
+                                                        <div class="form-group">
+                                                            <label>Land phone no 01</label>
+                                                            <input type="text" class="form-control validate[custom[phone]]" name="landp" id="landp" placeholder="Land No" data-prompt-position="topLeft" />
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label>Land phone no 02</label>
+                                                            <input type="text" class="form-control validate[custom[phone]]" name="landp" id="landp" placeholder="Land No" data-prompt-position="topLeft" />
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label>Mobile phone no</label>
+                                                            <input type="text" class="form-control validate[custom[phone]]" name="mobile" id="mobile" placeholder="Mobile No" data-prompt-position="topLeft" />
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label>Email address</label>
+                                                            <input type="text" class="form-control validate[custom[email]]" name="email" id="email" placeholder="Email Address" data-prompt-position="topLeft" />
+                                                        </div>
+
+                                                    </div>
+                                                </div> <!--End of Contact details Tempory-->
+                                                </div>
+                                            </div><!--End of Contact details Tempory-->
+                                            
+                                            <div class="panel panel-default"><!--General Service-->
+                                                <div class="panel-heading">
+                                                  <h4 class="panel-title">
+                                                      <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">
+        General service information</a>
+                                                    </h4>
+                                                </div>
+                                                <div id="collapse4" class="panel-collapse collapse">
+
+                                                    <div class="panel-body general-service">
+                                                   <!-- <h3>General service information</h3><hr>-->
+
+                                                    <div class="col-md-12">
+                                                        <div class="col-md-6">
+
+                                                            <div class="form-group">
+                                                                <label>Date of first join to the SLEAS</label>
+                                                                <input type="text" class="form-control date-picker" name="date-join" id="date-join-gen">
+                                                            </div>
+
+                                                            <div class="form-group ">
+                                                                <label>Way of joined the SLEAS</label>
+                                                                <select class="select2 " name="way_joined" id="way_joined" style="width:100%;">
+                                                                    <option value="" selected>Please select </option>
+                                                                    <option value="open">Open</option>
+                                                                    <option value="limited">Limited</option>
+                                                                    <option value="merit">Merit</option>
+                                                                    <option value="supern">Super Numeral (PVC)</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+
+                                                            <div class="gen-serv-set1 hidden">
+
+                                                                <div class="form-group ">
+                                                                    <label>SLEAS Cadre when joining the SLEAS</label>
+                                                                    <select class="select2 gen-serv-set1-cadre" name="cadre" id="cadre" style="width:100%;">
+                                                                        <option value="" selected>Please select </option>
+                                                                        <option value="general-carder">General Cadre</option>
+                                                                        <option value="special-carder">Special Cadre</option>
+                                                                    </select>
+                                                                </div>
+                                                                
+                                                                    <div class="form-group gen-serv-set1-general hidden">
+                                                                        <label>SLEAS Grade  when joining the SLEAS</label>
+                                                                        <select class="select2 " name="grade-general" id="grade-join" style="width:100%;">
+                                                                            <option value="" selected>Please select </option>
+                                                                            <option value="special">Special</option>
+                                                                            <option value="grade1">Grade I</option>
+                                                                            <option value="grade2">Grade II</option>
+                                                                            <option value="grade3">Grade III</option>
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="form-group gen-serv-set1-special hidden">
+                                                                        <label>SLEAS Grade  when joining the SLEAS</label>
+                                                                        <select class="select2 " name="grade-general" id="grade-join" style="width:100%;">
+                                                                            <option value="" selected>Please select </option>
+                                                                            <option value="grade2">Grade II</option>
+                                                                            <option value="grade3">Grade III</option>
+                                                                        </select>
+                                                                    </div>
+
+                                                                    <div class="form-group gen-serv-set1-special hidden ">
+                                                                        <label>Subject</label>
+                                                                        <select class="select2 " name="grade-special-subject" id="grade-join2-subject" style="width:100%;">
+                                                                            <option value="" selected>Please select </option>
+                                                                            <option value="sinhala">sinhala</option>
+                                                                            <option value="tamil">tamil</option>
+                                                                        </select>
+                                                                    </div>
+                                                            </div>
+                                                            <div class="gen-serv-set2 hidden">
+
+                                                                <div class="form-group ">
+                                                                    <label>SLEAS Cadre when joining the SLEAS</label>
+                                                                    <select class="select2 " name="cadre" id="cadre2" style="width:100%;">
+                                                                        <option value="" selected>Please select </option>
+                                                                        <option value="general-carder">General Cadre</option>
+                                                                        <option value="not-specified">Not Specified</option>
+                                                                    </select>
+                                                                </div>
+
+                                                                <div class="form-group ">
+                                                                    <label>SLEAS Grade  when joining the SLEAS</label>
+                                                                    <select class="select2 " name="grade-special" id="grade-join2" style="width:100%;">
+                                                                        <option value="" selected>Please select </option>
+                                                                        <option value="grade1">Grade I</option>
+                                                                        <option value="grade2">Grade II</option>
+                                                                        <option value="grade3">Grade III</option>
+                                                                    </select>
+                                                                </div>
+
+                                                                <div class="form-group ">
+                                                                    <label>Medium in which recruited</label>
+                                                                    <select class="select2 " name="medium-rec" id="medium-rec" style="width:100%;">
+                                                                        <option value="" selected>Please select </option>
+                                                                        <option value="sinhala">Sinhala</option>
+                                                                        <option value="tamil">Tamil</option>
+                                                                        <option value="english">English</option>
+                                                                    </select>
+                                                                </div>
+
+                                                                <div class="form-group ">
+                                                                    <label>Confirmed</label>
+                                                                    <select class="select2 " name="confirm" id="confirm" style="width:100%;">
+                                                                        <option value="" selected>Please select </option>
+                                                                        <option value="yes">Yes</option>
+                                                                        <option value="no">No</option>
+                                                                    </select>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+                                                </div><!--End of General-Service-->
+                                                </div>
+                                            </div><!--End of General-Service-->
+                                            
+                                            <div class="panel panel-default"><!--Current Service-->
+                                                <div class="panel-heading">
+                                                  <h4 class="panel-title">
+                                                      <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">
+        Current service information</a>
+                                                    </h4>
+                                                </div>
+                                                <div id="collapse5" class="panel-collapse collapse">
+
+                                                    <div class="current-service">
+                                        <!--<h3>Current service information</h3><hr>-->
                                         
                                             <div class="col-md-12">
                                                 <div class="col-md-6">
@@ -253,7 +377,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                         </select>
                                                     </div> 
 
-                                                    <div class="form-group ">
+                                                    <div class="form-group hidden">
                                                         <label>Present SLEAS Class</label>
                                                         <select class="select2 " name="prclass" id="prclass" style="width:100%">
                                                             <option value="">  Select </option>
@@ -283,16 +407,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                         <label>Designation</label>
                                                         <input type="text" class="form-control validate[required]" name="designation" id="designation" placeholder="Designation" data-prompt-position="topLeft" />
                                                     </div>
-
-                                                    <div class="form-group ">
-                                                        <label>Present SLEAS Grade</label>
-                                                        <select class="select2 " name="grade" id="grade-promo" style="width:100%">
-                                                            <option value="">  Select </option>
-                                                            <option value="1open">  Grade I </option>
-                                                            <option value="1open">  Grade II </option>
-                                                            <option value="1open">  Grade III </option>
-                                                        </select>
-                                                    </div>  
                                                 </div>
                                                     <div class="c-firstapp_block hidden">
                                                 <div class="col-md-6">
@@ -364,21 +478,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                                 </select>
                                                             </div>
 
-                                                            <div class="form-group ">
+                                                            <div class="form-group c-firstapp-work-institute-zone">
                                                                 <label>Zone</label>
                                                                 <select class="select2 " name="c-firstapp-zone" id="c-firstapp-zone" style="width:100%">
                                                                     <option value=" ">Select</option>
                                                                 </select>
                                                             </div>
 
-                                                            <div class="form-group ">
+                                                            <div class="form-group c-firstapp-work-institute-division">
                                                                 <label>Division</label>
                                                                 <select class="select2 " name="c-firstapp-devision" id="c-firstapp-devision" style="width:100%">
                                                                     <option value=" ">Select</option>
                                                                 </select>
                                                             </div>
 
-                                                            <div class="form-group ">
+                                                            <div class="form-group c-firstapp-work-institute-school">
                                                                 <label>School / institute</label>
                                                                 <select class="select2 " name="c-firstapp-institute" id="c-firstapp-institute" style="width:100%">
                                                                     <option value=" ">Select</option>
@@ -550,8 +664,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                 </div>
                                             </div>
                                             </div><!--End of current-service-->
+                                                </div>
+                                            </div><!--End of current-service-->
                                           
-
+                                        </div><!--End of accordian-->
+                                        
                                         <div class="col-md-6" style="display:none">
                                             <div class="form-group">
                                                 <label>Email address</label>
@@ -649,10 +766,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		                            </div>
                                     </div><!--End of form body-->
 		                        <?php echo form_close(); ?>
-                                
-                                            <div class="accordian">
-                                            aaa
-                                            </div>
+
 		                      </div><!--End of panel-body-->
                             </div>
                     
@@ -661,6 +775,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <div class="row" id="selected_profile">
                     
                 </div>
+
             </div><!--End of container-->
         </section>
 
@@ -678,14 +793,28 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             addStaffForm.init();  
            // $('#username').lostfocus
             
+            //Check Way joind in general service
             $('#way_joined').change(function(){
                 var gr = $(this).val();
                 if ($.inArray(gr, ['open', 'limited', 'merit']) >=0){
-                    $(".gen-serv-set1").css({"display":"block"});
-                    $(".gen-serv-set2").css({"display":"none"});
+                    $(".gen-serv-set1").removeClass("hidden");
+                    $(".gen-serv-set2").addClass("hidden");
                 }else if(gr == "supern"){
-                    $(".gen-serv-set1").css({"display":"none"});
-                    $(".gen-serv-set2").css({"display":"block"});
+                    $(".gen-serv-set1").addClass("hidden");
+                    $(".gen-serv-set2").removeClass("hidden");
+                    
+                }
+            });
+            
+            //Check When joining SLEAS
+            $('.gen-serv-set1-cadre').change(function(){
+                var gr = $(this).val();
+                if (gr == "general-carder"){
+                    $(".gen-serv-set1-general").removeClass("hidden");
+                    $(".gen-serv-set1-special").addClass("hidden");
+                }else if(gr == "special-carder"){
+                    $(".gen-serv-set1-general").addClass("hidden");
+                    $(".gen-serv-set1-special").removeClass("hidden");
                     
                 }
             });
@@ -748,10 +877,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 var gr = $(this).val();
                 if ($.inArray(gr, ['moe','exam','epd']) >=0){
                     $(".c-firstapp-work-institute").addClass("hidden");
+                    $(".c-province-office").addClass("hidden");
                     $(".c-firstapp-work-main-institue").removeClass("hidden");
+                    
                 }else if($.inArray(gr, ['zone','division','ncoe','ttc','school']) >=0){
                     $(".c-firstapp-work-main-institue").addClass("hidden");
+                    $(".c-province-office").addClass("hidden");
                     $(".c-firstapp-work-institute").removeClass("hidden");
+                    if(gr == "zone"){
+                        $(".c-firstapp-work-institute-division").addClass("hidden");
+                        $(".c-firstapp-work-institute-school").addClass("hidden");
+                    }else if(gr == "division"){
+                        $(".c-firstapp-work-institute-school").addClass("hidden");
+                        $(".c-firstapp-work-institute-division").removeClass("hidden");
+                    }else{
+                        $(".c-firstapp-work-institute-division").removeClass("hidden");
+                        $(".c-firstapp-work-institute-school").removeClass("hidden");
+                    }
                     
                 }else if(gr == "province"){
                     $(".c-firstapp-work-main-institue").addClass("hidden");
