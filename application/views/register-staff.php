@@ -790,7 +790,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
     <script>
         $(document).ready(function(){ 
-            addStaffForm.init();  
+            FormValidationTooltip.init();  
            // $('#username').lostfocus
             
             //Check Way joind in general service
