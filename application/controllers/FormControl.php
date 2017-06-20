@@ -13,5 +13,9 @@ class FormControl extends CI_Controller {
         #$this->load->model('District_model'); //load database model.
         
     }
+    
+    public function register(){
+        
+    }
 }
 ?>

@@ -22,7 +22,7 @@ class Login extends CI_Controller {
     {
         parent::__construct();
         $this->load->model('User_model'); //load database model.
-        $this->load->helper('url'); //load database model.
+        $this->load->helper('url'); //load url helper.
         $this->load->helper('form');
     }
 	public function index()

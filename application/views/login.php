@@ -120,7 +120,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </div>
 
 
-        <div class="rightBoxButton"><a href="<?php echo base_url()."index.php/admin/index"?>">
+        <div class="rightBoxButton"><a href="<?php echo base_url()."index.php/register/newmember"?>">
             <div class="rightBoxButtonIcon"><img src="<?php echo base_url()."assets/images/login/icon-2.png"?>" width="50" height="40"></div>
             <div class="rightBoxButtonText">User Registration</div>
             </a>

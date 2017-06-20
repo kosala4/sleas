@@ -1,5 +1,5 @@
 
-var addStaffForm = function (){
+var FormValidationTooltip = function (){
     
     var handelFormValidation = function() {
         $("#addStaffForm").validationEngine();
@@ -12,6 +12,7 @@ var addStaffForm = function (){
         
     };
 }();    // Handel Form Validation
+
 var DataTabels = function (){
     
     var handelDynamicTables = function() {
