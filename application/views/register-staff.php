@@ -291,11 +291,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                                                                     <div class="form-group gen-serv-set1-special hidden ">
                                                                         <label>Subject</label>
-                                                                        <select class="select2 " name="grade-special-subject" id="grade-join2-subject" style="width:100%;">
+                                                                        <select class="select2Search " name="grade-special-subject" id="grade-join2-subject" style="width:100%;">
                                                                             <option value="" selected>Please select </option>
-                                                                            <option value="sinhala">sinhala</option>
-                                                                            <option value="tamil">tamil</option>
-                                                                        </select>
+                                                                            <?php if ($subjects) { ?>
+                                                                                    <?php foreach ($subjects as $row) { ?>
+                                                                                        <option value=<?php echo $row['ID'];?> > <?php echo $row['sub_name'] ;?> </option>
+                                                                            <?php    } ?>
+                                                                                <?php } ?>
+                                                                        
+                                                                            </select>
                                                                     </div>
                                                             </div>
                                                             <div class="gen-serv-set2 hidden">
@@ -415,16 +419,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                             <label>Working place</label>
                                                             <select class="select2 " name="c-firstapp-place" id="c-firstapp-place" style="width:100%">
                                                                 <option value=""> Please select </option>
-                                                                <option value="moe"> MoE </option>
-                                                                <option value="exam"> Exams </option>
-                                                                <option value="epd"> EPD </option>
-                                                                <option value="nie" class="c-nie hidden"> NIE </option>
-                                                                <option value="province"> Province </option>
-                                                                <option value="zone"> Zone </option>
-                                                                <option value="division"> Division </option>
-                                                                <option value="ncoe"> NCoE </option>
-                                                                <option value="ttc"> TTC </option>
-                                                                <option value="school"> School </option>
+                                                                <option value="moe"> Ministry of Education </option>
+                                                                <option value="exam"> Department of Examinations </option>
+                                                                <option value="epd"> Department of Education Publication </option>
+                                                                <option value="nie" class="c-nie hidden"> National Institute of Education </option>
+                                                                <option value="provinced"> Provincial Department of Education </option>
+                                                                <option value="provincem"> Provincial Ministry of Education </option>
+                                                                <option value="zone"> Zonal Education Office </option>
+                                                                <option value="division"> Divisional Education Office </option>
+                                                                <option value="ncoe"> National College of Education </option>
+                                                                <option value="ttc"> Teacher Training College </option>
+                                                                <option value="tc"> Teacher Centers </option>
+                                                                <option value="pictec"> Provincial ICT Education Centre (PICTEC) </option>
+                                                                <option value="crc"> Zonal ICT Education Centre (ZICTEC/CRC) </option>
+                                                                <option value="erc"> Education Resource Centre </option>
                                                                 <option value="other" class="c-other hidden"> Other </option>
                                                             </select>
                                                         </div>
@@ -557,14 +565,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                             <label>Working place</label>
                                                             <select class="select2 " name="c-promo-place" id="c-promo-place" style="width:100%">
                                                                 <option value=""> Please select </option>
-                                                                <option value="moe"> MoE </option>
-                                                                <option value="exam"> Exams </option>
-                                                                <option value="epd"> EPD </option>
-                                                                <option value="province"> Province </option>
-                                                                <option value="zone"> Zone </option>
-                                                                <option value="division"> Division </option>
-                                                                <option value="ncoe"> NCoE </option>
-                                                                <option value="ttc"> TTC </option>
+                                                                <option value="moe"> Ministry of Education </option>
+                                                                <option value="exam"> Department of Examinations </option>
+                                                                <option value="epd"> Department of Education Publication </option>
+                                                                <option value="provinced"> Provincial Department of Education </option>
+                                                                <option value="provincem"> Provincial Ministry of Education </option>
+                                                                <option value="zone"> Zonal Education Office </option>
+                                                                <option value="division"> Divisional Education Office </option>
+                                                                <option value="ncoe"> National College of Education </option>
+                                                                <option value="ttc"> Teacher Training College </option>
+                                                                <option value="tc"> Teacher Centers </option>
+                                                                <option value="pictec"> Provincial ICT Education Centre (PICTEC) </option>
+                                                                <option value="crc"> Zonal ICT Education Centre (ZICTEC/CRC) </option>
+                                                                <option value="erc"> Education Resource Centre </option>
                                                                 <option value="school" class="hidden"> School </option>
                                                             </select>
                                                         </div>
@@ -895,7 +908,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         $(".c-firstapp-work-institute-school").removeClass("hidden");
                     }
                     
-                }else if(gr == "province"){
+                }else if($.inArray(gr, ['provinced','provincem']) >=0){
                     $(".c-firstapp-work-main-institue").addClass("hidden");
                     $(".c-firstapp-work-institute").addClass("hidden");
                     $(".c-province-office").removeClass("hidden");
