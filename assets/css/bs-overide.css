@@ -1108,8 +1108,8 @@ h3.panel-title{
 }
 
 .panel-default>.panel-heading {
-    color: #666666;
-    background-color: #ffffff;
+    color: #000000;
+    background-color: #f57c00;
 }
 .panel-primary>.panel-heading {
     color: #666666;
@@ -1118,7 +1118,7 @@ h3.panel-title{
 
 .panel-info>.panel-heading {
     color: #ffffff;
-    background-color: #3ad6ef;
+    background-color: #bb4d00;
 }
 
 .panel-success>.panel-heading {
@@ -1228,6 +1228,16 @@ h3.panel-title{
 
 .panel-footer ul.pagination{
     margin: 5px;
+}
+
+/*Custom Styles*/
+
+.reg-sec-panel {
+    background-color: #80cbc4;
+}
+
+.reg-main-panel {
+    background-color: #4f9a94;
 }
 
 /****************************************************

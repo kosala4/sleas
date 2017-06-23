@@ -1882,3 +1882,13 @@ body.dashboard .dash-title{
 ::-webkit-scrollbar-track {
     background-color: rgba(50,50,50,.2);
 }
+
+/*Custom Styles*/
+
+.reg-sec-panel {
+    background-color: #80cbc4;
+}
+
+.reg-main-panel {
+    background-color: #4f9a94;
+}

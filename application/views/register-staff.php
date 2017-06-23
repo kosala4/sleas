@@ -8,7 +8,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		        <div class="row">                
 		            <div class="col-md-12">
 		                <div class="panel panel-info">
-		                    <div class="panel-heading">
+		                    <div class="panel-heading reg-main-panel">
 		                        <h3 class="panel-title">Registration Form</h3>
 
 		                        <div class="panel-tools">
@@ -21,7 +21,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         <div class="panel-group" id="accordion">
                                             
                                             <div class="panel panel-default">
-                                                <div class="panel-heading">
+                                                <div class="panel-heading reg-sec-panel">
                                                   <h4 class="panel-title">
                                                       <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
         Personal Information</a>
@@ -40,10 +40,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                         <div class="form-group">
                                                             <label>Title</label>
                                                             <select class="select2 " name="title" id="title" style="width:100%;">
-                                                                <option value="" selected>Please select </option>
+                                                                <option value="" disabled selected style="background-color:#fff59d">---------Please Select--------- </option>
                                                                 <option value="rev">Rev.</option>
                                                                 <option value="mr">Mr.</option>
-                                                                <option value="mrs">mrs.</option>
+                                                                <option value="mrs">Mrs.</option>
                                                                 <option value="ms">Ms.</option>
                                                             </select>
                                                         </div>
@@ -74,29 +74,33 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                         <div class="form-group">
                                                             <label>Ethnicity</label>
                                                             <select class="select2 " name="ethnicity" id="ethnicity" style="width:100%;">
-                                                                <option value="" selected>Please select </option>
-                                                                <option value="rev">Rev.</option>
-                                                                <option value="mr">Mr.</option>
-                                                                <option value="mrs">mrs.</option>
-                                                                <option value="ms">Ms.</option>
+                                                                <option value="" disabled selected>---------Please Select--------- </option>
+                                                                <option value="rev">Sinhala</option>
+                                                                <option value="mr">Sri Lankan Tamil</option>
+                                                                <option value="mrs">Indian Tamil</option>
+                                                                <option value="ms">Muslim</option>
+                                                                <option value="ms">Burger</option>
+                                                                <option value="ms">Malay</option>
+                                                                <option value="ms">Other</option>
                                                             </select>
                                                         </div>
 
                                                         <div class="form-group">
                                                             <label>Gender</label>
                                                             <select class="select2 " name="gender" id="gender" style="width:100%;">
-                                                                <option value="" selected>Please select </option>
+                                                                <option value="" disabled selected>---------Please Select--------- </option>
                                                                 <option value="male">Male</option>
                                                                 <option value="female">Female</option>
                                                             </select>
-                                                        </div>
+                                                        </div>  
 
                                                         <div class="form-group">
                                                             <label>Civil Status</label>
                                                             <select class="select2 " name="civil-st" id="civil-st" style="width:100%;">
-                                                                <option value="" selected>Please select </option>
+                                                                <option value="" disabled selected>---------Please Select--------- </option>
                                                                 <option value="single">Single</option>
                                                                 <option value="married">Married</option>
+                                                                <option value="widowed">Widowed</option>
                                                             </select>
                                                         </div>
 
@@ -106,7 +110,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             </div><!--End of Personal details-->
                                             
                                             <div class="panel panel-default">
-                                                <div class="panel-heading">
+                                                <div class="panel-heading reg-sec-panel">
                                                   <h4 class="panel-title">
                                                       <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
         Contact Information (Permanent)</a>
@@ -166,7 +170,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             </div><!--End of Contact details Permanent-->
                                             
                                             <div class="panel panel-default">
-                                                <div class="panel-heading">
+                                                <div class="panel-heading reg-sec-panel">
                                                   <h4 class="panel-title">
                                                       <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
         Contact Information (Tempory)</a>
@@ -227,7 +231,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             </div><!--End of Contact details Tempory-->
                                             
                                             <div class="panel panel-default"><!--General Service-->
-                                                <div class="panel-heading">
+                                                <div class="panel-heading reg-sec-panel">
                                                   <h4 class="panel-title">
                                                       <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">
         General service information</a>
@@ -249,7 +253,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                             <div class="form-group ">
                                                                 <label>Way of joined the SLEAS</label>
                                                                 <select class="select2 " name="way_joined" id="way_joined" style="width:100%;">
-                                                                    <option value="" selected>Please select </option>
+                                                                    <option value="" disabled selected>---------Please Select--------- </option>
                                                                     <option value="open">Open</option>
                                                                     <option value="limited">Limited</option>
                                                                     <option value="merit">Merit</option>
@@ -264,7 +268,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                                 <div class="form-group ">
                                                                     <label>SLEAS Cadre when joining the SLEAS</label>
                                                                     <select class="select2 gen-serv-set1-cadre" name="cadre" id="cadre" style="width:100%;">
-                                                                        <option value="" selected>Please select </option>
+                                                                        <option value="" disabled selected>---------Please Select--------- </option>
                                                                         <option value="general-carder">General Cadre</option>
                                                                         <option value="special-carder">Special Cadre</option>
                                                                     </select>
@@ -273,7 +277,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                                     <div class="form-group gen-serv-set1-general hidden">
                                                                         <label>SLEAS Grade  when joining the SLEAS</label>
                                                                         <select class="select2 " name="grade-general" id="grade-join" style="width:100%;">
-                                                                            <option value="" selected>Please select </option>
+                                                                            <option value="" disabled selected>---------Please Select--------- </option>
                                                                             <option value="special">Special</option>
                                                                             <option value="grade1">Grade I</option>
                                                                             <option value="grade2">Grade II</option>
@@ -283,7 +287,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                                     <div class="form-group gen-serv-set1-special hidden">
                                                                         <label>SLEAS Grade  when joining the SLEAS</label>
                                                                         <select class="select2 " name="grade-general" id="grade-join" style="width:100%;">
-                                                                            <option value="" selected>Please select </option>
+                                                                            <option value="" disabled selected>---------Please Select--------- </option>
                                                                             <option value="grade2">Grade II</option>
                                                                             <option value="grade3">Grade III</option>
                                                                         </select>
@@ -292,7 +296,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                                     <div class="form-group gen-serv-set1-special hidden ">
                                                                         <label>Subject</label>
                                                                         <select class="select2Search " name="grade-special-subject" id="grade-join2-subject" style="width:100%;">
-                                                                            <option value="" selected>Please select </option>
+                                                                            <option value="" disabled selected>---------Please Select--------- </option>
                                                                             <?php if ($subjects) { ?>
                                                                                     <?php foreach ($subjects as $row) { ?>
                                                                                         <option value=<?php echo $row['ID'];?> > <?php echo $row['sub_name'] ;?> </option>
@@ -307,7 +311,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                                 <div class="form-group ">
                                                                     <label>SLEAS Cadre when joining the SLEAS</label>
                                                                     <select class="select2 " name="cadre" id="cadre2" style="width:100%;">
-                                                                        <option value="" selected>Please select </option>
+                                                                        <option value="" disabled selected>---------Please Select--------- </option>
                                                                         <option value="general-carder">General Cadre</option>
                                                                         <option value="not-specified">Not Specified</option>
                                                                     </select>
@@ -316,32 +320,31 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                                 <div class="form-group ">
                                                                     <label>SLEAS Grade  when joining the SLEAS</label>
                                                                     <select class="select2 " name="grade-special" id="grade-join2" style="width:100%;">
-                                                                        <option value="" selected>Please select </option>
+                                                                        <option value="" disabled selected>---------Please Select--------- </option>
                                                                         <option value="grade1">Grade I</option>
                                                                         <option value="grade2">Grade II</option>
                                                                         <option value="grade3">Grade III</option>
                                                                     </select>
                                                                 </div>
+                                                            </div>
 
-                                                                <div class="form-group ">
-                                                                    <label>Medium in which recruited</label>
-                                                                    <select class="select2 " name="medium-rec" id="medium-rec" style="width:100%;">
-                                                                        <option value="" selected>Please select </option>
-                                                                        <option value="sinhala">Sinhala</option>
-                                                                        <option value="tamil">Tamil</option>
-                                                                        <option value="english">English</option>
-                                                                    </select>
-                                                                </div>
+                                                            <div class="form-group ">
+                                                                <label>Medium in which recruited</label>
+                                                                <select class="select2 " name="medium-rec" id="medium-rec" style="width:100%;">
+                                                                    <option value="" disabled selected>---------Please Select--------- </option>
+                                                                    <option value="sinhala">Sinhala</option>
+                                                                    <option value="tamil">Tamil</option>
+                                                                    <option value="english">English</option>
+                                                                </select>
+                                                            </div>
 
-                                                                <div class="form-group ">
-                                                                    <label>Confirmed</label>
-                                                                    <select class="select2 " name="confirm" id="confirm" style="width:100%;">
-                                                                        <option value="" selected>Please select </option>
-                                                                        <option value="yes">Yes</option>
-                                                                        <option value="no">No</option>
-                                                                    </select>
-                                                                </div>
-
+                                                            <div class="form-group ">
+                                                                <label>Confirmed</label>
+                                                                <select class="select2 " name="confirm" id="confirm" style="width:100%;">
+                                                                    <option value="" disabled selected>---------Please Select--------- </option>
+                                                                    <option value="yes">Yes</option>
+                                                                    <option value="no">No</option>
+                                                                </select>
                                                             </div>
                                                         </div>
 
@@ -352,7 +355,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             </div><!--End of General-Service-->
                                             
                                             <div class="panel panel-default"><!--Current Service-->
-                                                <div class="panel-heading">
+                                                <div class="panel-heading reg-sec-panel">
                                                   <h4 class="panel-title">
                                                       <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">
         Current service information</a>
@@ -369,7 +372,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     <div class="form-group ">
                                                         <label>Mode of service status</label>
                                                         <select class="select2 " name="c-mood" id="c-mood" style="width:100%">
-                                                            <option value=" ">Please select</option>
+                                                            <option value="" disabled selected>---------Please Select---------</option>
                                                             <option value="firstappoint"> First Appointment </option>
                                                             <option value="promo"> Promotion </option>
                                                             <option value="trans"> Transfer </option>
@@ -384,7 +387,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     <div class="form-group hidden">
                                                         <label>Present SLEAS Class</label>
                                                         <select class="select2 " name="prclass" id="prclass" style="width:100%">
-                                                            <option value="">  Select </option>
+                                                            <option value="" disabled selected> ---------Please Select--------- </option>
                                                             <option value="1open">  I Open </option>
                                                             <option value="1limited"> I Limited </option>
                                                             <option value="1merit"> I Merit </option>
@@ -406,35 +409,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                         <label>Date of appoint to the present SLEAS Class</label>
                                                         <input type="text" class="form-control date-picker" name="dappoint" id="dappoint">
                                                     </div>
-
-                                                    <div class="form-group">
-                                                        <label>Designation</label>
-                                                        <input type="text" class="form-control validate[required]" name="designation" id="designation" placeholder="Designation" data-prompt-position="topLeft" />
-                                                    </div>
                                                 </div>
-                                                    <div class="c-firstapp_block hidden">
-                                                <div class="col-md-6">
+                                                
+                                                <div class="c-firstapp_block hidden">
+                                                    <div class="col-md-6">
 
                                                         <div class="form-group ">
                                                             <label>Working place</label>
-                                                            <select class="select2 " name="c-firstapp-place" id="c-firstapp-place" style="width:100%">
-                                                                <option value=""> Please select </option>
-                                                                <option value="moe"> Ministry of Education </option>
-                                                                <option value="exam"> Department of Examinations </option>
-                                                                <option value="epd"> Department of Education Publication </option>
-                                                                <option value="nie" class="c-nie hidden"> National Institute of Education </option>
-                                                                <option value="provinced"> Provincial Department of Education </option>
-                                                                <option value="provincem"> Provincial Ministry of Education </option>
-                                                                <option value="zone"> Zonal Education Office </option>
-                                                                <option value="division"> Divisional Education Office </option>
-                                                                <option value="ncoe"> National College of Education </option>
-                                                                <option value="ttc"> Teacher Training College </option>
-                                                                <option value="tc"> Teacher Centers </option>
-                                                                <option value="pictec"> Provincial ICT Education Centre (PICTEC) </option>
-                                                                <option value="crc"> Zonal ICT Education Centre (ZICTEC/CRC) </option>
-                                                                <option value="erc"> Education Resource Centre </option>
-                                                                <option value="other" class="c-other hidden"> Other </option>
-                                                            </select>
+                                                            <?php if ($workPlaces) { ?>
+                                                                <select class="select2 col-md-12 workPlaces" name="c-firstapp-place" id="c-firstapp-place" style="padding-left:0;" required >
+                                                                    <option value="" disabled selected> ---------Please Select--------- </option>
+                                                                    <?php foreach ($workPlaces as $row) { ?>
+                                                                        <option value="<?php echo $row['ID'];?>" data-code="<?php echo $row['work_place_code'];?>" > <?php echo $row['work_place'] ;?> </option>
+                                                            <?php    } ?>
+                                                                    <option value="other" class="c-other hidden"> Other </option>
+                                                                </select>
+                                                                <?php } ?>
                                                         </div>
                                                         
                                                             <div class="form-group hidden c-work-other">
@@ -446,7 +436,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                             <div class="form-group ">
                                                                 <label>Province</label>
                                                                 <select class="select2 " name="c-province-office" id="c-province-office" style="width:100%">
-                                                                    <option value=" ">Select</option>
+                                                                    <option value="" disabled selected> ---------Please Select---------</option>
                                                                 </select>
                                                             </div>
                                                             
@@ -455,17 +445,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                                                             <div class="form-group ">
                                                                 <label>Division</label>
-                                                                <select class="select2 " name="c-firstapp-main-division" id="c-firstapp-main-division" style="width:100%">
-                                                                    <option value=""> Please select </option>
-                                                                    <option value=""> School </option>
+                                                                <select class="select2 main-division" name="c_firstapp_main_division" id="c_firstapp_main_division" style="width:100%">
+                                                                    <option value="" disabled selected> ---------Please Select--------- </option>\
                                                                 </select>
                                                             </div>
 
                                                             <div class="form-group ">
                                                                 <label>Branch</label>
-                                                                <select class="select2 " name="c-firstapp-main-branch" id="c-firstapp-main-branch" style="width:100%">
-                                                                    <option value=""> Please select </option>
-                                                                    <option value=""> MoE </option>
+                                                                <select class="select2Search main-branch" name="c_firstapp_main_branch" id="c_firstapp_main_branch" style="width:100%">
+                                                                    <option value="" disabled selected> ---------Please Select--------- </option>\
                                                                 </select>
                                                             </div>
 
@@ -474,36 +462,36 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                         <div class="c-firstapp-work-institute hidden" >
                                                             <div class="form-group ">
                                                                 <label>Province</label>
-                                                                <select class="select2 " name="c-firstapp-province" id="c-firstapp-province" style="width:100%">
-                                                                    <option value=" ">Select</option>
+                                                                <select class="select2 province" name="c-firstapp-province" id="c-firstapp-province" style="width:100%">
+                                                                    <option value="" disabled selected> ---------Please Select--------- </option>
                                                                 </select>
                                                             </div>
 
                                                             <div class="form-group ">
                                                                 <label>District</label>
-                                                                <select class="select2 " name="c-firstapp-district" id="c-firstapp-district" style="width:100%">
-                                                                    <option value=" ">Select</option>
+                                                                <select class="select2 district" name="c-firstapp-district" id="c-firstapp-district" style="width:100%">
+                                                                    <option value="" disabled selected> ---------Please Select--------- </option>
                                                                 </select>
                                                             </div>
 
                                                             <div class="form-group c-firstapp-work-institute-zone">
                                                                 <label>Zone</label>
-                                                                <select class="select2 " name="c-firstapp-zone" id="c-firstapp-zone" style="width:100%">
-                                                                    <option value=" ">Select</option>
+                                                                <select class="select2 zone" name="c-firstapp-zone" id="c-firstapp-zone" style="width:100%">
+                                                                    <option value="" disabled selected> ---------Please Select--------- </option>
                                                                 </select>
                                                             </div>
 
                                                             <div class="form-group c-firstapp-work-institute-division">
                                                                 <label>Division</label>
-                                                                <select class="select2 " name="c-firstapp-devision" id="c-firstapp-devision" style="width:100%">
-                                                                    <option value=" ">Select</option>
+                                                                <select class="select2 division" name="c-firstapp-devision" id="c-firstapp-devision" style="width:100%">
+                                                                    <option value="" disabled selected> ---------Please Select--------- </option>
                                                                 </select>
                                                             </div>
 
                                                             <div class="form-group c-firstapp-work-institute-school">
                                                                 <label>School / institute</label>
-                                                                <select class="select2 " name="c-firstapp-institute" id="c-firstapp-institute" style="width:100%">
-                                                                    <option value=" ">Select</option>
+                                                                <select class="select2 institute" name="c-firstapp-institute" id="c-firstapp-institute" style="width:100%">
+                                                                    <option value="" disabled selected> ---------Please Select---------</option>
                                                                 </select>
                                                             </div>
                                                         </div> <!--End of work-institute--> <!--Hidden when loading-->
@@ -541,7 +529,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                         <div class="form-group hidden salary-drawn">
                                                             <label>Place where salary drawn</label>
                                                             <select class="select2 " name="c-salary-drawn" id="c-salary-drawn" style="width:100%">
-                                                                <option value=""> Please select </option>
+                                                                <option value="" disabled selected> ------------------Please Select------------------ </option>
                                                                 <option value="moe"> MoE </option>
                                                                 <option value="exam"> Exams </option>
                                                                 <option value="epd"> EPD </option>
@@ -559,120 +547,67 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     </div><!--End of first appointment block--> 
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <div class="c-promotion_block hidden">
+                                                    <div class="c-releasement_block hidden">
 
-                                                        <div class="form-group ">
-                                                            <label>Working place</label>
-                                                            <select class="select2 " name="c-promo-place" id="c-promo-place" style="width:100%">
-                                                                <option value=""> Please select </option>
-                                                                <option value="moe"> Ministry of Education </option>
-                                                                <option value="exam"> Department of Examinations </option>
-                                                                <option value="epd"> Department of Education Publication </option>
-                                                                <option value="provinced"> Provincial Department of Education </option>
-                                                                <option value="provincem"> Provincial Ministry of Education </option>
-                                                                <option value="zone"> Zonal Education Office </option>
-                                                                <option value="division"> Divisional Education Office </option>
-                                                                <option value="ncoe"> National College of Education </option>
-                                                                <option value="ttc"> Teacher Training College </option>
-                                                                <option value="tc"> Teacher Centers </option>
-                                                                <option value="pictec"> Provincial ICT Education Centre (PICTEC) </option>
-                                                                <option value="crc"> Zonal ICT Education Centre (ZICTEC/CRC) </option>
-                                                                <option value="erc"> Education Resource Centre </option>
-                                                                <option value="school" class="hidden"> School </option>
+                                                        <div class="form-group">
+                                                            <label>Releasement Type</label>
+                                                            <?php if ($release_type) { ?>
+                                                                <select class="select2 " name="release_type" id="release_type" style="width:100%">
+                                                                    <option value="" disabled selected> ---------Please Select--------- </option>
+                                                                    <?php foreach ($release_type as $row) { ?>
+                                                                        <option value="<?php echo $row['ID'];?>" data-type="<?php echo $row['rel_type'];?>" > <?php echo $row['rel_type'] ;?> </option>
+                                                            <?php    } ?>
+                                                                    <option value="other" class="c-other hidden"> Other </option>
+                                                                </select>
+                                                                <?php } ?>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label>Place</label>
+                                                            <select class="select2 " name="release_place" id="release_place" style="width:100%">
+                                                                <option value="" disabled selected> ---------Please Select---------</option>
                                                             </select>
                                                         </div>
 
-                                                        <div class="c-promo-work-main-institue hidden">
-
-                                                            <div class="form-group ">
-                                                                <label>Division</label>
-                                                                <select class="select2 " name="main-division" id="main-division" style="width:100%">
-                                                                    <option value=""> Please select </option>
-                                                                    <option value=""> School </option>
-                                                                </select>
-                                                            </div>
-
-                                                            <div class="form-group ">
-                                                                <label>Branch</label>
-                                                                <select class="select2 " name="main-branch" id="main-branch" style="width:100%">
-                                                                    <option value=""> Please select </option>
-                                                                    <option value=""> MoE </option>
-                                                                </select>
-                                                            </div>
-
-                                                        </div><!--End of work-main-institue-->  <!--Hidden when loading-->
                                                         
-                                                        <div class="c-promo-work-institute hidden">
-                                                            <div class="form-group ">
-                                                                <label>Province</label>
-                                                                <select class="select2 " name="province" id="province" style="width:100%">
-                                                                    <option value=" ">Select</option>
-                                                                </select>
+                                                        <div class="release_study_block hidden">
+
+                                                            <div class="form-group release_study_institute">
+                                                                <label>Institute name</label>
+                                                                    <input type="text" class="form-control validate[required]" name="rel_institute_name" id="rel_institute_name" placeholder="Institute name" data-prompt-position="topLeft" />
                                                             </div>
 
-                                                            <div class="form-group ">
-                                                                <label>District</label>
-                                                                <select class="select2 " name="district" id="district" style="width:100%">
-                                                                    <option value=" ">Select</option>
-                                                                </select>
+                                                            <div class="form-group">
+                                                                <label>Start date</label>
+                                                                <input type="text" class="form-control date-picker" name="release_study_st_date" id="release_study_st_date">
                                                             </div>
 
-                                                            <div class="form-group ">
-                                                                <label>Zone</label>
-                                                                <select class="select2 " name="zone" id="zone" style="width:100%">
-                                                                    <option value=" ">Select</option>
-                                                                </select>
+                                                            <div class="form-group">
+                                                                <label>End date</label>
+                                                                <input type="text" class="form-control date-picker" name="release_study_end_date" id="release_study_end_date">
+                                                            </div>
+                                                            
+                                                        </div>
+
+                                                        
+                                                        <div class="release_work_block hidden">
+
+                                                            <div class="form-group">
+                                                                <label>Designation</label>
+                                                                <input type="text" class="form-control validate[required]" name="release_work_designation" id="release_work_designation" placeholder="Designation" data-prompt-position="topLeft" />
                                                             </div>
 
-                                                            <div class="form-group ">
-                                                                <label>Division</label>
-                                                                <select class="select2 " name="devision" id="devision" style="width:100%">
-                                                                    <option value=" ">Select</option>
-                                                                </select>
+                                                            <div class="form-group">
+                                                                <label>Date of assumed duties at the present working place</label>
+                                                                <input type="text" class="form-control date-picker" name="release_work_date_assumed" id="release_work_date_assumed">
                                                             </div>
-
-                                                            <div class="form-group ">
-                                                                <label>School / institute</label>
-                                                                <select class="select2 " name="institute" id="institute" style="width:100%">
-                                                                    <option value=" ">Select</option>
-                                                                </select>
-                                                            </div>
-                                                        </div> <!--End of work-institute--> <!--Hidden when loading-->
-
-                                                        <div class="form-group">
-                                                            <label>Designation</label>
-                                                            <input type="text" class="form-control validate[required]" name="c-promo-designation" id="c-promo-designation" placeholder="Designation" data-prompt-position="topLeft" />
+                                                            
                                                         </div>
 
-                                                        <div class="form-group ">
-                                                            <label>Present SLEAS Grade</label>
-                                                            <select class="select2 " name="c-promo-grade" id="c-promo-grade" style="width:100%">
-                                                                <option value="">  Select </option>
-                                                                <option value="1open">  Grade I </option>
-                                                                <option value="1open">  Grade II </option>
-                                                                <option value="1open">  Grade III </option>
-                                                            </select>
-                                                        </div>
-
-                                                        <div class="form-group">
-                                                            <label>Date Promoted</label>
-                                                            <input type="text" class="form-control date-picker" name="c-promo-date-promo" id="c-promo-date-promo">
-                                                        </div>
-
-                                                        <div class="form-group">
-                                                            <label>Date of assumed duties at the present working place</label>
-                                                            <input type="text" class="form-control date-picker" name="c-promo-date-assumed" id="c-promo-date-assumed">
-                                                        </div>
-
-                                                        <div class="form-group">
-                                                            <label>Respective official letter no.</label>
-                                                            <input type="text" class="form-control validate[required]" name="c-promo-letter" id="c-promo-letter" placeholder="Respective official letter no." data-prompt-position="topLeft" />
-                                                        </div>
-
-                                                    </div><!--End of promotion block--> 
+                                                    </div><!--End of promotion block-->
                                                     
                                                 </div>
-                                                <div class="col-md-6"> 
+                                                <div class="col-md-6">
 
                                                 </div>
                                             </div>
@@ -682,95 +617,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                           
                                         </div><!--End of accordian-->
                                         
-                                        <div class="col-md-6" style="display:none">
-                                            <div class="form-group">
-                                                <label>Email address</label>
-                                                <input type="text" class="form-control validate[custom[email]]" name="email" id="email" placeholder="Email Address" data-prompt-position="topLeft" />
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label>Divisional Secretariat</label>
-                                                <input type="text" class="form-control validate[required]" name="divsec" id="divsec" placeholder="Divisional Secretariat" data-prompt-position="topLeft" />
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label>Father’s / Mother’s / Guardian Name</label>
-                                                <input type="text" class="form-control" name="pname" id="pname" placeholder="Father’s / Mother’s / Guardian Name" data-prompt-position="topLeft" />
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label>Father’s Occupation</label>
-                                                <input type="text" class="form-control" name="foccu" id="foccu" placeholder="Father’s Occupation" data-prompt-position="topLeft" />
-                                            </div>
-
-                                        </div>
-
-                                        <div class="col-md-6" style="display:none" >
-                                            <div class="form-group">
-                                                <label>Mother’s Occupation</label>
-                                                <input type="text" class="form-control" name="moccu" id="moccu" placeholder="Mother’s Occupation" data-prompt-position="topLeft" />
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label>Brothers</label>
-                                                <input type="text" class="form-control" name="brothers" id="brothers" placeholder="Brothers" data-prompt-position="topLeft" />
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label>Sisters</label>
-                                                <input type="text" class="form-control" name="sisters" id="sisters" placeholder="Sisters" data-prompt-position="topLeft" />
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label>Emergency Contact - Address</label>
-                                                <textarea class="form-control validate[required]" name="emaddress" id="emaddress" placeholder="Address" data-prompt-position="topLeft"></textarea>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label>Emergency Contact - Phone</label>
-                                                <input type="text" class="form-control validate[custom[phone]]" name="emphone" id="emphone" placeholder="Phone No" data-prompt-position="topLeft" />
-                                            </div>
-
-                                            <div class="form-group ">
-                                                <label>Blood Group</label>
-                                                <select class="select2 " name="bgroup" id="bgroup">
-                                                    <option value="O+">O+</option>
-                                                    <option value="O-">O-</option>
-                                                    <option value="A+">A+</option>
-                                                    <option value="A-">A-</option>
-                                                    <option value="B+">B+</option>
-                                                    <option value="B">B-</option>
-                                                    <option value="AB+">AB+</option>
-                                                    <option value="AB-">AB-</option>
-                                                </select>
-                                            </div>
-                                            
-
-                                            <div class="form-group" style="display:none;">
-                                                <label>District</label>
-                                                <?php if ($district) { ?>
-                                                    <select class="select2 col-md-12" name="district" id="district" style="padding-left:0;">
-                                                        <?php foreach ($district as $row) { ?>
-                                                            <option value=<?php echo $row['district_name'];?> > <?php echo $row['district_name'] ;?> </option>
-                                                <?php    } ?>
-                                                    </select>
-                                                    <?php } ?>
-                                            </div>
-                                            
-                                            <div class="form-group">
-                                                <label>Gender</label>
-                                                <label class="checkbox-inline">
-                                                    <input class="icheck" type="checkbox" name="gender" value="m">
-                                                    Male
-                                                </label>
-
-                                                <label class="checkbox-inline">
-                                                    <input class="icheck" type="checkbox" name="gender" value="f">
-                                                    Female 
-                                                </label>
-                                            </div>
-
-                                        </div>
                                         <div class="form-actions fluid">
 		                                <div class="col-md-offset-3 col-md-9">
                                             <button type="reset" id="reset-button" class="btn btn-info">Clear</button>
@@ -836,10 +682,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 var gr = $(this).val();
                 if ($.inArray(gr, ['firstappoint', 'promo', 'trans', 'attach', 'second', 'acting', 'perform']) >=0){
                     $(".c-firstapp_block").removeClass("hidden");
-                    $(".c-promotion_block").addClass("hidden");
+                    $(".c-releasement_block").addClass("hidden");
                 }else if(gr == "release"){
                     $(".c-firstapp_block").addClass("hidden");
-                    $(".c-promotion_block").removeClass("hidden");
+                    $(".c-releasement_block").removeClass("hidden");
                     
                 }
                 switch(gr){
@@ -887,11 +733,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             });
             
             $('#c-firstapp-place').change(function(){
-                var gr = $(this).val();
+                var gr = $(this).find(':selected').data('code');
+                var workplace_id = $(this).val();
+                
                 if ($.inArray(gr, ['moe','exam','epd']) >=0){
                     $(".c-firstapp-work-institute").addClass("hidden");
                     $(".c-province-office").addClass("hidden");
                     $(".c-firstapp-work-main-institue").removeClass("hidden");
+                    getMainDivision(workplace_id);
+                    getMainBranch(workplace_id);    
                     
                 }else if($.inArray(gr, ['zone','division','ncoe','ttc','school']) >=0){
                     $(".c-firstapp-work-main-institue").addClass("hidden");
@@ -913,20 +763,88 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     $(".c-firstapp-work-institute").addClass("hidden");
                     $(".c-province-office").removeClass("hidden");
                     
+                    var post_url = "index.php/FormControl/getProvinceOffices/"+workplace_id;
+                    var dataarray = {workplace_id: workplace_id};
+                    $.ajax({
+                        type: "POST",
+                        url: "<?php echo base_url(); ?>" + post_url,
+                        dataType :'json',
+                        data: dataarray,
+                        success: function(res){
+                            $('#c-province-office').empty();
+                            $.each(res, function(ID,provine_office){
+                                $('#c-province-office').append('<option value='+res[ID].ID+'>'+res[ID].provine_office+'</option>');
+                            });
+                        }
+                    });
                 }
             });
             
-            $('#c-promo-place').change(function(){
-                var gr = $(this).val();
-                if ($.inArray(gr, ['moe','exam','epd']) >=0){
-                    $(".c-promo-work-main-institue").removeClass("hidden");
-                    $(".c-promo-work-institute").addClass("hidden");
-                }else if($.inArray(gr, ['province','zone','division','ncoe','ttc','school']) >=0){
-                    $(".c-promo-work-main-institue").addClass("hidden");
-                    $(".c-promo-work-institute").removeClass("hidden");
-                    
+            $('#release_type').change(function(){
+                var gr = $(this).find(':selected').data('type');
+                var id = $(this).val();
+                
+                if(gr == "Study"){
+                    $(".release_study_block").removeClass("hidden");
+                    $(".release_work_block").addClass("hidden");
+                }else if(gr == "Work"){
+                    $(".release_work_block").removeClass("hidden");
+                    $(".release_study_block").addClass("hidden");
                 }
+                
+                var post_url = "index.php/FormControl/getReleaseWorkPlaces/"+id;
+                var dataarray = {rel_type_id: id};
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo base_url(); ?>" + post_url,
+                    dataType :'json',
+                    data: dataarray,
+                    success: function(res){
+                        $('#release_place').empty();
+                        $.each(res, function(ID,provine_office){
+                            $('#release_place').append('<option value='+res[ID].ID+'>'+res[ID].rel_place+'</option>');
+                        });
+                    }
+                });
+                
+
             });
+            
+            function getMainDivision(workPlace_id){
+                var post_url = "index.php/FormControl/getMainDivision/"+workPlace_id;
+                var dataarray = {workplace_id: workPlace_id};
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo base_url(); ?>" + post_url,
+                    dataType :'json',
+                    data: dataarray,
+                    success: function(res){
+                        $('#c_firstapp_main_division').empty();
+                        $.each(res, function(ID,provine_office){
+                            $('#c_firstapp_main_division').append('<option value='+res[ID].ID+'>'+res[ID].office_division+'</option>');
+                        });
+                    }
+                });
+            }
+            
+            function getMainBranch(workPlace_id){
+                console.log(workPlace_id);
+                var post_url = "index.php/FormControl/getMainBranch/"+workPlace_id;
+                var dataarray = {workplace_id: workPlace_id};
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo base_url(); ?>" + post_url,
+                    dataType :'json',
+                    data: dataarray,
+                    success: function(res){
+                        console.log(res);
+                        $('#c_firstapp_main_branch').empty();
+                        $.each(res, function(ID,provine_office){
+                            $('#c_firstapp_main_branch').append('<option value='+res[ID].ID+'>'+res[ID].office_branch+'</option>');
+                        });
+                    }
+                });
+            }
 
             $('#reset-button').click(function(){
                //$('.formErrorContent').addClass('hidden'); 
@@ -934,7 +852,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                validater.resetForm(); 
             });
 
-/*            $('#username').focusout(function(){
+            /*$('#username').focusout(function(){
                 alert("sssss");
                 $.ajax({
                     type :post,
