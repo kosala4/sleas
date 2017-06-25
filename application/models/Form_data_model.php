@@ -13,6 +13,9 @@ class Form_data_model extends CI_Model{
             case "release_type":
                 $res = $this->getAllRecords('Releasement_Type');
                 break;
+            case "province_list":
+                $res = $this->getAllRecords('Province_List');
+                break;
         }
         
         return $res;
@@ -38,6 +41,36 @@ class Form_data_model extends CI_Model{
     
     public function get_rel_place($rel_type_id){
         $result = $this->searchdb('Releasement_Place', 'rel_type_id', $rel_type_id);
+        
+        return $result;
+    }
+    
+    public function get_districts($province_id){
+        $result = $this->searchdb('District_List', 'province_id', $province_id);
+        
+        return $result;
+    }
+    
+    public function get_zones($district_id){
+        $result = $this->searchdb('Zone_List', 'dist_id', $district_id);
+        
+        return $result;
+    }
+    
+    public function get_zone_offices($district_id){
+        $result = $this->searchdb('Zonal_Offices', 'dist_id', $district_id);
+        
+        return $result;
+    }
+    
+    public function get_divisions($zone_id){
+        $result = $this->searchdb('Division_List', 'zone_id', $zone_id);
+        
+        return $result;
+    }
+    
+    public function get_divisional_offices($zone_id){
+        $result = $this->searchdb('Divisional_Offices', 'zone_id', $zone_id);
         
         return $result;
     }

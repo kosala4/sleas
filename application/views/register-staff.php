@@ -462,35 +462,55 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                         <div class="c-firstapp-work-institute hidden" >
                                                             <div class="form-group ">
                                                                 <label>Province</label>
-                                                                <select class="select2 province" name="c-firstapp-province" id="c-firstapp-province" style="width:100%">
-                                                                    <option value="" disabled selected> ---------Please Select--------- </option>
-                                                                </select>
+                                                                <?php if ($provinceList) { ?>
+                                                                    <select class="select2 province" name="province" id="province" style="width:100%">
+                                                                        <option value="" disabled selected> ---------Please Select--------- </option>
+                                                                        <?php foreach ($provinceList as $row) { ?>
+                                                                            <option value="<?php echo $row['province_id'];?>" > <?php echo $row['province'] ;?> </option>
+                                                                <?php    } ?>
+                                                                        <option value="other" class="c-other hidden"> Other </option>
+                                                                    </select>
+                                                                    <?php } ?>
                                                             </div>
 
                                                             <div class="form-group ">
                                                                 <label>District</label>
-                                                                <select class="select2 district" name="c-firstapp-district" id="c-firstapp-district" style="width:100%">
+                                                                <select class="select2 district" name="district" id="district" style="width:100%">
                                                                     <option value="" disabled selected> ---------Please Select--------- </option>
                                                                 </select>
                                                             </div>
 
-                                                            <div class="form-group c-firstapp-work-institute-zone">
+                                                            <div class="form-group zone">
                                                                 <label>Zone</label>
-                                                                <select class="select2 zone" name="c-firstapp-zone" id="c-firstapp-zone" style="width:100%">
+                                                                <select class="select2 zone" name="zone" id="zone" style="width:100%">
                                                                     <option value="" disabled selected> ---------Please Select--------- </option>
                                                                 </select>
                                                             </div>
 
-                                                            <div class="form-group c-firstapp-work-institute-division">
+                                                            <div class="form-group zonal_office hidden">
+                                                                <label>Zonal Office</label>
+                                                                <select class="select2 zonal_office" name="zonal_office" id="zonal_office" style="width:100%">
+                                                                    <option value="" disabled selected> ---------Please Select--------- </option>
+                                                                </select>
+                                                            </div>
+
+                                                            <div class="form-group division">
                                                                 <label>Division</label>
-                                                                <select class="select2 division" name="c-firstapp-devision" id="c-firstapp-devision" style="width:100%">
+                                                                <select class="select2 division" name="division" id="division" style="width:100%">
                                                                     <option value="" disabled selected> ---------Please Select--------- </option>
                                                                 </select>
                                                             </div>
 
-                                                            <div class="form-group c-firstapp-work-institute-school">
+                                                            <div class="form-group divisional_office hidden">
+                                                                <label>Divisional Office</label>
+                                                                <select class="select2 divisional_office" name="divisional_office" id="divisional_office" style="width:100%">
+                                                                    <option value="" disabled selected> ---------Please Select--------- </option>
+                                                                </select>
+                                                            </div>
+
+                                                            <div class="form-group institute">
                                                                 <label>School / institute</label>
-                                                                <select class="select2 institute" name="c-firstapp-institute" id="c-firstapp-institute" style="width:100%">
+                                                                <select class="select2 institute" name="institute" id="institute" style="width:100%">
                                                                     <option value="" disabled selected> ---------Please Select---------</option>
                                                                 </select>
                                                             </div>
@@ -740,6 +760,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     $(".c-firstapp-work-institute").addClass("hidden");
                     $(".c-province-office").addClass("hidden");
                     $(".c-firstapp-work-main-institue").removeClass("hidden");
+                    $(".divisional_office").addClass("hidden");
+                    $(".zonal_office").addClass("hidden");
                     getMainDivision(workplace_id);
                     getMainBranch(workplace_id);    
                     
@@ -748,20 +770,29 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     $(".c-province-office").addClass("hidden");
                     $(".c-firstapp-work-institute").removeClass("hidden");
                     if(gr == "zone"){
-                        $(".c-firstapp-work-institute-division").addClass("hidden");
-                        $(".c-firstapp-work-institute-school").addClass("hidden");
+                        $(".zone").addClass("hidden");
+                        $(".division").addClass("hidden");
+                        $(".institute").addClass("hidden");
+                        $(".zonal_office").removeClass("hidden");
                     }else if(gr == "division"){
-                        $(".c-firstapp-work-institute-school").addClass("hidden");
-                        $(".c-firstapp-work-institute-division").removeClass("hidden");
+                        $(".institute").addClass("hidden");
+                        $(".division").addClass("hidden");
+                        $(".zone").removeClass("hidden");
+                        $(".divisional_office").removeClass("hidden");
+                        $(".zonal_office").addClass("hidden");
                     }else{
-                        $(".c-firstapp-work-institute-division").removeClass("hidden");
-                        $(".c-firstapp-work-institute-school").removeClass("hidden");
+                        $(".division").removeClass("hidden");
+                        $(".institute").removeClass("hidden");
+                        $(".divisional_office").addClass("hidden");
+                        $(".zonal_office").addClass("hidden");
                     }
                     
                 }else if($.inArray(gr, ['provinced','provincem']) >=0){
                     $(".c-firstapp-work-main-institue").addClass("hidden");
                     $(".c-firstapp-work-institute").addClass("hidden");
                     $(".c-province-office").removeClass("hidden");
+                    $(".divisional_office").addClass("hidden");
+                    $(".zonal_office").addClass("hidden");
                     
                     var post_url = "index.php/FormControl/getProvinceOffices/"+workplace_id;
                     var dataarray = {workplace_id: workplace_id};
@@ -810,6 +841,97 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
             });
             
+            $('#province').change(function(){
+                var id = $(this).val();
+                var post_url = "index.php/FormControl/getDistricts/"+id;
+                var dataarray = {province_id: id};
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo base_url(); ?>" + post_url,
+                    dataType :'json',
+                    data: dataarray,
+                    success: function(res){
+                        $('#district').empty();
+                        $('#district').append('<option value="" disabled selected> ---------Please Select---------</option>');
+                        $.each(res, function(ID){
+                            $('#district').append('<option value='+res[ID].dist_id+'>'+res[ID].district+'</option>');
+                        });
+                    }
+                });
+            });
+            
+            $('#district').change(function(){
+                var id = $(this).val();
+                var dataarray = {district_id: id};
+                if($('#zonal_office').hasClass('hidden')){
+                    var post_url = "index.php/FormControl/getZoneList/"+id;
+                    $.ajax({
+                        type: "POST",
+                        url: "<?php echo base_url(); ?>" + post_url,
+                        dataType :'json',
+                        data: dataarray,
+                        success: function(res){
+                            $('#zone').empty();
+                            $('#zone').append('<option value="" disabled selected> ---------Please Select---------</option>');
+                            $.each(res, function(ID){
+                                $('#zone').append('<option value='+res[ID].zone_id+'>'+res[ID].zone+'</option>');
+                            });
+                        }
+                    });
+                }else{
+                    var post_url = "index.php/FormControl/getZonalOfficeList/"+id;
+                    $.ajax({
+                        type: "POST",
+                        url: "<?php echo base_url(); ?>" + post_url,
+                        dataType :'json',
+                        data: dataarray,
+                        success: function(res){
+                            $('#zonal_office').empty();
+                            $('#zonal_office').append('<option value="" disabled selected> ---------Please Select---------</option>');
+                            $.each(res, function(ID){
+                                $('#zonal_office').append('<option value='+res[ID].ID+'>'+res[ID].zonal_office+'</option>');
+                            });
+                        }
+                    });
+                }
+            });
+            
+            $('#zone').change(function(){
+                var id = $(this).val();
+                var dataarray = {zone_id: id};
+                if($('#divisional_office').hasClass('hidden')){
+                    var post_url = "index.php/FormControl/getDivisionsList/"+id;
+                    $.ajax({
+                        type: "POST",
+                        url: "<?php echo base_url(); ?>" + post_url,
+                        dataType :'json',
+                        data: dataarray,
+                        success: function(res){
+                            $('#division').empty();
+                            $('#division').append('<option value="" disabled selected> ---------Please Select---------</option>');
+                            $.each(res, function(ID){
+                                $('#division').append('<option value='+res[ID].div_id+'>'+res[ID].division_name+'</option>');
+                            });
+                        }
+                    });
+                }else{
+                    var post_url = "index.php/FormControl/getDivisionalOfficeList/"+id;
+                    $.ajax({
+                        type: "POST",
+                        url: "<?php echo base_url(); ?>" + post_url,
+                        dataType :'json',
+                        data: dataarray,
+                        success: function(res){
+                            $('#divisional_office').empty();
+                            $('#divisional_office').append('<option value="" disabled selected> ---------Please Select---------</option>');
+                            $.each(res, function(ID){
+                                $('#divisional_office').append('<option value='+res[ID].ID+'>'+res[ID].division_office+'</option>');
+                            });
+                        }
+                    });
+                }
+            });
+            
             function getMainDivision(workPlace_id){
                 var post_url = "index.php/FormControl/getMainDivision/"+workPlace_id;
                 var dataarray = {workplace_id: workPlace_id};
@@ -845,6 +967,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     }
                 });
             }
+            
 
             $('#reset-button').click(function(){
                //$('.formErrorContent').addClass('hidden'); 

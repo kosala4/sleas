@@ -31,5 +31,6 @@ class Register extends CI_Controller {
         $this->response['subjects'] = $this->Form_data_model->select('subject');
         $this->response['workPlaces'] = $this->Form_data_model->select('workplace');
         $this->response['release_type'] = $this->Form_data_model->select('release_type');
+        $this->response['provinceList'] = $this->Form_data_model->select('province_list');
     }
 }
