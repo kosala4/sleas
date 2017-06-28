@@ -87,5 +87,14 @@ class FormControl extends CI_Controller {
         //$res = $this->Form_data_model->select('workplace');
         echo json_encode($res);
     }
+    
+    public function getInstitutes(){
+        $division_id = $this->input->post('division_id');
+        $workplace_id = $this->input->post('work_place_id');
+        header('Content-Type: application/x-json; charset=utf-8');
+        $res = $this->Form_data_model->get_institutes($workplace_id, $division_id);
+        //$res = $this->Form_data_model->select('workplace');
+        echo json_encode($res);
+    }
 }
 ?>

@@ -32,5 +32,10 @@ class Register extends CI_Controller {
         $this->response['workPlaces'] = $this->Form_data_model->select('workplace');
         $this->response['release_type'] = $this->Form_data_model->select('release_type');
         $this->response['provinceList'] = $this->Form_data_model->select('province_list');
+        $this->response['designation'] = $this->Form_data_model->select('designation');
+    }
+    
+    public function register_new(){
+        print_r($_REQUEST);
     }
 }

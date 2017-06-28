@@ -2,7 +2,7 @@
 var FormValidationTooltip = function (){
     
     var handelFormValidation = function() {
-        $("#addStaffForm").validationEngine();
+        $("#addMemberForm").validationEngine();
     };
     
     return {

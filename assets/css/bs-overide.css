@@ -1109,7 +1109,7 @@ h3.panel-title{
 
 .panel-default>.panel-heading {
     color: #000000;
-    background-color: #f57c00;
+    background-color: #b2dfdb;
 }
 .panel-primary>.panel-heading {
     color: #666666;
@@ -1118,7 +1118,7 @@ h3.panel-title{
 
 .panel-info>.panel-heading {
     color: #ffffff;
-    background-color: #bb4d00;
+    background-color: #82ada9;
 }
 
 .panel-success>.panel-heading {

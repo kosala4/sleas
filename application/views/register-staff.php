@@ -16,7 +16,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		                        </div>
 		                    </div><!--End of panel-heading-->
 		                    <div class="panel-body">
-                                <?php echo form_open('admin/add_student_details', 'role="form" id="addStaffForm"'); ?>
+                                <?php echo form_open('Register/register_new', 'role="form" id="addMemberForm"'); ?>
 		                            <div class="form-body">
                                         <div class="panel-group" id="accordion">
                                             
@@ -38,9 +38,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                         </div>
 
                                                         <div class="form-group">
-                                                            <label>Title</label>
-                                                            <select class="select2 " name="title" id="title" style="width:100%;">
-                                                                <option value="" disabled selected style="background-color:#fff59d">---------Please Select--------- </option>
+                                                            <label><span style="color:red;">*</span>Title</label>
+                                                            <select class="select2 validate[required]" name="title" id="title" style="width:100%;">
+                                                                <option value="" disabled selected>---------Please Select--------- </option>
                                                                 <option value="rev">Rev.</option>
                                                                 <option value="mr">Mr.</option>
                                                                 <option value="mrs">Mrs.</option>
@@ -49,17 +49,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                         </div>
 
                                                         <div class="form-group">
-                                                            <label>First Name</label>
+                                                            <label><span style="color:red;">*</span>First Name</label>
                                                             <input type="text" class="form-control validate[required]" name="fname" id="fname" placeholder="Full Name" data-prompt-position="topLeft" />
                                                         </div>
 
                                                         <div class="form-group">
                                                             <label>Middle Name</label>
-                                                            <input type="text" class="form-control validate[required]" name="mname" id="mname" placeholder="Middle Name" data-prompt-position="topLeft" />
+                                                            <input type="text" class="form-control" name="mname" id="mname" placeholder="Middle Name" data-prompt-position="topLeft" />
                                                         </div>
 
                                                         <div class="form-group">
-                                                            <label>Last Name</label>
+                                                            <label><span style="color:red;">*</span>Last Name</label>
                                                             <input type="text" class="form-control validate[required]" name="lname" id="lname" placeholder="Last Name" data-prompt-position="topLeft" />
                                                         </div>
 
@@ -67,27 +67,27 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     <div class="col-md-6">
 
                                                         <div class="form-group">
-                                                            <label>Date of Birth</label>
-                                                            <input type="text" class="form-control date-picker" name="dob" id="dob">
+                                                            <label><span style="color:red;">*</span>Date of Birth</label>
+                                                            <input type="text" class="form-control date-picker validate[required]" name="dob" id="dob">
                                                         </div>
 
                                                         <div class="form-group">
-                                                            <label>Ethnicity</label>
-                                                            <select class="select2 " name="ethnicity" id="ethnicity" style="width:100%;">
+                                                            <label><span style="color:red;">*</span>Ethnicity</label>
+                                                            <select class="select2 validate[required] " name="ethnicity" id="ethnicity" style="width:100%;">
                                                                 <option value="" disabled selected>---------Please Select--------- </option>
-                                                                <option value="rev">Sinhala</option>
-                                                                <option value="mr">Sri Lankan Tamil</option>
-                                                                <option value="mrs">Indian Tamil</option>
-                                                                <option value="ms">Muslim</option>
-                                                                <option value="ms">Burger</option>
-                                                                <option value="ms">Malay</option>
-                                                                <option value="ms">Other</option>
+                                                                <option value="sinhala">Sinhala</option>
+                                                                <option value="sltamil">Sri Lankan Tamil</option>
+                                                                <option value="intamil">Indian Tamil</option>
+                                                                <option value="muslim">Muslim</option>
+                                                                <option value="burger">Burger</option>
+                                                                <option value="malay">Malay</option>
+                                                                <option value="other">Other</option>
                                                             </select>
                                                         </div>
 
                                                         <div class="form-group">
-                                                            <label>Gender</label>
-                                                            <select class="select2 " name="gender" id="gender" style="width:100%;">
+                                                            <label><span style="color:red;">*</span>Gender</label>
+                                                            <select class="select2 validate[required] " name="gender" id="gender" style="width:100%;">
                                                                 <option value="" disabled selected>---------Please Select--------- </option>
                                                                 <option value="male">Male</option>
                                                                 <option value="female">Female</option>
@@ -95,8 +95,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                         </div>  
 
                                                         <div class="form-group">
-                                                            <label>Civil Status</label>
-                                                            <select class="select2 " name="civil-st" id="civil-st" style="width:100%;">
+                                                            <label><span style="color:red;">*</span>Civil Status</label>
+                                                            <select class="select2 validate[required] " name="civil_st" id="civil_st" style="width:100%;">
                                                                 <option value="" disabled selected>---------Please Select--------- </option>
                                                                 <option value="single">Single</option>
                                                                 <option value="married">Married</option>
@@ -122,22 +122,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     <div class="col-md-6">
 
                                                         <div class="form-group">
-                                                            <label>Address Line 1</label>
+                                                            <label><span style="color:red;">*</span>Address Line 1</label>
                                                             <input type="text" class="form-control validate[required]" name="address1" id="address1" placeholder="Address Line 1" data-prompt-position="topLeft" />
                                                         </div>
 
                                                         <div class="form-group">
-                                                            <label>Address Line 2</label>
+                                                            <label><span style="color:red;">*</span>Address Line 2</label>
                                                             <input type="text" class="form-control validate[required]" name="address2" id="address2" placeholder="Address Line 2" data-prompt-position="topLeft" />
                                                         </div>
 
                                                         <div class="form-group">
-                                                            <label>Address Line 3</label>
+                                                            <label><span style="color:red;">*</span>Address Line 3</label>
                                                             <input type="text" class="form-control validate[required]" name="address3" id="address3" placeholder="Address Line 3" data-prompt-position="topLeft" />
                                                         </div>
 
                                                         <div class="form-group">
-                                                            <label>Postal Code</label>
+                                                            <label><span style="color:red;">*</span>Postal Code</label>
                                                             <input type="text" class="form-control validate[required]" name="pocode" id="pocode" placeholder="Postal Code" data-prompt-position="topLeft" />
                                                         </div>
 
@@ -146,12 +146,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                                                         <div class="form-group">
                                                             <label>Land phone no 01</label>
-                                                            <input type="text" class="form-control validate[custom[phone]]" name="landp" id="landp" placeholder="Land No" data-prompt-position="topLeft" />
+                                                            <input type="text" class="form-control validate[custom[phone]]" name="landp1" id="landp1" placeholder="Land No" data-prompt-position="topLeft" />
                                                         </div>
 
                                                         <div class="form-group">
                                                             <label>Land phone no 02</label>
-                                                            <input type="text" class="form-control validate[custom[phone]]" name="landp" id="landp" placeholder="Land No" data-prompt-position="topLeft" />
+                                                            <input type="text" class="form-control validate[custom[phone]]" name="landp2" id="landp2" placeholder="Land No" data-prompt-position="topLeft" />
                                                         </div>
 
                                                         <div class="form-group">
@@ -184,22 +184,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                                                         <div class="form-group">
                                                             <label>Address Line 1</label>
-                                                            <input type="text" class="form-control validate[required]" name="address1" id="address1" placeholder="Address Line 1" data-prompt-position="topLeft" />
+                                                            <input type="text" class="form-control validate[required]" name="addresstemp1" id="addresstemp1" placeholder="Address Line 1" data-prompt-position="topLeft" />
                                                         </div>
 
                                                         <div class="form-group">
                                                             <label>Address Line 2</label>
-                                                            <input type="text" class="form-control validate[required]" name="address2" id="address2" placeholder="Address Line 2" data-prompt-position="topLeft" />
+                                                            <input type="text" class="form-control validate[required]" name="addresstemp2" id="addresstemp2" placeholder="Address Line 2" data-prompt-position="topLeft" />
                                                         </div>
 
                                                         <div class="form-group">
                                                             <label>Address Line 3</label>
-                                                            <input type="text" class="form-control validate[required]" name="address3" id="address3" placeholder="Address Line 3" data-prompt-position="topLeft" />
+                                                            <input type="text" class="form-control validate[required]" name="addresstemp3" id="addresstemp3" placeholder="Address Line 3" data-prompt-position="topLeft" />
                                                         </div>
 
                                                         <div class="form-group">
                                                             <label>Postal Code</label>
-                                                            <input type="text" class="form-control validate[required]" name="pocode" id="pocode" placeholder="Postal Code" data-prompt-position="topLeft" />
+                                                            <input type="text" class="form-control validate[required]" name="pocodetemp" id="pocodetemp" placeholder="Postal Code" data-prompt-position="topLeft" />
                                                         </div>
 
                                                     </div>
@@ -207,22 +207,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                                                         <div class="form-group">
                                                             <label>Land phone no 01</label>
-                                                            <input type="text" class="form-control validate[custom[phone]]" name="landp" id="landp" placeholder="Land No" data-prompt-position="topLeft" />
+                                                            <input type="text" class="form-control validate[custom[phone]]" name="landptemp1" id="landptemp" placeholder="Land No" data-prompt-position="topLeft" />
                                                         </div>
 
                                                         <div class="form-group">
                                                             <label>Land phone no 02</label>
-                                                            <input type="text" class="form-control validate[custom[phone]]" name="landp" id="landp" placeholder="Land No" data-prompt-position="topLeft" />
+                                                            <input type="text" class="form-control validate[custom[phone]]" name="landptemp2" id="landptemp" placeholder="Land No" data-prompt-position="topLeft" />
                                                         </div>
 
                                                         <div class="form-group">
                                                             <label>Mobile phone no</label>
-                                                            <input type="text" class="form-control validate[custom[phone]]" name="mobile" id="mobile" placeholder="Mobile No" data-prompt-position="topLeft" />
+                                                            <input type="text" class="form-control validate[custom[phone]]" name="mobiletemp" id="mobiletemp" placeholder="Mobile No" data-prompt-position="topLeft" />
                                                         </div>
 
                                                         <div class="form-group">
                                                             <label>Email address</label>
-                                                            <input type="text" class="form-control validate[custom[email]]" name="email" id="email" placeholder="Email Address" data-prompt-position="topLeft" />
+                                                            <input type="text" class="form-control validate[custom[email]]" name="emailtemp" id="emailtemp" placeholder="Email Address" data-prompt-position="topLeft" />
                                                         </div>
 
                                                     </div>
@@ -246,13 +246,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                         <div class="col-md-6">
 
                                                             <div class="form-group">
-                                                                <label>Date of first join to the SLEAS</label>
-                                                                <input type="text" class="form-control date-picker" name="date-join" id="date-join-gen">
+                                                                <label><span style="color:red;">*</span>Date of first join to the SLEAS</label>
+                                                                <input type="text" class="form-control date-picker validate[required]" name="date_join" id="date_join_gen">
                                                             </div>
 
                                                             <div class="form-group ">
-                                                                <label>Way of joined the SLEAS</label>
-                                                                <select class="select2 " name="way_joined" id="way_joined" style="width:100%;">
+                                                                <label><span style="color:red;">*</span>Way of joined the SLEAS</label>
+                                                                <select class="select2  validate[required]" name="way_joined" id="way_joined" style="width:100%;">
                                                                     <option value="" disabled selected>---------Please Select--------- </option>
                                                                     <option value="open">Open</option>
                                                                     <option value="limited">Limited</option>
@@ -276,7 +276,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                                 
                                                                     <div class="form-group gen-serv-set1-general hidden">
                                                                         <label>SLEAS Grade  when joining the SLEAS</label>
-                                                                        <select class="select2 " name="grade-general" id="grade-join" style="width:100%;">
+                                                                        <select class="select2 " name="grade_general" id="grade_general" style="width:100%;">
                                                                             <option value="" disabled selected>---------Please Select--------- </option>
                                                                             <option value="special">Special</option>
                                                                             <option value="grade1">Grade I</option>
@@ -286,7 +286,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                                     </div>
                                                                     <div class="form-group gen-serv-set1-special hidden">
                                                                         <label>SLEAS Grade  when joining the SLEAS</label>
-                                                                        <select class="select2 " name="grade-general" id="grade-join" style="width:100%;">
+                                                                        <select class="select2 " name="grade_special" id="grade_special" style="width:100%;">
                                                                             <option value="" disabled selected>---------Please Select--------- </option>
                                                                             <option value="grade2">Grade II</option>
                                                                             <option value="grade3">Grade III</option>
@@ -295,7 +295,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                                                                     <div class="form-group gen-serv-set1-special hidden ">
                                                                         <label>Subject</label>
-                                                                        <select class="select2Search " name="grade-special-subject" id="grade-join2-subject" style="width:100%;">
+                                                                        <select class="select2Search " name="special_subject" id="special_subject" style="width:100%;">
                                                                             <option value="" disabled selected>---------Please Select--------- </option>
                                                                             <?php if ($subjects) { ?>
                                                                                     <?php foreach ($subjects as $row) { ?>
@@ -310,7 +310,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                                                                 <div class="form-group ">
                                                                     <label>SLEAS Cadre when joining the SLEAS</label>
-                                                                    <select class="select2 " name="cadre" id="cadre2" style="width:100%;">
+                                                                    <select class="select2 " name="cadre_supern" id="cadre_supern" style="width:100%;">
                                                                         <option value="" disabled selected>---------Please Select--------- </option>
                                                                         <option value="general-carder">General Cadre</option>
                                                                         <option value="not-specified">Not Specified</option>
@@ -319,7 +319,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                                                                 <div class="form-group ">
                                                                     <label>SLEAS Grade  when joining the SLEAS</label>
-                                                                    <select class="select2 " name="grade-special" id="grade-join2" style="width:100%;">
+                                                                    <select class="select2 " name="grade_supern" id="grade_supern" style="width:100%;">
                                                                         <option value="" disabled selected>---------Please Select--------- </option>
                                                                         <option value="grade1">Grade I</option>
                                                                         <option value="grade2">Grade II</option>
@@ -329,8 +329,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                             </div>
 
                                                             <div class="form-group ">
-                                                                <label>Medium in which recruited</label>
-                                                                <select class="select2 " name="medium-rec" id="medium-rec" style="width:100%;">
+                                                                <label><span style="color:red;">*</span>Medium in which recruited</label>
+                                                                <select class="select2 validate[required] " name="medium_recruit" id="medium_recruit" style="width:100%;">
                                                                     <option value="" disabled selected>---------Please Select--------- </option>
                                                                     <option value="sinhala">Sinhala</option>
                                                                     <option value="tamil">Tamil</option>
@@ -339,8 +339,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                             </div>
 
                                                             <div class="form-group ">
-                                                                <label>Confirmed</label>
-                                                                <select class="select2 " name="confirm" id="confirm" style="width:100%;">
+                                                                <label><span style="color:red;">*</span>Confirmed</label>
+                                                                <select class="select2 validate[required] " name="confirm" id="confirm" style="width:100%;">
                                                                     <option value="" disabled selected>---------Please Select--------- </option>
                                                                     <option value="yes">Yes</option>
                                                                     <option value="no">No</option>
@@ -366,283 +366,288 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     <div class="current-service">
                                         <!--<h3>Current service information</h3><hr>-->
                                         
-                                            <div class="col-md-12">
-                                                <div class="col-md-6">
+                                                        <div class="col-md-12">
+                                                        <div class="col-md-6">
 
-                                                    <div class="form-group ">
-                                                        <label>Mode of service status</label>
-                                                        <select class="select2 " name="c-mood" id="c-mood" style="width:100%">
-                                                            <option value="" disabled selected>---------Please Select---------</option>
-                                                            <option value="firstappoint"> First Appointment </option>
-                                                            <option value="promo"> Promotion </option>
-                                                            <option value="trans"> Transfer </option>
-                                                            <option value="attach"> Attachment </option>
-                                                            <option value="second"> Secondment </option>
-                                                            <option value="release"> Releasement </option>
-                                                            <option value="acting"> Acting Duty </option>
-                                                            <option value="perform"> Performing Duty </option>
-                                                        </select>
-                                                    </div> 
+                                                            <div class="form-group ">
+                                                                <label><span style="color:red;">*</span>Mode of service status</label>
+                                                                <select class="select2 validate[required] " name="service_mood" id="service_mood" style="width:100%">
+                                                                    <option value="" disabled selected>---------Please Select---------</option>
+                                                                    <option value="firstappoint"> First Appointment </option>
+                                                                    <option value="promo"> Promotion </option>
+                                                                    <option value="trans"> Transfer </option>
+                                                                    <option value="attach"> Attachment </option>
+                                                                    <option value="second"> Secondment </option>
+                                                                    <option value="release"> Releasement </option>
+                                                                    <option value="acting"> Acting Duty </option>
+                                                                    <option value="perform"> Performing Duty </option>
+                                                                </select>
+                                                            </div> 
 
-                                                    <div class="form-group hidden">
-                                                        <label>Present SLEAS Class</label>
-                                                        <select class="select2 " name="prclass" id="prclass" style="width:100%">
-                                                            <option value="" disabled selected> ---------Please Select--------- </option>
-                                                            <option value="1open">  I Open </option>
-                                                            <option value="1limited"> I Limited </option>
-                                                            <option value="1merit"> I Merit </option>
-                                                            <option value=""> II Open (General) </option>
-                                                            <option value=""> II Open (Special) </option>
-                                                            <option value=""> II Limited (General) </option>
-                                                            <option value=""> II Limited (Special) </option>
-                                                            <option value=""> II Merit </option>
-                                                            <option value=""> III Open (General) </option>
-                                                            <option value=""> III Open (Special) </option>
-                                                            <option value=""> III Limited (General) </option>
-                                                            <option value=""> III Limited (Special) </option>
-                                                            <option value=""> III Merit </option>
-                                                            <option value=""> performing as </option>
-                                                        </select>
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <label>Date of appoint to the present SLEAS Class</label>
-                                                        <input type="text" class="form-control date-picker" name="dappoint" id="dappoint">
-                                                    </div>
-                                                </div>
-                                                
-                                                <div class="c-firstapp_block hidden">
-                                                    <div class="col-md-6">
-
-                                                        <div class="form-group ">
-                                                            <label>Working place</label>
-                                                            <?php if ($workPlaces) { ?>
-                                                                <select class="select2 col-md-12 workPlaces" name="c-firstapp-place" id="c-firstapp-place" style="padding-left:0;" required >
+                                                            <div class="form-group hidden">
+                                                                <label>Present SLEAS Class</label>
+                                                                <select class="select2 " name="sleas_class" id="sleas_class" style="width:100%">
                                                                     <option value="" disabled selected> ---------Please Select--------- </option>
-                                                                    <?php foreach ($workPlaces as $row) { ?>
-                                                                        <option value="<?php echo $row['ID'];?>" data-code="<?php echo $row['work_place_code'];?>" > <?php echo $row['work_place'] ;?> </option>
-                                                            <?php    } ?>
-                                                                    <option value="other" class="c-other hidden"> Other </option>
+                                                                    <option value="1open">  I Open </option>
+                                                                    <option value="1limited"> I Limited </option>
+                                                                    <option value="1merit"> I Merit </option>
+                                                                    <option value=""> II Open (General) </option>
+                                                                    <option value=""> II Open (Special) </option>
+                                                                    <option value=""> II Limited (General) </option>
+                                                                    <option value=""> II Limited (Special) </option>
+                                                                    <option value=""> II Merit </option>
+                                                                    <option value=""> III Open (General) </option>
+                                                                    <option value=""> III Open (Special) </option>
+                                                                    <option value=""> III Limited (General) </option>
+                                                                    <option value=""> III Limited (Special) </option>
+                                                                    <option value=""> III Merit </option>
+                                                                    <option value=""> performing as </option>
                                                                 </select>
-                                                                <?php } ?>
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label><span style="color:red;">*</span>Date of appoint to the present SLEAS Class</label>
+                                                                <input type="text" class="form-control date-picker validate[required]" name="date_appoint" id="date_appoint">
+                                                            </div>
                                                         </div>
-                                                        
-                                                            <div class="form-group hidden c-work-other">
-                                                                <label>Other</label>
-                                                                <input type="text" class="form-control" name="moccu" id="moccu" placeholder="Mother’s Occupation" data-prompt-position="topLeft" />
-                                                            </div>
 
-                                                        <div class="c-province-office hidden">
-                                                            <div class="form-group ">
-                                                                <label>Province</label>
-                                                                <select class="select2 " name="c-province-office" id="c-province-office" style="width:100%">
-                                                                    <option value="" disabled selected> ---------Please Select---------</option>
-                                                                </select>
-                                                            </div>
-                                                            
-                                                        </div>
-                                                        <div class="c-firstapp-work-main-institue hidden">
+                                                        <div class="c-firstapp_block hidden">
+                                                            <div class="col-md-6">
 
-                                                            <div class="form-group ">
-                                                                <label>Division</label>
-                                                                <select class="select2 main-division" name="c_firstapp_main_division" id="c_firstapp_main_division" style="width:100%">
-                                                                    <option value="" disabled selected> ---------Please Select--------- </option>\
-                                                                </select>
-                                                            </div>
+                                                                <div class="form-group ">
+                                                                    <label>Working place</label>
+                                                                    <?php if ($workPlaces) { ?>
+                                                                        <select class="select2 col-md-12 workPlaces" name="work_place" id="work_place" style="padding-left:0;" >
+                                                                            <option value="" disabled selected> ---------Please Select--------- </option>
+                                                                            <?php foreach ($workPlaces as $row) { ?>
+                                                                                <option value="<?php echo $row['ID'];?>" data-code="<?php echo $row['work_place_code'];?>" > <?php echo $row['work_place'] ;?> </option>
+                                                                    <?php    } ?>
+                                                                            <option value="other" class="c-other hidden"> Other </option>
+                                                                        </select>
+                                                                        <?php } ?>
+                                                                </div>
 
-                                                            <div class="form-group ">
-                                                                <label>Branch</label>
-                                                                <select class="select2Search main-branch" name="c_firstapp_main_branch" id="c_firstapp_main_branch" style="width:100%">
-                                                                    <option value="" disabled selected> ---------Please Select--------- </option>\
-                                                                </select>
-                                                            </div>
+                                                                <div class="form-group hidden work_other">
+                                                                    <label>Other</label>
+                                                                    <input type="text" class="form-control" name="work_other" id="work_other" placeholder="Mother’s Occupation" data-prompt-position="topLeft" />
+                                                                </div>
 
-                                                        </div><!--End of work-main-institue-->  <!--Hidden when loading-->
-                                                        
-                                                        <div class="c-firstapp-work-institute hidden" >
-                                                            <div class="form-group ">
-                                                                <label>Province</label>
-                                                                <?php if ($provinceList) { ?>
-                                                                    <select class="select2 province" name="province" id="province" style="width:100%">
-                                                                        <option value="" disabled selected> ---------Please Select--------- </option>
-                                                                        <?php foreach ($provinceList as $row) { ?>
-                                                                            <option value="<?php echo $row['province_id'];?>" > <?php echo $row['province'] ;?> </option>
-                                                                <?php    } ?>
+                                                                <div class="province_office hidden">
+                                                                    <div class="form-group ">
+                                                                        <label>Province</label>
+                                                                        <select class="select2 " name="province_office" id="province_office" style="width:100%">
+                                                                            <option value="" disabled selected> ---------Please Select---------</option>
+                                                                        </select>
+                                                                    </div>
+
+                                                                </div>
+                                                                <div class="c-firstapp-work-main-institue hidden">
+
+                                                                    <div class="form-group ">
+                                                                        <label>Division</label>
+                                                                        <select class="select2 main_division" name="main_division" id="main_division" style="width:100%">
+                                                                            <option value="" disabled selected> ---------Please Select--------- </option>\
+                                                                        </select>
+                                                                    </div>
+
+                                                                    <div class="form-group ">
+                                                                        <label>Branch</label>
+                                                                        <select class="select2Search main_branch" name="main_branch" id="main_branch" style="width:100%">
+                                                                            <option value="" disabled selected> ---------Please Select--------- </option>\
+                                                                        </select>
+                                                                    </div>
+
+                                                                </div><!--End of work-main-institue-->  <!--Hidden when loading-->
+
+                                                                <div class="c-firstapp-work-institute hidden" >
+                                                                    <div class="form-group ">
+                                                                        <label>Province</label>
+                                                                        <?php if ($provinceList) { ?>
+                                                                            <select class="select2 province" name="province" id="province" style="width:100%">
+                                                                                <option value="" disabled selected> ---------Please Select--------- </option>
+                                                                                <?php foreach ($provinceList as $row) { ?>
+                                                                                    <option value="<?php echo $row['province_id'];?>" > <?php echo $row['province'] ;?> </option>
+                                                                        <?php    } ?>
+                                                                                <option value="other" class="c-other hidden"> Other </option>
+                                                                            </select>
+                                                                            <?php } ?>
+                                                                    </div>
+
+                                                                    <div class="form-group ">
+                                                                        <label>District</label>
+                                                                        <select class="select2 district" name="district" id="district" style="width:100%">
+                                                                            <option value="" disabled selected> ---------Please Select--------- </option>
+                                                                        </select>
+                                                                    </div>
+
+                                                                    <div class="form-group zone">
+                                                                        <label>Zone</label>
+                                                                        <select class="select2 zone" name="zone" id="zone" style="width:100%">
+                                                                            <option value="" disabled selected> ---------Please Select--------- </option>
+                                                                        </select>
+                                                                    </div>
+
+                                                                    <div class="form-group zonal_office hidden">
+                                                                        <label>Zonal Office</label>
+                                                                        <select class="select2 zonal_office" name="zonal_office" id="zonal_office" style="width:100%">
+                                                                            <option value="" disabled selected> ---------Please Select--------- </option>
+                                                                        </select>
+                                                                    </div>
+
+                                                                    <div class="form-group division">
+                                                                        <label>Division</label>
+                                                                        <select class="select2 division" name="division" id="division" style="width:100%">
+                                                                            <option value="" disabled selected> ---------Please Select--------- </option>
+                                                                        </select>
+                                                                    </div>
+
+                                                                    <div class="form-group divisional_office hidden">
+                                                                        <label>Divisional Office</label>
+                                                                        <select class="select2 divisional_office" name="divisional_office" id="divisional_office" style="width:100%">
+                                                                            <option value="" disabled selected> ---------Please Select--------- </option>
+                                                                        </select>
+                                                                    </div>
+
+                                                                    <div class="form-group institute">
+                                                                        <label>School / institute</label>
+                                                                        <select class="select2 institute" name="institute" id="institute" style="width:100%">
+                                                                            <option value="" disabled selected> ---------Please Select---------</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div> <!--End of work-institute--> <!--Hidden when loading-->
+
+                                                                <div class="form-group">
+                                                                    <label>Designation</label>
+                                                                    <?php if ($designation) { ?>
+                                                                        <select class="select2Search designation validate[required]" name="designation" id="designation" style="width:100%">
+                                                                            <option value="" disabled selected> ---------Please Select--------- </option>
+                                                                            <?php foreach ($designation as $row) { ?>
+                                                                                <option value="<?php echo $row['ID'];?>" > <?php echo $row['designation'] ;?> </option>
+                                                                    <?php    } ?>
+                                                                            <option value="other" class="c-other hidden"> Other </option>
+                                                                        </select>
+                                                                        <?php } ?>
+                                                                </div>
+
+                                                                <div class="form-group ">
+                                                                    <label>Present SLEAS Grade</label>
+                                                                    <select class="select2 " name="present_grade" id="present_grade" style="width:100%">
+                                                                        <option value="">  Select </option>
+                                                                        <option value="1open">  Grade I </option>
+                                                                        <option value="1open">  Grade II </option>
+                                                                        <option value="1open">  Grade III </option>
+                                                                    </select>
+                                                                </div>
+
+                                                                <div class="form-group hidden date-promoted">
+                                                                    <label>Date Promoted</label>
+                                                                    <input type="text" class="form-control date-picker" name="date_promoted" id="date_promoted">
+                                                                </div>
+
+                                                                <div class="form-group">
+                                                                    <label>Date of assumed duties at the present working place</label>
+                                                                    <input type="text" class="form-control date-picker" name="date_assumed" id="date_assumed">
+                                                                </div>
+
+                                                                <div class="form-group">
+                                                                    <label>Respective official letter no.</label>
+                                                                    <input type="text" class="form-control validate[required]" name="official_letter_no" id="official_letter_no" placeholder="Respective official letter no." data-prompt-position="topLeft" />
+                                                                </div>
+
+                                                                <div class="form-group hidden salary-drawn">
+                                                                    <label>Place where salary drawn</label>
+                                                                    <select class="select2 " name="salary_drawn" id="salary_drawn" style="width:100%">
+                                                                        <option value="" disabled selected> ------------------Please Select------------------ </option>
+                                                                        <option value="moe"> MoE </option>
+                                                                        <option value="exam"> Exams </option>
+                                                                        <option value="epd"> EPD </option>
+                                                                        <option value="nie" class="c-attach hidden"> NIE </option>
+                                                                        <option value="province"> Province </option>
+                                                                        <option value="zone"> Zone </option>
+                                                                        <option value="division"> Division </option>
+                                                                        <option value="ncoe"> NCoE </option>
+                                                                        <option value="ttc"> TTC </option>
+                                                                        <option value="school"> School </option>
                                                                         <option value="other" class="c-other hidden"> Other </option>
                                                                     </select>
-                                                                    <?php } ?>
-                                                            </div>
+                                                                </div>
 
-                                                            <div class="form-group ">
-                                                                <label>District</label>
-                                                                <select class="select2 district" name="district" id="district" style="width:100%">
-                                                                    <option value="" disabled selected> ---------Please Select--------- </option>
-                                                                </select>
-                                                            </div>
-
-                                                            <div class="form-group zone">
-                                                                <label>Zone</label>
-                                                                <select class="select2 zone" name="zone" id="zone" style="width:100%">
-                                                                    <option value="" disabled selected> ---------Please Select--------- </option>
-                                                                </select>
-                                                            </div>
-
-                                                            <div class="form-group zonal_office hidden">
-                                                                <label>Zonal Office</label>
-                                                                <select class="select2 zonal_office" name="zonal_office" id="zonal_office" style="width:100%">
-                                                                    <option value="" disabled selected> ---------Please Select--------- </option>
-                                                                </select>
-                                                            </div>
-
-                                                            <div class="form-group division">
-                                                                <label>Division</label>
-                                                                <select class="select2 division" name="division" id="division" style="width:100%">
-                                                                    <option value="" disabled selected> ---------Please Select--------- </option>
-                                                                </select>
-                                                            </div>
-
-                                                            <div class="form-group divisional_office hidden">
-                                                                <label>Divisional Office</label>
-                                                                <select class="select2 divisional_office" name="divisional_office" id="divisional_office" style="width:100%">
-                                                                    <option value="" disabled selected> ---------Please Select--------- </option>
-                                                                </select>
-                                                            </div>
-
-                                                            <div class="form-group institute">
-                                                                <label>School / institute</label>
-                                                                <select class="select2 institute" name="institute" id="institute" style="width:100%">
-                                                                    <option value="" disabled selected> ---------Please Select---------</option>
-                                                                </select>
-                                                            </div>
-                                                        </div> <!--End of work-institute--> <!--Hidden when loading-->
-
-                                                        <div class="form-group">
-                                                            <label>Designation</label>
-                                                            <input type="text" class="form-control validate[required]" name="c-firstapp-designation" id="c-firstapp-designation" placeholder="Designation" data-prompt-position="topLeft" />
+                                                            </div><!--End of first appointment block--> 
                                                         </div>
+                                                        <div class="col-md-6">
+                                                            <div class="c-releasement_block hidden">
 
-                                                        <div class="form-group ">
-                                                            <label>Present SLEAS Grade</label>
-                                                            <select class="select2 " name="c-firstapp-grade" id="c-firstapp-grade" style="width:100%">
-                                                                <option value="">  Select </option>
-                                                                <option value="1open">  Grade I </option>
-                                                                <option value="1open">  Grade II </option>
-                                                                <option value="1open">  Grade III </option>
-                                                            </select>
+                                                                <div class="form-group">
+                                                                    <label>Releasement Type</label>
+                                                                    <?php if ($release_type) { ?>
+                                                                        <select class="select2 " name="release_type" id="release_type" style="width:100%">
+                                                                            <option value="" disabled selected> ---------Please Select--------- </option>
+                                                                            <?php foreach ($release_type as $row) { ?>
+                                                                                <option value="<?php echo $row['ID'];?>" data-type="<?php echo $row['rel_type'];?>" > <?php echo $row['rel_type'] ;?> </option>
+                                                                    <?php    } ?>
+                                                                            <option value="other" class="c-other hidden"> Other </option>
+                                                                        </select>
+                                                                        <?php } ?>
+                                                                </div>
+
+                                                                <div class="form-group">
+                                                                    <label>Place</label>
+                                                                    <select class="select2 " name="release_place" id="release_place" style="width:100%">
+                                                                        <option value="" disabled selected> ---------Please Select---------</option>
+                                                                    </select>
+                                                                </div>
+
+
+                                                                <div class="release_study_block hidden">
+
+                                                                    <div class="form-group release_study_institute">
+                                                                        <label>Institute name</label>
+                                                                            <input type="text" class="form-control validate[required]" name="release_institute_name" id="release_institute_name" placeholder="Institute name" data-prompt-position="topLeft" />
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        <label>Start date</label>
+                                                                        <input type="text" class="form-control date-picker" name="release_study_st_date" id="release_study_st_date">
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        <label>End date</label>
+                                                                        <input type="text" class="form-control date-picker" name="release_study_end_date" id="release_study_end_date">
+                                                                    </div>
+
+                                                                </div>
+
+
+                                                                <div class="release_work_block hidden">
+
+                                                                    <div class="form-group">
+                                                                        <label>Designation</label>
+                                                                        <input type="text" class="form-control validate[required]" name="release_work_designation" id="release_work_designation" placeholder="Designation" data-prompt-position="topLeft" />
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        <label>Date of assumed duties at the present working place</label>
+                                                                        <input type="text" class="form-control date-picker" name="release_work_date_assumed" id="release_work_date_assumed">
+                                                                    </div>
+
+                                                                </div>
+
+                                                            </div><!--End of promotion block-->
+
                                                         </div>
-
-                                                        <div class="form-group hidden date-promoted">
-                                                            <label>Date Promoted</label>
-                                                            <input type="text" class="form-control date-picker" name="c-promo-date-promo" id="c-promo-date-promo">
-                                                        </div>
-
-                                                        <div class="form-group">
-                                                            <label>Date of assumed duties at the present working place</label>
-                                                            <input type="text" class="form-control date-picker" name="c-firstapp-date-assumed" id="c-firstapp-date-assumed">
-                                                        </div>
-
-                                                        <div class="form-group">
-                                                            <label>Respective official letter no.</label>
-                                                            <input type="text" class="form-control validate[required]" name="c-firstapp-letter" id="c-firstapp-letter" placeholder="Respective official letter no." data-prompt-position="topLeft" />
-                                                        </div>
-
-                                                        <div class="form-group hidden salary-drawn">
-                                                            <label>Place where salary drawn</label>
-                                                            <select class="select2 " name="c-salary-drawn" id="c-salary-drawn" style="width:100%">
-                                                                <option value="" disabled selected> ------------------Please Select------------------ </option>
-                                                                <option value="moe"> MoE </option>
-                                                                <option value="exam"> Exams </option>
-                                                                <option value="epd"> EPD </option>
-                                                                <option value="nie" class="c-attach hidden"> NIE </option>
-                                                                <option value="province"> Province </option>
-                                                                <option value="zone"> Zone </option>
-                                                                <option value="division"> Division </option>
-                                                                <option value="ncoe"> NCoE </option>
-                                                                <option value="ttc"> TTC </option>
-                                                                <option value="school"> School </option>
-                                                                <option value="other" class="c-other hidden"> Other </option>
-                                                            </select>
-                                                        </div>
-
-                                                    </div><!--End of first appointment block--> 
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="c-releasement_block hidden">
-
-                                                        <div class="form-group">
-                                                            <label>Releasement Type</label>
-                                                            <?php if ($release_type) { ?>
-                                                                <select class="select2 " name="release_type" id="release_type" style="width:100%">
-                                                                    <option value="" disabled selected> ---------Please Select--------- </option>
-                                                                    <?php foreach ($release_type as $row) { ?>
-                                                                        <option value="<?php echo $row['ID'];?>" data-type="<?php echo $row['rel_type'];?>" > <?php echo $row['rel_type'] ;?> </option>
-                                                            <?php    } ?>
-                                                                    <option value="other" class="c-other hidden"> Other </option>
-                                                                </select>
-                                                                <?php } ?>
-                                                        </div>
-
-                                                        <div class="form-group">
-                                                            <label>Place</label>
-                                                            <select class="select2 " name="release_place" id="release_place" style="width:100%">
-                                                                <option value="" disabled selected> ---------Please Select---------</option>
-                                                            </select>
-                                                        </div>
-
-                                                        
-                                                        <div class="release_study_block hidden">
-
-                                                            <div class="form-group release_study_institute">
-                                                                <label>Institute name</label>
-                                                                    <input type="text" class="form-control validate[required]" name="rel_institute_name" id="rel_institute_name" placeholder="Institute name" data-prompt-position="topLeft" />
-                                                            </div>
-
-                                                            <div class="form-group">
-                                                                <label>Start date</label>
-                                                                <input type="text" class="form-control date-picker" name="release_study_st_date" id="release_study_st_date">
-                                                            </div>
-
-                                                            <div class="form-group">
-                                                                <label>End date</label>
-                                                                <input type="text" class="form-control date-picker" name="release_study_end_date" id="release_study_end_date">
-                                                            </div>
-                                                            
-                                                        </div>
-
-                                                        
-                                                        <div class="release_work_block hidden">
-
-                                                            <div class="form-group">
-                                                                <label>Designation</label>
-                                                                <input type="text" class="form-control validate[required]" name="release_work_designation" id="release_work_designation" placeholder="Designation" data-prompt-position="topLeft" />
-                                                            </div>
-
-                                                            <div class="form-group">
-                                                                <label>Date of assumed duties at the present working place</label>
-                                                                <input type="text" class="form-control date-picker" name="release_work_date_assumed" id="release_work_date_assumed">
-                                                            </div>
-                                                            
-                                                        </div>
-
-                                                    </div><!--End of promotion block-->
-                                                    
-                                                </div>
-                                                <div class="col-md-6">
-
-                                                </div>
-                                            </div>
-                                            </div><!--End of current-service-->
+                                                    </div>
+                                                    </div><!--End of current-service-->
                                                 </div>
                                             </div><!--End of current-service-->
                                           
                                         </div><!--End of accordian-->
                                         
                                         <div class="form-actions fluid">
-		                                <div class="col-md-offset-3 col-md-9">
-                                            <button type="reset" id="reset-button" class="btn btn-info">Clear</button>
-		                                    <button type="submit" class="btn btn-info form-reset">Submit</button>
-		                                </div>
-		                            </div>
+                                            <div class="col-md-offset-3 col-md-9">
+                                                <button type="reset" id="reset-button" class="btn btn-info">Clear</button>
+                                                <button type="submit" class="btn btn-info form-reset">Submit</button>
+                                            </div>
+                                        </div>
                                     </div><!--End of form body-->
 		                        <?php echo form_close(); ?>
 
@@ -698,7 +703,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 }
             });
             
-            $('#c-mood').change(function(){
+            $('#service_mood').change(function(){
                 var gr = $(this).val();
                 if ($.inArray(gr, ['firstappoint', 'promo', 'trans', 'attach', 'second', 'acting', 'perform']) >=0){
                     $(".c-firstapp_block").removeClass("hidden");
@@ -752,13 +757,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                          }
             });
             
-            $('#c-firstapp-place').change(function(){
+            $('#work_place').change(function(){
                 var gr = $(this).find(':selected').data('code');
                 var workplace_id = $(this).val();
                 
                 if ($.inArray(gr, ['moe','exam','epd']) >=0){
                     $(".c-firstapp-work-institute").addClass("hidden");
-                    $(".c-province-office").addClass("hidden");
+                    $(".province_office").addClass("hidden");
                     $(".c-firstapp-work-main-institue").removeClass("hidden");
                     $(".divisional_office").addClass("hidden");
                     $(".zonal_office").addClass("hidden");
@@ -767,13 +772,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     
                 }else if($.inArray(gr, ['zone','division','ncoe','ttc','school']) >=0){
                     $(".c-firstapp-work-main-institue").addClass("hidden");
-                    $(".c-province-office").addClass("hidden");
+                    $(".province_office").addClass("hidden");
                     $(".c-firstapp-work-institute").removeClass("hidden");
                     if(gr == "zone"){
                         $(".zone").addClass("hidden");
                         $(".division").addClass("hidden");
                         $(".institute").addClass("hidden");
                         $(".zonal_office").removeClass("hidden");
+                        $(".divisional_office").addClass("hidden");
                     }else if(gr == "division"){
                         $(".institute").addClass("hidden");
                         $(".division").addClass("hidden");
@@ -790,7 +796,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 }else if($.inArray(gr, ['provinced','provincem']) >=0){
                     $(".c-firstapp-work-main-institue").addClass("hidden");
                     $(".c-firstapp-work-institute").addClass("hidden");
-                    $(".c-province-office").removeClass("hidden");
+                    $(".province_office").removeClass("hidden");
                     $(".divisional_office").addClass("hidden");
                     $(".zonal_office").addClass("hidden");
                     
@@ -802,9 +808,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         dataType :'json',
                         data: dataarray,
                         success: function(res){
-                            $('#c-province-office').empty();
+                            $('#province_office').empty();
                             $.each(res, function(ID,provine_office){
-                                $('#c-province-office').append('<option value='+res[ID].ID+'>'+res[ID].provine_office+'</option>');
+                                $('#province_office').append('<option value='+res[ID].ID+'>'+res[ID].provine_office+'</option>');
                             });
                         }
                     });
@@ -932,6 +938,29 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 }
             });
             
+            $('#division').change(function(){
+                var id = $(this).val();
+                var work_place_id = $('#work_place').val();
+                var post_url = "index.php/FormControl/getInstitutes/"+id;
+                console.log(id);
+                console.log(work_place_id);
+                var dataarray = {division_id: id, work_place_id: work_place_id};
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo base_url(); ?>" + post_url,
+                    dataType :'json',
+                    data: dataarray,
+                    success: function(res){
+                console.log(res);
+                        $('#institute').empty();
+                        $('#institute').append('<option value="" disabled selected> ---------Please Select---------</option>');
+                        $.each(res, function(ID){
+                            $('#institute').append('<option value='+res[ID].ID+'>'+res[ID].institute_name+'</option>');
+                        });
+                    }
+                });
+            });
+            
             function getMainDivision(workPlace_id){
                 var post_url = "index.php/FormControl/getMainDivision/"+workPlace_id;
                 var dataarray = {workplace_id: workPlace_id};
@@ -941,9 +970,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     dataType :'json',
                     data: dataarray,
                     success: function(res){
-                        $('#c_firstapp_main_division').empty();
+                        $('#main_division').empty();
                         $.each(res, function(ID,provine_office){
-                            $('#c_firstapp_main_division').append('<option value='+res[ID].ID+'>'+res[ID].office_division+'</option>');
+                            $('#main_division').append('<option value='+res[ID].ID+'>'+res[ID].office_division+'</option>');
                         });
                     }
                 });
@@ -960,9 +989,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     data: dataarray,
                     success: function(res){
                         console.log(res);
-                        $('#c_firstapp_main_branch').empty();
+                        $('#main_branch').empty();
                         $.each(res, function(ID,provine_office){
-                            $('#c_firstapp_main_branch').append('<option value='+res[ID].ID+'>'+res[ID].office_branch+'</option>');
+                            $('#main_branch').append('<option value='+res[ID].ID+'>'+res[ID].office_branch+'</option>');
                         });
                     }
                 });
