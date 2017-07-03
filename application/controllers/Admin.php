@@ -110,6 +110,19 @@ class Admin extends CI_Controller {
 		$uname = $_REQUEST['selected_id'];
 		$this->load->view('staff_profile');
 	}
+    
+    public function sclerk()
+    {
+		$this->check_sess($this->session->user_logged);
+		$this->load->view('head');
+		$this->load->view('sclerk_sidebar');
+		$this->load->view('sclerk_dashboard');
+
+		#$this->response['district'] = $this->District_model->select('district_name');
+		#$this->load->view('add_student', $this->response);
+		$this->load->view('footer');
+        
+    }
 }
 
 

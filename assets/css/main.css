@@ -1691,6 +1691,14 @@ a.certificate img{
     font-weight: 700;    
 }
 
+.stater i{
+    color: #e7604a;
+}
+
+.stater:hover {
+    opacity: .6;
+}
+
 body.dashboard .chart{
     height: 300px;
 }

@@ -40,7 +40,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                         <div class="form-group">
                                                             <label><span style="color:red;">*</span>Title</label>
                                                             <select class="select2 validate[required]" name="title" id="title" style="width:100%;">
-                                                                <option value="" disabled selected>---------Please Select--------- </option>
+                                                                <option value="" hidden selected>---------Please Select--------- </option>
                                                                 <option value="rev">Rev.</option>
                                                                 <option value="mr">Mr.</option>
                                                                 <option value="mrs">Mrs.</option>
@@ -74,7 +74,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                         <div class="form-group">
                                                             <label><span style="color:red;">*</span>Ethnicity</label>
                                                             <select class="select2 validate[required] " name="ethnicity" id="ethnicity" style="width:100%;">
-                                                                <option value="" disabled selected>---------Please Select--------- </option>
+                                                                <option value="" hidden selected>---------Please Select--------- </option>
                                                                 <option value="sinhala">Sinhala</option>
                                                                 <option value="sltamil">Sri Lankan Tamil</option>
                                                                 <option value="intamil">Indian Tamil</option>
@@ -88,7 +88,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                         <div class="form-group">
                                                             <label><span style="color:red;">*</span>Gender</label>
                                                             <select class="select2 validate[required] " name="gender" id="gender" style="width:100%;">
-                                                                <option value="" disabled selected>---------Please Select--------- </option>
+                                                                <option value="" hidden selected>---------Please Select--------- </option>
                                                                 <option value="male">Male</option>
                                                                 <option value="female">Female</option>
                                                             </select>
@@ -97,7 +97,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                         <div class="form-group">
                                                             <label><span style="color:red;">*</span>Civil Status</label>
                                                             <select class="select2 validate[required] " name="civil_st" id="civil_st" style="width:100%;">
-                                                                <option value="" disabled selected>---------Please Select--------- </option>
+                                                                <option value="" hidden selected>---------Please Select--------- </option>
                                                                 <option value="single">Single</option>
                                                                 <option value="married">Married</option>
                                                                 <option value="widowed">Widowed</option>
@@ -253,7 +253,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                             <div class="form-group ">
                                                                 <label><span style="color:red;">*</span>Way of joined the SLEAS</label>
                                                                 <select class="select2  validate[required]" name="way_joined" id="way_joined" style="width:100%;">
-                                                                    <option value="" disabled selected>---------Please Select--------- </option>
+                                                                    <option value="" hidden selected>---------Please Select--------- </option>
                                                                     <option value="open">Open</option>
                                                                     <option value="limited">Limited</option>
                                                                     <option value="merit">Merit</option>
@@ -268,7 +268,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                                 <div class="form-group ">
                                                                     <label>SLEAS Cadre when joining the SLEAS</label>
                                                                     <select class="select2 gen-serv-set1-cadre" name="cadre" id="cadre" style="width:100%;">
-                                                                        <option value="" disabled selected>---------Please Select--------- </option>
+                                                                        <option value="" hidden selected>---------Please Select--------- </option>
                                                                         <option value="general-carder">General Cadre</option>
                                                                         <option value="special-carder">Special Cadre</option>
                                                                     </select>
@@ -277,7 +277,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                                     <div class="form-group gen-serv-set1-general hidden">
                                                                         <label>SLEAS Grade  when joining the SLEAS</label>
                                                                         <select class="select2 " name="grade_general" id="grade_general" style="width:100%;">
-                                                                            <option value="" disabled selected>---------Please Select--------- </option>
+                                                                            <option value="" hidden selected>---------Please Select--------- </option>
                                                                             <option value="special">Special</option>
                                                                             <option value="grade1">Grade I</option>
                                                                             <option value="grade2">Grade II</option>
@@ -287,7 +287,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                                     <div class="form-group gen-serv-set1-special hidden">
                                                                         <label>SLEAS Grade  when joining the SLEAS</label>
                                                                         <select class="select2 " name="grade_special" id="grade_special" style="width:100%;">
-                                                                            <option value="" disabled selected>---------Please Select--------- </option>
+                                                                            <option value="" hidden selected>---------Please Select--------- </option>
                                                                             <option value="grade2">Grade II</option>
                                                                             <option value="grade3">Grade III</option>
                                                                         </select>
@@ -296,7 +296,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                                     <div class="form-group gen-serv-set1-special hidden ">
                                                                         <label>Subject</label>
                                                                         <select class="select2Search " name="special_subject" id="special_subject" style="width:100%;">
-                                                                            <option value="" disabled selected>---------Please Select--------- </option>
+                                                                            <option value="" hidden selected>---------Please Select--------- </option>
                                                                             <?php if ($subjects) { ?>
                                                                                     <?php foreach ($subjects as $row) { ?>
                                                                                         <option value=<?php echo $row['ID'];?> > <?php echo $row['sub_name'] ;?> </option>
@@ -311,7 +311,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                                 <div class="form-group ">
                                                                     <label>SLEAS Cadre when joining the SLEAS</label>
                                                                     <select class="select2 " name="cadre_supern" id="cadre_supern" style="width:100%;">
-                                                                        <option value="" disabled selected>---------Please Select--------- </option>
+                                                                        <option value="" hidden selected>---------Please Select--------- </option>
                                                                         <option value="general-carder">General Cadre</option>
                                                                         <option value="not-specified">Not Specified</option>
                                                                     </select>
@@ -320,7 +320,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                                 <div class="form-group ">
                                                                     <label>SLEAS Grade  when joining the SLEAS</label>
                                                                     <select class="select2 " name="grade_supern" id="grade_supern" style="width:100%;">
-                                                                        <option value="" disabled selected>---------Please Select--------- </option>
+                                                                        <option value="" hidden selected>---------Please Select--------- </option>
                                                                         <option value="grade1">Grade I</option>
                                                                         <option value="grade2">Grade II</option>
                                                                         <option value="grade3">Grade III</option>
@@ -331,7 +331,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                             <div class="form-group ">
                                                                 <label><span style="color:red;">*</span>Medium in which recruited</label>
                                                                 <select class="select2 validate[required] " name="medium_recruit" id="medium_recruit" style="width:100%;">
-                                                                    <option value="" disabled selected>---------Please Select--------- </option>
+                                                                    <option value="" hidden selected>---------Please Select--------- </option>
                                                                     <option value="sinhala">Sinhala</option>
                                                                     <option value="tamil">Tamil</option>
                                                                     <option value="english">English</option>
@@ -341,7 +341,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                             <div class="form-group ">
                                                                 <label><span style="color:red;">*</span>Confirmed</label>
                                                                 <select class="select2 validate[required] " name="confirm" id="confirm" style="width:100%;">
-                                                                    <option value="" disabled selected>---------Please Select--------- </option>
+                                                                    <option value="" hidden selected>---------Please Select--------- </option>
                                                                     <option value="yes">Yes</option>
                                                                     <option value="no">No</option>
                                                                 </select>
@@ -372,22 +372,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                             <div class="form-group ">
                                                                 <label><span style="color:red;">*</span>Mode of service status</label>
                                                                 <select class="select2 validate[required] " name="service_mood" id="service_mood" style="width:100%">
-                                                                    <option value="" disabled selected>---------Please Select---------</option>
+                                                                    <option value="" hidden selected>---------Please Select---------</option>
                                                                     <option value="firstappoint"> First Appointment </option>
                                                                     <option value="promo"> Promotion </option>
                                                                     <option value="trans"> Transfer </option>
+                                                                    <option value="promoTrans"> Promotion / Transfer </option>
                                                                     <option value="attach"> Attachment </option>
                                                                     <option value="second"> Secondment </option>
                                                                     <option value="release"> Releasement </option>
                                                                     <option value="acting"> Acting Duty </option>
                                                                     <option value="perform"> Performing Duty </option>
                                                                 </select>
-                                                            </div> 
+                                                            </div>
 
                                                             <div class="form-group hidden">
                                                                 <label>Present SLEAS Class</label>
                                                                 <select class="select2 " name="sleas_class" id="sleas_class" style="width:100%">
-                                                                    <option value="" disabled selected> ---------Please Select--------- </option>
+                                                                    <option value="" hidden selected> ---------Please Select--------- </option>
                                                                     <option value="1open">  I Open </option>
                                                                     <option value="1limited"> I Limited </option>
                                                                     <option value="1merit"> I Merit </option>
@@ -418,7 +419,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                                     <label>Working place</label>
                                                                     <?php if ($workPlaces) { ?>
                                                                         <select class="select2 col-md-12 workPlaces" name="work_place" id="work_place" style="padding-left:0;" >
-                                                                            <option value="" disabled selected> ---------Please Select--------- </option>
+                                                                            <option value="" hidden selected> ---------Please Select--------- </option>
                                                                             <?php foreach ($workPlaces as $row) { ?>
                                                                                 <option value="<?php echo $row['ID'];?>" data-code="<?php echo $row['work_place_code'];?>" > <?php echo $row['work_place'] ;?> </option>
                                                                     <?php    } ?>
@@ -436,7 +437,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                                     <div class="form-group ">
                                                                         <label>Province</label>
                                                                         <select class="select2 " name="province_office" id="province_office" style="width:100%">
-                                                                            <option value="" disabled selected> ---------Please Select---------</option>
+                                                                            <option value="" hidden selected> ---------Please Select---------</option>
                                                                         </select>
                                                                     </div>
 
@@ -446,14 +447,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                                     <div class="form-group ">
                                                                         <label>Division</label>
                                                                         <select class="select2 main_division" name="main_division" id="main_division" style="width:100%">
-                                                                            <option value="" disabled selected> ---------Please Select--------- </option>\
+                                                                            <option value="" hidden selected> ---------Please Select--------- </option>\
                                                                         </select>
                                                                     </div>
 
                                                                     <div class="form-group ">
                                                                         <label>Branch</label>
                                                                         <select class="select2Search main_branch" name="main_branch" id="main_branch" style="width:100%">
-                                                                            <option value="" disabled selected> ---------Please Select--------- </option>\
+                                                                            <option value="" hidden selected> ---------Please Select--------- </option>\
                                                                         </select>
                                                                     </div>
 
@@ -464,7 +465,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                                         <label>Province</label>
                                                                         <?php if ($provinceList) { ?>
                                                                             <select class="select2 province" name="province" id="province" style="width:100%">
-                                                                                <option value="" disabled selected> ---------Please Select--------- </option>
+                                                                                <option value="" hidden selected> ---------Please Select--------- </option>
                                                                                 <?php foreach ($provinceList as $row) { ?>
                                                                                     <option value="<?php echo $row['province_id'];?>" > <?php echo $row['province'] ;?> </option>
                                                                         <?php    } ?>
@@ -476,42 +477,42 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                                     <div class="form-group ">
                                                                         <label>District</label>
                                                                         <select class="select2 district" name="district" id="district" style="width:100%">
-                                                                            <option value="" disabled selected> ---------Please Select--------- </option>
+                                                                            <option value="" hidden selected> ---------Please Select--------- </option>
                                                                         </select>
                                                                     </div>
 
                                                                     <div class="form-group zone">
                                                                         <label>Zone</label>
                                                                         <select class="select2 zone" name="zone" id="zone" style="width:100%">
-                                                                            <option value="" disabled selected> ---------Please Select--------- </option>
+                                                                            <option value="" hidden selected> ---------Please Select--------- </option>
                                                                         </select>
                                                                     </div>
 
                                                                     <div class="form-group zonal_office hidden">
                                                                         <label>Zonal Office</label>
                                                                         <select class="select2 zonal_office" name="zonal_office" id="zonal_office" style="width:100%">
-                                                                            <option value="" disabled selected> ---------Please Select--------- </option>
+                                                                            <option value="" hidden selected> ---------Please Select--------- </option>
                                                                         </select>
                                                                     </div>
 
                                                                     <div class="form-group division">
                                                                         <label>Division</label>
                                                                         <select class="select2 division" name="division" id="division" style="width:100%">
-                                                                            <option value="" disabled selected> ---------Please Select--------- </option>
+                                                                            <option value="" hidden selected> ---------Please Select--------- </option>
                                                                         </select>
                                                                     </div>
 
                                                                     <div class="form-group divisional_office hidden">
                                                                         <label>Divisional Office</label>
                                                                         <select class="select2 divisional_office" name="divisional_office" id="divisional_office" style="width:100%">
-                                                                            <option value="" disabled selected> ---------Please Select--------- </option>
+                                                                            <option value="" hidden selected> ---------Please Select--------- </option>
                                                                         </select>
                                                                     </div>
 
                                                                     <div class="form-group institute">
                                                                         <label>School / institute</label>
                                                                         <select class="select2 institute" name="institute" id="institute" style="width:100%">
-                                                                            <option value="" disabled selected> ---------Please Select---------</option>
+                                                                            <option value="" hidden selected> ---------Please Select---------</option>
                                                                         </select>
                                                                     </div>
                                                                 </div> <!--End of work-institute--> <!--Hidden when loading-->
@@ -520,7 +521,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                                     <label>Designation</label>
                                                                     <?php if ($designation) { ?>
                                                                         <select class="select2Search designation validate[required]" name="designation" id="designation" style="width:100%">
-                                                                            <option value="" disabled selected> ---------Please Select--------- </option>
+                                                                            <option value="" hidden selected> ---------Please Select--------- </option>
                                                                             <?php foreach ($designation as $row) { ?>
                                                                                 <option value="<?php echo $row['ID'];?>" > <?php echo $row['designation'] ;?> </option>
                                                                     <?php    } ?>
@@ -557,7 +558,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                                 <div class="form-group hidden salary-drawn">
                                                                     <label>Place where salary drawn</label>
                                                                     <select class="select2 " name="salary_drawn" id="salary_drawn" style="width:100%">
-                                                                        <option value="" disabled selected> ------------------Please Select------------------ </option>
+                                                                        <option value="" hidden selected> ------------------Please Select------------------ </option>
                                                                         <option value="moe"> MoE </option>
                                                                         <option value="exam"> Exams </option>
                                                                         <option value="epd"> EPD </option>
@@ -581,7 +582,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                                     <label>Releasement Type</label>
                                                                     <?php if ($release_type) { ?>
                                                                         <select class="select2 " name="release_type" id="release_type" style="width:100%">
-                                                                            <option value="" disabled selected> ---------Please Select--------- </option>
+                                                                            <option value="" hidden selected> ---------Please Select--------- </option>
                                                                             <?php foreach ($release_type as $row) { ?>
                                                                                 <option value="<?php echo $row['ID'];?>" data-type="<?php echo $row['rel_type'];?>" > <?php echo $row['rel_type'] ;?> </option>
                                                                     <?php    } ?>
@@ -593,7 +594,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                                 <div class="form-group">
                                                                     <label>Place</label>
                                                                     <select class="select2 " name="release_place" id="release_place" style="width:100%">
-                                                                        <option value="" disabled selected> ---------Please Select---------</option>
+                                                                        <option value="" hidden selected> ---------Please Select---------</option>
                                                                     </select>
                                                                 </div>
 
@@ -674,8 +675,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
     <script>
         $(document).ready(function(){ 
-            FormValidationTooltip.init();  
-           // $('#username').lostfocus
+            //FormValidationTooltip.init();
             
             //Check Way joind in general service
             $('#way_joined').change(function(){
@@ -705,7 +705,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             
             $('#service_mood').change(function(){
                 var gr = $(this).val();
-                if ($.inArray(gr, ['firstappoint', 'promo', 'trans', 'attach', 'second', 'acting', 'perform']) >=0){
+                if ($.inArray(gr, ['firstappoint', 'promo', 'trans', 'promoTrans', 'attach', 'second', 'acting', 'perform']) >=0){
                     $(".c-firstapp_block").removeClass("hidden");
                     $(".c-releasement_block").addClass("hidden");
                 }else if(gr == "release"){
@@ -801,7 +801,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     $(".zonal_office").addClass("hidden");
                     
                     var post_url = "index.php/FormControl/getProvinceOffices/"+workplace_id;
-                    var dataarray = {workplace_id: workplace_id};
+                    var dataarray = {'<?php echo $this->security->get_csrf_token_name(); ?>':'<?php echo $this->security->get_csrf_hash(); ?>',workplace_id: workplace_id};
                     $.ajax({
                         type: "POST",
                         url: "<?php echo base_url(); ?>" + post_url,
@@ -850,7 +850,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             $('#province').change(function(){
                 var id = $(this).val();
                 var post_url = "index.php/FormControl/getDistricts/"+id;
-                var dataarray = {province_id: id};
+                var dataarray = {'<?php echo $this->security->get_csrf_token_name(); ?>':'<?php echo $this->security->get_csrf_hash(); ?>',province_id: id};
                 $.ajax({
                     type: "POST",
                     url: "<?php echo base_url(); ?>" + post_url,
@@ -858,7 +858,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     data: dataarray,
                     success: function(res){
                         $('#district').empty();
-                        $('#district').append('<option value="" disabled selected> ---------Please Select---------</option>');
+                        $('#district').append('<option value="" hidden selected> ---------Please Select---------</option>');
                         $.each(res, function(ID){
                             $('#district').append('<option value='+res[ID].dist_id+'>'+res[ID].district+'</option>');
                         });
@@ -868,7 +868,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             
             $('#district').change(function(){
                 var id = $(this).val();
-                var dataarray = {district_id: id};
+                var dataarray = {'<?php echo $this->security->get_csrf_token_name(); ?>':'<?php echo $this->security->get_csrf_hash(); ?>',district_id: id};
                 if($('#zonal_office').hasClass('hidden')){
                     var post_url = "index.php/FormControl/getZoneList/"+id;
                     $.ajax({
@@ -878,7 +878,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         data: dataarray,
                         success: function(res){
                             $('#zone').empty();
-                            $('#zone').append('<option value="" disabled selected> ---------Please Select---------</option>');
+                            $('#zone').append('<option value="" hidden selected> ---------Please Select---------</option>');
                             $.each(res, function(ID){
                                 $('#zone').append('<option value='+res[ID].zone_id+'>'+res[ID].zone+'</option>');
                             });
@@ -893,7 +893,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         data: dataarray,
                         success: function(res){
                             $('#zonal_office').empty();
-                            $('#zonal_office').append('<option value="" disabled selected> ---------Please Select---------</option>');
+                            $('#zonal_office').append('<option value="" hidden selected> ---------Please Select---------</option>');
                             $.each(res, function(ID){
                                 $('#zonal_office').append('<option value='+res[ID].ID+'>'+res[ID].zonal_office+'</option>');
                             });
@@ -904,7 +904,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             
             $('#zone').change(function(){
                 var id = $(this).val();
-                var dataarray = {zone_id: id};
+                var dataarray = {'<?php echo $this->security->get_csrf_token_name(); ?>':'<?php echo $this->security->get_csrf_hash(); ?>',zone_id: id};
                 if($('#divisional_office').hasClass('hidden')){
                     var post_url = "index.php/FormControl/getDivisionsList/"+id;
                     $.ajax({
@@ -914,7 +914,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         data: dataarray,
                         success: function(res){
                             $('#division').empty();
-                            $('#division').append('<option value="" disabled selected> ---------Please Select---------</option>');
+                            $('#division').append('<option value="" hidden selected> ---------Please Select---------</option>');
                             $.each(res, function(ID){
                                 $('#division').append('<option value='+res[ID].div_id+'>'+res[ID].division_name+'</option>');
                             });
@@ -929,7 +929,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         data: dataarray,
                         success: function(res){
                             $('#divisional_office').empty();
-                            $('#divisional_office').append('<option value="" disabled selected> ---------Please Select---------</option>');
+                            $('#divisional_office').append('<option value="" hidden selected> ---------Please Select---------</option>');
                             $.each(res, function(ID){
                                 $('#divisional_office').append('<option value='+res[ID].ID+'>'+res[ID].division_office+'</option>');
                             });
@@ -944,7 +944,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 var post_url = "index.php/FormControl/getInstitutes/"+id;
                 console.log(id);
                 console.log(work_place_id);
-                var dataarray = {division_id: id, work_place_id: work_place_id};
+                var dataarray = {'<?php echo $this->security->get_csrf_token_name(); ?>':'<?php echo $this->security->get_csrf_hash(); ?>',division_id: id, work_place_id: work_place_id};
                 $.ajax({
                     type: "POST",
                     url: "<?php echo base_url(); ?>" + post_url,
@@ -953,7 +953,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     success: function(res){
                 console.log(res);
                         $('#institute').empty();
-                        $('#institute').append('<option value="" disabled selected> ---------Please Select---------</option>');
+                        $('#institute').append('<option value="" hidden selected> ---------Please Select---------</option>');
                         $.each(res, function(ID){
                             $('#institute').append('<option value='+res[ID].ID+'>'+res[ID].institute_name+'</option>');
                         });
@@ -963,7 +963,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             
             function getMainDivision(workPlace_id){
                 var post_url = "index.php/FormControl/getMainDivision/"+workPlace_id;
-                var dataarray = {workplace_id: workPlace_id};
+                var dataarray = {'<?php echo $this->security->get_csrf_token_name(); ?>':'<?php echo $this->security->get_csrf_hash(); ?>',workplace_id: workPlace_id};
                 $.ajax({
                     type: "POST",
                     url: "<?php echo base_url(); ?>" + post_url,
@@ -981,7 +981,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             function getMainBranch(workPlace_id){
                 console.log(workPlace_id);
                 var post_url = "index.php/FormControl/getMainBranch/"+workPlace_id;
-                var dataarray = {workplace_id: workPlace_id};
+                var dataarray = {'<?php echo $this->security->get_csrf_token_name(); ?>':'<?php echo $this->security->get_csrf_hash(); ?>',workplace_id: workPlace_id};
                 $.ajax({
                     type: "POST",
                     url: "<?php echo base_url(); ?>" + post_url,
@@ -1003,19 +1003,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                //$('.formErrorArrow').remove(); 
                validater.resetForm(); 
             });
-
-            /*$('#username').focusout(function(){
-                alert("sssss");
-                $.ajax({
-                    type :post,
-                    url :,
-                    dataType :json,
-                    data :dataset,
-                    success :function(response){
-                        
-                    }
-                })
-            });  */
 
             $('#list-staff').on('click','tr', function(e){
                 var selected_id = $(this.cells[1]).text();

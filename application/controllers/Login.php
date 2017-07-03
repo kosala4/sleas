@@ -32,12 +32,16 @@ class Login extends CI_Controller {
 		$this->load->view('footer');
 	}
 
-	function redirect_user($user_type)
+	function redirect_user($user_level)
 	{
 		//check user type to redirect
-		if ($user_type == "admin") {
+		if ($user_level == "0") {
 			redirect('/admin/index');
-		}else {
+		}else if ($user_level == "1") {
+            redirect('/admin/index');
+        }else if ($user_level == "2") {
+            redirect('/admin/sclerk');
+        }else{
 			redirect('/editor/index');
 		}
 	}
@@ -52,10 +56,14 @@ class Login extends CI_Controller {
 		if ($chk_login == 1) {
 			$this->load->library('session');
 			$data = $this->User_model->get_a_record('user_name',$uname);
-			$userData = array('username' => $uname, 'user_logged' => "in");
+            $name = $data[0]['name'];
+			$userData = array('username' => $uname,'name' => $name, 'user_logged' => "in");
 			$this->session->set_userdata($userData);
+            
+            $this->redirect_user($data[0]['level']);
+            //echo($data[0]['level']);
 
-			redirect('/admin/index');
+			//redirect('/admin/index');
 		}else {
 			echo "Invalid User name or Password";
 			redirect('/login/index');

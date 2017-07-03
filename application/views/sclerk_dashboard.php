@@ -4,98 +4,98 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <section id="content">   <!-- Start: Content -->
             
             <div id="topbar">
+                <a href="<?php echo base_url()."index.php/register/newmember"?>">
+                    <div class="col-xs-6 col-sm-4 stater" style="height:auto">
+                        <div class="title text-center"> <i class="fa fs-users"> </i> Add Member </div>
+                    </div>
+                </a>
                 
-                <div class="col-xs-6 col-sm-3 stater">
-                    <span class="count" id="count-rec-10">1989</span>
-                    <span class="title">RECORDED</span><br>
-                    <span class="time">grade 10</span><br>
-                </div>
+                <a href="#">
+                    <div class="col-xs-6 col-sm-4 stater" style="height:auto">
+                        <div class="title text-center"> <i class="fa fs-transfer"> </i> Add Transfer </div>
+                    </div>
+                </a>
                 
-                <div class="col-xs-6 col-sm-3 stater">
-                    <span class="count" id="count-to-edit-10">525</span>
-                    <span class="title">FINISHED</span><br>
-                    <span class="time">grade 10</span>
-                    <div class="progress progress-sm">
-                    	<div id="present-rec-10" class="progress-bar progress-bar-danger" style="width: 40%"></div>
-                	</div>
-                </div>
-                
-                <div class="col-xs-6 col-sm-3 stater">
-                    <span class="count" id="count-to-mer-10">408</span>
-                    <span class="title">ON GOING EDITINGS</span><br>
-                    <span class="time">grade 10</span>
-                </div>
-                
-                <div class="col-xs-6 col-sm-3 stater">
-                    <span class="count" id="count-to-back-10">152</span>
-                    <span class="title">TO BACKUP</span><br>
-                    <span class="time">grade 10</span>
-                </div><br>
-                
-            </div>
-            
-            <div id="topbar-2">
-                
-                <div class="col-xs-6 col-sm-3 stater">
-                    <span class="count" id="count-rec-11">1989</span>
-                    <span class="title">RECORDED</span><br>
-                    <span class="time">grade 11</span>
-                </div>
-                
-                <div class="col-xs-6 col-sm-3 stater">
-                    <span class="count" id="count-to-edit-11">525</span>
-                    <span class="title">FINISHED</span><br>
-                    <span class="time">grade 11</span>
-                    <div class="progress progress-sm">
-                    	<div id="present-rec-10" class="progress-bar progress-bar-warning" style="width: 60%"></div>
-                	</div>
-                </div>
-                
-                <div class="col-xs-6 col-sm-3 stater">
-                    <span class="count" id="count-to-mer-11">408</span>
-                    <span class="title">ON GOING EDITINGS</span><br>
-                    <span class="time">grade 11</span>
-                </div>
-                
-                <div class="col-xs-6 col-sm-3 stater">
-                    <span class="count" id="count-to-back-11">152</span>
-                    <span class="title">TO BACKUP</span><br>
-                    <span class="time">grade 11</span>
-                </div>
+                <a href="#">
+                    <div class="col-xs-6 col-sm-4 stater" style="height:auto">
+                        <div class="title text-center"> <i class="fa fa-level-up"> </i> Add Promotion </div>
+                    </div>
+                </a>
                 
             </div>
 
-            <div class="container" style="padding-top: 240px;">
+            <div class="container" style="padding-top: 100px;">
                 <div class="row">
 
                     <div class="col-md-6">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <h3 class="panel-title">Daily progress Grade 10</h3>
-
+                                <h3 class="panel-title"> SLEAS Members </h3>
                                 <div class="panel-tools">
                                     <a class="btn btn-xs btn-link panel-collapse collapses" href="javascript:void(0);"></a>
                                 </div>
                             </div>
                             <div class="panel-body">
-                                <div class="chart" id="hBarChart"></div>
+                                <table class="table table-bordered table-hover footable DynamicTable">
+                                    <thead>
+                                        <tr>
+                                            <th> Title </th>
+                                            <th> Name </th>
+                                            <th> Designation </th>
+                                            <th> Working Place </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Trident</td>
+                                            <td>Win 95+</td>
+                                            <td>Trident</td>
+                                            <td>Win 95+</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Trident</td>
+                                            <td>Win 95+</td>
+                                            <td>Trident</td>
+                                            <td>Win 95+</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Trident</td>
+                                            <td>Win 95+</td>
+                                            <td>Trident</td>
+                                            <td>Win 95+</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Trident</td>
+                                            <td>Win 95+</td>
+                                            <td>Trident</td>
+                                            <td>Lin 95+</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Trident</td>
+                                            <td>Win 95+</td>
+                                            <td>Trident</td>
+                                            <td>Win 95+</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Trident</td>
+                                            <td>Win 95+</td>
+                                            <td>Trident</td>
+                                            <td>Win 95+</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Trident</td>
+                                            <td>Win 95+</td>
+                                            <td>Trident</td>
+                                            <td>Win 95+</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
 
                     <div class="col-md-6">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">Daily progress Grade 11</h3>
-
-                                <div class="panel-tools">
-                                    <a class="btn btn-xs btn-link panel-collapse collapses" href="javascript:void(0);"></a>
-                                </div>
-                            </div>
-                            <div class="panel-body">
-                                <div class="chart" id="morrisLine"></div>
-                            </div>
-                        </div>
+                        
                     </div>
 
                 </div>
@@ -110,19 +110,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <script src="<?php echo base_url()."assets/plugins/flot/jquery.flot.pie.min.js"?>"></script>
     <script src="<?php echo base_url()."assets/plugins/flot/jquery.flot.resize.min.js"?>"></script>
     <script src="<?php echo base_url()."assets/plugins/flot/jquery.flot.tooltip.js"?>"></script>
+    <script src="<?php echo base_url()."assets/plugins/iCheck-master/jquery.icheck.min.js"?>"></script>
+    <script src="<?php echo base_url()."assets/plugins/select2/select2.min.js"?>"></script>
     <script src="<?php echo base_url()."assets/plugins/datatables/js/jquery.dataTables.min.js"?>"></script>
     <script src="<?php echo base_url()."assets/plugins/datatables/js/DT_bootstrap.js"?>"></script>
-    <script src="<?php echo base_url()."assets/plugins/iCheck-master/jquery.icheck.min.js"?>"></script>
 
     <script src="<?php echo base_url()."assets/plugins/morris/raphael-min.js"?>"></script>
     <script src="<?php echo base_url()."assets/plugins/morris/morris.min.js"?>"></script>
 
     <script>
         $(document).ready(function(){
-            FlotCharts.init();
+            DataTabels.init();
         });
-        
-        $('.menu_dashboard').addClass('active');
 
 var FlotCharts = function() {
     // Function to handel Horizontal Bar Charts

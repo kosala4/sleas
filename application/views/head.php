@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>National Education Management Information System</title>
+    <title>SLEAS Member Management Information System</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="" />
     <meta name="author" content="" />
@@ -17,7 +17,9 @@
     <link href="<?php echo base_url()."assets/plugins/jquery-ui/jquery-ui.css"?>" rel="stylesheet">    
     <link href="<?php echo base_url()."assets/plugins/select2/select2.css"?>" type="text/css" rel="stylesheet" />
     <link href="<?php echo base_url()."assets/plugins/datatables/css/DT_bootstrap.css"?>" type="text/css" rel="stylesheet" />
+<!--
     <link href="<?php echo base_url()."assets/plugins/footable/css/footable.core.css"?>" type="text/css" rel="stylesheet" />
+-->
 
 
 
@@ -53,28 +55,18 @@
 
             <div class="user-menu">
                 <a href="javascript:void(0);" data-toggle="dropdown"> 
-                    <span> <?php echo $this->session->username ?> <i class="fa fa-angle-down"></i></span>
+                    <span> <?php echo $this->session->name ?> <i class="fa fa-angle-down"></i></span>
                 </a>
                 <ul class="dropdown-menu animated fadeInRight" role="menu">
                     <li>
                         <ul class="dropdown-items">
-                            <li class="admin-menu">
-                                <a class="item-message" href="page-calendar.html">
-                                    <i class="fa fa-calendar"></i> Calender
-                                </a> 
-                            </li>
                             <li class="admin-menu">
                                 <a class="item-message" href="page-profile.html">
                                     <i class="fa fa-user"></i> Edit Profile
                                 </a> 
                             </li>
                             <li>
-                                <a class="item-message" href="page-lock.html">
-                                    <i class="fa fa-lock"></i> Lock Screen
-                                </a> 
-                            </li>
-                            <li>
-                                <a class="item-message" href="logout">
+                                <a class="item-message" href="<?php echo base_url()."index.php/admin/logout"?>">
                                     <i class="fa fa-sign-out"></i> Logout
                                 </a> 
                             </li>
