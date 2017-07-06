@@ -96,5 +96,7 @@ class FormControl extends CI_Controller {
         //$res = $this->Form_data_model->select('workplace');
         echo json_encode($res);
     }
+    
+    
 }
 ?>

@@ -50,3 +50,68 @@ var DataTabels = function (){
         
     }
 }();    // Dynamic Data Tabels
+
+
+var FormValidationInline = function (){
+    
+    var handelFormValidation = function() {
+        
+        // validate signup form on keyup and submit
+	$("#addMemberForm").validate({
+            errorElement: 'span', //default input error message container
+            errorClass: 'help-block error', // default input error message class
+            focusInvalid: false, // do not focus the last invalid input
+            ignore: "",
+            
+            rules: {
+                nic: "required",
+                title: "required",
+                fname: "required",
+                lname: "required",
+                dob: "required",
+                ethnicity: "required",
+                gender: "required",
+                civil_st: "required",
+                email: {
+                        required: true,
+                        email: true
+                },
+                password: {
+                    required: true,
+                    minlength: 5
+                },
+                passwordc: {
+                    required: true,
+                    minlength: 5,
+                    equalTo: "#password"
+                },
+                url: {
+                    required: true,
+                    url: true
+                },
+                numbers: {
+                    required: true,
+                    digits: true
+                }
+            },
+            
+            messages: {
+                fname: "Please enter your First Name",
+                lname: "Please enter your Last Name",
+                email: "Please enter Correct E-mail Address",
+                password: "Please enter password",
+                passwordc: "Please enter password",
+                url: "Please enter valid URL",
+                numbers: "Please enter Numbers only"
+
+            }
+	});
+    };
+    
+    return {
+        init: function() {
+            handelFormValidation();
+        }
+        
+    };
+}();    // Handel Form Validation

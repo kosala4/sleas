@@ -6,7 +6,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div id="topbar">
                 <a href="<?php echo base_url()."index.php/register/newmember"?>">
                     <div class="col-xs-6 col-sm-4 stater" style="height:auto">
-                        <div class="title text-center"> <i class="fa fs-users"> </i> Add Member </div>
+                        <div class="title text-center"> <i class="fa fs-users"> </i> Add SLEAS Officer </div>
                     </div>
                 </a>
                 
@@ -30,7 +30,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <div class="col-md-6">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <h3 class="panel-title"> SLEAS Members </h3>
+                                <h3 class="panel-title"> SLEAS Officers </h3>
                                 <div class="panel-tools">
                                     <a class="btn btn-xs btn-link panel-collapse collapses" href="javascript:void(0);"></a>
                                 </div>
@@ -121,6 +121,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <script>
         $(document).ready(function(){
             DataTabels.init();
+            $('#menu_dashboard').addClass('active');
         });
 
 var FlotCharts = function() {

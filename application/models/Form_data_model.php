@@ -139,5 +139,116 @@ class Form_data_model extends CI_Model{
         $this->db->where($search_array);
         $query = $this->db->get('mytable');
     }
+    
+    public function insertData($table, $data){
+        $this->db->insert($table, $data); 
+		
+		if( $this->db->affected_rows() > 0) {
+			return 1;
+		} else {
+			return 0;
+		}
+    }
+    
+    public function get_recent_service_id(){
+        $this->db->select('ID');
+        $this->db->order_by('ID', 'DESC');
+        $this->db->limit(1);
+        $query = $this->db->get('Service');
+        $res  = $query->result_array();
+        
+        return $res;
+    }
+    
+    public function registerNew($personal_details, $contact_details_per, $general_service, $service, $releasement, $contact_details_temp){
+        if (!$releasement){
+            if (!$contact_details_temp){
+                $res=0;
+                $this->db->trans_start();
+                
+                $this->db->insert('Personal_Details', $personal_details);
+                $this->db->insert('Contact_Details', $contact_details_per);
+                $this->db->insert('General_Service', $general_service);
+                $this->db->insert('Service', $service);
+                
+                if ($this->db->trans_status() === TRUE){
+                    $res = 1;
+                    $this->db->trans_complete();
+                } else {
+                    $err_message = $this->db->error();
+                    log_message('error', $err_message);
+                    $this->db->trans_complete();
+                }
+                
+                return $res;
+            }else{
+                $res=0;
+                $this->db->trans_start();
+                
+                $this->db->insert('Personal_Details', $personal_details);
+                $this->db->insert('Contact_Details', $contact_details_per);
+                $this->db->insert('General_Service', $general_service);
+                $this->db->insert('Service', $service);
+                $this->db->insert('Contact_Details', $contact_details_temp);
+                
+                if ($this->db->trans_status() === TRUE){
+                    $res = 1;
+                    $this->db->trans_complete();
+                } else {
+                    $err_message = $this->db->error();
+                    log_message('error', $err_message);
+                    $this->db->trans_complete();
+                }
+                
+                return $res;
+                
+            }
+        } else {
+            if (!$contact_details_temp){
+                $res=0;
+                $this->db->trans_start();
+                
+                $this->db->insert('Personal_Details', $personal_details);
+                $this->db->insert('Contact_Details', $contact_details_per);
+                $this->db->insert('General_Service', $general_service);
+                $this->db->insert('Service', $service);
+                $this->db->insert('Releasement', $releasement);
+                
+                if ($this->db->trans_status() === TRUE){
+                    $res = 1;
+                    $this->db->trans_complete();
+                } else {
+                    $err_message = $this->db->error();
+                    log_message('error', $err_message);
+                    $this->db->trans_complete();
+                }
+                
+                return $res;
+            }else{
+                $res=0;
+                $this->db->trans_start();
+                
+                $this->db->insert('Personal_Details', $personal_details);
+                $this->db->insert('Contact_Details', $contact_details_per);
+                $this->db->insert('General_Service', $general_service);
+                $this->db->insert('Service', $service);
+                $this->db->insert('Contact_Details', $contact_details_temp);
+                $this->db->insert('Releasement', $releasement);
+                
+                if ($this->db->trans_status() === TRUE){
+                    $res = 1;
+                    $this->db->trans_complete();
+                } else {
+                    $err_message = $this->db->error();
+                    log_message('error', $err_message);
+                    $this->db->trans_complete();
+                }
+                
+                return $res;
+                
+            }
+        }
+        
+    }
 }
 ?>

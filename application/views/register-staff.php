@@ -5,7 +5,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <section id="content">   <!-- Start: Content -->
 	        <div class="container" style="padding-top: 20px;">
 
-		        <div class="row">                
+		        <div class="row">
+                    <?php if ($this->session->flashdata('register')=="not-success"){ ?>
+                        <div class="col-md-6">
+                            <div class="alert alert-danger">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                <strong>Error!</strong> Could not register the member
+                            </div>
+                        </div>
+                    <?php } ?>
 		            <div class="col-md-12">
 		                <div class="panel panel-info">
 		                    <div class="panel-heading reg-main-panel">
@@ -132,12 +140,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                         </div>
 
                                                         <div class="form-group">
-                                                            <label><span style="color:red;">*</span>Address Line 3</label>
+                                                            <label>Address Line 3</label>
                                                             <input type="text" class="form-control validate[required]" name="address3" id="address3" placeholder="Address Line 3" data-prompt-position="topLeft" />
                                                         </div>
 
                                                         <div class="form-group">
-                                                            <label><span style="color:red;">*</span>Postal Code</label>
+                                                            <label>Postal Code</label>
                                                             <input type="text" class="form-control validate[required]" name="pocode" id="pocode" placeholder="Postal Code" data-prompt-position="topLeft" />
                                                         </div>
 
@@ -145,18 +153,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     <div class="col-md-6">
 
                                                         <div class="form-group">
-                                                            <label>Land phone no 01</label>
-                                                            <input type="text" class="form-control validate[custom[phone]]" name="landp1" id="landp1" placeholder="Land No" data-prompt-position="topLeft" />
+                                                            <label>Mobile Phone number</label>
+                                                            <input type="text" class="form-control validate[custom[phone]]" name="mobile" id="mobile" placeholder="Mobile number" data-prompt-position="topLeft" />
                                                         </div>
 
                                                         <div class="form-group">
-                                                            <label>Land phone no 02</label>
-                                                            <input type="text" class="form-control validate[custom[phone]]" name="landp2" id="landp2" placeholder="Land No" data-prompt-position="topLeft" />
-                                                        </div>
-
-                                                        <div class="form-group">
-                                                            <label>Mobile phone no</label>
-                                                            <input type="text" class="form-control validate[custom[phone]]" name="mobile" id="mobile" placeholder="Mobile No" data-prompt-position="topLeft" />
+                                                            <label>Land phone number</label>
+                                                            <input type="text" class="form-control validate[custom[phone]]" name="landp" id="landp" placeholder="Land Phone number" data-prompt-position="topLeft" />
                                                         </div>
 
                                                         <div class="form-group">
@@ -206,18 +209,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     <div class="col-md-6">
 
                                                         <div class="form-group">
-                                                            <label>Land phone no 01</label>
-                                                            <input type="text" class="form-control validate[custom[phone]]" name="landptemp1" id="landptemp" placeholder="Land No" data-prompt-position="topLeft" />
+                                                            <label>Mobile Phone number</label>
+                                                            <input type="text" class="form-control validate[custom[phone]]" name="mobiletemp" id="mobiletemp" placeholder="Mobile No" data-prompt-position="topLeft" />
                                                         </div>
 
                                                         <div class="form-group">
                                                             <label>Land phone no 02</label>
-                                                            <input type="text" class="form-control validate[custom[phone]]" name="landptemp2" id="landptemp" placeholder="Land No" data-prompt-position="topLeft" />
-                                                        </div>
-
-                                                        <div class="form-group">
-                                                            <label>Mobile phone no</label>
-                                                            <input type="text" class="form-control validate[custom[phone]]" name="mobiletemp" id="mobiletemp" placeholder="Mobile No" data-prompt-position="topLeft" />
+                                                            <input type="text" class="form-control validate[custom[phone]]" name="landptemp" id="landptemp" placeholder="Land No" data-prompt-position="topLeft" />
                                                         </div>
 
                                                         <div class="form-group">
@@ -373,15 +371,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                                 <label><span style="color:red;">*</span>Mode of service status</label>
                                                                 <select class="select2 validate[required] " name="service_mood" id="service_mood" style="width:100%">
                                                                     <option value="" hidden selected>---------Please Select---------</option>
-                                                                    <option value="firstappoint"> First Appointment </option>
-                                                                    <option value="promo"> Promotion </option>
-                                                                    <option value="trans"> Transfer </option>
-                                                                    <option value="promoTrans"> Promotion / Transfer </option>
-                                                                    <option value="attach"> Attachment </option>
-                                                                    <option value="second"> Secondment </option>
-                                                                    <option value="release"> Releasement </option>
-                                                                    <option value="acting"> Acting Duty </option>
-                                                                    <option value="perform"> Performing Duty </option>
+                                                                    <option value="1" data-val="firstappoint"> First Appointment </option>
+                                                                    <option value="2" data-val="promo"> Promotion </option>
+                                                                    <option value="3" data-val="trans"> Transfer </option>
+                                                                    <option value="4" data-val="promoTrans"> Promotion / Transfer </option>
+                                                                    <option value="5" data-val="attach"> Attachment </option>
+                                                                    <option value="6" data-val="second"> Secondment </option>
+                                                                    <option value="7" data-val="release"> Releasement </option>
+                                                                    <option value="8" data-val="acting"> Acting Duty </option>
+                                                                    <option value="9" data-val="perform"> Performing Duty </option>
                                                                 </select>
                                                             </div>
 
@@ -632,6 +630,29 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                                     </div>
 
                                                                 </div>
+                                                                
+                                                                <div class="form-group">
+                                                                    <label>Respective official letter no.</label>
+                                                                    <input type="text" class="form-control validate[required]" name="rel_official_letter_no" id="rel_official_letter_no" placeholder="Respective official letter no." data-prompt-position="topLeft" />
+                                                                </div>
+                                                                
+                                                                <div class="form-group">
+                                                                    <label>Place where salary drawn</label>
+                                                                    <select class="select2 " name="release_salary_drawn" id="release_salary_drawn" style="width:100%">
+                                                                        <option value="" hidden selected> ------------------Please Select------------------ </option>
+                                                                        <option value="moe"> MoE </option>
+                                                                        <option value="exam"> Exams </option>
+                                                                        <option value="epd"> EPD </option>
+                                                                        <option value="nie" class="c-attach hidden"> NIE </option>
+                                                                        <option value="province"> Province </option>
+                                                                        <option value="zone"> Zone </option>
+                                                                        <option value="division"> Division </option>
+                                                                        <option value="ncoe"> NCoE </option>
+                                                                        <option value="ttc"> TTC </option>
+                                                                        <option value="school"> School </option>
+                                                                        <option value="other" class="c-other hidden"> Other </option>
+                                                                    </select>
+                                                                </div>
 
                                                             </div><!--End of promotion block-->
 
@@ -671,11 +692,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <script src="<?php echo base_url()."assets/plugins/select2/select2.min.js"?>"></script>
     <script src="<?php echo base_url()."assets/plugins/datatables/js/jquery.dataTables.min.js"?>"></script>
     <script src="<?php echo base_url()."assets/plugins/datatables/js/DT_bootstrap.js"?>"></script>
-    <script src="<?php echo base_url()."assets/plugins/footable/js/footable.min.js"?>"></script>
 
     <script>
         $(document).ready(function(){ 
-            //FormValidationTooltip.init();
+            //FormValidationInline.init();
+            
+            /*$('#addMemberForm').validate({
+                rules: {
+                    nic: "required"
+                }
+                
+            });*/
+            
+            //$('.menu').removeClass('active');
+            $('#menu_add_officer').addClass('active');
             
             //Check Way joind in general service
             $('#way_joined').change(function(){
@@ -704,7 +734,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             });
             
             $('#service_mood').change(function(){
-                var gr = $(this).val();
+                var gr = $(this).find(':selected').data('val');
                 if ($.inArray(gr, ['firstappoint', 'promo', 'trans', 'promoTrans', 'attach', 'second', 'acting', 'perform']) >=0){
                     $(".c-firstapp_block").removeClass("hidden");
                     $(".c-releasement_block").addClass("hidden");
@@ -720,6 +750,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         $('.salary-drawn').addClass("hidden");
                         break;
                     case 'promo':
+                        $('.date-promoted').removeClass("hidden");
+                        $('.c-nie').addClass("hidden");
+                        $('.salary-drawn').addClass("hidden");
+                        break;
+                    case 'promoTrans':
                         $('.date-promoted').removeClass("hidden");
                         $('.c-nie').addClass("hidden");
                         $('.salary-drawn').addClass("hidden");
@@ -770,7 +805,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     getMainDivision(workplace_id);
                     getMainBranch(workplace_id);    
                     
-                }else if($.inArray(gr, ['zone','division','ncoe','ttc','school']) >=0){
+                }else if($.inArray(gr, ['zone','division','ncoe','ttc','nschool','pschool']) >=0){
                     $(".c-firstapp-work-main-institue").addClass("hidden");
                     $(".province_office").addClass("hidden");
                     $(".c-firstapp-work-institute").removeClass("hidden");
@@ -829,8 +864,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     $(".release_study_block").addClass("hidden");
                 }
                 
-                var post_url = "index.php/FormControl/getReleaseWorkPlaces/"+id;
-                var dataarray = {rel_type_id: id};
+                var post_url = "index.php/FormControl/getReleaseWorkPlaces/";
+                var dataarray = {'<?php echo $this->security->get_csrf_token_name(); ?>':'<?php echo $this->security->get_csrf_hash(); ?>', rel_type_id: id};
                 $.ajax({
                     type: "POST",
                     url: "<?php echo base_url(); ?>" + post_url,
@@ -838,7 +873,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     data: dataarray,
                     success: function(res){
                         $('#release_place').empty();
-                        $.each(res, function(ID,provine_office){
+                        $.each(res, function(ID, AA){
                             $('#release_place').append('<option value='+res[ID].ID+'>'+res[ID].rel_place+'</option>');
                         });
                     }
@@ -942,8 +977,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 var id = $(this).val();
                 var work_place_id = $('#work_place').val();
                 var post_url = "index.php/FormControl/getInstitutes/"+id;
-                console.log(id);
-                console.log(work_place_id);
                 var dataarray = {'<?php echo $this->security->get_csrf_token_name(); ?>':'<?php echo $this->security->get_csrf_hash(); ?>',division_id: id, work_place_id: work_place_id};
                 $.ajax({
                     type: "POST",
@@ -951,7 +984,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     dataType :'json',
                     data: dataarray,
                     success: function(res){
-                console.log(res);
                         $('#institute').empty();
                         $('#institute').append('<option value="" hidden selected> ---------Please Select---------</option>');
                         $.each(res, function(ID){
@@ -979,7 +1011,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             }
             
             function getMainBranch(workPlace_id){
-                console.log(workPlace_id);
                 var post_url = "index.php/FormControl/getMainBranch/"+workPlace_id;
                 var dataarray = {'<?php echo $this->security->get_csrf_token_name(); ?>':'<?php echo $this->security->get_csrf_hash(); ?>',workplace_id: workPlace_id};
                 $.ajax({
@@ -988,7 +1019,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     dataType :'json',
                     data: dataarray,
                     success: function(res){
-                        console.log(res);
                         $('#main_branch').empty();
                         $.each(res, function(ID,provine_office){
                             $('#main_branch').append('<option value='+res[ID].ID+'>'+res[ID].office_branch+'</option>');
