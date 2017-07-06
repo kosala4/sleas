@@ -142,8 +142,4 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </div><!-- midBox End-->
     </div><!-- midOutBox End-->
 
-<div class="footerOutBox" style="background-color:#92495C;">
-<div class="footerText">Developed by </div>
 
-
-</div> <!-- wrapper End -->
