@@ -27,7 +27,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="container" style="padding-top: 100px;">
                 <div class="row">
 
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h3 class="panel-title"> SLEAS Officers </h3>
@@ -40,54 +40,25 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <thead>
                                         <tr>
                                             <th> Title </th>
-                                            <th> Name </th>
+                                            <th> First Name </th>
+                                            <th> Last Name </th>
                                             <th> Designation </th>
                                             <th> Working Place </th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>Trident</td>
-                                            <td>Win 95+</td>
-                                            <td>Trident</td>
-                                            <td>Win 95+</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Trident</td>
-                                            <td>Win 95+</td>
-                                            <td>Trident</td>
-                                            <td>Win 95+</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Trident</td>
-                                            <td>Win 95+</td>
-                                            <td>Trident</td>
-                                            <td>Win 95+</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Trident</td>
-                                            <td>Win 95+</td>
-                                            <td>Trident</td>
-                                            <td>Lin 95+</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Trident</td>
-                                            <td>Win 95+</td>
-                                            <td>Trident</td>
-                                            <td>Win 95+</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Trident</td>
-                                            <td>Win 95+</td>
-                                            <td>Trident</td>
-                                            <td>Win 95+</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Trident</td>
-                                            <td>Win 95+</td>
-                                            <td>Trident</td>
-                                            <td>Win 95+</td>
-                                        </tr>
+                                    <?php if ($officers_list) { ?>
+
+                                        <?php foreach ($officers_list as $row) { ?>
+                                            <tr>
+                                                <td><?php echo $row['title'] ;?> </td>
+                                                <td><?php echo $row['f_name'] ;?> </td>
+                                                <td><?php echo $row['l_name'] ;?> </td>
+                                                <td><?php echo $row['designation'] ;?> </td>
+                                                <td><?php echo $row['work_place'] ;?> </td>
+                                            </tr>
+                                        <?php    } ?>
+                                    <?php    } ?>
                                     </tbody>
                                 </table>
                             </div>

@@ -29,7 +29,7 @@ class Login extends CI_Controller {
 	{
 		//$this->load->view('head');
 		$this->load->view('login');
-		$this->load->view('footer');
+		//$this->load->view('footer');
 	}
 
 	function redirect_user($user_level)

@@ -260,7 +260,7 @@ function handleDateRangePickers() {
         buttonClasses: ['btn'],
         applyClass: 'btn-success',
         cancelClass: 'btn-default',
-        format: 'MM/DD/YYYY',
+        format: 'YYYY/MM/DD',
         separator: ' to ',
         locale: {
             applyLabel: 'Apply',
@@ -303,7 +303,7 @@ function handleDateRangePickers() {
         buttonClasses: ['btn'],
         applyClass: 'btn-success',
         cancelClass: 'btn-default',
-        format: 'MM/DD/YYYY',
+        format: 'YYYY/MM/DD/',
         separator: ' to ',
         locale: {
             applyLabel: 'Apply',

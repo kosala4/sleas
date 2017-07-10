@@ -12,7 +12,7 @@
 /*******************************************************************************
                                     IMPORT
 *******************************************************************************/
-@import url(http://fonts.googleapis.com/css?family=Lato:100,300,400,700);
+/*@import url(http://fonts.googleapis.com/css?family=Lato:100,300,400,700);*/
 @import "bs-overide.css";
 @import "animate.css";
 @import "../plugins/uniform/css/uniform.aristo.css";

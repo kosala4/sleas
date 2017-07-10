@@ -3,82 +3,32 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 ?>            
         <section id="content">   <!-- Start: Content -->
             
-            <div id="topbar">
-                
-                <div class="col-xs-6 col-sm-3 stater">
-                    <span class="count" id="count-rec-10">1989</span>
-                    <span class="title">RECORDED</span><br>
-                    <span class="time">grade 10</span><br>
-                </div>
-                
-                <div class="col-xs-6 col-sm-3 stater">
-                    <span class="count" id="count-to-edit-10">525</span>
-                    <span class="title">FINISHED</span><br>
-                    <span class="time">grade 10</span>
-                    <div class="progress progress-sm">
-                    	<div id="present-rec-10" class="progress-bar progress-bar-danger" style="width: 40%"></div>
-                	</div>
-                </div>
-                
-                <div class="col-xs-6 col-sm-3 stater">
-                    <span class="count" id="count-to-mer-10">408</span>
-                    <span class="title">ON GOING EDITINGS</span><br>
-                    <span class="time">grade 10</span>
-                </div>
-                
-                <div class="col-xs-6 col-sm-3 stater">
-                    <span class="count" id="count-to-back-10">152</span>
-                    <span class="title">TO BACKUP</span><br>
-                    <span class="time">grade 10</span>
-                </div><br>
-                
-            </div>
-            
-            <div id="topbar-2">
-                
-                <div class="col-xs-6 col-sm-3 stater">
-                    <span class="count" id="count-rec-11">1989</span>
-                    <span class="title">RECORDED</span><br>
-                    <span class="time">grade 11</span>
-                </div>
-                
-                <div class="col-xs-6 col-sm-3 stater">
-                    <span class="count" id="count-to-edit-11">525</span>
-                    <span class="title">FINISHED</span><br>
-                    <span class="time">grade 11</span>
-                    <div class="progress progress-sm">
-                    	<div id="present-rec-10" class="progress-bar progress-bar-warning" style="width: 60%"></div>
-                	</div>
-                </div>
-                
-                <div class="col-xs-6 col-sm-3 stater">
-                    <span class="count" id="count-to-mer-11">408</span>
-                    <span class="title">ON GOING EDITINGS</span><br>
-                    <span class="time">grade 11</span>
-                </div>
-                
-                <div class="col-xs-6 col-sm-3 stater">
-                    <span class="count" id="count-to-back-11">152</span>
-                    <span class="title">TO BACKUP</span><br>
-                    <span class="time">grade 11</span>
-                </div>
-                
-            </div>
-
             <div class="container" style="padding-top: 240px;">
                 <div class="row">
 
                     <div class="col-md-6">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <h3 class="panel-title">Daily progress Grade 10</h3>
+                                <h3 class="panel-title">Add User</h3>
 
                                 <div class="panel-tools">
                                     <a class="btn btn-xs btn-link panel-collapse collapses" href="javascript:void(0);"></a>
                                 </div>
                             </div>
                             <div class="panel-body">
-                                <div class="chart" id="hBarChart"></div>
+                                <?php echo form_open('login/login_user'); ?>
+                                
+                                <div class="control-group">
+                                    <label class="control-label"> Name </label>
+                                    <div class="controls">
+                                        <div class="input-icon left">
+                                            <i class="fs-user-2"></i>
+                                            <input class="form-control" type="text" placeholder="Username" name="username" autofocus="autofocus" />
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <?php echo form_close()?>
                             </div>
                         </div>
                     </div>
@@ -93,7 +43,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 </div>
                             </div>
                             <div class="panel-body">
-                                <div class="chart" id="morrisLine"></div>
+                                
                             </div>
                         </div>
                     </div>

@@ -115,7 +115,7 @@ class Register extends CI_Controller {
          $release_salary_drawn = $this->security->xss_clean($_REQUEST['release_salary_drawn']);
         
 //********** Populate data arrays **********//
-        $personal_details = array('nic' => $nic, 'title' => $title, 'f_name' => $fname, 'm_name' => $mname, 'l_name' => $lname, 'dob' => date("y-m-d", strtotime($dob)), 'ethinicity' => $ethnicity, 'gender' => $gender , 'civil_status' => $civil_st);
+        $personal_details = array('nic' => $nic, 'title' => $title, 'f_name' => $fname, 'm_name' => $mname, 'l_name' => $lname, 'dob' => date("y-m-d", strtotime($dob)), 'ethinicity' => $ethnicity, 'gender' => $gender , 'civil_status' => $civil_st, 'user_updated' => $this->session->user_name);
         
         $contact_details_per = array('nic' => $nic, 'address_type' => 'permanant', 'address_1' => $address1, 'address_2' => $address2, 'address_3' => $address3, 'postal_code' => $pocode, 'mobile' => $mobile, 'telephone' => $landp, ' 	email' => $email);
         
@@ -145,7 +145,7 @@ class Register extends CI_Controller {
         }
         
         //Populate Services Array
-        $service = array('ID' => $service_id,'nic' => $nic, 'service_mode' => $service_mood);
+        $service = array('ID' => $service_id,'nic' => $nic, 'service_mode' => $service_mood, 'user_updated' => $this->session->user_name);
         
         if ($service_mood == 7){
             //releasement

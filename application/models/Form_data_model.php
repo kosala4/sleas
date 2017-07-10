@@ -250,5 +250,17 @@ class Form_data_model extends CI_Model{
         }
         
     }
+    
+    public function get_Officers_List(){
+        
+        $this->db->select('Personal_Details.title, Personal_Details.f_name, Personal_Details.l_name, Designation.designation, Work_Place.work_place');
+        $this->db->from('Personal_Details');
+        $this->db->join('Service', 'Service.NIC = Personal_Details.NIC');
+        $this->db->join('Designation', 'Designation.ID = Service.designation_id');
+        $this->db->join('Work_Place', 'Work_Place.ID = Service.work_place_id');
+        $query = $this->db->get();
+        $res  = $query->result_array();
+        return $res;
+    }
 }
 ?>

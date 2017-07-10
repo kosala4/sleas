@@ -23,7 +23,7 @@ class Admin extends CI_Controller {
     {
         parent::__construct();
         $this->load->model('User_model'); //load database model.
-        #$this->load->model('Std_Info_model'); //load database model.
+        $this->load->model('Form_data_model'); //load database model.
         #$this->load->model('District_model'); //load database model.
         
     }
@@ -35,7 +35,7 @@ class Admin extends CI_Controller {
 		//$this->check_sess($this->session->user_logged);
 		$this->load->view('head');
 		$this->load->view('admin_sidebar');
-		$this->load->view('register-staff');
+		$this->load->view('admin_dashboard');
 
 		#$this->response['district'] = $this->District_model->select('district_name');
 		#$this->load->view('add_student', $this->response);
@@ -116,12 +116,19 @@ class Admin extends CI_Controller {
 		$this->check_sess($this->session->user_logged);
 		$this->load->view('head');
 		$this->load->view('sclerk_sidebar');
-		$this->load->view('sclerk_dashboard');
+        
+        $this->response['officers_list'] = $this->Form_data_model->get_Officers_List();
+		$this->load->view('sclerk_dashboard', $this->response);
 
 		#$this->response['district'] = $this->District_model->select('district_name');
 		#$this->load->view('add_student', $this->response);
 		$this->load->view('footer');
         
+    }
+    
+    public function getDetails()
+    {
+        $result['officers_list'] = $this->Form_data_model->get_Officers_List();
     }
 }
 
