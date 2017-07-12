@@ -120,8 +120,6 @@ class Admin extends CI_Controller {
         $this->response['officers_list'] = $this->Form_data_model->get_Officers_List();
 		$this->load->view('sclerk_dashboard', $this->response);
 
-		#$this->response['district'] = $this->District_model->select('district_name');
-		#$this->load->view('add_student', $this->response);
 		$this->load->view('footer');
         
     }

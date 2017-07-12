@@ -18,8 +18,15 @@
                         </a>
                     </li>
                     
+                    <li class="menu" id="menu_placement"> 
+                        <a class="top-menu" href="<?php echo base_url()."index.php/placement/newplacement"?>">
+                            <span class="sicon"><i class="fa fs-transfer"></i></span>
+                            <span class="sidebar-title">Add Placement </span>
+                        </a>
+                    </li>
+                    
                     <li class="menu" id="menu_transfer"> 
-                        <a class="top-menu" href="#mnuOne">
+                        <a class="top-menu" href="#">
                             <span class="sicon"><i class="fa fs-transfer"></i></span>
                             <span class="sidebar-title">Add Transfer </span>
                         </a>

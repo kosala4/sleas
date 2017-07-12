@@ -97,6 +97,14 @@ class FormControl extends CI_Controller {
         echo json_encode($res);
     }
     
-    
+    public function searchOfficers(){
+        $searchField = $this->input->post('searchField');
+        $searchKey = $this->input->post('searchKey');
+        header('Content-Type: application/x-json; charset=utf-8');
+        $res = $this->Form_data_model->search_officers($searchField, $searchKey);
+        
+        echo json_encode($res);
+        //echo $res;
+    }
 }
 ?>

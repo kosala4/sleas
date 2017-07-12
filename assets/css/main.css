@@ -1913,13 +1913,14 @@ body.dashboard .dash-title{
 }
 
 
-.footerOutBox {
+.footerOutBox, .push {
 	margin: 0px;
 	padding: 0px;
 	float: left;
 	height: 45px;
 	width: 100%;
-    position: absolute;
+    position: fixed;
+    bottom: 0px;
     z-index: 2500;
 	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#0191b5+0,0082a3+100 */
 	}

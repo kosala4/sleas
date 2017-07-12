@@ -107,11 +107,10 @@ class Form_data_model extends CI_Model{
 		}
     }
     
-/*    public function searchdb($table, $field, $value){
+    public function searchdbvalue($table, $field, $value){
         $array = array($field => $value);
 		$this->db->where($array);
 		$query = $this->db->get($table);
-        $query = $this->db->query("SELECT * FROM $table WHERE $field=5 ;" );
 
 		if ($query->num_rows() >= 1) {
 			$res  = $query->result_array();
@@ -119,7 +118,7 @@ class Form_data_model extends CI_Model{
 		} else{
 			return 0;
 		}
-    }*/
+    }
     
     public function getAllRecords($table){
         
@@ -261,6 +260,25 @@ class Form_data_model extends CI_Model{
         $query = $this->db->get();
         $res  = $query->result_array();
         return $res;
+    }
+    
+    public function search_officers($searchField, $searchKey){
+        $this->db->cache_off();
+        $this->db->select('Personal_Details.ID, Personal_Details.NIC, Personal_Details.title, Personal_Details.f_name, Personal_Details.l_name, Designation.designation, Work_Place.work_place');
+        $this->db->from('Personal_Details');
+        $this->db->join('Service', 'Service.NIC = Personal_Details.NIC');
+        $this->db->join('Designation', 'Designation.ID = Service.designation_id');
+        $this->db->join('Work_Place', 'Work_Place.ID = Service.work_place_id');
+        $this->db->like('LOWER(Personal_Details.'.$searchField.')', $searchKey, after);
+        $query = $this->db->get();
+        $res = $query->result_array();
+        if ($query->num_rows() >= 1) {
+			$res  = $query->result_array();
+			return $res;
+		} else{
+			return 0;
+		}
+        //return $query;
     }
 }
 ?>
