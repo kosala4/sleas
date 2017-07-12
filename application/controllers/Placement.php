@@ -86,7 +86,7 @@ class Placement extends CI_Controller {
         $main_branch = $this->Form_data_model->searchdbvalue('Main_Office_Branches', 'ID', $main_branch);
         
         
-        $view_data_array = array('work_place'=>$work_place, 'division'=>$main_division, 'branch'=>$main_branch, 'personal_details'=>$personal_details, 'work_date'=>$work_date, 'psc_letter'=>$psc_letter, 'appoint_date'=>$appoint_date);
+        $view_data_array = array('work_place'=>$work_place, 'division'=>$main_division, 'branch'=>$main_branch, 'personal_details'=>$personal_details, 'work_date'=>$work_date, 'psc_letter'=>$psc_letter, 'appoint_date'=>$appoint_date, 'off_letter_no'=>$official_letter_no);
         
         $this->generate_letter($view_data_array);
     }
@@ -101,38 +101,19 @@ class Placement extends CI_Controller {
         $this->load->view('placement_letter',$view_data_array);
 		$this->load->view('footer');
         
-        /*$this->load->library('pdf');
-        $this->load->view('letter-header', $service);
-        $this->load->view('placement_letter', $service);
-        $this->pdf->render();
-        $this->pdf->stream("welcome.pdf");*/
         
-        
-        /*$dompdf = new Dompdf\Dompdf();
- 
-        $html = $this->load->view('placement_letter',$view_data_array,true);
- 
-        $dompdf->loadHtml($html);
- 
-        // (Optional) Setup the paper size and orientation
-        $dompdf->setPaper('A4', 'portrait');
- 
-        // Render the HTML as PDF
-        $dompdf->render();
- 
-        // Get the generated PDF file contents
-        $pdf = $dompdf->output();
- 
-        // Output the generated PDF to Browser
-        $dompdf->stream("welcome.pdf");
-        
-        $pdfFilePath = "output_pdf_name.pdf";*/
-        
-       /* $this->load->library('m_pdf');
+        $html = $this->load->view('letter-header',$view_data_array,true);
+        $html = $html . $this->load->view('placement_letter',$view_data_array,true);
+
+        $str = utf8_encode($html);
+        $this->load->library('m_pdf');
+
+       //generate the PDF from the given html
         $this->m_pdf->pdf->WriteHTML($html);
- 
+
         //download it.
-        $this->m_pdf->pdf->Output($pdfFilePath, "D");*/
+        $this->m_pdf->pdf->Output($pdfFilePath, "D");
+        
     }
 }
 ?>
