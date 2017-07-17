@@ -2,13 +2,11 @@
         <footer class="footerOutBox" style="background-color:#363636; color:#fff;"> 
             <div class="row push">
                 <div class="col-md-12">
-                    <div class="right" style=" margin-right:20px;">
                         <center>
                             &copy; 2107-All Rights Reserved with Data Management Branch, Ministry of Education, Sri Lanka.<br>
                             T.P/Fax 011-2075854 | email: <a href="mailto:director.dmr@moe.gov.lk" >director.dmr@moe.gov.lk</a>
 
                         </center>
-                    </div>
                 </div>
             </div>
           </footer>

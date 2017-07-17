@@ -686,6 +686,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </section>
 
     <script src="<?php echo base_url()."assets/plugins/validation/jquery.validate.min.js"?>"></script>
+    <script src="<?php echo base_url()."assets/plugins/validation/additional-methods.js"?>"></script>
     <script src="<?php echo base_url()."assets/plugins/validationEngine/languages/jquery.validationEngine-en.js"?>"></script>
     <script src="<?php echo base_url()."assets/plugins/validationEngine/jquery.validationEngine.js"?>"></script>
 
@@ -695,7 +696,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
     <script>
         $(document).ready(function(){ 
-            //FormValidationInline.init();
+            FormValidationInline.init();
             
             /*$('#addMemberForm').validate({
                 rules: {

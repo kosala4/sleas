@@ -26,14 +26,14 @@
                     </li>
                     
                     <li class="menu" id="menu_transfer"> 
-                        <a class="top-menu" href="#">
+                        <a class="top-menu" href="<?php echo base_url()."index.php/transfer/newtransfer"?>">
                             <span class="sicon"><i class="fa fs-transfer"></i></span>
                             <span class="sidebar-title">Add Transfer </span>
                         </a>
                     </li>
                     
                     <li class="menu" id="menu_promotion"> 
-                        <a class="top-menu" href="#mnuOne">
+                        <a class="top-menu" href="<?php echo base_url()."index.php/promotion/newpromotion"?>">
                             <span class="sicon"><i class="fa fa-level-up"></i></span>
                             <span class="sidebar-title">Add Promotion </span>
                         </a>

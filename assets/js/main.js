@@ -330,12 +330,13 @@ function handleDatePickers() {
     }
 
     $('.date-picker').datepicker({
-        autoclose: true
+        autoclose: true,
+        dateFormat: 'yy-mm-dd'
     });
 
     $('#sandbox-container .input-group.date-picker').datepicker();
 };
-    
+    /*
 function handleTimePicker() {
     if (!jQuery().timepicker) {
         return;
@@ -396,7 +397,7 @@ function handelTouchSpin() {
     });
         
 };      // function to Handel Slim Scroll
-
+*/
 function handelTooltip() {        
         jQuery('.bs-tooltip').tooltip();
                 

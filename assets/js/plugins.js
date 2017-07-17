@@ -64,7 +64,10 @@ var FormValidationInline = function (){
             ignore: "",
             
             rules: {
-                nic: "required",
+                nic: {
+                    required: true,
+                    pattern: /^([0-9]{9}[x|X|v|V])|([0-9]{12})$/
+                },
                 title: "required",
                 fname: "required",
                 lname: "required",

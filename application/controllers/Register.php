@@ -145,7 +145,7 @@ class Register extends CI_Controller {
         }
         
         //Populate Services Array
-        $service = array('ID' => $service_id,'nic' => $nic, 'service_mode' => $service_mood, 'user_updated' => $this->session->user_name);
+        $service = array('ID' => $service_id,'nic' => $nic, 'service_mode' => $service_mood, 'user_updated' => $this->session->username);
         
         if ($service_mood == 7){
             //releasement

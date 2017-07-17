@@ -2,6 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 ?>            
         <section id="content">
+            <div class="container" style="padding-top: 20px;">
             <div class="col-md-12">
                 <div class="panel panel-info">
                     <div class="panel-heading reg-main-panel">
@@ -36,7 +37,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <select class="select2 workPlaces" name="work_place" id="work_place" style="width:100%">
                                         <option value="" hidden selected> ---------Please Select--------- </option>
                                         <?php foreach ($workPlaces as $row) { ?>
-                                        <?php if($row['ID'] == '1' || $row['ID'] == '16' ){ ?>
+                                        <?php if($row['ID'] == '1' || $row['ID'] == '2' || $row['ID'] == '3' || $row['ID'] == '16' || $row['ID'] == '18'){ ?>
                                             <option value="<?php echo $row['ID'];?>" data-code="<?php echo $row['work_place_code'];?>" > <?php echo $row['work_place'] ;?> </option>
                                         
                                         <?php    } ?>
@@ -62,20 +63,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 </div>
 
                             </div><!--End of work-main-institue-->  <!--Hidden when loading-->
+                            <div class="form-group province_list hidden">
+                                <label>Province</label>
+                                <?php if ($provinceList) { ?>
+                                    <select class="select2 province" name="province" id="province" style="width:100%">
+                                        <option value="" hidden selected> ---------Please Select--------- </option>
+                                        <?php foreach ($provinceList as $row) { ?>
+                                            <option value="<?php echo $row['province_id'];?>" > <?php echo $row['province'] ;?> </option>
+                                <?php    } ?>
+                                        <option value="other" class="c-other hidden"> Other </option>
+                                    </select>
+                                    <?php } ?>
+                            </div>
                             <div class="schools hidden" >
-                                <div class="form-group ">
-                                    <label>Province</label>
-                                    <?php if ($provinceList) { ?>
-                                        <select class="select2 province" name="province" id="province" style="width:100%">
-                                            <option value="" hidden selected> ---------Please Select--------- </option>
-                                            <?php foreach ($provinceList as $row) { ?>
-                                                <option value="<?php echo $row['province_id'];?>" > <?php echo $row['province'] ;?> </option>
-                                    <?php    } ?>
-                                            <option value="other" class="c-other hidden"> Other </option>
-                                        </select>
-                                        <?php } ?>
-                                </div>
-
                                 <div class="form-group ">
                                     <label>District</label>
                                     <select class="select2 district" name="district" id="district" style="width:100%">
@@ -106,9 +106,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </div> <!--End of work-institute--> <!--Hidden when loading-->
                         </div>
                         <div class="col-md-6">
+                            <div class="form-group designation">
+                                <label>Designation</label>
+                                <?php if ($designation) { ?>
+                                    <select class="select2Search designation validate[required]" name="designation" id="designation" style="width:100%">
+                                        <option value="" hidden selected> ---------Please Select--------- </option>
+                                        <?php foreach ($designation as $row) { ?>
+                                            <option value="<?php echo $row['ID'];?>" > <?php echo $row['designation'] ;?> </option>
+                                <?php    } ?>
+                                        <option value="other" class="c-other hidden"> Other </option>
+                                    </select>
+                                    <?php } ?>
+                            </div>
+                            
                             <div class="form-group">
                                 <label>Date of effective</label>
-                                <input type="text" class="form-control date-picker" name="work_date" id="work_date" placeholder="MM/DD/YYYY">
+                                <input type="text" class="form-control date-picker" name="work_date" id="work_date" placeholder="yyyy-mm-dd">
                             </div>
                             <div class="form-group">
                                 <label>Respective official letter no.</label>
@@ -120,44 +133,79 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </div>
                             <div class="form-group">
                                 <label>Date appointed by PSC</label>
-                                <input type="text" class="form-control date-picker" name="appoint_date" id="appoint_date" placeholder="MM/DD/YYYY">
+                                <input type="text" class="form-control date-picker" name="appoint_date" id="appoint_date" placeholder="yyyy-mm-dd">
                             </div>
                         </div>
                         <div class="form-actions fluid">
                             <div class="col-md-offset-3 col-md-9">
                                 <button type="reset" id="reset-button" class="btn btn-info">Clear</button>
-                                <button type="submit" class="btn btn-info form-reset">Add Placement</button>
+                                <button type="submit" class="btn btn-info form-reset"><i class="fa fa-print"></i> Print letter </button>
                             </div>
                         </div>
                     <?php echo form_close(); ?>
                     </div>
                 </div>
             </div>
+            </div>
         </section>
 
     <script src="<?php echo base_url()."assets/plugins/select2/select2.min.js"?>"></script>
     <script src="<?php echo base_url()."assets/plugins/datatables/js/jquery.dataTables.min.js"?>"></script>
     <script src="<?php echo base_url()."assets/plugins/datatables/js/DT_bootstrap.js"?>"></script>
+    <script src="<?php echo base_url()."assets/plugins/validation/jquery.validate.min.js"?>"></script>
+    <script src="<?php echo base_url()."assets/plugins/validation/additional-methods.js"?>"></script>
 
     <script>
     $(document).ready(function(){ 
+        
+        $("#addPlacementForm").validate({
+            errorElement: 'span', //default input error message container
+            errorClass: 'help-block error', // default input error message class
+            focusInvalid: false, // do not focus the last invalid input
+            ignore: "",
+            
+            rules: {
+                work_place: "required",
+                designation: "required",
+                work_date: "required",
+                official_letter_no: "required",
+                psc_letter: "required",
+                appoint_date: "required"
+            }
+        });
+        
         $('#menu_placement').addClass('active');
         
         $('#work_place').change(function(){
             var id = $(this).val();
             switch(id){
                 case '1':
+                case '2':
+                case '3':
             console.log(id);
                     $(".work_main_institue").removeClass("hidden");
                     $(".schools").addClass("hidden");
+                    $(".province_list").addClass("hidden");
+                    $(".designation").removeClass("hidden");
                     getMainDivision(id);
                     getMainBranch(id); 
                     break;
                     
                 case '16':
+                    $(".province_list").removeClass("hidden");
                     $(".schools").removeClass("hidden");
                     $(".work_main_institue").addClass("hidden");
+                    $(".designation").removeClass("hidden");
                     break;
+                    
+                case '18':
+                    $(".province_list").removeClass("hidden");
+                    $(".schools").addClass("hidden");
+                    $(".work_main_institue").addClass("hidden");
+                    $(".designation").addClass("hidden");
+                    break;
+                default:
+                    $(".designation").removeClass("hidden");
                      }
         });
         

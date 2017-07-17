@@ -2,46 +2,48 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 ?>            
         <section id="content">
-            <div class="col-md-12">
-                <div class="panel panel-info">
-                    <div class="panel-heading reg-main-panel">
-                        <h3 class="panel-title">Select Officer for Transfer</h3>
+            <div class="container" style="padding-top: 20px;">
+                <div class="col-md-12">
+                    <div class="panel panel-info">
+                        <div class="panel-heading reg-main-panel">
+                            <h3 class="panel-title">Search Officers</h3>
 
-                        <div class="panel-tools">
-                            <a class="btn btn-xs btn-link panel-collapse collapses" href="javascript:void(0);"></a>
-                        </div>
-                    </div><!--End of panel-heading-->
-                    <div class="panel-body">
-                    <?php echo form_open(); ?>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label>Search by NIC</label>
-                                <input type="text" class="form-control" name="nic" id="nic" placeholder="NIC No" data-prompt-position="topLeft" />
+                            <div class="panel-tools">
+                                <a class="btn btn-xs btn-link panel-collapse collapses" href="javascript:void(0);"></a>
                             </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label>Search by Last name</label>
-                                <input type="text" class="form-control" name="l_name" id="l_name" placeholder="Last name" data-prompt-position="topLeft" />
+                        </div><!--End of panel-heading-->
+                        <div class="panel-body">
+                        <?php echo form_open(); ?>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Search by NIC</label>
+                                    <input type="text" class="form-control" name="nic" id="nic" placeholder="NIC No" data-prompt-position="topLeft" />
+                                </div>
                             </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Search by Last name</label>
+                                    <input type="text" class="form-control" name="l_name" id="l_name" placeholder="Last name" data-prompt-position="topLeft" />
+                                </div>
+                            </div>
+                        <?php echo form_close(); ?>
                         </div>
-                    <?php echo form_close(); ?>
                     </div>
+                    <table class="table table-bordered table-hover footable DynamicTable" id="officers_list">
+                        <thead>
+                            <tr>
+                                <th> NIC no </th>
+                                <th> First Name </th>
+                                <th> Last Name </th>
+                                <th> Designation </th>
+                                <th> Working Place </th>
+                                <th> Edit </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
                 </div>
-                <table class="table table-bordered table-hover footable DynamicTable" id="officers_list">
-                    <thead>
-                        <tr>
-                            <th> NIC no </th>
-                            <th> First Name </th>
-                            <th> Last Name </th>
-                            <th> Designation </th>
-                            <th> Working Place </th>
-                            <th> Edit </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
             </div>
         </section>
 
@@ -50,7 +52,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
     <script>
     $(document).ready(function(){ 
-        $('#menu_placement').addClass('active');
+        $('#<?php echo $sidemenu ?>').addClass('active');
         
         $('#l_name').keyup(function(){
             var nic = $(this).val();

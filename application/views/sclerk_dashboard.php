@@ -39,6 +39,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <table class="table table-bordered table-hover footable DynamicTable">
                                     <thead>
                                         <tr>
+                                            <th> NIC </th>
                                             <th> Title </th>
                                             <th> First Name </th>
                                             <th> Last Name </th>
@@ -51,6 +52,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                                         <?php foreach ($officers_list as $row) { ?>
                                             <tr>
+                                                <td><?php echo $row['NIC'] ;?> </td>
                                                 <td><?php echo $row['title'] ;?> </td>
                                                 <td><?php echo $row['f_name'] ;?> </td>
                                                 <td><?php echo $row['l_name'] ;?> </td>
