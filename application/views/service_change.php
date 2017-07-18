@@ -237,9 +237,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 $('.salary-drawn').addClass("hidden");
                 break;
             case 'promo':
-                $('.date-promoted').removeClass("hidden");
-                $('.salary-drawn').addClass("hidden");
-                break;
             case 'promoTrans':
                 $('.date-promoted').removeClass("hidden");
                 $('.salary-drawn').addClass("hidden");

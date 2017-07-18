@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Placement extends CI_Controller {
+class PromotionTransfer extends CI_Controller {
     
     public function __construct()
     {
@@ -11,7 +11,7 @@ class Placement extends CI_Controller {
         #$this->load->model('District_model'); //load database model.
     }
     
-    public $response = array("result"=>"none", "data"=>"none", "register"=>"x", "sidemenu" => "menu_transfer");
+    public $response = array("result"=>"none", "data"=>"none", "register"=>"x", "sidemenu" => "menu_promotansfer");
     public $view_data_array = array();
     
     public function check_sess($user_logged)
@@ -21,13 +21,14 @@ class Placement extends CI_Controller {
 		}//Redirect to login page if admin session not initiated.
 	}
     
-    public function newPlacement()
+    public function newpromotiontransfer()
     {
         $this->check_sess($this->session->user_logged);
 		$this->load->view('head');
 		$this->load->view('sclerk_sidebar');
         
 		$this->load->view('search_officer', $this->response);
+
 		$this->load->view('footer');
     }
     
@@ -43,12 +44,15 @@ class Placement extends CI_Controller {
         $this->response['workPlaces'] = $this->Form_data_model->select('workplace');
         $this->response['provinceList'] = $this->Form_data_model->select('province_list');
         $this->response['designation'] = $this->Form_data_model->select('designation');
-		$this->load->view('new_placement_form', $this->response);
+        $this->response['service_type'] = 'promoTrans';
+        $this->response['class'] = 'PromotionTransfer';
+        $this->response['method'] = 'promotiontransfer_add';
+		$this->load->view('service_change', $this->response);
 
 		$this->load->view('footer');
     }
     
-    public function placement_add()
+    public function promotiontransfer_add()
     {
         //Get form data
         $nic = $this->security->xss_clean($_REQUEST['nic']);
@@ -67,6 +71,16 @@ class Placement extends CI_Controller {
         $psc_letter = $this->security->xss_clean($_REQUEST['psc_letter']);
         $appoint_date = date("Y-m-d", strtotime($this->security->xss_clean($_REQUEST['appoint_date'])));
         
+        $present_grade = $this->security->xss_clean($_REQUEST['present_grade']);
+        $date_promoted = date("Y-m-d", strtotime($this->security->xss_clean($_REQUEST['date_promoted'])));
+        $date_assumed = date("Y-m-d", strtotime($this->security->xss_clean($_REQUEST['date_assumed'])));
+        
+        $province_office_id = $this->security->xss_clean($_REQUEST['province_office']);
+        $zonal_office_id = $this->security->xss_clean($_REQUEST['zonal_office']);
+        $divisional_office_id = $this->security->xss_clean($_REQUEST['divisional_office']);
+        
+        
+        
         //Get Data from database
         $service_id_array = $this->Form_data_model->get_recent_service_id();
         $service_id = $service_id_array['0']['ID'] + 1;
@@ -82,17 +96,39 @@ class Placement extends CI_Controller {
         $province = $this->Form_data_model->searchdbvalue('Province_List', 'province_id', $province_id);
         $institute = $this->Form_data_model->searchdbvalue('Institute', 'ID', $institute_id);
         
-        $service = array('ID' => $service_id,'nic' => $nic, 'service_mode' => '10', 'work_place_id'=>$work_place_id,  'duty_date'=>$work_date, 'off_letter_no'=>$official_letter_no, 'user_updated' => $this->session->username);
+        $service = array('ID' => $service_id,'nic' => $nic, 'service_mode' => '3', 'work_place_id'=>$work_place_id, 'work_division_id'=>$main_division_id, 'work_branch_id'=>$main_branch_id, 'designation_id'=>$designation_id , 'duty_date'=>$work_date, 'off_letter_no'=>$official_letter_no, 'user_updated' => $this->session->username);
         
-        if($work_place_id == '16'){
-            $service['sub_location_id'] = $institute_id;
-            $service['designation_id'] = $designation_id;
-        }else if($work_place_id == '18'){
-            $service['sub_location_id'] = $province_id;
-        }else {
-            $service['work_division_id'] = $main_division_id;
-            $service['work_branch_id'] = $main_branch_id;
-            $service['designation_id'] = $designation_id;
+        switch ($work_place_id) {
+            case 1:
+            case 2:
+            case 3:
+            case 4:
+                $service['work_division_id'] = $main_division_id;
+                $service['work_branch_id'] = $main_branch_id;
+                break;
+            case 5:
+            case 6:
+                $service['sub_location_id'] = $province_office_id;
+                break;
+            case 7:
+                $service['sub_location_id'] = $zonal_office_id;
+                break;
+            case 8:
+                $service['sub_location_id'] = $divisional_office_id;
+                break;
+            case 9:
+            case 10:
+            case 11:
+            case 12:
+            case 13:
+            case 14:
+            case 15:
+            case 16:
+            case 17:
+                $service['sub_location_id'] = $institute_id;
+                break;
+
+            default:
         }
         
         //generate barcode        
@@ -102,13 +138,13 @@ class Placement extends CI_Controller {
         $service['barcode'] = $this->view_data_array['barcode'];
         
         $res = $this->Form_data_model->insertData('Service', $service);
-        
+        //$res = '1';
         if ($res == 1){
             //generate Letter as PDF
             $this->view_data_array = array('work_place'=>$work_place, 'division'=>$main_division, 'branch'=>$main_branch, 'personal_details'=>$personal_details, 'work_date'=>$work_date, 'psc_letter'=>$psc_letter, 'appoint_date'=>$appoint_date, 'off_letter_no'=>$official_letter_no, 'province'=>$province, 'school' => $institute, 'designation' => $designation);
 
             $pdfFilePath = 'file_library/'.$person_id.'/service/';
-            $pdfFileName = date("Y-m-d") . '-' . $nic. '-' . $work_place[0]['work_place'].'-' . '.pdf';
+            $pdfFileName = date("Y-m-d") . '-' . $nic. '-' . $work_place[0]['work_place'].'-' . $service_id . '.pdf';
             //Get letter HTML
             $letter_html = $this->generate_letter_data($view_data_array, $person_id, $work_place_id);
 
@@ -125,20 +161,17 @@ class Placement extends CI_Controller {
 		$this->load->view('head');
 		$this->load->view('sclerk_sidebar');
         $this->load->view('letter/letter-header',$this->view_data_array);
-        $this->load->view('letter/placement/province',$this->view_data_array);
+        $this->load->view('letter/promotionTransfer/province',$this->view_data_array);
 		$this->load->view('footer');
-        
-        /*$barcode = $this->generate_barcode($person_id);
-        $this->view_data_array['barcode'] = $barcode;*/
         
         $html = $this->load->view('letter/letter-header',$this->view_data_array,true);
         
         if($work_place_id == '18'){
-            $html = $html . $this->load->view('letter/placement/province',$this->view_data_array,true);
+            $html = $html . $this->load->view('letter/promotionTransfer/province',$this->view_data_array,true);
         }else if($work_place_id == '16'){
-            $html = $html . $this->load->view('letter/placement/school',$this->view_data_array,true);
+            $html = $html . $this->load->view('letter/promotionTransfer/school',$this->view_data_array,true);
         }else if($work_place_id == '1' || $work_place_id == '2' || $work_place_id == '3') {
-            $html = $html . $this->load->view('letter/placement/main_office',$this->view_data_array,true);
+            $html = $html . $this->load->view('letter/promotionTransfer/main_office',$this->view_data_array,true);
         }
         
         return $html;
@@ -162,6 +195,7 @@ class Placement extends CI_Controller {
 
         //download it.
         $this->m_pdf->pdf->Output($pdfFileName, "D");
+        
     }
     
     public function generate_barcode($person_id){

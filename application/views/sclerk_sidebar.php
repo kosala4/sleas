@@ -20,36 +20,43 @@
                     
                     <li class="menu" id="menu_placement"> 
                         <a class="top-menu" href="<?php echo base_url()."index.php/placement/newplacement"?>">
-                            <span class="sicon"><i class="fa fs-transfer"></i></span>
-                            <span class="sidebar-title">Add Placement </span>
+                            <span class="sicon"><i class="fa fs-location"></i></span>
+                            <span class="sidebar-title">Placement </span>
                         </a>
                     </li>
                     
                     <li class="menu" id="menu_transfer"> 
                         <a class="top-menu" href="<?php echo base_url()."index.php/transfer/newtransfer"?>">
                             <span class="sicon"><i class="fa fs-transfer"></i></span>
-                            <span class="sidebar-title">Add Transfer </span>
+                            <span class="sidebar-title">Transfer </span>
                         </a>
                     </li>
                     
                     <li class="menu" id="menu_promotion"> 
                         <a class="top-menu" href="<?php echo base_url()."index.php/promotion/newpromotion"?>">
                             <span class="sicon"><i class="fa fa-level-up"></i></span>
-                            <span class="sidebar-title">Add Promotion </span>
+                            <span class="sidebar-title">Promotion </span>
+                        </a>
+                    </li>
+                    
+                    <li class="menu" id="menu_promotransfer"> 
+                        <a class="top-menu" href="<?php echo base_url()."index.php/promotionTransfer/newpromotiontransfer"?>">
+                            <span class="sicon"><i class="fa fs-upload-3"></i></span>
+                            <span class="sidebar-title">Promotion Transfer </span>
                         </a>
                     </li>
                     
                     <li class="menu" id="menu_salary_rev"> 
                         <a class="top-menu" href="#mnuOne">
                             <span class="sicon"><i class="fa fa-retweet"></i></span>
-                            <span class="sidebar-title">Add Salary Revision </span>
+                            <span class="sidebar-title">Salary Revision </span>
                         </a>
                     </li>
                     
                     <li class="menu" id="menu_salary_rev"> 
                         <a class="top-menu" href="#mnuOne">
                             <span class="sicon"><i class="fa fa-plus"></i></span>
-                            <span class="sidebar-title">Add Increment </span>
+                            <span class="sidebar-title">Increment </span>
                         </a>
                     </li>
 

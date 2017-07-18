@@ -24,7 +24,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </div>
             
             <div class="col-md-8" style="color:#000;margin-top:20px;">            
-            02. වහාම ක්‍රියාත්මක වන පරිදි ඔබ <?php echo $school[0]['institute_name'] ?> විද්‍යාලයේ  <?php echo $designation[0]['designation'] ?> තනතුර සඳහා පත් කරමි.
+            02. වහාම ක්‍රියාත්මක වන පරිදි ඔබ <?php echo ucwords(strtolower($school[0]['institute_name']) ?> විද්‍යාලයේ  <?php echo ucwords(strtolower($designation[0]['designation']) ?> තනතුර සඳහා පත් කරමි.
             </div> 
             
             <div class="col-md-8" style="color:#000;margin-top:20px;">            

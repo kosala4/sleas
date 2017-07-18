@@ -166,7 +166,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             
             rules: {
                 work_place: "required",
-                designation: "required",
                 work_date: "required",
                 official_letter_no: "required",
                 psc_letter: "required",

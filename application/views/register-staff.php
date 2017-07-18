@@ -42,12 +42,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label><span style="color:red;">*</span>NIC</label>
-                                                            <input type="text" class="form-control validate[required]" name="nic" id="nic" placeholder="NIC No" data-prompt-position="topLeft" />
+                                                            <input type="text" class="form-control " name="nic" id="nic" placeholder="NIC No" data-prompt-position="topLeft" />
                                                         </div>
 
                                                         <div class="form-group">
                                                             <label><span style="color:red;">*</span>Title</label>
-                                                            <select class="select2 validate[required]" name="title" id="title" style="width:100%;">
+                                                            <select class="select2 " name="title" id="title" style="width:100%;">
                                                                 <option value="" hidden selected>---------Please Select--------- </option>
                                                                 <option value="rev">Rev.</option>
                                                                 <option value="mr">Mr.</option>
@@ -58,7 +58,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                                                         <div class="form-group">
                                                             <label><span style="color:red;">*</span>First Name</label>
-                                                            <input type="text" class="form-control validate[required]" name="fname" id="fname" placeholder="Full Name" data-prompt-position="topLeft" />
+                                                            <input type="text" class="form-control " name="fname" id="fname" placeholder="Full Name" data-prompt-position="topLeft" />
                                                         </div>
 
                                                         <div class="form-group">
@@ -68,20 +68,25 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                                                         <div class="form-group">
                                                             <label><span style="color:red;">*</span>Last Name</label>
-                                                            <input type="text" class="form-control validate[required]" name="lname" id="lname" placeholder="Last Name" data-prompt-position="topLeft" />
+                                                            <input type="text" class="form-control " name="lname" id="lname" placeholder="Last Name" data-prompt-position="topLeft" />
                                                         </div>
 
                                                     </div>
                                                     <div class="col-md-6">
 
                                                         <div class="form-group">
+                                                            <label><span style="color:red;">*</span>Name with Intials</label>
+                                                            <input type="text" class="form-control " name="inname" id="inname" placeholder="Name with Intials" data-prompt-position="topLeft" />
+                                                        </div>
+
+                                                        <div class="form-group">
                                                             <label><span style="color:red;">*</span>Date of Birth</label>
-                                                            <input type="text" class="form-control date-picker validate[required]" name="dob" id="dob">
+                                                            <input type="text" class="form-control date-picker " name="dob" id="dob">
                                                         </div>
 
                                                         <div class="form-group">
                                                             <label><span style="color:red;">*</span>Ethnicity</label>
-                                                            <select class="select2 validate[required] " name="ethnicity" id="ethnicity" style="width:100%;">
+                                                            <select class="select2  " name="ethnicity" id="ethnicity" style="width:100%;">
                                                                 <option value="" hidden selected>---------Please Select--------- </option>
                                                                 <option value="sinhala">Sinhala</option>
                                                                 <option value="sltamil">Sri Lankan Tamil</option>
@@ -95,20 +100,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                                                         <div class="form-group">
                                                             <label><span style="color:red;">*</span>Gender</label>
-                                                            <select class="select2 validate[required] " name="gender" id="gender" style="width:100%;">
+                                                            <select class="select2  " name="gender" id="gender" style="width:100%;">
                                                                 <option value="" hidden selected>---------Please Select--------- </option>
-                                                                <option value="male">Male</option>
-                                                                <option value="female">Female</option>
+                                                                <option value="Male">Male</option>
+                                                                <option value="Female">Female</option>
                                                             </select>
                                                         </div>  
 
                                                         <div class="form-group">
                                                             <label><span style="color:red;">*</span>Civil Status</label>
-                                                            <select class="select2 validate[required] " name="civil_st" id="civil_st" style="width:100%;">
+                                                            <select class="select2  " name="civil_st" id="civil_st" style="width:100%;">
                                                                 <option value="" hidden selected>---------Please Select--------- </option>
-                                                                <option value="single">Single</option>
-                                                                <option value="married">Married</option>
-                                                                <option value="widowed">Widowed</option>
+                                                                <option value="Single">Single</option>
+                                                                <option value="Married">Married</option>
+                                                                <option value="Widowed">Widowed</option>
                                                             </select>
                                                         </div>
 
@@ -131,22 +136,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                                                         <div class="form-group">
                                                             <label><span style="color:red;">*</span>Address Line 1</label>
-                                                            <input type="text" class="form-control validate[required]" name="address1" id="address1" placeholder="Address Line 1" data-prompt-position="topLeft" />
+                                                            <input type="text" class="form-control " name="address1" id="address1" placeholder="Address Line 1" data-prompt-position="topLeft" />
                                                         </div>
 
                                                         <div class="form-group">
                                                             <label><span style="color:red;">*</span>Address Line 2</label>
-                                                            <input type="text" class="form-control validate[required]" name="address2" id="address2" placeholder="Address Line 2" data-prompt-position="topLeft" />
+                                                            <input type="text" class="form-control " name="address2" id="address2" placeholder="Address Line 2" data-prompt-position="topLeft" />
                                                         </div>
 
                                                         <div class="form-group">
                                                             <label>Address Line 3</label>
-                                                            <input type="text" class="form-control validate[required]" name="address3" id="address3" placeholder="Address Line 3" data-prompt-position="topLeft" />
+                                                            <input type="text" class="form-control " name="address3" id="address3" placeholder="Address Line 3" data-prompt-position="topLeft" />
                                                         </div>
 
                                                         <div class="form-group">
                                                             <label>Postal Code</label>
-                                                            <input type="text" class="form-control validate[required]" name="pocode" id="pocode" placeholder="Postal Code" data-prompt-position="topLeft" />
+                                                            <input type="text" class="form-control " name="pocode" id="pocode" placeholder="Postal Code" data-prompt-position="topLeft" />
                                                         </div>
 
                                                     </div>
@@ -187,22 +192,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                                                         <div class="form-group">
                                                             <label>Address Line 1</label>
-                                                            <input type="text" class="form-control validate[required]" name="addresstemp1" id="addresstemp1" placeholder="Address Line 1" data-prompt-position="topLeft" />
+                                                            <input type="text" class="form-control " name="addresstemp1" id="addresstemp1" placeholder="Address Line 1" data-prompt-position="topLeft" />
                                                         </div>
 
                                                         <div class="form-group">
                                                             <label>Address Line 2</label>
-                                                            <input type="text" class="form-control validate[required]" name="addresstemp2" id="addresstemp2" placeholder="Address Line 2" data-prompt-position="topLeft" />
+                                                            <input type="text" class="form-control " name="addresstemp2" id="addresstemp2" placeholder="Address Line 2" data-prompt-position="topLeft" />
                                                         </div>
 
                                                         <div class="form-group">
                                                             <label>Address Line 3</label>
-                                                            <input type="text" class="form-control validate[required]" name="addresstemp3" id="addresstemp3" placeholder="Address Line 3" data-prompt-position="topLeft" />
+                                                            <input type="text" class="form-control " name="addresstemp3" id="addresstemp3" placeholder="Address Line 3" data-prompt-position="topLeft" />
                                                         </div>
 
                                                         <div class="form-group">
                                                             <label>Postal Code</label>
-                                                            <input type="text" class="form-control validate[required]" name="pocodetemp" id="pocodetemp" placeholder="Postal Code" data-prompt-position="topLeft" />
+                                                            <input type="text" class="form-control " name="pocodetemp" id="pocodetemp" placeholder="Postal Code" data-prompt-position="topLeft" />
                                                         </div>
 
                                                     </div>
@@ -245,12 +250,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                                                             <div class="form-group">
                                                                 <label><span style="color:red;">*</span>Date of first join to the SLEAS</label>
-                                                                <input type="text" class="form-control date-picker validate[required]" name="date_join" id="date_join_gen">
+                                                                <input type="text" class="form-control date-picker " name="date_join" id="date_join_gen">
                                                             </div>
 
                                                             <div class="form-group ">
                                                                 <label><span style="color:red;">*</span>Way of joined the SLEAS</label>
-                                                                <select class="select2  validate[required]" name="way_joined" id="way_joined" style="width:100%;">
+                                                                <select class="select2  " name="way_joined" id="way_joined" style="width:100%;">
                                                                     <option value="" hidden selected>---------Please Select--------- </option>
                                                                     <option value="open">Open</option>
                                                                     <option value="limited">Limited</option>
@@ -328,7 +333,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                                                             <div class="form-group ">
                                                                 <label><span style="color:red;">*</span>Medium in which recruited</label>
-                                                                <select class="select2 validate[required] " name="medium_recruit" id="medium_recruit" style="width:100%;">
+                                                                <select class="select2  " name="medium_recruit" id="medium_recruit" style="width:100%;">
                                                                     <option value="" hidden selected>---------Please Select--------- </option>
                                                                     <option value="sinhala">Sinhala</option>
                                                                     <option value="tamil">Tamil</option>
@@ -338,7 +343,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                                                             <div class="form-group ">
                                                                 <label><span style="color:red;">*</span>Confirmed</label>
-                                                                <select class="select2 validate[required] " name="confirm" id="confirm" style="width:100%;">
+                                                                <select class="select2  " name="confirm" id="confirm" style="width:100%;">
                                                                     <option value="" hidden selected>---------Please Select--------- </option>
                                                                     <option value="yes">Yes</option>
                                                                     <option value="no">No</option>
@@ -369,7 +374,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                                                             <div class="form-group ">
                                                                 <label><span style="color:red;">*</span>Mode of service status</label>
-                                                                <select class="select2 validate[required] " name="service_mood" id="service_mood" style="width:100%">
+                                                                <select class="select2  " name="service_mood" id="service_mood" style="width:100%">
                                                                     <option value="" hidden selected>---------Please Select---------</option>
                                                                     <option value="1" data-val="firstappoint"> First Appointment </option>
                                                                     <option value="2" data-val="promo"> Promotion </option>
@@ -406,7 +411,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                                                             <div class="form-group">
                                                                 <label><span style="color:red;">*</span>Date of appoint to the present SLEAS Class</label>
-                                                                <input type="text" class="form-control date-picker validate[required]" name="date_appoint" id="date_appoint">
+                                                                <input type="text" class="form-control date-picker " name="date_appoint" id="date_appoint">
                                                             </div>
                                                         </div>
 
@@ -518,7 +523,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                                 <div class="form-group">
                                                                     <label>Designation</label>
                                                                     <?php if ($designation) { ?>
-                                                                        <select class="select2Search designation validate[required]" name="designation" id="designation" style="width:100%">
+                                                                        <select class="select2Search designation " name="designation" id="designation" style="width:100%">
                                                                             <option value="" hidden selected> ---------Please Select--------- </option>
                                                                             <?php foreach ($designation as $row) { ?>
                                                                                 <option value="<?php echo $row['ID'];?>" > <?php echo $row['designation'] ;?> </option>
@@ -550,7 +555,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                                                                 <div class="form-group">
                                                                     <label>Respective official letter no.</label>
-                                                                    <input type="text" class="form-control validate[required]" name="official_letter_no" id="official_letter_no" placeholder="Respective official letter no." data-prompt-position="topLeft" />
+                                                                    <input type="text" class="form-control " name="official_letter_no" id="official_letter_no" placeholder="Respective official letter no." data-prompt-position="topLeft" />
                                                                 </div>
 
                                                                 <div class="form-group hidden salary-drawn">
@@ -601,7 +606,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                                                                     <div class="form-group release_study_institute">
                                                                         <label>Institute name</label>
-                                                                            <input type="text" class="form-control validate[required]" name="release_institute_name" id="release_institute_name" placeholder="Institute name" data-prompt-position="topLeft" />
+                                                                            <input type="text" class="form-control " name="release_institute_name" id="release_institute_name" placeholder="Institute name" data-prompt-position="topLeft" />
                                                                     </div>
 
                                                                     <div class="form-group">
@@ -621,7 +626,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                                                                     <div class="form-group">
                                                                         <label>Designation</label>
-                                                                        <input type="text" class="form-control validate[required]" name="release_work_designation" id="release_work_designation" placeholder="Designation" data-prompt-position="topLeft" />
+                                                                        <input type="text" class="form-control " name="release_work_designation" id="release_work_designation" placeholder="Designation" data-prompt-position="topLeft" />
                                                                     </div>
 
                                                                     <div class="form-group">
@@ -633,7 +638,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                                 
                                                                 <div class="form-group">
                                                                     <label>Respective official letter no.</label>
-                                                                    <input type="text" class="form-control validate[required]" name="rel_official_letter_no" id="rel_official_letter_no" placeholder="Respective official letter no." data-prompt-position="topLeft" />
+                                                                    <input type="text" class="form-control " name="rel_official_letter_no" id="rel_official_letter_no" placeholder="Respective official letter no." data-prompt-position="topLeft" />
                                                                 </div>
                                                                 
                                                                 <div class="form-group">

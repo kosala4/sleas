@@ -10,13 +10,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </div>
                 </a>
                 
-                <a href="#">
+                <a href="<?php echo base_url()."index.php/transfer/newtransfer"?>">
                     <div class="col-xs-6 col-sm-4 stater" style="height:auto">
                         <div class="title text-center"> <i class="fa fs-transfer"> </i> Add Transfer </div>
                     </div>
                 </a>
                 
-                <a href="#">
+                <a href="<?php echo base_url()."index.php/promotion/newpromotion"?>">
                     <div class="col-xs-6 col-sm-4 stater" style="height:auto">
                         <div class="title text-center"> <i class="fa fa-level-up"> </i> Add Promotion </div>
                     </div>

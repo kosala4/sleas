@@ -289,5 +289,88 @@ class Form_data_model extends CI_Model{
 		}
         //return $query;
     }
+    
+    //LEFT JOIN (SELECT p2.PersonID, p2.PlaceTypeID, c.CityName FROM DLAccountingSystem.tblPersons p2 INNER JOIN DLAccountingSystem.tblCity c ON p2.ObjectID = c.CityID WHERE PlaceTypeID = @CityTypeID) tcity ON p1.PersonID = tcity.PersonID
+    
+    public function get_Officer_Details($searchKey){
+        $this->db->cache_off();
+        $this->db->select('*, s1.work_place_id');
+        $this->db->from('Service s1');
+        $this->db->join('Personal_Details p', 'p.NIC = s1.NIC');
+        $this->db->join('Main_Office_Branches br', 's1.work_branch_id = br.ID','left');
+        $this->db->join('Main_Office_Divisions div', 's1.work_division_id = div.ID','left');
+        $this->db->join('Service_Mode smood', 'smood.ID = s1.service_mode');
+        $this->db->join('Work_Place', 'Work_Place.ID = s1.work_place_id');
+        $this->db->join('Designation', 'Designation.ID = s1.designation_id');
+        $this->db->where('p.ID', $searchKey);
+        $this->db->order_by('s1.duty_date', 'DESC');
+        $query = $this->db->get();
+        $res = $query->result_array();
+        if ($query->num_rows() >= 1) {
+			//$res  = $query->result_array();
+            $i=0;
+            foreach($res as $key=>$row){
+                
+                switch ($row['work_place_id']) {
+                    case 5:
+                    case 6:
+                        $this->db->select('provine_office');
+                        $this->db->from('Province_Offices');
+                        $this->db->where('ID', $row['sub_location_id']);
+                        $sub_loc_query = $this->db->get();
+                        
+                        $sub_loc = $sub_loc_query->result_array();
+                        if (isset($sub_loc)){ $res['sub_location'] = $sub_loc['0']['provine_office']; }
+                        
+                        break;
+                    case 7:
+                        $this->db->select('zonal_office');
+                        $this->db->from('Zonal_Offices');
+                        $this->db->where('ID', $row['sub_location_id']);
+                        $sub_loc_query = $this->db->get();
+                        
+                        $sub_loc = $sub_loc_query->result_array();
+                        if (isset($sub_loc)){ $res['sub_location'] = $sub_loc['0']['zonal_office']; }
+                        
+                        break;
+                    case 8:
+                        $this->db->select('division_office');
+                        $this->db->from('Divisional_Offices');
+                        $this->db->where('ID', $row['sub_location_id']);
+                        $sub_loc_query = $this->db->get();
+                        
+                        $sub_loc = $sub_loc_query->result_array();
+                        if (isset($sub_loc)){ $res['sub_location'] = $sub_loc['0']['division_office']; }
+                        
+                        break;
+                    case 18:
+                        $this->db->select('province');
+                        $this->db->from('Province_List');
+                        $this->db->where('province_id', $row['sub_location_id']);
+                        $sub_loc_query = $this->db->get();
+                        
+                        $sub_loc = $sub_loc_query->result_array();
+                        if (isset($sub_loc)){ $res[$i]['sub_location'] = $sub_loc['0']['province']; }
+                        
+                        break;
+                    default:
+                        $this->db->select('institute_name');
+                        $this->db->from('Institute');
+                        $this->db->where('ID', $row['sub_location_id']);
+                        $sub_loc_query = $this->db->get();
+                        
+                        $sub_loc = $sub_loc_query->result_array();
+                        if (isset($sub_loc)){ $res['sub_location'] = $sub_loc['0']['institute_name']; }
+                        
+                        break;
+                }
+                $i++;
+            }
+			return $res;
+		} else{
+			return 0;
+		}
+        //return $query;
+    }
 }
 ?>
