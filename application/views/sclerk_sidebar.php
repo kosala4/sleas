@@ -53,8 +53,8 @@
                         </a>
                     </li>
                     
-                    <li class="menu" id="menu_salary_rev"> 
-                        <a class="top-menu" href="#mnuOne">
+                    <li class="menu" id="menu_increment"> 
+                        <a class="top-menu" href="<?php echo base_url()."index.php/increment/addIncrement"?>">
                             <span class="sicon"><i class="fa fa-plus"></i></span>
                             <span class="sidebar-title">Increment </span>
                         </a>

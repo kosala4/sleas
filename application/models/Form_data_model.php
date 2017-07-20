@@ -292,9 +292,9 @@ class Form_data_model extends CI_Model{
     
     //LEFT JOIN (SELECT p2.PersonID, p2.PlaceTypeID, c.CityName FROM DLAccountingSystem.tblPersons p2 INNER JOIN DLAccountingSystem.tblCity c ON p2.ObjectID = c.CityID WHERE PlaceTypeID = @CityTypeID) tcity ON p1.PersonID = tcity.PersonID
     
-    public function get_Officer_Details($searchKey){
+    public function get_Officer_Details($personID){
         $this->db->cache_off();
-        $this->db->select('*, s1.work_place_id');
+        $this->db->select('*, s1.work_place_id, p.ID');
         $this->db->from('Service s1');
         $this->db->join('Personal_Details p', 'p.NIC = s1.NIC');
         $this->db->join('Main_Office_Branches br', 's1.work_branch_id = br.ID','left');
@@ -302,12 +302,31 @@ class Form_data_model extends CI_Model{
         $this->db->join('Service_Mode smood', 'smood.ID = s1.service_mode');
         $this->db->join('Work_Place', 'Work_Place.ID = s1.work_place_id');
         $this->db->join('Designation', 'Designation.ID = s1.designation_id');
-        $this->db->where('p.ID', $searchKey);
+        $this->db->where('p.ID', $personID);
         $this->db->order_by('s1.duty_date', 'DESC');
         $query = $this->db->get();
         $res = $query->result_array();
+        
+        //Get Contact Details of officer and add to $res Array
+        $this->db->select('*');
+        $this->db->from('Contact_Details');
+        $this->db->where('person_id', $personID);
+        $this->db->where('address_type', 'permanant');
+        $query = $this->db->get();
+        $res['contact'] = $query->result_array();
+        
+        //Get Contact Details of officer and add to $res Array
+        $this->db->select('*');
+        $this->db->from('General_Service');
+        $this->db->where('person_id', $personID);
+        $ge_service_query = $this->db->get();
+        $res['general'] = $ge_service_query->result_array();
+        
+        
+        
+        //Output Officer details
         if ($query->num_rows() >= 1) {
-			//$res  = $query->result_array();
+			//$res = $query->result_array();
             $i=0;
             foreach($res as $key=>$row){
                 
@@ -366,11 +385,23 @@ class Form_data_model extends CI_Model{
                 }
                 $i++;
             }
+            //return $query;
 			return $res;
 		} else{
 			return 0;
 		}
-        //return $query;
+        
+    }
+    
+    public function updateOfficer($person_id, $personal_details, $contact_details){
+        
+        $this->db->where('ID', $person_id);
+        $this->db->update('Personal_Details', $personal_details);
+        $this->db->update('Contact_Details', $contact_details);
+        
+        if($this->db->affected_rows()){
+            return 1;
+        }
     }
 }
 ?>

@@ -27,6 +27,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="container" style="padding-top: 100px;">
                 <div class="row">
 
+                    <?php if ($this->session->flashdata('register')=="success"){ ?>
+                        <div class="col-md-6">
+                            <div class="alert alert-success">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                Successfully registered the member
+                            </div>
+                        </div>
+                    <?php } ?>
+                    
                     <div class="col-md-12">
                         <div class="panel panel-default">
                             <div class="panel-heading">

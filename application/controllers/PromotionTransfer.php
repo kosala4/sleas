@@ -11,7 +11,7 @@ class PromotionTransfer extends CI_Controller {
         #$this->load->model('District_model'); //load database model.
     }
     
-    public $response = array("result"=>"none", "data"=>"none", "register"=>"x", "sidemenu" => "menu_promotansfer");
+    public $response = array("result"=>"none", "data"=>"none", "register"=>"x", "sidemenu" => "menu_promotansfer", "class" => "PromotionTransfer");
     public $view_data_array = array();
     
     public function check_sess($user_logged)
@@ -45,7 +45,6 @@ class PromotionTransfer extends CI_Controller {
         $this->response['provinceList'] = $this->Form_data_model->select('province_list');
         $this->response['designation'] = $this->Form_data_model->select('designation');
         $this->response['service_type'] = 'promoTrans';
-        $this->response['class'] = 'PromotionTransfer';
         $this->response['method'] = 'promotiontransfer_add';
 		$this->load->view('service_change', $this->response);
 

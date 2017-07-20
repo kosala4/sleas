@@ -11,7 +11,7 @@ class Transfer extends CI_Controller {
         #$this->load->model('District_model'); //load database model.
     }
     
-    public $response = array("result"=>"none", "data"=>"none", "register"=>"x", "sidemenu" => "menu_transfer");
+    public $response = array("result"=>"none", "data"=>"none", "register"=>"x", "sidemenu" => "menu_transfer", "class" => "Transfer");
     public $view_data_array = array();
     
     public function check_sess($user_logged)
@@ -45,7 +45,6 @@ class Transfer extends CI_Controller {
         $this->response['provinceList'] = $this->Form_data_model->select('province_list');
         $this->response['designation'] = $this->Form_data_model->select('designation');
         $this->response['service_type'] = 'trans';
-        $this->response['class'] = 'Transfer';
         $this->response['method'] = 'transfer_add';
 		$this->load->view('service_change', $this->response);
 

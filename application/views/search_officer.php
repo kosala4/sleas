@@ -1,6 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-?>            
+?>
         <section id="content">
             <div class="container" style="padding-top: 20px;">
                 <div class="col-md-12">
@@ -37,7 +37,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <th> Last Name </th>
                                 <th> Designation </th>
                                 <th> Working Place </th>
-                                <th> Edit </th>
+                                <th> <?php echo $class ?> </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -73,7 +73,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                       '<td>'+res[ID].l_name+'</td>'+
                                                       '<td>'+res[ID].designation+'</td>'+
                                                       '<td>'+res[ID].work_place+'</td>'+
-                                                      '<td><a href="add/'+res[ID].ID+'"> Edit </a></td>');
+                                                      '<td><a href="add/'+res[ID].ID+'"> <?php echo $class ?> </a></td>');
                         });
                     }
                 });
@@ -83,7 +83,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             var nic = $(this).val();
             var field = "NIC";
             var dataarray = {'<?php echo $this->security->get_csrf_token_name(); ?>':'<?php echo $this->security->get_csrf_hash(); ?>', searchField: field, searchKey: nic};
-            console.log(dataarray);
                 var post_url = "index.php/FormControl/searchOfficers/";
                 $.ajax({
                     type: "POST",
@@ -98,7 +97,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                       '<td>'+res[ID].l_name+'</td>'+
                                                       '<td>'+res[ID].designation+'</td>'+
                                                       '<td>'+res[ID].work_place+'</td>'+
-                                                      '<td><a href="add/'+res[ID].ID+'"> Edit </a></td>');
+                                                      '<td><a href="add/'+res[ID].ID+'"> <?php echo $class ?> </a></td>');
                         });
                     }
                 });

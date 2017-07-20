@@ -90,6 +90,33 @@ class Admin extends CI_Controller {
 
 		$this->load->view('footer');
     }
+    
+    public function updateProfile()
+    {
+        $person_id = $this->security->xss_clean($_REQUEST['id']);
+        $initname = $this->security->xss_clean($_REQUEST['initname']);
+        $fname = $this->security->xss_clean($_REQUEST['fname']);
+        $mname = $this->security->xss_clean($_REQUEST['mname']);
+        $lname = $this->security->xss_clean($_REQUEST['lname']);
+        $dob = $this->security->xss_clean($_REQUEST['dob']);
+        $mobile = $this->security->xss_clean($_REQUEST['mobile']);
+        $telephone = $this->security->xss_clean($_REQUEST['telephone']);
+        $email = $this->security->xss_clean($_REQUEST['email']);
+        $address_1 = $this->security->xss_clean($_REQUEST['address_1']);
+        $address_2 = $this->security->xss_clean($_REQUEST['address_2']);
+        $address_3 = $this->security->xss_clean($_REQUEST['address_3']);
+        
+        $personal_details = array('f_name' => $fname, 'm_name' => $mname, 'l_name' => $lname, 'dob' => $dob, 'user_updated' => $this->session->user_name);
+        
+        $contact_details = array('address_1' => $address_1, 'address_2' => $address_2, 'address_3' => $address_3, 'mobile' => $mobile, 'telephone' => $telephone, 'email' => $email);
+        
+        $res = $this->Form_data_model->updateOfficer($person_id, $personal_details, $contact_details);
+        
+        if($res == '1'){
+            $this->session->set_flashdata('update','success');
+            redirect("/admin/profile/$person_id");
+        }
+    }
 }
 
 
