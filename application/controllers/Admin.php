@@ -37,8 +37,6 @@ class Admin extends CI_Controller {
 		$this->load->view('admin_sidebar');
 		$this->load->view('admin_dashboard');
 
-		#$this->response['district'] = $this->District_model->select('district_name');
-		#$this->load->view('add_student', $this->response);
 		$this->load->view('footer');
 	}
 
@@ -54,12 +52,18 @@ class Admin extends CI_Controller {
 		$this->session->sess_destroy();
 		redirect('/login/index');
 	}
-
-	public function load_profile()
-	{
-		$uname = $_REQUEST['selected_id'];
-		$this->load->view('staff_profile');
-	}
+    
+    public function officer()
+    {
+		$this->load->view('head');
+		//$this->load->view('sclerk_sidebar');
+		$this->check_sess($this->session->user_logged);
+        
+        $this->response['requests'] = $this->getChangeRequestsOfficer($this->session->officer_ID);
+        $this->response['user_details'] = $this->Form_data_model->get_Officer_Details($this->session->officer_ID);
+        
+		$this->load->view('officer_profile', $this->response);
+    }
     
     public function sclerk()
     {
@@ -67,6 +71,7 @@ class Admin extends CI_Controller {
 		$this->load->view('head');
 		$this->load->view('sclerk_sidebar');
         
+        $this->response['requests'] = $this->getChangeRequests($this->session->username);
         $this->response['officers_list'] = $this->Form_data_model->get_Officers_List();
 		$this->load->view('sclerk_dashboard', $this->response);
 
@@ -85,10 +90,17 @@ class Admin extends CI_Controller {
 		$this->load->view('head');
 		$this->load->view('sclerk_sidebar');
         
+        $this->response['requests'] = $this->Form_data_model->get_Change_Requests_Officer($user_ID);
         $this->response['user_details'] = $this->Form_data_model->get_Officer_Details($user_ID);
 		$this->load->view('officer_profile', $this->response);
 
 		$this->load->view('footer');
+    }
+    
+    public function getChangeRequests($sclerk){
+        $requests = $this->Form_data_model->get_Change_Requests($sclerk);
+        if($requests){ return $requests; }
+        
     }
     
     public function updateProfile()
@@ -102,9 +114,9 @@ class Admin extends CI_Controller {
         $mobile = $this->security->xss_clean($_REQUEST['mobile']);
         $telephone = $this->security->xss_clean($_REQUEST['telephone']);
         $email = $this->security->xss_clean($_REQUEST['email']);
-        $address_1 = $this->security->xss_clean($_REQUEST['address_1']);
-        $address_2 = $this->security->xss_clean($_REQUEST['address_2']);
-        $address_3 = $this->security->xss_clean($_REQUEST['address_3']);
+        $address_1 = $this->security->xss_clean($_REQUEST['address1']);
+        $address_2 = $this->security->xss_clean($_REQUEST['address2']);
+        $address_3 = $this->security->xss_clean($_REQUEST['address3']);
         
         $personal_details = array('f_name' => $fname, 'm_name' => $mname, 'l_name' => $lname, 'dob' => $dob, 'user_updated' => $this->session->user_name);
         
@@ -114,8 +126,8 @@ class Admin extends CI_Controller {
         
         if($res == '1'){
             $this->session->set_flashdata('update','success');
-            redirect("/admin/profile/$person_id");
         }
+        redirect("/admin/profile/$person_id");
     }
 }
 

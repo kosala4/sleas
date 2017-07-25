@@ -38,7 +38,7 @@ class Login extends CI_Controller {
 		if ($user_level == "0") {
 			redirect('/admin/index');
 		}else if ($user_level == "1") {
-            redirect('/admin/index');
+            redirect('/admin/officer');
         }else if ($user_level == "2") {
             redirect('/admin/sclerk');
         }else{
@@ -48,16 +48,18 @@ class Login extends CI_Controller {
 
 	function login_user()
 	{
-		$uname = $this->security->xss_clean($_REQUEST['username']);
+		$uname = strtolower($this->security->xss_clean($_REQUEST['username']));
 		$pwd  = $this->security->xss_clean($_REQUEST['password']);
 
 		$chk_login = $this->User_model->login($uname, $pwd);
 
 		if ($chk_login == 1) {
 			$this->load->library('session');
-			$data = $this->User_model->get_a_record('user_name',$uname);
+			$data = $this->User_model->get_a_record('LOWER(user_name)',$uname);
             $name = $data[0]['name'];
-			$userData = array('username' => $uname,'name' => $name, 'user_logged' => "in");
+            $level = $data[0]['level'];
+            $id = $data[0]['person_id'];
+			$userData = array('username' => $uname, 'name' => $name, 'user_level'=>$level, 'officer_ID' =>$id, 'user_logged' => "in");
 			$this->session->set_userdata($userData);
             
             $this->redirect_user($data[0]['level']);

@@ -109,7 +109,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <div class="form-group designation">
                                 <label>Designation</label>
                                 <?php if ($designation) { ?>
-                                    <select class="select2Search designation validate[required]" name="designation" id="designation" style="width:100%">
+                                    <select class="select2Search designation" name="designation" id="designation" style="width:100%">
                                         <option value="" hidden selected> ---------Please Select--------- </option>
                                         <?php foreach ($designation as $row) { ?>
                                             <option value="<?php echo $row['ID'];?>" > <?php echo $row['designation'] ;?> </option>
@@ -120,7 +120,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </div>
                             
                             <div class="form-group">
-                                <label>Date of effective</label>
+                                <label>Date of appoint</label>
                                 <input type="text" class="form-control date-picker" name="work_date" id="work_date" placeholder="yyyy-mm-dd">
                             </div>
                             <div class="form-group">
@@ -181,7 +181,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 case '1':
                 case '2':
                 case '3':
-            console.log(id);
                     $(".work_main_institue").removeClass("hidden");
                     $(".schools").addClass("hidden");
                     $(".province_list").addClass("hidden");
@@ -195,6 +194,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     $(".schools").removeClass("hidden");
                     $(".work_main_institue").addClass("hidden");
                     $(".designation").removeClass("hidden");
+                    $("#designation").rules( "add", { required: true });
                     break;
                     
                 case '18':
@@ -202,6 +202,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     $(".schools").addClass("hidden");
                     $(".work_main_institue").addClass("hidden");
                     $(".designation").addClass("hidden");
+                    $("#designation").rules( "add", { required: true });
                     break;
                 default:
                     $(".designation").removeClass("hidden");

@@ -106,5 +106,39 @@ class FormControl extends CI_Controller {
         echo json_encode($res);
         //echo $res;
     }
+    
+    public function setProfileImage(){
+        header('Content-Type: application/x-json; charset=utf-8');
+        $user_id = $this->input->post('user_id');
+        
+        if (isset($_FILES['file']['name'])) {
+            if (0 < $_FILES['file']['error']) {
+                echo 'Error during file upload' . $_FILES['file']['error'];
+            } else {
+                $ext = pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION);
+                $file_name = 'profile.' . $ext;
+                $file_path = 'file_library/'.$user_id;
+                
+                $dataarray = array('profile_pic' => $file_name);
+                
+                if (!file_exists($file_path)) {
+                    mkdir($file_path, 0777, true);
+                }
+                
+                if (file_exists($file_path . '/' . $file_name)) {
+                    echo 'File already exists : generated/' . $_FILES['file']['name'];
+                } else {
+                    move_uploaded_file($_FILES['file']['tmp_name'], $file_path . '/' . $file_name);
+                    $res = $this->Form_data_model->updateprofileImage($user_id, $dataarray);
+                    if ($res == '1'){
+                        echo 'File successfully uploaded : ' .$file_path . '/' . $file_name;
+                        echo $file_name;
+                    }
+                }
+            }
+        } else {
+            echo 'Please choose a file';
+        }
+    }
 }
 ?>

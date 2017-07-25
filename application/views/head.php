@@ -77,5 +77,5 @@
             </div>
         </div>        
     </header>   <!-- End: Header --> 
-<input type="hidden" name="hidden" id="hidden-user-type" value="<?php echo $this->session->user_type ?>" />
+<input type="hidden" name="hidden" id="hidden-user-level" value="<?php echo $this->session->user_level ?>" />
 <input type="hidden" name="hidden-base-url" id="hidden-base-url" value="<?php echo base_url() ?>" />

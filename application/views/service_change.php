@@ -167,7 +167,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </div>
 
                             <div class="form-group">
-                                <label><span style="color:red;" class="date_assumed_req">*</span>Date of assumed duties at the present working place</label>
+                                <label><span style="color:red;" class="date_assumed_req">*</span>Date of appoint to the present working place</label>
                                 <input type="text" class="form-control date-picker" name="date_assumed" id="date_assumed">
                             </div>
 
@@ -194,7 +194,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </div>
                             <div class="form-group">
                                 <label><span style="color:red;">*</span>Date appointed by PSC</label>
-                                <input type="text" class="form-control date-picker" name="appoint_date" id="appoint_date" placeholder="yyyy-mm-dd">
+                                <input type="text" class="form-control date-picker" name="appoint_date_psc" id="appoint_date" placeholder="yyyy-mm-dd">
                             </div>
                         </div>
                         
@@ -284,7 +284,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 work_date: "required",
                 official_letter_no: "required",
                 psc_letter: "required",
-                appoint_date: "required"
+                appoint_date_psc: "required"
             }
         });
         
@@ -302,7 +302,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 $(".divisional_office").addClass("hidden");
                 $(".zonal_office").addClass("hidden");
                 getMainDivision(workplace_id);
-                getMainBranch(workplace_id);    
+                getMainBranch(workplace_id);
 
             }else if($.inArray(gr, ['zone','division','ncoe','ttc','nschool','pschool', 'tc']) >=0){
                 $(".c-firstapp-work-main-institue").addClass("hidden");
@@ -325,6 +325,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     $(".institute").removeClass("hidden");
                     $(".divisional_office").addClass("hidden");
                     $(".zonal_office").addClass("hidden");
+                    $(".zone").removeClass("hidden");
                 }
 
             }else if($.inArray(gr, ['provinced','provincem']) >=0){
@@ -408,39 +409,73 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         $('#district').change(function(){
             var id = $(this).val();
             var dataarray = {'<?php echo $this->security->get_csrf_token_name(); ?>':'<?php echo $this->security->get_csrf_hash(); ?>',district_id: id};
-            var post_url = "index.php/FormControl/getZoneList/"+id;
-            $.ajax({
-                type: "POST",
-                url: "<?php echo base_url(); ?>" + post_url,
-                dataType :'json',
-                data: dataarray,
-                success: function(res){
-                    $('#zone').empty();
-                    $('#zone').append('<option value="" hidden selected> ---------Please Select---------</option>');
-                    $.each(res, function(ID){
-                        $('#zone').append('<option value='+res[ID].zone_id+'>'+res[ID].zone+'</option>');
-                    });
-                }
-            });
+            if($('#zonal_office').hasClass('hidden')){
+                var post_url = "index.php/FormControl/getZoneList/"+id;
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo base_url(); ?>" + post_url,
+                    dataType :'json',
+                    data: dataarray,
+                    success: function(res){
+                        $('#zone').empty();
+                        $('#zone').append('<option value="" hidden selected> ---------Please Select---------</option>');
+                        $.each(res, function(ID){
+                            $('#zone').append('<option value='+res[ID].zone_id+'>'+res[ID].zone+'</option>');
+                        });
+                    }
+                });
+            }else{
+                var post_url = "index.php/FormControl/getZonalOfficeList/"+id;
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo base_url(); ?>" + post_url,
+                    dataType :'json',
+                    data: dataarray,
+                    success: function(res){
+                        $('#zonal_office').empty();
+                        $('#zonal_office').append('<option value="" hidden selected> ---------Please Select---------</option>');
+                        $.each(res, function(ID){
+                            $('#zonal_office').append('<option value='+res[ID].ID+'>'+res[ID].zonal_office+'</option>');
+                        });
+                    }
+                });
+            }
         });
 
         $('#zone').change(function(){
             var id = $(this).val();
             var dataarray = {'<?php echo $this->security->get_csrf_token_name(); ?>':'<?php echo $this->security->get_csrf_hash(); ?>',zone_id: id};
-            var post_url = "index.php/FormControl/getDivisionsList/"+id;
-            $.ajax({
-                type: "POST",
-                url: "<?php echo base_url(); ?>" + post_url,
-                dataType :'json',
-                data: dataarray,
-                success: function(res){
-                    $('#division').empty();
-                    $('#division').append('<option value="" hidden selected> ---------Please Select---------</option>');
-                    $.each(res, function(ID){
-                        $('#division').append('<option value='+res[ID].div_id+'>'+res[ID].division_name+'</option>');
-                    });
-                }
-            });
+            if($('#divisional_office').hasClass('hidden')){
+                var post_url = "index.php/FormControl/getDivisionsList/"+id;
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo base_url(); ?>" + post_url,
+                    dataType :'json',
+                    data: dataarray,
+                    success: function(res){
+                        $('#division').empty();
+                        $('#division').append('<option value="" hidden selected> ---------Please Select---------</option>');
+                        $.each(res, function(ID){
+                            $('#division').append('<option value='+res[ID].div_id+'>'+res[ID].division_name+'</option>');
+                        });
+                    }
+                });
+            }else{
+                var post_url = "index.php/FormControl/getDivisionalOfficeList/"+id;
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo base_url(); ?>" + post_url,
+                    dataType :'json',
+                    data: dataarray,
+                    success: function(res){
+                        $('#divisional_office').empty();
+                        $('#divisional_office').append('<option value="" hidden selected> ---------Please Select---------</option>');
+                        $.each(res, function(ID){
+                            $('#divisional_office').append('<option value='+res[ID].ID+'>'+res[ID].division_office+'</option>');
+                        });
+                    }
+                });
+            }
         });
 
         $('#division').change(function(){

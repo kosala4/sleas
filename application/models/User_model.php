@@ -7,7 +7,7 @@ class User_model extends CI_Model
 	{
 		$array = array($field => $value);
 		$this->db->where($array);
-		$query = $this->db->get('user');
+		$query = $this->db->get('User');
 		//SELECT * FROM user
 		
 		$data  = $query->result_array();
@@ -15,9 +15,9 @@ class User_model extends CI_Model
 	}
 
 	public function login($uname, $pwd){
-		$array = array('user_name' => $uname , 'passwd' => $pwd );
-		$this->db->where($array);
-		$query = $this->db->get('user');
+		$this->db->where('LOWER(user_name)', strtolower($uname));
+		$this->db->where('passwd', $pwd);
+		$query = $this->db->get('User');
 
 		if ($query->num_rows() == 1) {
 			return 1;
@@ -26,7 +26,7 @@ class User_model extends CI_Model
 	
 	public function insert($data)
 	{	
-		$this->db->insert('user', $data); 
+		$this->db->insert('User', $data); 
 		
 		if( $this->db->affected_rows() > 0)
 		{
@@ -40,7 +40,7 @@ class User_model extends CI_Model
 	public function select($data)
 	{
 		$this->db->select($data);
-		$query = $this->db->get('user');
+		$query = $this->db->get('User');
 
 		if ($query->num_rows() >= 1) {
 			$res  = $query->result_array();

@@ -135,8 +135,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     <div class="col-md-6">
 
                                                         <div class="form-group">
-                                                            <label><span style="color:red;">*</span>Address Line 1</label>
-                                                            <input type="text" class="form-control " name="address1" id="address1" placeholder="Address Line 1" data-prompt-position="topLeft" />
+                                                            <label><span style="color:red;">*</span>Address Line 1 </label> 50 Characters maximum
+                                                            <input type="text" class="form-control " name="address1" id="address1" placeholder="Address Line 1" data-prompt-position="topLeft" maxlength="50"/>
                                                         </div>
 
                                                         <div class="form-group">
@@ -701,7 +701,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
     <script>
         $(document).ready(function(){ 
-            FormValidationInline.init();
+            //FormValidationInline.init();
             
             /*$('#addMemberForm').validate({
                 rules: {

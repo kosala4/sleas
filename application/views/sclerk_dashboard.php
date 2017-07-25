@@ -35,7 +35,58 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </div>
                         </div>
                     <?php } ?>
-                    
+                    <div class="col-md-6">
+                        
+                        <div class="panel panel-default">
+                            <div class="panel-heading reg-main-panel">
+                                <h3 class="panel-title">Officer's change requests</h3>
+                            </div><!--End of panel-heading-->
+                            <div class="panel-body">
+                                <?php if($requests){ ?>
+                                    <?php foreach($requests as $row){ ?>
+                                        <label><?php echo $row['message_title'] ?> - from <?php echo $row['f_name'] . ' ' . $row['l_name']?></label> <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#messageModal" data-message='{"id":"<?php echo $row['person_id'] ?>","message_sender":"<?php echo $row['f_name'] ?>","message":"<?php echo $row['message']?>","message_title":"<?php echo $row['message_title']  ?>"}' data-msgID="<?php echo $row['msg_id'] ?>" id="messagetoggle"> View </button>
+
+                                    <?php }  ?> 
+                                <?php }  ?>
+                            
+                            <!-- Modal -->
+                                <div id="messageModal" class="modal fade" role="dialog">
+                                  <div class="modal-dialog">
+
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title">Modal Header</h4>
+                                      </div>
+                                      <div class="modal-body">
+                                        <p id="messagetitle" class="title"></p>
+                                        <p id="messagebody"></p>
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                      </div>
+                                    </div>
+
+                                  </div>
+                                </div>
+                            
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="panel panel-default">
+                            <div class="panel-heading reg-main-panel">
+                                <h3 class="panel-title">Officer's who did not inform the date of duty assumed</h3>
+                            </div><!--End of panel-heading-->
+                            <div class="panel-body">
+                                
+                                <?php print_r($requests['0']); ?>
+
+                            </div>
+                        </div>
+                    </div>
                     <div class="col-md-12">
                         <div class="panel panel-default">
                             <div class="panel-heading">
@@ -54,6 +105,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <th> Last Name </th>
                                             <th> Designation </th>
                                             <th> Working Place </th>
+                                            <th>  </th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -67,6 +119,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                 <td><?php echo $row['l_name'] ;?> </td>
                                                 <td><?php echo $row['designation'] ;?> </td>
                                                 <td><?php echo $row['work_place'] ;?> </td>
+                                                <td><a href="profile/<?php echo $row['person_id'] ;?>"> View Profile </a> </td>
                                             </tr>
                                         <?php    } ?>
                                     <?php    } ?>
@@ -104,94 +157,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         $(document).ready(function(){
             DataTabels.init();
             $('#menu_dashboard').addClass('active');
+            
+            
+        $('#messageModal').on('show.bs.modal', function(e) {
+            var person_id = $('#messagetoggle').data('message').id;
+            var message_body = $('#messagetoggle').data('message').message;
+            var message_sender = $('#messagetoggle').data('message').message_sender;
+            var message_title = $('#messagetoggle').data('message').message_title;
+            $('#messagebody').text(message_body);
+            $('#messagetitle').text(message_title);
+            $('.modal-title').text(message_sender);
         });
-
-var FlotCharts = function() {
-    // Function to handel Horizontal Bar Charts
-    var handelHBarChart = function () {
-        var dataforBar = [
-            {
-                data: [[0, 4]],
-                color: "#90cf02"
-            },
-            {
-                data: [[1, 1]],
-                color: "#01a7db"
-            },
-            {
-                data: [[2, 2]],
-                color: "#a37afa"
-            },
-            {
-                data: [[3, 4]],
-                color: "#fd6d6a"
-            },
-            {
-                data: [[4, 3]],
-                color: "#fe913f"
-            },
-            {
-                data: [[10, 5]],
-                color: "#fdd235"
-            }
-        ];
-
-        $.plot($("#hBarChart"), dataforBar, {
-            series: {
-                lines: {
-                    fill: false
-                },
-                points: {show: false},
-                bars: {
-                    show: true,
-                    align: 'center',
-                    barWidth: 0.4,
-                    horizontal: true,
-                    fill: 1,
-                    lineWidth: 1
-                }
-            },
-            xaxis: {
-                min: 0,
-                ticks: [
-                    [1, "1"],
-                    [2, "2"],
-                    [3, "3"],
-                    [4, "4"],
-                    [5, "5"],
-                    [6, "6"],
-                    [7, "7"],
-                    [8, "8"],
-                    [9, "9"],
-                    [10, "10"]]
-            },
-            yaxis: {
-                tickLength: 1,
-                ticks: [
-                    [1, "Sinhala"],
-                    [2, "Maths"],
-                    [3, "Sinhala"],
-                    [4, "Maths"],
-                    [5, "Rating 2"],
-                    [6, "Rating 1"],
-                    [7, "Not Closed"]]
-            },
-            grid: {
-                borderWidth: 0,
-                hoverable: true
-            },
-            tooltip: true,
-            tooltipOpts: {
-                content: "x: %x, y: %y"
-            }
+        
+            
         });
-    }
-
-    return {        
-        init: function() {
-            handelHBarChart();
-        }
-              
-    };    
-}();    // Draggable Portlets
     </script>
+

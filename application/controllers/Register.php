@@ -114,14 +114,18 @@ class Register extends CI_Controller {
          $release_place = $this->security->xss_clean($_REQUEST['release_place']);
          $release_salary_drawn = $this->security->xss_clean($_REQUEST['release_salary_drawn']);
         
+        
+        $person_id_array = $this->Form_data_model->get_recent_person_id();
+        $person_id = $person_id_array['0']['ID'] + 1;
+        
 //********** Populate data arrays **********//
-        $personal_details = array('nic' => $nic, 'title' => $title, 'f_name' => $fname, 'm_name' => $mname, 'l_name' => $lname, 'dob' => date("y-m-d", strtotime($dob)), 'ethinicity' => $ethnicity, 'gender' => $gender , 'civil_status' => $civil_st, 'user_updated' => $this->session->user_name);
+        $personal_details = array('ID' => $person_id, 'nic' => $nic, 'title' => $title, 'f_name' => $fname, 'm_name' => $mname, 'l_name' => $lname, 'dob' => date("y-m-d", strtotime($dob)), 'ethinicity' => $ethnicity, 'gender' => $gender , 'civil_status' => $civil_st, 'user_updated' => $this->session->user_name);
         
-        $contact_details_per = array('nic' => $nic, 'address_type' => 'permanant', 'address_1' => $address1, 'address_2' => $address2, 'address_3' => $address3, 'postal_code' => $pocode, 'mobile' => $mobile, 'telephone' => $landp, ' 	email' => $email);
+        $contact_details_per = array('person_id' => $person_id, 'nic' => $nic, 'address_type' => 'permanant', 'address_1' => $address1, 'address_2' => $address2, 'address_3' => $address3, 'postal_code' => $pocode, 'mobile' => $mobile, 'telephone' => $landp, ' 	email' => $email);
         
-        $contact_details_temp = array('nic' => $nic, 'address_type' => 'temp', 'address_1' => $addresstemp1, 'address_2' => $addresstemp2, 'address_3' => $addresstemp3, 'postal_code' => $pocodetemp, 'mobile' => $mobiletemp, 'telephone' => $landptemp, 'email' => $emailtemp);
+        $contact_details_temp = array('person_id' => $person_id, 'nic' => $nic, 'address_type' => 'temp', 'address_1' => $addresstemp1, 'address_2' => $addresstemp2, 'address_3' => $addresstemp3, 'postal_code' => $pocodetemp, 'mobile' => $mobiletemp, 'telephone' => $landptemp, 'email' => $emailtemp);
         
-        $general_service = array('nic' => $nic, 'date_join' => date("y-m-d", strtotime($date_join)), 'way_join' => $way_joined, 'medium' => $medium_recruit, 'confirm' => $confirm);
+        $general_service = array('person_id' => $person_id, 'nic' => $nic, 'date_join' => date("y-m-d", strtotime($date_join)), 'way_join' => $way_joined, 'medium' => $medium_recruit, 'confirm' => $confirm);
         
         switch ($way_joined){
             case 'open':
@@ -145,7 +149,7 @@ class Register extends CI_Controller {
         }
         
         //Populate Services Array
-        $service = array('ID' => $service_id,'nic' => $nic, 'service_mode' => $service_mood, 'user_updated' => $this->session->username);
+        $service = array('person_id' => $person_id, 'ID' => $service_id,'nic' => $nic, 'service_mode' => $service_mood, 'user_updated' => $this->session->username);
         
         if ($service_mood == 7){
             //releasement
@@ -196,35 +200,61 @@ class Register extends CI_Controller {
             }
         }
         
+        //Generate Data for user account
+        $uname = $lname . date("Ymd", strtotime($dob));
+        $name = $fname .' '. $lname;
+        $passwd = uniqid();
+        $pdfFileName = $name . 'User Account Details';
+        
+        $userAccount = array('name'=>$name ,'user_name'=>$uname ,'passwd'=>$passwd, 'person_id' => $person_id ,'level'=>'1');
         
         if (!$addresstemp1){
             
             if($service_mood != 7){
-                $res = $this->Form_data_model->registerNew($personal_details, $contact_details_per, $general_service, $service, '', '');
+                $res = $this->Form_data_model->registerNew($personal_details, $contact_details_per, $general_service, $service, '', '', $userAccount);
             }else{
-                $res = $this->Form_data_model->registerNew($personal_details, $contact_details_per, $general_service, $service, $releasement, '');
+                $res = $this->Form_data_model->registerNew($personal_details, $contact_details_per, $general_service, $service, $releasement, '', $userAccount);
             }
         } else {
             
             if($service_mood != 7){
-                $res = $this->Form_data_model->registerNew($personal_details, $contact_details_per, $general_service, $service, '', $contact_details_temp);
+                $res = $this->Form_data_model->registerNew($personal_details, $contact_details_per, $general_service, $service, '', $contact_details_temp, $userAccount);
             }else{
-                $res = $this->Form_data_model->registerNew($personal_details, $contact_details_per, $general_service, $service, $releasement, $contact_details_temp);
+                $res = $this->Form_data_model->registerNew($personal_details, $contact_details_per, $general_service, $service, $releasement, $contact_details_temp, $userAccount);
             }
         }
         
         
-        //$res = $this->Form_data_model->registerNew($personal_details, $contact_details_per, $contact_details_temp, $general_service, $service, $releasement);
         
+        //$res = 1;
         if ($res == 1){
             
             $this->session->set_flashdata('register','success');
+            $this->createUserPdf($userAccount, $pdfFileName);
             redirect('/admin/sclerk');
+            
         } else {
             $this->session->set_flashdata('register','not-success');
             //redirect('/register/newmember');
             $this->newMember();
         }
+        
+        
+    }
+    
+    //function to generate pdf with user credentials
+    public function createUserPdf($user, $pdfFileName){
+        $html = $this->load->view('letter/letter-header', $user, true);
+        $html = $html . $this->load->view('letter/new-user', $user, true);
+
+        $this->load->library('m_pdf');
+
+        //generate the PDF from the given html
+        $this->m_pdf->pdf->WriteHTML($html);
+
+        //download it.
+        $this->m_pdf->pdf->Output($pdfFileName, "D");
+        
     }
     
     	public function check_sess($user_logged)

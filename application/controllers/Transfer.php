@@ -96,7 +96,7 @@ class Transfer extends CI_Controller {
         $province = $this->Form_data_model->searchdbvalue('Province_List', 'province_id', $province_id);
         $institute = $this->Form_data_model->searchdbvalue('Institute', 'ID', $institute_id);
         
-        $service = array('ID' => $service_id, 'person_id' => $person_id, 'nic' => $nic, 'service_mode' => '3', 'work_place_id'=>$work_place_id, 'work_division_id'=>$main_division_id, 'work_branch_id'=>$main_branch_id, 'designation_id'=>$designation_id , 'duty_date'=>$work_date, 'off_letter_no'=>$official_letter_no, 'user_updated' => $this->session->username);
+        $service = array('ID' => $service_id, 'person_id' => $person_id, 'nic' => $nic, 'service_mode' => '3', 'work_place_id'=>$work_place_id, 'designation_id'=>$designation_id , 'duty_date'=>$date_assumed, 'off_letter_no'=>$official_letter_no, 'user_updated' => $this->session->username);
         
         switch ($work_place_id) {
             case 1:
@@ -144,7 +144,7 @@ class Transfer extends CI_Controller {
             $this->view_data_array = array('work_place'=>$work_place, 'division'=>$main_division, 'branch'=>$main_branch, 'personal_details'=>$personal_details, 'work_date'=>$work_date, 'psc_letter'=>$psc_letter, 'appoint_date'=>$appoint_date, 'off_letter_no'=>$official_letter_no, 'province'=>$province, 'school' => $institute, 'designation' => $designation);
 
             $pdfFilePath = 'file_library/'.$person_id.'/service/';
-            $pdfFileName = date("Y-m-d") . '-' . $nic. '-' . $work_place[0]['work_place'].'-' . $service_id . '.pdf';
+            $pdfFileName = date("Y-m-d") . '-' . $nic. '-Transfer' . '.pdf';
             //Get letter HTML
             $letter_html = $this->generate_letter_data($view_data_array, $person_id, $work_place_id);
 
@@ -190,6 +190,10 @@ class Transfer extends CI_Controller {
             unlink($barcode_image);
         }
         
+        
+        if (!file_exists($pdfFilePath)) {
+            mkdir($pdfFilePath, 0777, true);
+        }
         //save it.
         $this->m_pdf->pdf->Output($pdfFilePath . $pdfFileName, "F");
 

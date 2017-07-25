@@ -11,7 +11,7 @@ class Placement extends CI_Controller {
         #$this->load->model('District_model'); //load database model.
     }
     
-    public $response = array("result"=>"none", "data"=>"none", "register"=>"x", "sidemenu" => "menu_transfer");
+    public $response = array("result"=>"none", "data"=>"none", "register"=>"x", "sidemenu" => "menu_placement",  "class" => "Placement");
     public $view_data_array = array();
     
     public function check_sess($user_logged)
@@ -43,6 +43,7 @@ class Placement extends CI_Controller {
         $this->response['workPlaces'] = $this->Form_data_model->select('workplace');
         $this->response['provinceList'] = $this->Form_data_model->select('province_list');
         $this->response['designation'] = $this->Form_data_model->select('designation');
+        $this->response['service_type'] = 'placement';
 		$this->load->view('new_placement_form', $this->response);
 
 		$this->load->view('footer');
@@ -82,7 +83,7 @@ class Placement extends CI_Controller {
         $province = $this->Form_data_model->searchdbvalue('Province_List', 'province_id', $province_id);
         $institute = $this->Form_data_model->searchdbvalue('Institute', 'ID', $institute_id);
         
-        $service = array('ID' => $service_id,'nic' => $nic, 'service_mode' => '10', 'work_place_id'=>$work_place_id,  'duty_date'=>$work_date, 'off_letter_no'=>$official_letter_no, 'user_updated' => $this->session->username);
+        $service = array('ID' => $service_id, 'person_id' => $person_id,'nic' => $nic, 'service_mode' => '10', 'work_place_id'=>$work_place_id,  'duty_date'=>$work_date, 'off_letter_no'=>$official_letter_no, 'user_updated' => $this->session->username);
         
         if($work_place_id == '16'){
             $service['sub_location_id'] = $institute_id;
@@ -90,9 +91,9 @@ class Placement extends CI_Controller {
         }else if($work_place_id == '18'){
             $service['sub_location_id'] = $province_id;
         }else {
-            $service['work_division_id'] = $main_division_id;
-            $service['work_branch_id'] = $main_branch_id;
-            $service['designation_id'] = $designation_id;
+            if($service['work_division_id']){ $service['work_division_id'] = $main_division_id;}
+            if($service['work_branch_id']){ $service['work_branch_id'] = $main_branch_id;}
+            if($service['designation_id']){ $service['designation_id'] = $designation_id;}
         }
         
         //generate barcode        
@@ -108,7 +109,7 @@ class Placement extends CI_Controller {
             $this->view_data_array = array('work_place'=>$work_place, 'division'=>$main_division, 'branch'=>$main_branch, 'personal_details'=>$personal_details, 'work_date'=>$work_date, 'psc_letter'=>$psc_letter, 'appoint_date'=>$appoint_date, 'off_letter_no'=>$official_letter_no, 'province'=>$province, 'school' => $institute, 'designation' => $designation);
 
             $pdfFilePath = 'file_library/'.$person_id.'/service/';
-            $pdfFileName = date("Y-m-d") . '-' . $nic. '-' . $work_place[0]['work_place'].'-' . '.pdf';
+            $pdfFileName = date("Y-m-d") . '-' . $nic. '-Placement' . '.pdf';
             //Get letter HTML
             $letter_html = $this->generate_letter_data($view_data_array, $person_id, $work_place_id);
 
@@ -137,8 +138,12 @@ class Placement extends CI_Controller {
             $html = $html . $this->load->view('letter/placement/province',$this->view_data_array,true);
         }else if($work_place_id == '16'){
             $html = $html . $this->load->view('letter/placement/school',$this->view_data_array,true);
-        }else if($work_place_id == '1' || $work_place_id == '2' || $work_place_id == '3') {
-            $html = $html . $this->load->view('letter/placement/main_office',$this->view_data_array,true);
+        }else if($work_place_id == '1' ) {
+            $html = $html . $this->load->view('letter/placement/moe',$this->view_data_array,true);
+        }else if($work_place_id == '2' ) {
+            $html = $html . $this->load->view('letter/placement/exam',$this->view_data_array,true);
+        }else if($work_place_id == '3' ) {
+            $html = $html . $this->load->view('letter/placement/epub',$this->view_data_array,true);
         }
         
         return $html;
@@ -158,6 +163,9 @@ class Placement extends CI_Controller {
         }
         
         //save it.
+        if (!file_exists($pdfFilePath)) {
+            mkdir($pdfFilePath, 0777, true);
+        }
         $this->m_pdf->pdf->Output($pdfFilePath . $pdfFileName, "F");
 
         //download it.

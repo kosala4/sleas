@@ -96,7 +96,7 @@ class Promotion extends CI_Controller {
         $province = $this->Form_data_model->searchdbvalue('Province_List', 'province_id', $province_id);
         $institute = $this->Form_data_model->searchdbvalue('Institute', 'ID', $institute_id);
         
-        $service = array('ID' => $service_id,'nic' => $nic, 'service_mode' => '3', 'work_place_id'=>$work_place_id, 'work_division_id'=>$main_division_id, 'work_branch_id'=>$main_branch_id, 'designation_id'=>$designation_id , 'duty_date'=>$work_date, 'off_letter_no'=>$official_letter_no, 'user_updated' => $this->session->username);
+        $service = array('ID' => $service_id,'nic' => $nic, 'service_mode' => '3', 'work_place_id'=>$work_place_id, 'designation_id'=>$designation_id , 'duty_date'=>$work_date, 'off_letter_no'=>$official_letter_no, 'user_updated' => $this->session->username);
         
         switch ($work_place_id) {
             case 1:
@@ -191,6 +191,9 @@ class Promotion extends CI_Controller {
         }
         
         //save it.
+        if (!file_exists($pdfFilePath)) {
+            mkdir($pdfFilePath, 0777, true);
+        }
         $this->m_pdf->pdf->Output($pdfFilePath . $pdfFileName, "F");
 
         //download it.

@@ -149,6 +149,17 @@ class Form_data_model extends CI_Model{
 		}
     }
     
+    public function updateprofileImage($key, $data){
+        $this->db->where('ID', $key);
+        $this->db->update('Personal_Details', $data);
+		
+		if( $this->db->affected_rows() > 0) {
+			return 1;
+		} else {
+			return 0;
+		}
+    }
+    
     public function get_recent_service_id(){
         $this->db->select('ID');
         $this->db->order_by('ID', 'DESC');
@@ -159,7 +170,17 @@ class Form_data_model extends CI_Model{
         return $res;
     }
     
-    public function registerNew($personal_details, $contact_details_per, $general_service, $service, $releasement, $contact_details_temp){
+    public function get_recent_person_id(){
+        $this->db->select('ID');
+        $this->db->order_by('ID', 'DESC');
+        $this->db->limit(1);
+        $query = $this->db->get('Personal_Details');
+        $res  = $query->result_array();
+        
+        return $res;
+    }
+    
+    public function registerNew($personal_details, $contact_details_per, $general_service, $service, $releasement, $contact_details_temp, $userAccount){
         if (!$releasement){
             if (!$contact_details_temp){
                 $res=0;
@@ -169,6 +190,7 @@ class Form_data_model extends CI_Model{
                 $this->db->insert('Contact_Details', $contact_details_per);
                 $this->db->insert('General_Service', $general_service);
                 $this->db->insert('Service', $service);
+                $this->db->insert('User', $userAccount);
                 
                 if ($this->db->trans_status() === TRUE){
                     $res = 1;
@@ -189,6 +211,7 @@ class Form_data_model extends CI_Model{
                 $this->db->insert('General_Service', $general_service);
                 $this->db->insert('Service', $service);
                 $this->db->insert('Contact_Details', $contact_details_temp);
+                $this->db->insert('user', $userAccount);
                 
                 if ($this->db->trans_status() === TRUE){
                     $res = 1;
@@ -212,7 +235,8 @@ class Form_data_model extends CI_Model{
                 $this->db->insert('General_Service', $general_service);
                 $this->db->insert('Service', $service);
                 $this->db->insert('Releasement', $releasement);
-                
+                $this->db->insert('User', $userAccount);
+                //user
                 if ($this->db->trans_status() === TRUE){
                     $res = 1;
                     $this->db->trans_complete();
@@ -233,6 +257,7 @@ class Form_data_model extends CI_Model{
                 $this->db->insert('Service', $service);
                 $this->db->insert('Contact_Details', $contact_details_temp);
                 $this->db->insert('Releasement', $releasement);
+                $this->db->insert('user', $userAccount);
                 
                 if ($this->db->trans_status() === TRUE){
                     $res = 1;
@@ -252,9 +277,9 @@ class Form_data_model extends CI_Model{
     
     public function get_Officers_List(){
         
-        $this->db->select('Personal_Details.NIC, Personal_Details.title, Personal_Details.f_name, Personal_Details.l_name, Designation.designation, Work_Place.work_place, s1.ID');
+        $this->db->select('Personal_Details.ID AS person_id, Personal_Details.NIC, Personal_Details.title, Personal_Details.f_name, Personal_Details.l_name, Designation.designation, Work_Place.work_place, s1.ID');
         $this->db->from('Personal_Details');
-        $this->db->join('Service s1', 'Personal_Details.NIC = s1.NIC');
+        $this->db->join('Service s1', 'Personal_Details.ID = s1.person_id', 'inner');
         $this->db->join('Designation', 's1.designation_id = Designation.ID');
         $this->db->join('Work_Place', 's1.work_place_id = Work_Place.ID');
         $this->db->join('Service s2', 'Personal_Details.NIC = s2.NIC AND 
@@ -271,7 +296,7 @@ class Form_data_model extends CI_Model{
         $this->db->cache_off();
         $this->db->select('Personal_Details.ID, Personal_Details.NIC, Personal_Details.title, Personal_Details.f_name, Personal_Details.l_name, Designation.designation, Work_Place.work_place');
         $this->db->from('Personal_Details');
-        $this->db->join('Service s1', 'Personal_Details.NIC = s1.NIC');
+        $this->db->join('Service s1', 'Personal_Details.ID = s1.person_id');
         $this->db->join('Designation', 'Designation.ID = s1.designation_id');
         $this->db->join('Work_Place', 'Work_Place.ID = s1.work_place_id');
         $this->db->join('Service s2', 'Personal_Details.NIC = s2.NIC AND 
@@ -296,7 +321,7 @@ class Form_data_model extends CI_Model{
         $this->db->cache_off();
         $this->db->select('*, s1.work_place_id, p.ID');
         $this->db->from('Service s1');
-        $this->db->join('Personal_Details p', 'p.NIC = s1.NIC');
+        $this->db->join('Personal_Details p', 'p.ID = s1.person_id');
         $this->db->join('Main_Office_Branches br', 's1.work_branch_id = br.ID','left');
         $this->db->join('Main_Office_Divisions div', 's1.work_division_id = div.ID','left');
         $this->db->join('Service_Mode smood', 'smood.ID = s1.service_mode');
@@ -312,10 +337,10 @@ class Form_data_model extends CI_Model{
         $this->db->from('Contact_Details');
         $this->db->where('person_id', $personID);
         $this->db->where('address_type', 'permanant');
-        $query = $this->db->get();
-        $res['contact'] = $query->result_array();
+        $query_contact = $this->db->get();
+        $res['contact'] = $query_contact->result_array();
         
-        //Get Contact Details of officer and add to $res Array
+        //Get General Service Details of officer and add to $res Array
         $this->db->select('*');
         $this->db->from('General_Service');
         $this->db->where('person_id', $personID);
@@ -328,9 +353,14 @@ class Form_data_model extends CI_Model{
         if ($query->num_rows() >= 1) {
 			//$res = $query->result_array();
             $i=0;
-            foreach($res as $key=>$row){
-                
+            foreach($res as $row){
+                //print_r($row);
                 switch ($row['work_place_id']) {
+                    case 1:
+                    case 2:
+                    case 3:
+                    case 4:
+                        break;
                     case 5:
                     case 6:
                         $this->db->select('provine_office');
@@ -339,7 +369,7 @@ class Form_data_model extends CI_Model{
                         $sub_loc_query = $this->db->get();
                         
                         $sub_loc = $sub_loc_query->result_array();
-                        if (isset($sub_loc)){ $res['sub_location'] = $sub_loc['0']['provine_office']; }
+                        if (isset($sub_loc)){ $res[$i]['sub_location'] = $sub_loc['0']['provine_office']; }
                         
                         break;
                     case 7:
@@ -349,7 +379,8 @@ class Form_data_model extends CI_Model{
                         $sub_loc_query = $this->db->get();
                         
                         $sub_loc = $sub_loc_query->result_array();
-                        if (isset($sub_loc)){ $res['sub_location'] = $sub_loc['0']['zonal_office']; }
+                        
+                        if (isset($sub_loc)){ $res[$i]['sub_location'] = $sub_loc['0']['zonal_office']; }
                         
                         break;
                     case 8:
@@ -359,9 +390,27 @@ class Form_data_model extends CI_Model{
                         $sub_loc_query = $this->db->get();
                         
                         $sub_loc = $sub_loc_query->result_array();
-                        if (isset($sub_loc)){ $res['sub_location'] = $sub_loc['0']['division_office']; }
+                        if (isset($sub_loc)){ $res[$i]['sub_location'] = $sub_loc['0']['division_office']; }
                         
                         break;
+                    case 9:
+                    case 10:
+                    case 11:
+                    case 12:
+                    case 13:
+                    case 14:
+                    case 15:
+                    case 16:
+                    case 17:
+                        $this->db->select('institute_name');
+                        $this->db->from('Institute');
+                        $this->db->where('ID', $row['sub_location_id']);
+                        $sub_loc_query = $this->db->get();
+                        
+                        $sub_loc = $sub_loc_query->result_array();
+                        if (isset($sub_loc)){ $res[$i]['sub_location'] = $sub_loc['0']['institute_name']; }
+                        break;
+                        
                     case 18:
                         $this->db->select('province');
                         $this->db->from('Province_List');
@@ -370,16 +419,6 @@ class Form_data_model extends CI_Model{
                         
                         $sub_loc = $sub_loc_query->result_array();
                         if (isset($sub_loc)){ $res[$i]['sub_location'] = $sub_loc['0']['province']; }
-                        
-                        break;
-                    default:
-                        $this->db->select('institute_name');
-                        $this->db->from('Institute');
-                        $this->db->where('ID', $row['sub_location_id']);
-                        $sub_loc_query = $this->db->get();
-                        
-                        $sub_loc = $sub_loc_query->result_array();
-                        if (isset($sub_loc)){ $res['sub_location'] = $sub_loc['0']['institute_name']; }
                         
                         break;
                 }
@@ -397,10 +436,41 @@ class Form_data_model extends CI_Model{
         
         $this->db->where('ID', $person_id);
         $this->db->update('Personal_Details', $personal_details);
+        
+        
+        $this->db->where('person_id', $person_id);
         $this->db->update('Contact_Details', $contact_details);
         
         if($this->db->affected_rows()){
             return 1;
+        }
+    }
+    
+    public function get_Change_Requests($sclerk){
+        $this->db->select('*, C.ID AS msg_id');
+        $this->db->from('Change_Request C');
+        $this->db->join('Personal_Details p', 'p.ID = C.person_id');
+        $this->db->where('C.sclerk', $sclerk);
+        $this->db->where('C.viewed', '0');
+        $query = $this->db->get();
+        $res = $query->result_array();
+        
+        if($query->num_rows() >= 1){
+            return $res;
+        }
+    }
+    
+    public function get_Change_Requests_Officer($person_id){
+        $this->db->select('*, C.ID AS msg_id');
+        $this->db->from('Change_Request C');
+        $this->db->join('Personal_Details p', 'p.ID = C.person_id');
+        $this->db->where('C.person_id', $person_id);
+        $this->db->order_by('C.viewed', 'ASC');
+        $query = $this->db->get();
+        $res = $query->result_array();
+        
+        if($query->num_rows() >= 1){
+            return $res;
         }
     }
 }
