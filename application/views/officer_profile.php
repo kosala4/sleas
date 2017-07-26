@@ -15,7 +15,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <section id="content">   <!-- Start: Content -->
 	        <div class="container" style="padding-top: 20px;">
                 
-                    <?php if ($this->session->flashdata('update')=="success"){ ?>
+            <?php if ($this->session->flashdata('update')=="success"){ ?>
                 <div class="col-md-12">
                         <div class="col-md-6">
                             <div class="alert alert-success">
@@ -24,11 +24,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </div>
                         </div>
                 </div>
-                    <?php } ?>
+            <?php } ?>
                 
                 <div class="col-md-3 col-sm-4">
                     <div style="text-align:center;text-align:-moz-center;">
-                        <img class="img-responsive" src="<?php echo base_url()."assets/images/users/user.png"?>" alt="User Profile">
+                        <?php if ($user_details[0]['profile_pic']){ ?>
+                            <img class="img-responsive profile_img" id="profile_img" src="<?php echo base_url().'file_library/'. $user_details[0]['ID'] . '/' . $user_details[0]['profile_pic'] ?>" alt="User Profile">
+                        <?php } else{ ?>
+                            <img class="img-responsive profile_img" id="profile_img" src="<?php echo base_url()."assets/images/users/user.png"?>" alt="User Profile">
+                        <?php } ?>
                         <a role="button" class="btn btn-white btn-xs" style="margin-top:10px; margin-left:auto; margin-right:auto;" data-toggle="modal" data-target="#profilePicModal" >Change/ Add Profile picture</a>
                     </div>
                     
@@ -39,8 +43,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <!-- Modal content-->
                             <div class="modal-content">
                               <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title">Upload profile image</h4>
+                                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                  <h4 class="modal-title">Upload profile image</h4>
+                                  
                               </div>
                                 
                             <?php echo form_open() ?> 
@@ -53,7 +58,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 </div>
                               </div>
                               <div class="modal-footer">
-                                <button type="button" class="btn btn-success" id="image_submit">Save</button>
+                                <button type="button" class="btn btn-success" data-dismiss="modal" id="image_submit">Save</button>
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                               </div>
                             <?php echo form_close() ?>
@@ -384,7 +389,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 });
 
                 $('#image_submit').click(function(){
-                    console.log("ssssss");
                     var post_url = "index.php/FormControl/setProfileImage/"+'2';
                     var form_data = new FormData();
                     var file_data = $('#file').prop('files')[0];
@@ -394,15 +398,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     $.ajax({
                         type: "POST",
                         url: "<?php echo base_url(); ?>" + post_url,
-                        dataType :'text',
+                        dataType :'json',
                         data: form_data,
                         contentType: false,
                         processData: false,
                         success: function(response){
-                             $('#msg').html(response); // display success response from the PHP script
+                            $('#profile_img').attr('src', "<?php echo base_url(); ?>" + response['path']);
+                            console.log("<?php echo base_url(); ?>" + response['path']);
                             },
                         error: function (response) {
-                            $('#msg').html(response); // display error response from the PHP script
+                            
                         }
                     });
                 });

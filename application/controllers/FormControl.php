@@ -126,13 +126,18 @@ class FormControl extends CI_Controller {
                 }
                 
                 if (file_exists($file_path . '/' . $file_name)) {
-                    echo 'File already exists : generated/' . $_FILES['file']['name'];
+                    move_uploaded_file($_FILES['file']['tmp_name'], $file_path . '/' . $file_name);
+                    $res = $this->Form_data_model->updateprofileImage($user_id, $dataarray);
+                    if ($res == '1'){
+                        $fileDetails = array('path' => $file_path . '/' . $file_name);
+                        echo json_encode($fileDetails);
+                    }
                 } else {
                     move_uploaded_file($_FILES['file']['tmp_name'], $file_path . '/' . $file_name);
                     $res = $this->Form_data_model->updateprofileImage($user_id, $dataarray);
                     if ($res == '1'){
-                        echo 'File successfully uploaded : ' .$file_path . '/' . $file_name;
-                        echo $file_name;
+                        $fileDetails = array('path' => $file_path . '/' . $file_name);
+                        echo json_encode($fileDetails);
                     }
                 }
             }

@@ -28,7 +28,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </div> 
             
             <div class="col-md-8" style="color:#000;margin-top:20px;">            
-            02. මෙම ස්ථානගත කිරීම සම්බන්ධයෙන් උපවේශන දීමනා ගෙවනු නොලැබේ.                      
+            03. මෙම ස්ථානගත කිරීම සම්බන්ධයෙන් උපවේශන දීමනා ගෙවනු නොලැබේ.                      
             </div> 
 
             <div class="col-md-12" style="margin-top:100px;">

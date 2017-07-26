@@ -48,5 +48,55 @@ class Increment extends CI_Controller {
 
 		$this->load->view('footer');
     }
+    
+    public function calculate()
+    {
+        $person_id = $this->input->post('person_id');
+        $increment_date = $this->input->post('increment_date');
+        $grade = $this->input->post('grade');
+        $current_salary_step = $this->input->post('salary_step');
+        $increment_year = date(Y, strtotime($increment_date));
+        
+        $current_salary = $this->calculateSalary($grade, $current_salary_step, $increment_year);
+        $new_salary = $this->calculateSalary($grade, $current_salary_step+1, $increment_year);
+        
+        $increment = $new_salary - $current_salary;
+        
+        $salaryDetails = array('new_salary' => $new_salary, 'increment' => $increment);
+        
+        echo json_encode($salaryDetails);
+    }
+    
+    public function calculateSalary($grade, $salary_step, $increment_year){
+        $gr3_start = 22935;
+        $gr3_end = 47615;
+        $gr3_start_incr = 645;
+        $gr3_end_incr = 1335;
+
+        $gr2_start = 30175;
+        $gr2_end = 62595;
+        $gr2_start_incr = 790;
+        $gr2_end_incr = 1630;
+
+        $gr1_start = 36755;
+        $gr1_end = 76175;
+        $gr1_start_incr = 1050;
+        $gr1_end_incr = 2170;
+
+        if($grade == 'Grade I'){
+
+            $salary = ($gr1_start + ($gr1_start_incr * ($salary_step - 20))) + ((($gr1_end + ($gr1_end_incr * ($salary_step - 20))) - ($gr1_start + ($gr1_start_incr * ($salary_step - 20))))/5)*($increment_year - 2015);
+
+        }else if($grade == 'Grade II'){
+
+            $salary = ($gr2_start + ($gr2_start_incr * ($salary_step - 12))) + ((($gr2_end + ($gr2_end_incr * ($salary_step - 12))) - ($gr2_start + ($gr2_start_incr * ($salary_step - 12))))/5)*($increment_year - 2015);
+
+        }else if($grade == 'Grade III'){
+
+            $salary = ($gr3_start + ($gr3_start_incr * ($salary_step - 1))) + ((($gr3_end + ($gr3_end_incr * ($salary_step - 1))) - ($gr3_start + ($gr3_start_incr * ($salary_step - 1))))/5)*($increment_year - 2015);
+
+        }
+        return $salary;
+    }
 }
 ?>
