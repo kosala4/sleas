@@ -19,6 +19,12 @@ class Form_data_model extends CI_Model{
             case "designation":
                 $res = $this->getAllRecords('Designation');
                 break;
+            case "deativate_type":
+                $res = $this->getAllRecords('Deactivation_Type');
+                break;
+            case "disciplinary":
+                $res = $this->getAllRecords('Disciplinary_Type');
+                break;
         }
         
         return $res;
@@ -97,7 +103,6 @@ class Form_data_model extends CI_Model{
     public function searchdb($table, $search_array){
 		$this->db->where($search_array);
 		$query = $this->db->get($table);
-        /*$query = $this->db->query("SELECT * FROM $table WHERE $field=5 ;" );*/
 
 		if ($query->num_rows() >= 1) {
 			$res  = $query->result_array();
@@ -131,12 +136,6 @@ class Form_data_model extends CI_Model{
 		} else{
 			return 0;
 		}
-    }
-    
-    public function selectData(){
-        $this->db->select('title');
-        $this->db->where($search_array);
-        $query = $this->db->get('mytable');
     }
     
     public function insertData($table, $data){
@@ -347,6 +346,13 @@ class Form_data_model extends CI_Model{
         $ge_service_query = $this->db->get();
         $res['general'] = $ge_service_query->result_array();
         
+        //Get Salary Details of officer and add to $res Array
+        $this->db->select('*');
+        $this->db->from('Salary');
+        $this->db->where('person_id', $personID);
+        $ge_service_query = $this->db->get();
+        $res['salary'] = $ge_service_query->result_array();
+        
         
         
         //Output Officer details
@@ -432,6 +438,109 @@ class Form_data_model extends CI_Model{
         
     }
     
+    public function get_Officer_recent_service($personID){
+        $this->db->cache_off();
+        $this->db->select('*, s1.work_place_id, s1.person_id');
+        $this->db->from('Service s1');
+        $this->db->join('Main_Office_Branches br', 's1.work_branch_id = br.ID','left');
+        $this->db->join('Main_Office_Divisions div', 's1.work_division_id = div.ID','left');
+        $this->db->join('Service_Mode smood', 'smood.ID = s1.service_mode');
+        $this->db->join('Work_Place', 'Work_Place.ID = s1.work_place_id');
+        $this->db->join('Designation', 'Designation.ID = s1.designation_id');
+        $this->db->where('s1.person_id', $personID);
+        $this->db->order_by('s1.duty_date', 'DESC');
+        $this->db->limit(1);
+        $query = $this->db->get();
+        $res = $query->result_array();
+        
+        //Get General Service Details of officer and add to $res Array
+        $this->db->select('*');
+        $this->db->from('General_Service');
+        $this->db->where('person_id', $personID);
+        $ge_service_query = $this->db->get();
+        $res['general'] = $ge_service_query->result_array();
+        
+        //Output Officer details
+        if ($query->num_rows() >= 1) {
+			//$res = $query->result_array();
+            foreach($res as $row){
+                //print_r($row);
+                switch ($row['work_place_id']) {
+                    case 1:
+                    case 2:
+                    case 3:
+                    case 4:
+                        break;
+                    case 5:
+                    case 6:
+                        $this->db->select('provine_office');
+                        $this->db->from('Province_Offices');
+                        $this->db->where('ID', $row['sub_location_id']);
+                        $sub_loc_query = $this->db->get();
+                        
+                        $sub_loc = $sub_loc_query->result_array();
+                        if (isset($sub_loc)){ $res['0']['sub_location'] = $sub_loc['0']['provine_office']; }
+                        
+                        break;
+                    case 7:
+                        $this->db->select('zonal_office');
+                        $this->db->from('Zonal_Offices');
+                        $this->db->where('ID', $row['sub_location_id']);
+                        $sub_loc_query = $this->db->get();
+                        
+                        $sub_loc = $sub_loc_query->result_array();
+                        
+                        if (isset($sub_loc)){ $res['0']['sub_location'] = $sub_loc['0']['zonal_office']; }
+                        
+                        break;
+                    case 8:
+                        $this->db->select('division_office');
+                        $this->db->from('Divisional_Offices');
+                        $this->db->where('ID', $row['sub_location_id']);
+                        $sub_loc_query = $this->db->get();
+                        
+                        $sub_loc = $sub_loc_query->result_array();
+                        if (isset($sub_loc)){ $res['0']['sub_location'] = $sub_loc['0']['division_office']; }
+                        
+                        break;
+                    case 9:
+                    case 10:
+                    case 11:
+                    case 12:
+                    case 13:
+                    case 14:
+                    case 15:
+                    case 16:
+                    case 17:
+                        $this->db->select('institute_name');
+                        $this->db->from('Institute');
+                        $this->db->where('ID', $row['sub_location_id']);
+                        $sub_loc_query = $this->db->get();
+                        
+                        $sub_loc = $sub_loc_query->result_array();
+                        if (isset($sub_loc)){ $res['0']['sub_location'] = $sub_loc['0']['institute_name']; }
+                        break;
+                        
+                    case 18:
+                        $this->db->select('province');
+                        $this->db->from('Province_List');
+                        $this->db->where('province_id', $row['sub_location_id']);
+                        $sub_loc_query = $this->db->get();
+                        
+                        $sub_loc = $sub_loc_query->result_array();
+                        if (isset($sub_loc)){ $res['0']['sub_location'] = $sub_loc['0']['province']; }
+                        
+                        break;
+                }
+            }
+            //return $query;
+			return $res;
+		} else{
+			return 0;
+		}
+        
+    }
+    
     public function updateOfficer($person_id, $personal_details, $contact_details){
         
         $this->db->where('ID', $person_id);
@@ -472,6 +581,24 @@ class Form_data_model extends CI_Model{
         if($query->num_rows() >= 1){
             return $res;
         }
+    }
+    
+    public function get_work_place($personID){
+        $this->db->select('work_place');
+        $this->db->from('Service s');
+        $this->db->join('Work_Place w', 'w.ID = s.work_place_id');
+        $this->db->where('s.person_id', $personID);
+        $query = $this->db->get();
+        $res = $query->result_array();
+        if ($query->num_rows() >= 1){
+            return $res;
+        }
+    }
+    
+    public function update($table, $search_field, $search_key, $update_array){
+        
+        $this->db->where($search_field, $search_key);
+        $this->db->update($table, $update_array);
     }
 }
 ?>

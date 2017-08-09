@@ -19,8 +19,13 @@ class User_model extends CI_Model
 		$this->db->where('passwd', $pwd);
 		$query = $this->db->get('User');
 
+		//$data  = $query->result_array();
+        
 		if ($query->num_rows() == 1) {
+            //if(password_verify($pwd, $data['0']['passwd'])){
+                
 			return 1;
+            //}
 		}
 	}
 	
@@ -49,6 +54,19 @@ class User_model extends CI_Model
 			return 0;
 		}
 	}
+    
+    public function check_username($username)
+    {
+		$this->db->select('user_name');
+        $this->db->where('user_name', $username);
+		$query = $this->db->get('User');
+        
+        if ($query->num_rows() >= 1) {
+			return 1;
+		} else{
+			return 0;
+		}
+    }
 
 	public function update()
 	{}

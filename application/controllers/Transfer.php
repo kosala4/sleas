@@ -161,18 +161,21 @@ class Transfer extends CI_Controller {
 		$this->load->view('head');
 		$this->load->view('sclerk_sidebar');
         $this->load->view('letter/letter-header',$this->view_data_array);
-        $this->load->view('letter/transfer/province',$this->view_data_array);
-		$this->load->view('footer');
         
         $html = $this->load->view('letter/letter-header',$this->view_data_array,true);
         
-        if($work_place_id == '18'){
-            $html = $html . $this->load->view('letter/transfer/province',$this->view_data_array,true);
+        $recent_service = $this->Form_data_model->get_Officer_recent_service($person_id);
+        $recent_work_place = $recent_service['0']['work_place_id'];
+        $recent_work_branch = $recent_service['0']['office_branch'];
+        $this->view_data_array['recent_work_branch'] = $recent_work_branch;
+        
+        if($work_place_id == $recent_work_place AND $work_place_id == '1'){
+            $html = $html . $this->load->view('letter/transfer/internal',$this->view_data_array,true);
         }else if($work_place_id == '16'){
             $html = $html . $this->load->view('letter/transfer/school',$this->view_data_array,true);
-        }else if($work_place_id == '1' || $work_place_id == '2' || $work_place_id == '3') {
+        }/*else if($work_place_id == '1' || $work_place_id == '2' || $work_place_id == '3') {
             $html = $html . $this->load->view('letter/transfer/main_office',$this->view_data_array,true);
-        }
+        }*/
         
         return $html;
     }

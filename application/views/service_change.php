@@ -13,7 +13,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </div>
                     </div><!--End of panel-heading-->
                     <div class="panel-body">
-                    <?php echo form_open("$class/$method", 'role="form" id="addTransferForm"'); ?>
+                    <?php echo form_open("$class/$method", 'role="form" id="addServiceChangeForm"'); ?>
                         <div class="col-md-12">
                             <div class="form-group">
                             <label>Add <?php echo $class ?> for</label>
@@ -22,6 +22,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <?php    } ?>
                                     
                                 <input type="hidden" name="person_id" value="<?php echo $result[0]['ID'] ;?>">
+                                <input type="hidden" name="submit" id="submit" value="">
                             </div>
                         </div>
                         
@@ -153,12 +154,35 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                             <div class="form-group ">
                                 <label>Present SLEAS Grade</label>
-                                <select class="select2 " name="present_grade" id="present_grade" style="width:100%">
+                                <?php if ($class == 'PromotionTransfer'){ ?>
+                                    <select class="select2 " name="present_grade" id="present_grade" style="width:100%">
+                                        <option value="<?php echo $new_grade ?>"> <?php echo $new_grade ?> </option>
+                                    </select>
+                                <?php } else{ ?>
+                                    <select class="select2 " name="present_grade" id="present_grade" style="width:100%">
                                     <option value="">  Select </option>
-                                    <option value="1open">  Grade I </option>
-                                    <option value="1open">  Grade II </option>
-                                    <option value="1open">  Grade III </option>
+                                    <option value="Special Grade"> Special Grade </option>
+                                    <option value="Grade I">  Grade I </option>
+                                    <option value="Grade II">  Grade II </option>
+                                    <option value="Grade III">  Grade III </option>
                                 </select>
+                                <?php } ?>
+                                
+                            </div>
+
+                            <div class="form-group hidden" id="eb_1_date">
+                                <label>Efficiency Bar Examination I Pass Date</label>
+                                <input type="text" class="form-control date-picker" name="eb_1_date" id="eb_1_date">
+                            </div>
+
+                            <div class="form-group hidden" id="eb_2_date">
+                                <label>Efficiency Bar Examination II Pass Date</label>
+                                <input type="text" class="form-control date-picker" name="eb_2_date" id="eb_2_date">
+                            </div>
+
+                            <div class="form-group hidden" id="eb_3_date">
+                                <label>Efficiency Bar Examination III Pass Date</label>
+                                <input type="text" class="form-control date-picker" name="eb_3_date" id="eb_3_date">
                             </div>
 
                             <div class="form-group hidden date-promoted">
@@ -240,6 +264,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             case 'promoTrans':
                 $('.date-promoted').removeClass("hidden");
                 $('.salary-drawn').addClass("hidden");
+                
+                var grade = $(present_grade).val();
+                if(grade == 'Grade II'){
+                    $("#eb_1_date").removeClass("hidden");
+                }else if(grade == 'Grade I'){
+                    $('#eb_2_date').removeClass('hidden');
+                }else if(grade == 'Special Grade'){
+                    $('#eb_3_date').removeClass('hidden');
+                }
+                
                 break;
             case 'attach':
                 $('.date-promoted').addClass("hidden");
@@ -272,7 +306,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         
         
         
-        $("#addTransferForm").validate({
+        $("#addServiceChangeForm").validate({
             errorElement: 'span', //default input error message container
             errorClass: 'help-block error', // default input error message class
             focusInvalid: false, // do not focus the last invalid input
@@ -499,6 +533,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         });
             
         
+        $('#addServiceChangeForm').submit(function(e){
+            
+            var submitCount = $('#submit').val() + 1;
+            $('#submit').val(submitCount);
+            
+        });
         
     });
 </script>

@@ -331,7 +331,9 @@ function handleDatePickers() {
 
     $('.date-picker').datepicker({
         autoclose: true,
-        dateFormat: 'yy-mm-dd'
+        dateFormat: 'yy-mm-dd',
+        changeMonth: true,
+        changeYear: true
     });
 
     $('#sandbox-container .input-group.date-picker').datepicker();

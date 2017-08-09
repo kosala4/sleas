@@ -6,7 +6,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <table border="0" width="100%">
                     <tr>
                         <td valign="top">
-                            <p><?php echo $personal_details[0]['title'] . ' ' ;?> <?php echo $personal_details[0]['f_name'] ;?> <?php echo $personal_details[0]['l_name'] ;?></p>
+                            <p><?php echo $personal_details[0]['title'] . ' ' ;?> <?php echo $personal_details[0]['in_name'] ;?> <br>
+                            (ශ්‍රී ලං.අ.ප.සේ. III) </p>
                         </td>
                         <td align="right">
                             <img alt="testing" src="<?php echo base_url()."generated/barcode".$barcode.".png" ?>" width="250px" style="margin-right:0;"/>
@@ -20,7 +21,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </div>
             
             <div class="col-md-8" style="color:#000;margin-top:20px;">
-            විවෘත තරඟ විභාග ප්‍රතිඵල මත ශ්‍රී ලංකා අධ්‍යාපන පරිපාලන සේවයේ III පන්තියට පත් කරමින් ඔබ වෙත නිකුත් කරන ලද රාජ්‍ය සේවා කොමිෂන් සභා ලේකම්ගේ අංක <?php echo $psc_letter ?> හා  <?php echo $appoint_date ?>  දිනැති පත්වීම් ලිපියෙහි විධිවිධානයන්ට යටත්ව <?php echo $work_date ?> දින සිට ක්‍රියාත්මක වන පරිදි ඔබ <?php echo ucwords(strtolower($school[0]['institute_name'])) ?> විද්‍යාලයේ  <?php echo ucwords(strtolower($designation[0]['designation'])) ?> තනතුර සඳහා පත් කරමි.
+            විවෘත තරඟ විභාග ප්‍රතිඵල මත ශ්‍රී ලංකා අධ්‍යාපන පරිපාලන සේවයේ III පන්තියට පත් කරමින් ඔබ වෙත නිකුත් කරන ලද රාජ්‍ය සේවා කොමිෂන් සභා ලේකම්ගේ අංක <?php echo $psc_letter ?> හා  <?php echo $appoint_date; ?>  දිනැති පත්වීම් ලිපියෙහි විධිවිධානයන්ට යටත්ව <?php echo $work_date ?> දින සිට ක්‍රියාත්මක වන පරිදි ඔබ <?php echo ucwords(strtolower($school[0]['institute_name'])); ?> හි <?php echo ucwords(strtolower($designation[0]['designation'])) ?> තනතුර සඳහා පත් කරමි.
             </div>
             
             <div class="col-md-8" style="color:#000;margin-top:20px;">            
@@ -56,11 +57,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="col-md-12">
                 <p>පිටපත්-</p>
                 <ol>
-                    <li>ලේකම්, රාජ්‍ය සේවා කොමිෂන් සභාව</li>
+                    <li>ලේකම්, රාජ්‍ය සේවා කොමිෂන් සභාවේ අධ්‍යාපන සේවා කමිටුව </li>
                     <li>පළාත් අධ්‍යාපන අධ්‍යක්ෂ - <?php echo ucwords(strtolower($province[0]['province'])); ?> Province</li>
                     <li>ජාතික පාසල් අධ්‍යක්ෂ</li>
-                    <li>කලාප අධ්‍යාපන අධ්‍යාක්ෂ  - <?php echo ucwords(strtolower($province[0]['province'])) ?> Province</li>
-                    <li>විදුහල්පති - <?php echo ucwords(strtolower($province[0]['province'])) ?> Province</li>
+                    <li>කලාප අධ්‍යාපන අධ්‍යක්ෂ  - <?php echo ucwords(strtolower($zone[0]['zone'])) ?> Zone</li>
+                    <li>විදුහල්පති - <?php echo ucwords(strtolower($school[0]['institute_name'])); ?> </li>
                     <li>පෞද්ගලික ලිපිගොනුව</li>
                 </ol>
             </div>

@@ -18,10 +18,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <div class="form-group">
                             <label>Add <?php echo $class ?> for</label>
                             <?php if ($result) { ?>
-                                <label><?php echo $result[0]['title'] . ' ' ;?> <?php echo $result[0]['f_name'] ;?> <?php echo $result[0]['l_name'] ;?></label>
+                                <label><?php echo $result[0]['title'] . ' ' ;?> <?php echo $result[0]['in_name'] ;?></label>
                             <?php    } ?>
                                     
                                 <input type="hidden" name="person_id" value="<?php echo $result[0]['ID'] ;?>">
+                                <input type="hidden" name="submit" id="submit" value="">
                             </div>
                         </div>
                         
@@ -31,39 +32,60 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <label>NIC Number</label>
                                 <input type="text" class="form-control " name="nic" id="nic" value="<?php echo $result[0]['NIC'] ;?>" readonly>
                             </div>
+                            
+                            <div class="form-group ">
+                                <label><span style="color:red;">*</span>Working place</label>
+                                <select class="select2 " name="work_place" id="work_place" style="width:100%" readonly>
+                                    <option value="<?php echo $result[0]['work_place_id']; ?>"> <?php echo $result[0]['work_place']; ?> </option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group ">
+                                <label><span style="color:red;">*</span>Branch / Institute</label>
+                                <select class="select2 " name="sub_location" id="sub_location" style="width:100%">
+                                    <option value="<?php echo $result[0]['work_branch_id'] . $result[0]['sub_location_id'] ; ?>"> <?php echo $result[0]['office_branch'] . $result[0]['sub_location'] ; ?> </option>
+                                </select>
+                            </div>
+                            
                             <div class="form-group">
                                 <label><span style="color:red;">*</span>Designation</label>
-                                <?php if ($designation) { ?>
-                                    <select class="select2Search designation validate[required]" name="designation" id="designation" style="width:100%">
-                                        <option value="" hidden selected> ---------Please Select--------- </option>
-                                        <?php foreach ($designation as $row) { ?>
-                                            <option value="<?php echo $row['ID'];?>" > <?php echo $row['designation'] ;?> </option>
-                                        <?php    } ?>
-                                        <option value="other" class="c-other hidden"> Other </option>
-                                    </select>
-                                <?php } ?>
+                                <select class="select2 " name="designation" id="designation" style="width:100%">
+                                    <option value="<?php echo $result[0]['designation_id']; ?>"> <?php echo $result[0]['designation']; ?> </option>
+                                </select>
                             </div>
 
                             <div class="form-group ">
                                 <label>SLEAS Grade</label>
                                 <select class="select2 " name="present_grade" id="present_grade" style="width:100%">
-                                    <option value="">  Select </option>
-                                    <option value="Grade I">  Grade I </option>
-                                    <option value="Grade II">  Grade II </option>
-                                    <option value="Grade III">  Grade III </option>
+                                    <option value="<?php echo $new_grade ?>"> <?php echo $new_grade ?> </option>
                                 </select>
-                            </div>
-
-                            <div class="form-group hidden date-promoted">
-                                <label><span style="color:red;">*</span>Date Promoted</label>
-                                <input type="text" class="form-control date-picker" name="date_promoted" id="date_promoted">
                             </div>
                         </div>
                         <div class="col-md-6">
 
+                            <div class="form-group hidden" id="eb_1_date">
+                                <label>Efficiency Bar Examination I Pass Date</label>
+                                <input type="text" class="form-control date-picker" name="eb_1_date">
+                            </div>
+
+                            <div class="form-group hidden" id="eb_2_grade3_date">
+                                <label>Efficiency Bar Examination II (P. G. D. or Equalent) Pass Date</label>
+                                <input type="text" class="form-control date-picker" name="eb_2_grade3_date">
+                            </div>
+
+                            <div class="form-group hidden" id="eb_2_date">
+                                <label>Efficiency Bar Examination II Pass Date</label>
+                                <input type="text" class="form-control date-picker" name="eb_2_date" id="eb_2_date">
+                            </div>
+
+                            <div class="form-group hidden" id="eb_3_date">
+                                <label>Efficiency Bar Examination III Pass Date</label>
+                                <input type="text" class="form-control date-picker" name="eb_3_date" id="eb_3_date">
+                            </div>
+
                             <div class="form-group">
-                                <label>Date of assumed duties at the present working place</label>
-                                <input type="text" class="form-control date-picker" name="date_assumed" id="date_assumed">
+                                <label>Date of promotion</label>
+                                <input type="text" class="form-control date-picker" name="work_date" id="date_assumed">
                             </div>
 
                             <div class="form-group">
@@ -101,6 +123,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </div>
                             
                     <?php echo form_close(); ?>
+                        
+                        <?php //print_r($result); ?>
                     </div>
                 </div>
             </div>
@@ -116,6 +140,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <script>
     $(document).ready(function(){ 
                 
+        var grade = $(present_grade).val();
+        if(grade == 'Grade II'){
+            $("#eb_1_date").removeClass("hidden");
+            $("#eb_2_grade3_date").removeClass("hidden");
+        }else if(grade == 'Grade I'){
+            $('#eb_2_date').removeClass('hidden');
+        }else if(grade == 'Special Grade'){
+            $('#eb_3_date').removeClass('hidden');
+        }
+        
         $("#addPromotionForm").validate({
             errorElement: 'span', //default input error message container
             errorClass: 'help-block error', // default input error message class
@@ -306,8 +340,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 }
             });
         });
-            
         
+        $('#addPromotionForm').submit(function(e){
+            
+            var submitCount = $('#submit').val() + 1;
+            $('#submit').val(submitCount);
+            
+        });
         
     });
 </script>

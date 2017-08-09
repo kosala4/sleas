@@ -6,7 +6,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <table border="0" width="100%">
                     <tr>
                         <td valign="top">
-                            <p><?php echo $personal_details[0]['title'] . ' ' ;?> <?php echo $personal_details[0]['f_name'] ;?> <?php echo $personal_details[0]['l_name'] ;?></p>
+                            <p><?php echo $personal_details[0]['title'] . ' ' ;?> <?php echo $personal_details[0]['in_name'] ;?>  <br>
+                            (ශ්‍රී ලං.අ.ප.සේ. III) </p>
                         </td>
                         <td align="right">
                             <img alt="testing" src="<?php echo base_url()."generated/barcode".$barcode.".png" ?>" width="250px" style="margin-right:0;"/>
@@ -56,7 +57,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="col-md-12">
                 <p>පිටපත්-</p>
                 <ol>
-                    <li>ලේකම්, රාජ්‍ය සේවා කොමිෂන් සභාව</li>
+                    <li>ලේකම්, රාජ්‍ය සේවා කොමිෂන් සභාවේ අධ්‍යාපන සේවා කමිටුව </li>
                     <li>පළාත් රාජ්‍ය සේවා කොමිෂන් සභාව - <?php echo $province[0]['province'] ?> Province</li>
                     <li>ප්‍රධාන ලේකම් - <?php echo $province[0]['province'] ?> Province</li>
                     <li>පළාත් අධ්‍යාපන ලේකම් - <?php echo $province[0]['province'] ?> Province</li>

@@ -39,13 +39,25 @@ class Promotion extends CI_Controller {
 		$this->load->view('head');
 		$this->load->view('sclerk_sidebar');
         
-        $search_array = array('ID'=> $id);
-        $this->response['result'] = $this->Form_data_model->searchdb('Personal_Details', $search_array);
+        $this->response['result'] = $this->Form_data_model->get_Officer_Details($id);
         $this->response['workPlaces'] = $this->Form_data_model->select('workplace');
         $this->response['provinceList'] = $this->Form_data_model->select('province_list');
         $this->response['designation'] = $this->Form_data_model->select('designation');
         $this->response['service_type'] = 'promo';
         $this->response['method'] = 'promotion_add';
+        
+        $current_grade = $this->response['result']['general'][0]['grade']; 
+        switch ($current_grade) {
+            case 'Grade III':
+                $this->response['new_grade'] = 'Grade II';
+                break;
+            case 'Grade II':
+                $this->response['new_grade'] = 'Grade I';
+                break;
+            case 'Grade I':
+                $this->response['new_grade'] = 'Special Grade';
+                break;
+        }
 		$this->load->view('promotion_form', $this->response);
 
 		$this->load->view('footer');
@@ -57,18 +69,18 @@ class Promotion extends CI_Controller {
         $nic = $this->security->xss_clean($_REQUEST['nic']);
         $person_id = $this->security->xss_clean($_REQUEST['person_id']);
         $work_place_id = $this->security->xss_clean($_REQUEST['work_place']);
-        $main_division_id = $this->security->xss_clean($_REQUEST['main_division']);
-        $main_branch_id = $this->security->xss_clean($_REQUEST['main_branch']);
-        $province_id = $this->security->xss_clean($_REQUEST['province']);
-        $district_id = $this->security->xss_clean($_REQUEST['district']);
-        $zone_id = $this->security->xss_clean($_REQUEST['zone']);
-        $division_id = $this->security->xss_clean($_REQUEST['division']);
-        $institute_id = $this->security->xss_clean($_REQUEST['institute']);
+        $main_branch_id = $this->security->xss_clean($_REQUEST['sub_location']);
+        $institute_id = $this->security->xss_clean($_REQUEST['sub_location']);
         $designation_id = $this->security->xss_clean($_REQUEST['designation']);
         $work_date = date("Y-m-d", strtotime($this->security->xss_clean($_REQUEST['work_date'])));
         $official_letter_no = $this->security->xss_clean($_REQUEST['official_letter_no']);
         $psc_letter = $this->security->xss_clean($_REQUEST['psc_letter']);
         $appoint_date = date("Y-m-d", strtotime($this->security->xss_clean($_REQUEST['appoint_date'])));
+        
+        $eb_1_date = $this->security->xss_clean($_REQUEST['eb_1_date']);
+        $eb_2_grade3_date = $this->security->xss_clean($_REQUEST['eb_2_grade3_date']);
+        $eb_2_date = $this->security->xss_clean($_REQUEST['eb_2_date']);
+        $eb_3_date = $this->security->xss_clean($_REQUEST['eb_3_date']);
         
         $present_grade = $this->security->xss_clean($_REQUEST['present_grade']);
         $date_promoted = date("Y-m-d", strtotime($this->security->xss_clean($_REQUEST['date_promoted'])));
@@ -78,6 +90,7 @@ class Promotion extends CI_Controller {
         $zonal_office_id = $this->security->xss_clean($_REQUEST['zonal_office']);
         $divisional_office_id = $this->security->xss_clean($_REQUEST['divisional_office']);
         $salary_drawn = $this->security->xss_clean($_REQUEST['salary_drawn']);
+        $submit = $this->security->xss_clean($_REQUEST['submit']);
         
         
         
@@ -96,7 +109,9 @@ class Promotion extends CI_Controller {
         $province = $this->Form_data_model->searchdbvalue('Province_List', 'province_id', $province_id);
         $institute = $this->Form_data_model->searchdbvalue('Institute', 'ID', $institute_id);
         
-        $service = array('ID' => $service_id,'nic' => $nic, 'service_mode' => '3', 'work_place_id'=>$work_place_id, 'designation_id'=>$designation_id , 'duty_date'=>$work_date, 'off_letter_no'=>$official_letter_no, 'user_updated' => $this->session->username);
+        $service = array('ID' => $service_id, 'person_id' => $person_id, 'service_mode' => '3', 'work_place_id'=>$work_place_id, 'designation_id'=>$designation_id , 'duty_date'=>$work_date, 'off_letter_no'=>$official_letter_no, 'user_updated' => $this->session->username);
+        
+        $general_service = array('grade'=>$present_grade);
         
         switch ($work_place_id) {
             case 1:
@@ -131,22 +146,36 @@ class Promotion extends CI_Controller {
             default:
         }
         
-        //generate barcode        
+        if($present_grade == 'Grade I'){
+            $general_service['eb_2_pass'] = $eb_2_date;
+        } else if($present_grade == 'Grade II'){
+            $general_service['eb_1_pass'] = $eb_1_date;
+            $general_service['pg_dip_pass'] = $eb_2_grade3_date;
+        }
+        
+        //generate barcode
         $barcode = $this->generate_barcode($person_id);
         $this->view_data_array['barcode'] = $barcode;
         
         $service['barcode'] = $this->view_data_array['barcode'];
         
-        $res = $this->Form_data_model->insertData('Service', $service);
+        if($submit == '1'){
+            $res = $this->Form_data_model->insertData('Service', $service);
+            $resupd = $this->Form_data_model->update('General_Service', 'person_id', $person_id, $general_service);
+        }else{
+            $res = '1';
+            $resupd = '1';
+        }
+        
         //$res = '1';
-        if ($res == 1){
+        if ($res == '1' AND $resupd = '1'){
             //generate Letter as PDF
-            $this->view_data_array = array('work_place'=>$work_place, 'division'=>$main_division, 'branch'=>$main_branch, 'personal_details'=>$personal_details, 'work_date'=>$work_date, 'psc_letter'=>$psc_letter, 'appoint_date'=>$appoint_date, 'off_letter_no'=>$official_letter_no, 'province'=>$province, 'school' => $institute, 'designation' => $designation);
+            $this->view_data_array = array('work_place'=>$work_place, 'division'=>$main_division, 'branch'=>$main_branch, 'personal_details'=>$personal_details, 'work_date'=>$work_date, 'psc_letter'=>$psc_letter, 'appoint_date'=>$appoint_date, 'off_letter_no'=>$official_letter_no, 'province'=>$province, 'school' => $institute, 'designation' => $designation, 'work_place_id', $work_place_id, 'grade' => $present_grade);
 
             $pdfFilePath = 'file_library/'.$person_id.'/service/';
-            $pdfFileName = date("Y-m-d") . '-' . $nic. '-' . $work_place[0]['work_place'].'-' . $service_id . '.pdf';
+            $pdfFileName = date("Y-m-d") . '-' . $nic. '-Promotion.pdf';
             //Get letter HTML
-            $letter_html = $this->generate_letter_data($view_data_array, $person_id, $work_place_id);
+            $letter_html = $this->generate_letter_data($view_data_array, $person_id, $work_place_id, $present_grade);
 
             //Generate Letter pdf
             $this->generate_letter($letter_html, $pdfFilePath, $pdfFileName);
@@ -155,7 +184,7 @@ class Promotion extends CI_Controller {
         }
     }
     
-    public function generate_letter_data($view_data_array, $person_id, $work_place_id)
+    public function generate_letter_data($view_data_array, $person_id, $work_place_id, $present_grade)
     {
         
 		$this->load->view('head');
@@ -165,14 +194,15 @@ class Promotion extends CI_Controller {
 		$this->load->view('footer');
         
         $html = $this->load->view('letter/letter-header',$this->view_data_array,true);
+        $html = $html . $this->load->view('letter/promotion/grade1',$this->view_data_array,true);
         
-        if($work_place_id == '18'){
-            $html = $html . $this->load->view('letter/promotion/province',$this->view_data_array,true);
-        }else if($work_place_id == '16'){
+        /*if($present_grade == 'Grade I'){
+            $html = $html . $this->load->view('letter/promotion/grade1',$this->view_data_array,true);
+        }else if($present_grade == 'Grade II'){
             $html = $html . $this->load->view('letter/promotion/school',$this->view_data_array,true);
-        }else if($work_place_id == '1' || $work_place_id == '2' || $work_place_id == '3') {
+        }else if($present_grade == 'Grade III' || $work_place_id == '2' || $work_place_id == '3') {
             $html = $html . $this->load->view('letter/promotion/main_office',$this->view_data_array,true);
-        }
+        }*/
         
         return $html;
     }

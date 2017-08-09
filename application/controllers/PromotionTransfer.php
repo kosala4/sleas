@@ -39,13 +39,27 @@ class PromotionTransfer extends CI_Controller {
 		$this->load->view('head');
 		$this->load->view('sclerk_sidebar');
         
-        $search_array = array('ID'=> $id);
-        $this->response['result'] = $this->Form_data_model->searchdb('Personal_Details', $search_array);
+        //$search_array = array('ID'=> $id);
+        $this->response['result'] = $this->Form_data_model->get_Officer_Details($id);
         $this->response['workPlaces'] = $this->Form_data_model->select('workplace');
         $this->response['provinceList'] = $this->Form_data_model->select('province_list');
         $this->response['designation'] = $this->Form_data_model->select('designation');
         $this->response['service_type'] = 'promoTrans';
         $this->response['method'] = 'promotiontransfer_add';
+        
+        $current_grade = $this->response['result']['general'][0]['grade']; 
+        switch ($current_grade) {
+            case 'Grade III':
+                $this->response['new_grade'] = 'Grade II';
+                break;
+            case 'Grade II':
+                $this->response['new_grade'] = 'Grade I';
+                break;
+            case 'Grade I':
+                $this->response['new_grade'] = 'Special Grade';
+                break;
+        }
+        
 		$this->load->view('service_change', $this->response);
 
 		$this->load->view('footer');

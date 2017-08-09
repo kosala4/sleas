@@ -41,6 +41,8 @@ class Login extends CI_Controller {
             redirect('/admin/officer');
         }else if ($user_level == "2") {
             redirect('/admin/sclerk');
+        }else if ($user_level == "3") {
+            redirect('/admin/sclerk');
         }else{
 			redirect('/editor/index');
 		}
@@ -49,6 +51,7 @@ class Login extends CI_Controller {
 	function login_user()
 	{
 		$uname = strtolower($this->security->xss_clean($_REQUEST['username']));
+		//$pwd  = password_hash($this->security->xss_clean($_REQUEST['password']), PASSWORD_DEFAULT);
 		$pwd  = $this->security->xss_clean($_REQUEST['password']);
 
 		$chk_login = $this->User_model->login($uname, $pwd);

@@ -2,7 +2,24 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 ?>            
         <section id="content">   <!-- Start: Content -->
-            
+            <div class="row">
+
+                    <?php if ($this->session->flashdata('register')=="success"){ ?>
+                        <div class="col-md-6">
+                            <div class="alert alert-success">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                Successfully registered the member
+                            </div>
+                        </div>
+                    <?php } else if ($this->session->flashdata('update')=="success"){ ?>
+                        <div class="col-md-6">
+                            <div class="alert alert-success">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                Officer Details Successfully Updated.
+                            </div>
+                        </div>
+                    <?php } ?>
+            </div>
             <div id="topbar">
                 <a href="<?php echo base_url()."index.php/register/newmember"?>">
                     <div class="col-xs-6 col-sm-4 stater" style="height:auto">
@@ -26,15 +43,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
             <div class="container" style="padding-top: 100px;">
                 <div class="row">
-
-                    <?php if ($this->session->flashdata('register')=="success"){ ?>
-                        <div class="col-md-6">
-                            <div class="alert alert-success">
-                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                                Successfully registered the member
-                            </div>
-                        </div>
-                    <?php } ?>
                     <div class="col-md-6">
                         
                         <div class="panel panel-default">
@@ -44,7 +52,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <div class="panel-body">
                                 <?php if($requests){ ?>
                                     <?php foreach($requests as $row){ ?>
-                                        <label><?php echo $row['message_title'] ?> - from <?php echo $row['f_name'] . ' ' . $row['l_name']?></label> <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#messageModal" data-message='{"id":"<?php echo $row['person_id'] ?>","message_sender":"<?php echo $row['f_name'] ?>","message":"<?php echo $row['message']?>","message_title":"<?php echo $row['message_title']  ?>"}' data-msgID="<?php echo $row['msg_id'] ?>" id="messagetoggle"> View </button>
+                                        <label><?php echo $row['message_title'] ?> - from <?php echo $row['f_name'] . ' ' . $row['l_name']?></label> <button class="btn btn-danger btn-xs messagetoggle" data-toggle="modal" data-target="#messageModal" data-message='{"id":"<?php echo $row['person_id'] ?>","message_sender":"<?php echo $row['in_name'] ?>","message":"<?php echo $row['message']?>","message_title":"<?php echo $row['message_title']  ?>"}' data-msgID="<?php echo $row['msg_id'] ?>"> View </button>
 
                                     <?php }  ?> 
                                 <?php }  ?>
@@ -82,7 +90,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </div><!--End of panel-heading-->
                             <div class="panel-body">
                                 
-                                <?php print_r($requests['0']); ?>
+                                <?php //print_r($requests['0']); ?>
 
                             </div>
                         </div>
@@ -159,7 +167,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             $('#menu_dashboard').addClass('active');
             
             
-        $('#messageModal').on('show.bs.modal', function(e) {
+        /*$('#messageModal').on('show.bs.modal', function(e) {
             var person_id = $('#messagetoggle').data('message').id;
             var message_body = $('#messagetoggle').data('message').message;
             var message_sender = $('#messagetoggle').data('message').message_sender;
@@ -167,8 +175,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             $('#messagebody').text(message_body);
             $('#messagetitle').text(message_title);
             $('.modal-title').text(message_sender);
-        });
-        
+        });*/
+            
+            $('.messagetoggle').click(function(){
+                var person_id = $(this).data('message').id;
+                var message_body = $(this).data('message').message;
+                var message_sender = $(this).data('message').message_sender;
+                var message_title = $(this).data('message').message_title;
+                $('#messagebody').text(message_body);
+                $('#messagetitle').text(message_title);
+                $('.modal-title').text(message_sender);
+                $('#messageModal').modal('toggle');
+
+            });
+
             
         });
     </script>

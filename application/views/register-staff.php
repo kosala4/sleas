@@ -49,10 +49,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                             <label><span style="color:red;">*</span>Title</label>
                                                             <select class="select2 " name="title" id="title" style="width:100%;">
                                                                 <option value="" hidden selected>---------Please Select--------- </option>
-                                                                <option value="rev">Rev.</option>
-                                                                <option value="mr">Mr.</option>
-                                                                <option value="mrs">Mrs.</option>
-                                                                <option value="ms">Ms.</option>
+                                                                <option value="Rev">Rev.</option>
+                                                                <option value="Mr">Mr.</option>
+                                                                <option value="Mrs">Mrs.</option>
+                                                                <option value="Ms">Ms.</option>
+                                                                <option value="Rev. Dr.">Rev. Dr.</option>
+                                                                <option value="Dr.">Dr.</option>
+                                                                <option value="Dr. (Ms)">Dr. (Ms)</option>
+                                                                <option value="Dr. (Mrs)">Dr. (Mrs)</option>
                                                             </select>
                                                         </div>
 
@@ -88,13 +92,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                             <label><span style="color:red;">*</span>Ethnicity</label>
                                                             <select class="select2  " name="ethnicity" id="ethnicity" style="width:100%;">
                                                                 <option value="" hidden selected>---------Please Select--------- </option>
-                                                                <option value="sinhala">Sinhala</option>
-                                                                <option value="sltamil">Sri Lankan Tamil</option>
-                                                                <option value="intamil">Indian Tamil</option>
-                                                                <option value="muslim">Muslim</option>
-                                                                <option value="burger">Burger</option>
-                                                                <option value="malay">Malay</option>
-                                                                <option value="other">Other</option>
+                                                                <option value="Sinhala">Sinhala</option>
+                                                                <option value="Sri Lankan Tamil">Sri Lankan Tamil</option>
+                                                                <option value="Indian Tamil">Indian Tamil</option>
+                                                                <option value="Muslim">Muslim</option>
+                                                                <option value="Burger">Burger</option>
+                                                                <option value="Malay">Malay</option>
+                                                                <option value="Other">Other</option>
                                                             </select>
                                                         </div>
 
@@ -249,6 +253,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                         <div class="col-md-6">
 
                                                             <div class="form-group">
+                                                                <label>Date of first appoint to the pensionable post of the state service (If applicable)</label>
+                                                                <input type="text" class="form-control date-picker " name="date_f_appoint" id="date_f_appoint">
+                                                            </div>
+
+                                                            <div class="form-group">
                                                                 <label><span style="color:red;">*</span>Date of first join to the SLEAS</label>
                                                                 <input type="text" class="form-control date-picker " name="date_join" id="date_join_gen">
                                                             </div>
@@ -281,18 +290,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                                         <label>SLEAS Grade  when joining the SLEAS</label>
                                                                         <select class="select2 " name="grade_general" id="grade_general" style="width:100%;">
                                                                             <option value="" hidden selected>---------Please Select--------- </option>
-                                                                            <option value="special">Special</option>
-                                                                            <option value="grade1">Grade I</option>
-                                                                            <option value="grade2">Grade II</option>
-                                                                            <option value="grade3">Grade III</option>
+                                                                            <option value="Special">Special</option>
+                                                                            <option value="Grade I">Grade I</option>
+                                                                            <option value="Grade II">Grade II</option>
+                                                                            <option value="Grade III">Grade III</option>
                                                                         </select>
                                                                     </div>
                                                                     <div class="form-group gen-serv-set1-special hidden">
                                                                         <label>SLEAS Grade  when joining the SLEAS</label>
                                                                         <select class="select2 " name="grade_special" id="grade_special" style="width:100%;">
                                                                             <option value="" hidden selected>---------Please Select--------- </option>
-                                                                            <option value="grade2">Grade II</option>
-                                                                            <option value="grade3">Grade III</option>
+                                                                            <option value="Grade II">Grade II</option>
+                                                                            <option value="Grade III">Grade III</option>
                                                                         </select>
                                                                     </div>
 
@@ -324,9 +333,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                                     <label>SLEAS Grade  when joining the SLEAS</label>
                                                                     <select class="select2 " name="grade_supern" id="grade_supern" style="width:100%;">
                                                                         <option value="" hidden selected>---------Please Select--------- </option>
-                                                                        <option value="grade1">Grade I</option>
-                                                                        <option value="grade2">Grade II</option>
-                                                                        <option value="grade3">Grade III</option>
+                                                                        <option value="Grade I">Grade I</option>
+                                                                        <option value="Grade II">Grade II</option>
+                                                                        <option value="Grade III">Grade III</option>
                                                                     </select>
                                                                 </div>
                                                             </div>
@@ -345,9 +354,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                                 <label><span style="color:red;">*</span>Confirmed</label>
                                                                 <select class="select2  " name="confirm" id="confirm" style="width:100%;">
                                                                     <option value="" hidden selected>---------Please Select--------- </option>
-                                                                    <option value="yes">Yes</option>
-                                                                    <option value="no">No</option>
+                                                                    <option value="Yes">Yes</option>
+                                                                    <option value="No">No</option>
                                                                 </select>
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label>Activate Date of Confirmation</label>
+                                                                <input type="text" class="form-control date-picker " name="date_confirm" id="date_confirm">
                                                             </div>
                                                         </div>
 
@@ -388,29 +402,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                                 </select>
                                                             </div>
 
-                                                            <div class="form-group hidden">
-                                                                <label>Present SLEAS Class</label>
-                                                                <select class="select2 " name="sleas_class" id="sleas_class" style="width:100%">
-                                                                    <option value="" hidden selected> ---------Please Select--------- </option>
-                                                                    <option value="1open">  I Open </option>
-                                                                    <option value="1limited"> I Limited </option>
-                                                                    <option value="1merit"> I Merit </option>
-                                                                    <option value=""> II Open (General) </option>
-                                                                    <option value=""> II Open (Special) </option>
-                                                                    <option value=""> II Limited (General) </option>
-                                                                    <option value=""> II Limited (Special) </option>
-                                                                    <option value=""> II Merit </option>
-                                                                    <option value=""> III Open (General) </option>
-                                                                    <option value=""> III Open (Special) </option>
-                                                                    <option value=""> III Limited (General) </option>
-                                                                    <option value=""> III Limited (Special) </option>
-                                                                    <option value=""> III Merit </option>
-                                                                    <option value=""> performing as </option>
-                                                                </select>
-                                                            </div>
-
-                                                            <div class="form-group">
-                                                                <label><span style="color:red;">*</span>Date of appoint to the present SLEAS Class</label>
+                                                            <div class="form-group date_appoint">
+                                                                <label><span style="color:red;">*</span>Date of appoint to the present SLEAS Grade </label>
                                                                 <input type="text" class="form-control date-picker " name="date_appoint" id="date_appoint">
                                                             </div>
                                                         </div>
@@ -428,7 +421,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                                     <?php    } ?>
                                                                             <option value="other" class="c-other hidden"> Other </option>
                                                                         </select>
-                                                                        <?php } ?>
+                                                                    <?php } ?>
                                                                 </div>
 
                                                                 <div class="form-group hidden work_other">
@@ -537,9 +530,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                                     <label>Present SLEAS Grade</label>
                                                                     <select class="select2 " name="present_grade" id="present_grade" style="width:100%">
                                                                         <option value="">  Select </option>
-                                                                        <option value="1open">  Grade I </option>
-                                                                        <option value="1open">  Grade II </option>
-                                                                        <option value="1open">  Grade III </option>
+                                                                        <option value="Grade I">  Grade I </option>
+                                                                        <option value="Grade II">  Grade II </option>
+                                                                        <option value="Grade III">  Grade III </option>
                                                                     </select>
                                                                 </div>
 
@@ -701,7 +694,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
     <script>
         $(document).ready(function(){ 
-            //FormValidationInline.init();
+            FormValidationInline.init();
             
             /*$('#addMemberForm').validate({
                 rules: {
@@ -741,6 +734,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             
             $('#service_mood').change(function(){
                 var gr = $(this).find(':selected').data('val');
+                $('.date_appoint').removeClass("hidden");
                 if ($.inArray(gr, ['firstappoint', 'promo', 'trans', 'promoTrans', 'attach', 'second', 'acting', 'perform']) >=0){
                     $(".c-firstapp_block").removeClass("hidden");
                     $(".c-releasement_block").addClass("hidden");
@@ -754,6 +748,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         $('.date-promoted').addClass("hidden");
                         $('.c-nie').addClass("hidden");
                         $('.salary-drawn').addClass("hidden");
+                        $('.date_appoint').addClass("hidden");
                         break;
                     case 'promo':
                         $('.date-promoted').removeClass("hidden");

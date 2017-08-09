@@ -612,6 +612,9 @@ body.boxed-layout.sidebar-collapsed #sidebar:after { width: 40px }
         box-shadow: none;
         border-left: 1px solid #CCC;
     }
+    
+    /*Hide the Title*/
+    .title-toggle { display: none; }
 
     /* Hide Search Form */
     #sidebar-search { display: none; }
@@ -833,6 +836,10 @@ textarea[readonly] {
 
 .input-xlarge {
     width: 480px !important;
+}
+
+.ui-datepicker .ui-datepicker-header {
+    color:#000;
 }
 
 /***

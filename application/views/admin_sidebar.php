@@ -11,16 +11,16 @@
                         </a> 
                     </li>
                     
-                    <li> 
+                    <li>
                         <a class="top-menu-toggle openable" href="#mnuOne">
                             <span class="sicon"><i class="fa fs-users"></i></span>
-                            <span class="sidebar-title">Teachers and Staff</span>
+                            <span class="sidebar-title"> Work Places </span>
                         </a>
                         <ul id="mnuOne" class="nav sub-nav">
-                            <li><a href="form-components.html">List Teachers</a></li>
-                            <li><a href="form-wizards.html">Add Teacher</a></li>
-                            <li><a href="form-uploaders.html">List Staff</a></li>
-                            <li><a href="add_staff">Add Staff</a></li>
+                            <li><a href="<?php echo base_url()."index.php/main/places/work_places"?>"> Work Places List </a></li>
+                            <li><a href="form-wizards.html"> Divisions List </a></li>
+                            <li><a href="<?php echo base_url()."index.php/main/places/branch"?>"> Branches List </a></li>
+                            <li><a href="add_staff"> Institutes List </a></li>
                         </ul>
                     </li>
                     

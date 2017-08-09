@@ -132,7 +132,7 @@
                         </td>
                         <td>
                             <span><br />
-                                <?php echo date("Y-m-d") ?></span>
+                                <?php echo date("Y-m-d"); ?></span>
                         </td>
             
                     </tr>

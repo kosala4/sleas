@@ -46,6 +46,7 @@ class Register extends CI_Controller {
          $fname = $this->security->xss_clean($_REQUEST['fname']);
          $mname = $this->security->xss_clean($_REQUEST['mname']);
          $lname = $this->security->xss_clean($_REQUEST['lname']);
+         $inname = $this->security->xss_clean($_REQUEST['inname']);
          $dob = $this->security->xss_clean($_REQUEST['dob']);
          $ethnicity = $this->security->xss_clean($_REQUEST['ethnicity']);
          $gender = $this->security->xss_clean($_REQUEST['gender']);
@@ -77,6 +78,8 @@ class Register extends CI_Controller {
          $special_subject = $this->security->xss_clean($_REQUEST['special_subject']);
          $medium_recruit = $this->security->xss_clean($_REQUEST['medium_recruit']);
          $confirm = $this->security->xss_clean($_REQUEST['confirm']);
+         $date_confirm = $this->security->xss_clean($_REQUEST['date_confirm']);
+         $date_f_appoint = $this->security->xss_clean($_REQUEST['date_f_appoint']);
 
          $service_mood = $this->security->xss_clean($_REQUEST['service_mood']);
          $date_appoint = $this->security->xss_clean($_REQUEST['date_appoint']);
@@ -111,21 +114,21 @@ class Register extends CI_Controller {
          $release_work_designation = $this->security->xss_clean($_REQUEST['release_work_designation']);
          $release_work_date_assumed = $this->security->xss_clean($_REQUEST['release_work_date_assumed']);
          $release_official_letter = $this->security->xss_clean($_REQUEST['rel_official_letter_no']);
-         $release_place = $this->security->xss_clean($_REQUEST['release_place']);
-         $release_salary_drawn = $this->security->xss_clean($_REQUEST['release_salary_drawn']);
+        $release_place = $this->security->xss_clean($_REQUEST['release_place']);
+        $release_salary_drawn = $this->security->xss_clean($_REQUEST['release_salary_drawn']);
         
         
         $person_id_array = $this->Form_data_model->get_recent_person_id();
         $person_id = $person_id_array['0']['ID'] + 1;
         
 //********** Populate data arrays **********//
-        $personal_details = array('ID' => $person_id, 'nic' => $nic, 'title' => $title, 'f_name' => $fname, 'm_name' => $mname, 'l_name' => $lname, 'dob' => date("y-m-d", strtotime($dob)), 'ethinicity' => $ethnicity, 'gender' => $gender , 'civil_status' => $civil_st, 'user_updated' => $this->session->user_name);
+        $personal_details = array('ID' => $person_id, 'nic' => $nic, 'title' => $title, 'f_name' => $fname, 'm_name' => $mname, 'l_name' => $lname, 'in_name' => $inname, 'dob' => date("y-m-d", strtotime($dob)), 'ethinicity' => $ethnicity, 'gender' => $gender , 'civil_status' => $civil_st, 'user_updated' => $this->session->username);
         
         $contact_details_per = array('person_id' => $person_id, 'nic' => $nic, 'address_type' => 'permanant', 'address_1' => $address1, 'address_2' => $address2, 'address_3' => $address3, 'postal_code' => $pocode, 'mobile' => $mobile, 'telephone' => $landp, ' 	email' => $email);
         
         $contact_details_temp = array('person_id' => $person_id, 'nic' => $nic, 'address_type' => 'temp', 'address_1' => $addresstemp1, 'address_2' => $addresstemp2, 'address_3' => $addresstemp3, 'postal_code' => $pocodetemp, 'mobile' => $mobiletemp, 'telephone' => $landptemp, 'email' => $emailtemp);
         
-        $general_service = array('person_id' => $person_id, 'nic' => $nic, 'date_join' => date("y-m-d", strtotime($date_join)), 'way_join' => $way_joined, 'medium' => $medium_recruit, 'confirm' => $confirm);
+        $general_service = array('person_id' => $person_id, 'nic' => $nic, 'date_join' => date("y-m-d", strtotime($date_join)), 'way_join' => $way_joined,'grade' => $present_grade, 'medium' => $medium_recruit, 'confirm' => $confirm, 'confirm_date' => $date_confirm, 'f_appoint_date' => $date_f_appoint);
         
         switch ($way_joined){
             case 'open':
@@ -135,17 +138,21 @@ class Register extends CI_Controller {
                 break;
             case 'supern':
                 $general_service['cadre'] = $cadre_supern;
-                $general_service['grade'] = $grade_supern;
+                $general_service['grade_join'] = $grade_supern;
                 
         }
         switch ($cadre) {
             case 'general-carder':
-                $general_service['grade'] = $grade_general;
+                $general_service['grade_join'] = $grade_general;
                 break;
             case 'special-carder':
-                $general_service['grade'] = $grade_special;
+                $general_service['grade_join'] = $grade_special;
                 $general_service['subject'] = $special_subject;
                 
+        }
+        
+        if($service_mood != 1){
+            $general_service['base_increment_date'] = $date_appoint;
         }
         
         //Populate Services Array

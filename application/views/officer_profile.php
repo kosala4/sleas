@@ -89,6 +89,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <?php if($this->session->user_level != '1'){ ?>
                             <div class="col-md-12" style="margin-bottom:10px;">
                                 <a href="<?php echo base_url()."index.php/increment/add/".$user_details[0]['ID']?>" role="button" class="btn btn-white btn-xs">Add Increment</a>
+                                <a href="<?php echo base_url()."index.php/revision/add/".$user_details[0]['ID']?>" role="button" class="btn btn-white btn-xs" style="margin-top:5px;">Add Salary Revision</a>
                             </div>
                             <?php } ?>
                         </div>
@@ -102,23 +103,26 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             
                             <?php if($this->session->user_level == '1'){ ?>
                                 <?php echo form_open("admin/changeRequest", 'role="form" id="changeRequestForm"'); ?>
+                                <input type="hidden" name="person_id" id="request_person_id" value="<?php echo $user_details[0]['ID']; ?>">
+                                <input type="hidden" name="sclerk" id="request_sclerk" value="<?php echo $user_details[0]['user_updated']; ?>">
                                 <div class="form-group">
                                     <label>Title</label>
-                                    <input type="text" class="form-control" name="title" placeholder="Title" >  
+                                    <input type="text" class="form-control" name="title" id="request_title" placeholder="Title" >  
                                 </div>
                                 <div class="form-group">
                                     <label>Message</label>
-                                    <textarea class="form-control" name="message" placeholder="Write your message here"></textarea>
+                                    <textarea class="form-control" name="message" id="request_message" placeholder="Write your message here"></textarea>
                                 </div>
 
                                 <div class="form-actions pull-right">
-                                    <button type="submit" class="btn btn-info">Submit</button>
+                                    <button type="button" id="changeRequest" class="btn btn-info">Submit</button>
                                 </div>
                                 <?php echo form_close(); ?>
                             <?php }else { ?>
                             <?php if($requests){ ?>
                                     <?php foreach($requests as $row){ ?>
-                                        <label><?php echo $row['message_title'] ?> </label> <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#messageModal" data-message='{"id":"<?php echo $row['person_id'] ?>","message_title":"<?php echo $row['message_title'] ?>","message":"<?php echo $row['message'] ?>"}' data-msgID="<?php echo $row['msg_id'] ?>" id="messagetoggle"> View </button>
+                                        <label><?php echo $row['message_title'] ?> </label> 
+                                        <button class="btn btn-danger btn-xs messagetoggle" data-toggle="modal" data-target="#messageModal" data-message='{"id":"<?php echo $row['person_id'] ?>","message_title":"<?php echo $row['message_title'] ?>","message":"<?php echo $row['message'] ?>"}' data-msgID="<?php echo $row['msg_id'] ?>"> View </button>
 
                                     <?php }  ?>
                             <?php }  ?>
@@ -160,12 +164,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <div class="tab-content">
                             
                             <div class="tab-pane active" id="tab_1_1">
-                                <h3><?php echo $user_details[0]['f_name'] .' '.$user_details[0]['l_name'] ?></h3>
+                                <h3><?php echo $user_details[0]['title'] . ' ' . $user_details[0]['in_name']?></h3>
                                 <div class="col-md-6">
                                     <table border="0" width="100%">
-                                        <tr valign="top">
-                                            <td><label style="margin-bottom:15px;"> Active/ inactive </label></td>
-                                            <td><label>- Active </label></td>
+                                        <tr valign="middle">
+                                            <td><label style="margin-bottom:15;"> Active/ inactive </label></td>
+                                            <td>
+                                            <?php if($this->session->user_level == '1'){ ?>
+                                                <label style="margin-bottom:15; float:left;">- <?php echo $user_details[general][0]['status'];?></label>
+                                            <?php }else { ?>
+                                                <label style="margin-bottom:15; float:left;">- </label>
+                                                <div class="pull-left" style="margin-left:5px;"><input id="toggle-status" data-toggle="toggle" data-size="mini" data-width="100" data-on="Active" data-off="Deactivated" data-onstyle="success" type="checkbox"></div>
+                                            <?php } ?>
+                                            </td>
                                         </tr>
                                         <tr valign="top">
                                             <td width="150px"><label style="margin-bottom:15px;"> NIC Number </label></td>
@@ -194,6 +205,50 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         </tr>
                                     </table>
                                 </div>
+                                
+                    <!-- Modal for Deactivation info-->
+                                <div id="deactivationModal" class="modal fade" role="dialog">
+                                  <div class="modal-dialog">
+
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                          <h4 class="modal-title">Deactivate officer service</h4>
+
+                                      </div>
+
+                                    <?php echo form_open() ?> 
+                                      <div class="modal-body">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label>Reason to deactivate service</label>
+                                            <?php if ($deativate_type) { ?>
+                                                <select class="select2" name="deactivate_reason" id="deactivate_reason" style="width:100%">
+                                                    <option value="" hidden selected> ---------Please Select--------- </option>
+                                                    <?php foreach ($deativate_type as $row) { ?>
+                                                        <option value="<?php echo $row['ID'];?>" > <?php echo $row['type'] ;?> </option>
+                                            <?php    } ?>
+                                                    <option value="other" class="c-other hidden"> Other </option>
+                                                </select>
+                                            <?php } ?>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Date of deactivating service</label>
+                                                <input type="text" class="form-control date-picker" name="deactivate_date" id="deactivate_date" placeholder="yyyy-mm-dd">
+                                            </div>
+                                        </div>
+                                      </div>
+                                      <div class="modal-footer" style="border-top:0;">
+                                        <button type="button" class="btn btn-success" data-dismiss="modal" id="deactive_submit">Save</button>
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                      </div>
+                                    <?php echo form_close() ?>
+                                    </div>
+
+                                  </div>
+                                </div>
+                                
                                 <div class="col-md-6">
                                     <table border="0" width="100%">
                                         <tr valign="top">
@@ -233,7 +288,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Name with intials</label>
-                                                <input type="text" class="form-control" name="initname" placeholder="Name with intials">  
+                                                <input type="text" class="form-control" name="initname" placeholder="Name with intials" value="<?php echo $user_details[0]['in_name'] ;?>">  
                                             </div>
 
                                             <div class="form-group">
@@ -307,6 +362,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <thead>
                                     <tr valign="top">
                                         <th> Date Joined </th>
+                                        <th> SLEAS Grade </th>
                                         <th> Way of Joined </th>
                                         <th> Cadre when joining </th>
                                         <th> Medium </th>
@@ -316,6 +372,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 </thead>
                                 <tr valign="top">
                                     <td><?php echo $user_details[general][0]['date_join'] ;?> </td>
+                                    <td><?php echo $user_details[general][0]['grade'] ;?> </td>
                                     <td><?php echo $user_details[general][0]['way_join'] ;?> </td>
                                     <td><?php echo $user_details[general][0]['cadre'] ;?> </td>
                                     <td><?php echo $user_details[general][0]['medium'] ;?> </td>
@@ -325,6 +382,90 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </table>
                         </div>
                     </div>
+                    <div class="panel panel-info">
+                        <div class="panel-heading reg-main-panel">
+                            <h3 class="panel-title"> Requirements for Promotions </h3>
+                        </div><!--End of panel-heading-->
+                        <div class="panel-body">
+                            <table class="table table-striped table-bordered table-hover">
+                                <thead>
+                                    <tr valign="top">
+                                        <th style="width:100px;">  </th>
+                                        <th> Efficiency Bar Exam Pass Date </th>
+                                        <th> P. G. D. E Pass Date </th>
+                                        <th> Capacity Building Training Completed Date </th>
+                                    </tr>
+                                </thead>
+                                <tr valign="top">
+                                    <th> Grade III </th>
+                                    <td><?php if($user_details[general][0]['eb_1_pass'])echo "<span>" . date("Y-m-d", strtotime($user_details[general][0]['eb_1_pass']))  .  "</span>"  .   '<button class="delete_requirements btn btn-xs btn-danger pull-right" data-field="eb_1"><i class="fa fs-remove"></i></button>';?> 
+                                        <button class="edit_requirements btn btn-xs btn-success pull-right" data-field="eb_1"><i class="fa fa-edit"></i></button></td>
+                                    
+                                    <td><?php if($user_details[general][0]['pg_dip_pass'])echo "<span>" . date("Y-m-d", strtotime($user_details[general][0]['pg_dip_pass']))  .  "</span>"  .   '<button class="delete_requirements btn btn-xs btn-danger pull-right" data-field="pg_dip"><i class="fa fs-remove"></i></button>' ;?> 
+                                        <button class="edit_requirements btn btn-xs btn-success pull-right" data-field="pg_dip"><i class="fa fa-edit"></i></button></td>
+                                    
+                                    <td><?php if($user_details[general][0]['cb_1_date'])echo "<span>" . date("Y-m-d", strtotime($user_details[general][0]['cb_1_date']))  .  "</span>"  .   '<button class="delete_requirements btn btn-xs btn-danger pull-right" data-field="cb_1"><i class="fa fs-remove"></i></button>' ;?> 
+                                        <button class="edit_requirements btn btn-xs btn-success pull-right" data-field="cb_1"><i class="fa fa-edit"></i></button></td>
+                                </tr>
+                                <tr valign="top">
+                                    <th> Grade II </th>
+                                    <td><?php if($user_details[general][0]['eb_2_pass'])echo "<span>" . date("Y-m-d", strtotime($user_details[general][0]['eb_2_pass']))  .  "</span>"  .   '<button class="delete_requirements btn btn-xs btn-danger pull-right" data-field="eb_2"><i class="fa fs-remove"></i></button>'  ;?> 
+                                        <button class="edit_requirements btn btn-xs btn-success pull-right" data-field="eb_2"><i class="fa fa-edit"></i></button></td>
+                                    
+                                    <td><?php if($user_details[general][0]['pg_deg_pass'])echo "<span>" . date("Y-m-d", strtotime($user_details[general][0]['pg_deg_pass']))  .  "</span>"  .   '<button class="delete_requirements btn btn-xs btn-danger pull-right" data-field="pg_deg"><i class="fa fs-remove"></i></button>' ;?> 
+                                        <button class="edit_requirements btn btn-xs btn-success pull-right" data-field="pg_deg"><i class="fa fa-edit"></i></button></td>
+                                    
+                                    <td><?php if($user_details[general][0]['cb_2_date'])echo "<span>" . date("Y-m-d", strtotime($user_details[general][0]['cb_2_date'])) .  "</span>"  .   '<button class="delete_requirements btn btn-xs btn-danger pull-right" data-field="cb_2"><i class="fa fs-remove"></i></button>'; ?> 
+                                        <button class="edit_requirements btn btn-xs btn-success pull-right" data-field="cb_2"><i class="fa fa-edit"></i></button>
+                                        </td>
+                                </tr>
+                                <tr valign="top">
+                                    <th> Grade I </th>
+                                    <td><?php if($user_details[general][0]['eb_3_pass'])echo "<span>" . date("Y-m-d", strtotime($user_details[general][0]['eb_3_pass']))  .  "</span>"  .   '<button class="delete_requirements btn btn-xs btn-danger pull-right" data-field="eb_3"><i class="fa fs-remove"></i></button>' ; ?> 
+                                        <button class="edit_requirements btn btn-xs btn-success pull-right" data-field="eb_3"><i class="fa fa-edit"></i></button></td>
+                                    
+                                    <td> N/A </td>
+                                    
+                                    <td><?php if($user_details[general][0]['cb_3_date'])echo "<span>" . date("Y-m-d", strtotime($user_details[general][0]['cb_3_date'])) . "</span>"  .  '<button class="delete_requirements btn btn-xs btn-danger pull-right" data-field="cb_3"><i class="fa fs-remove"></i></button>' ;?> 
+                                        <button class="edit_requirements btn btn-xs btn-success pull-right" data-field="cb_3"><i class="fa fa-edit"></i></button></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+        <!-- Modal to get performance dates-->
+                    <div id="requiredateModal" class="modal fade" role="dialog">
+                      <div class="modal-dialog">
+
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                          <div class="modal-header">
+                              <button type="button" class="close" data-dismiss="modal">&times;</button>
+                              <h4 id="require_modal-title"></h4>
+
+                          </div>
+
+                        <?php echo form_open() ?> 
+                          <div class="modal-body">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="modal-q"></label>
+                                    <input type="text" class="form-control date-picker" name="require_date" id="require_date" placeholder="yyyy-mm-dd">
+                                </div>
+                            </div>
+                          </div>
+                          <div class="modal-footer" style="border-top:0;">
+                            <button type="button" class="btn btn-success" data-dismiss="modal" id="promotion_requirement_submit">Save</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                          </div>
+                        <?php echo form_close() ?>
+                        </div>
+
+                      </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                                
                     <div class="panel panel-info">
                         <div class="panel-heading reg-main-panel">
                             <h3 class="panel-title">Service Details</h3>
@@ -374,19 +515,27 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </div><!--End of Conainer-->
         </section>
 
+    <script src="<?php echo base_url()."assets/plugins/select2/select2.min.js"?>"></script>
+    <script src="<?php echo base_url()."assets/plugins/datatables/js/jquery.dataTables.min.js"?>"></script>
+    <script src="<?php echo base_url()."assets/plugins/datatables/js/DT_bootstrap.js"?>"></script>
+    <script src="<?php echo base_url()."assets/plugins/validation/jquery.validate.min.js"?>"></script>
+    <script src="<?php echo base_url()."assets/plugins/bootstrap-toggle/js/bootstrap-toggle.min.js"?>"></script>
+            
         <script>
             $(document).ready(function(){ 
-                $(".trigger").bind("click", function () {
-                    alert($(this).prev().text());
+                if("<?php echo $user_details[general][0]['status'];?>" == "Active"){
+                    $('#toggle-status').bootstrapToggle('on')
+                }
+                $('.messagetoggle').click(function(){
+                    var person_id = $(this).data('message').id;
+                    var message_body = $(this).data('message').message;
+                    var message_title = $(this).data('message').message_title;
+                    $('#messageModal').on('show.bs.modal', function(e) {
+                        $('#messagebody').text(message_body);
+                        $('.modal-title').text(message_title);
+                    });
                 });
-
-                $('#messageModal').on('show.bs.modal', function(e) {
-                    var person_id = $('#messagetoggle').data('message').id;
-                    var message_body = $('#messagetoggle').data('message').message;
-                    var message_title = $('#messagetoggle').data('message').message_title;
-                    $('#messagebody').text(message_body);
-                    $('.modal-title').text(message_title);
-                });
+                
 
                 $('#image_submit').click(function(){
                     var post_url = "index.php/FormControl/setProfileImage/"+'2';
@@ -403,14 +552,174 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         contentType: false,
                         processData: false,
                         success: function(response){
-                            $('#profile_img').attr('src', "<?php echo base_url(); ?>" + response['path']);
-                            console.log("<?php echo base_url(); ?>" + response['path']);
+                            //console.log(JSON.parse(response));
+                            console.log(response);
+                            $('#profile_img').attr('src', "");
+                            $('#profile_img').attr('src', "<?php echo base_url(); ?>" + response['path'] + "?" + new Date().getTime());
+                            console.log($('#profile_img').attr('src'));
                             },
                         error: function (response) {
-                            
+                            alert("Error Changing Profile Picture");
                         }
                     });
                 });
+
+                $('#changeRequest').click(function(){
+                    var post_url = "index.php/admin/changeRequest/";
+                    var form_data = new FormData();
+                    var person_id = $('#request_person_id').val();
+                    var sclerk = $('#request_sclerk').val();
+                    var title = $('#request_title').val();
+                    var message = $('#request_message').val();
+                    form_data.append('<?php echo $this->security->get_csrf_token_name(); ?>','<?php echo $this->security->get_csrf_hash(); ?>');
+                    form_data.append('person_id', person_id);
+                    form_data.append('sclerk', sclerk);
+                    form_data.append('title', title);
+                    form_data.append('message', message);
+                    $.ajax({
+                        type: "POST",
+                        url: "<?php echo base_url(); ?>" + post_url,
+                        dataType :'json',
+                        data: form_data,
+                        contentType: false,
+                        processData: false,
+                        success: function(response){
+                            alert("Successfully submitted the request!");
+                            $('#request_title').val("");
+                            $('#request_message').val("");
+                            },
+                        error: function (response) {
+                            
+                            alert("not success");
+                        }
+                    });
+                });
+                
+                $('#toggle-status').change(function(){
+                    if($(this).prop('checked') == false){
+                        $('#deactivationModal').modal('toggle');
+                    }
+                });
+                
+                $('#deactive_submit').click(function(){
+                    
+                    var post_url = "index.php/Admin/deactivateOfficer/"+'2';
+                    var form_data = new FormData();
+                    var deactivate_reason = $('#deactivate_reason').val();
+                    var deactivate_date = $('#deactivate_date').val();
+                    form_data.append('<?php echo $this->security->get_csrf_token_name(); ?>','<?php echo $this->security->get_csrf_hash(); ?>');
+                    form_data.append('deactivate_type_id', deactivate_reason);
+                    form_data.append( 'deactivate_date', deactivate_date);
+                    form_data.append( 'user_id', '<?php echo $user_details[0]['ID'] ?>');
+                    $.ajax({
+                        type: "POST",
+                        url: "<?php echo base_url(); ?>" + post_url,
+                        dataType :'text',
+                        data: form_data,
+                        contentType: false,
+                        processData: false,
+                        success: function(response){
+                            $('#toggle-status').bootstrapToggle('off');
+                            },
+                        error: function (response) {
+                            alert("Error Deactivating Service! Please try again.");
+                        }
+                    });
+                });
+                
+                $('#deactivationModal').on('hidden.bs.modal', function () {
+                    if("<?php echo $user_details[general][0]['status'];?>" == "Active"){
+                        $('#toggle-status').bootstrapToggle('on')
+                    }
+                })
+                
+                $(document).on('click', '.edit_requirements', function(){
+                    var field = $(this).data("field");
+                    if(field == "eb_1"){
+                        var field_name = "Efficiency Bar Examination 1 Pass Date";
+                    }else if(field == "eb_2"){
+                        var field_name = "Efficiency Bar Examination 2 Pass Date";
+                    }else if(field == "eb_3"){
+                        var field_name = "Efficiency Bar Examination 3 Pass Date";
+                    }else if(field == "pg_dip"){
+                        var field_name = "Post Graduate Diploma in Education Pass Date";
+                    }else if(field == "pg_dip"){
+                        var field_name = "Post Graduate Degree in Education Pass Date";
+                    }else if(field == "cb_1"){
+                        var field_name = "Capacity Building Training 1 Completed Date";
+                    }else if(field == "cb_2"){
+                        var field_name = "Capacity Building Training 2 Completed Date";
+                    }else if(field == "cb_3"){
+                        var field_name = "Capacity Building Training 3 Completed Date";
+                    }
+                    
+                    $('#require_modal-title').text(field_name);
+                    $('#require_date').data("field", field);
+                    $('#requiredateModal').modal('toggle');
+                });
+                
+                $(document).on('click', '.delete_requirements', function(){
+                    var post_url = "index.php/Admin/deleteDateUpdate/"+'2';
+                    var form_data = new FormData();
+                    var field = $(this).data("field");
+                    var obj = $(this);
+                    form_data.append('<?php echo $this->security->get_csrf_token_name(); ?>','<?php echo $this->security->get_csrf_hash(); ?>');
+                    form_data.append('field', field);
+                    form_data.append('user_id', '<?php echo $user_details[0]['ID'] ?>');
+                    $.ajax({
+                        type: "POST",
+                        url: "<?php echo base_url(); ?>" + post_url,
+                        dataType :'text',
+                        data: form_data,
+                        contentType: false,
+                        processData: false,
+                        success: function(response){
+                            $(this).prev().color='#ff0000';
+                            console.log("success");
+                            console.log(obj.siblings());
+                            obj.siblings("span").text("");
+                            },
+                        error: function (response) {
+                            alert("Error Updating! Please try again.");
+                        }
+                    });
+                });
+                
+                $('#promotion_requirement_submit').click(function(){
+                    var post_url = "index.php/Admin/requiredDateUpdate/"+'2';
+                    var form_data = new FormData();
+                    var field = $('#require_date').data("field");
+                    var field_date = $('#require_date').val();
+                    var obj1 = $(this);
+                    var obj = $("[data-field="+ field +"]");
+                    form_data.append('<?php echo $this->security->get_csrf_token_name(); ?>','<?php echo $this->security->get_csrf_hash(); ?>');
+                    form_data.append('field', field);
+                    form_data.append('field_date', field_date);
+                    form_data.append('user_id', '<?php echo $user_details[0]['ID'] ?>');
+                    $.ajax({
+                        type: "POST",
+                        url: "<?php echo base_url(); ?>" + post_url,
+                        dataType :'text',
+                        data: form_data,
+                        contentType: false,
+                        processData: false,
+                        success: function(response){
+                            console.log("success");
+                            console.log(obj.siblings());
+                            //obj.siblings("span2").text(field_date);
+                            var html ="<span>"+ field_date + "</span><button class='delete_requirements btn btn-xs btn-danger pull-right' data-field="+ field +"><i class='fa fs-remove'></i></button> <button class='edit_requirements btn btn-xs btn-success pull-right' data-field=" + field +"><i class='fa fa-edit'></i></button>"
+                            obj.parent().html(html);
+                            
+                            },
+                        error: function (response) {
+                            alert("Error Updating! Please try again.");
+                        }
+                    });
+                });
+                
+                
             });
+            
+            
 
         </script>

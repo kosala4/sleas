@@ -18,54 +18,79 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <div class="form-group">
                             <label>Add <?php echo $class ?> for</label>
                             <?php if ($result) { ?>
-                                <label><?php echo $result[0]['title'] . ' ' ;?> <?php echo $result[0]['f_name'] ;?> <?php echo $result[0]['l_name'] ;?></label>
+                                <label><?php echo $result[0]['title'] . ' ' ;?> <?php echo $result[0]['in_name'] ;?></label>
                             <?php    } ?>
                                     
                                 <input type="hidden" name="person_id" id="person_id" value="<?php echo $result[0]['ID'] ;?>">
+                                <input type="hidden" name="work_place" id="work_place" value="<?php echo $result[0]['work_place'] ;?>">
+                                <input type="hidden" name="submit" id="submit" value="">
                             </div>
                         </div>
                         
-                        <div class="col-md-6">
-                            
-                            <div class="form-group">
-                                <label>NIC Number</label>
-                                <input type="text" class="form-control " name="nic" id="nic" value="<?php echo $result[0]['NIC'] ;?>" readonly>
+                        <div class="row">
+                            <div class="col-md-6">
+
+                                <div class="form-group">
+                                    <label>NIC Number</label>
+                                    <input type="text" class="form-control " name="nic" id="nic" value="<?php echo $result[0]['NIC'] ;?>" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label><span style="color:red;">*</span><?php echo $class ?> Date</label>
+                                    <input type="text" class="form-control date-picker" name="increment_date" id="increment_date">
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label><span style="color:red;">*</span>Increment Date</label>
-                                <input type="text" class="form-control date-picker" name="increment_date" id="increment_date">
+                            <div class="col-md-6">
+
+                                <div class="form-group ">
+                                    <label>Present SLEAS Grade</label>
+                                    <select class="select2 " name="present_grade" id="present_grade" style="width:100%">
+                                        <option value="">  Select </option>
+                                        <option value="Special Grade">  Special Grade </option>
+                                        <option value="Grade I">  Grade I </option>
+                                        <option value="Grade II">  Grade II </option>
+                                        <option value="Grade III">  Grade III </option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label><span style="color:red;">*</span>Present Salary Step</label>
+                                    <input type="text" class="form-control" name="salary_step" id="salary_step" maxlength="2">
+                                </div>
+
                             </div>
                         </div>
-                        <div class="col-md-6">
-
-                            <div class="form-group ">
-                                <label>Present SLEAS Grade</label>
-                                <select class="select2 " name="present_grade" id="present_grade" style="width:100%">
-                                    <option value="">  Select </option>
-                                    <option value="Grade I">  Grade I </option>
-                                    <option value="Grade II">  Grade II </option>
-                                    <option value="Grade III">  Grade III </option>
-                                </select>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label> Current Salary </label>
+                                    <input type="text" class="form-control" name="current_salary" id="current_salary" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label> Salary Increment </label>
+                                    <input type="text" class="form-control" name="increment" id="increment" readonly>
+                                </div>
                             </div>
-
-                            <div class="form-group">
-                                <label><span style="color:red;">*</span>Present Salary Step</label>
-                                <input type="text" class="form-control" name="salary_step" id="salary_step" maxlength="2">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label> New Salary </label>
+                                    <input type="text" class="form-control" name="new_salary" id="new_salary" readonly>
+                                </div>
                             </div>
-
-                        </div>
-                        <div class="col-md-8">
-                            <label> Salary Increment </label>
-                            <input type="text" class="form-control" name="increment" id="increment" readonly>
-                            <label> New Salary </label>
-                            <input type="text" class="form-control" name="new_salary" id="new_salary" readonly>
+                        <?php if($class == "Revision"){ ?>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label> Salary After the Next Increment </label>
+                                    <input type="text" class="form-control" name="next_salary" id="next_salary" readonly>
+                                </div>
+                            </div>
+                        <?php } ?>
                         </div>
                         
                         <div class="form-actions fluid">
                             <div class="col-md-offset-3 col-md-9">
                                 <button type="reset" id="reset-button" class="btn btn-info form-reset">Clear</button>
                                 <button type="button" id="calc-button" class="btn btn-success"> Calculate Increment </button>
-                                <button type="submit" class="btn btn-info"><i class="fa fa-print"></i> Print letter </button>
+                                <button type="submit" id="submit-button" class="btn btn-info"><i class="fa fa-print"></i> Print letter </button>
                             </div>
                         </div>
                             
@@ -85,6 +110,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <script>
     $(document).ready(function(){ 
         
+        console.log("<?php echo $general[0]['grade']; ?>");
+        $('#present_grade').val("<?php echo $general[0]['grade']; ?>");
                 
         $("#addIncrementForm").validate({
             errorElement: 'span', //default input error message container
@@ -107,7 +134,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             var grade = $('#present_grade').val();
             var salary_step = $('#salary_step').val();
             
-            var post_url = "index.php/Increment/calculate/";
+            var post_url = "index.php/<?php echo $class; ?>/calculate/";
             var dataarray = {'<?php echo $this->security->get_csrf_token_name(); ?>':'<?php echo $this->security->get_csrf_hash(); ?>',person_id: person_id, increment_date: increment_date, grade: grade, salary_step: salary_step };
             
             $.ajax({
@@ -116,12 +143,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 dataType :'json',
                 data: dataarray,
                 success: function(res){
-                    var salary = res['new_salary'].toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+                    var current_salary = res['current_salary'].toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+                    var new_salary = res['new_salary'].toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
                     var increment = res['increment'].toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
-                    $('#new_salary').val(salary);
+                    var next_salary = res['next_salary'].toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+                    $('#current_salary').val(current_salary);
+                    $('#new_salary').val(new_salary);
                     $('#increment').val(increment);
+                    $('#next_salary').val(next_salary);
                 }
             });
+        });
+        
+        $('#addIncrementForm').submit(function(e){
+            
+            var submitCount = $('#submit').val() + 1;
+            $('#submit').val(submitCount);
+            
         });
 
         

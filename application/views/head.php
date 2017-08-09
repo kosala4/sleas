@@ -9,6 +9,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
     <link rel="stylesheet" type="text/css" href="<?php echo base_url()."assets/plugins/bootstrap/css/bootstrap.min.css"?>" />
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url()."assets/plugins/bootstrap-toggle/css/bootstrap-toggle.min.css"?>" />
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
@@ -46,11 +47,13 @@
                 <div class="navbar-logo">
                     
                 </div>
-            </a> 
-            
+            </a>
             <div class="sidebar-toggle hidden-xs"> <i class="fa fa-bars"></i> </div>
         </div>
 
+        <div class="pull-left title-toggle" style="margin-left:20px;">
+            <h3 style="margin: 15px 0 0 15px;">SLEAS Human Resources Management Information System</h3>
+        </div>
         <div class="pull-right header-btns">
 
             <div class="user-menu">

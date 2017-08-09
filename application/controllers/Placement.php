@@ -81,6 +81,7 @@ class Placement extends CI_Controller {
         $main_branch = $this->Form_data_model->searchdbvalue('Main_Office_Branches', 'ID', $main_branch_id);
         $designation = $this->Form_data_model->searchdbvalue('Designation', 'ID', $designation_id);
         $province = $this->Form_data_model->searchdbvalue('Province_List', 'province_id', $province_id);
+        $zone = $this->Form_data_model->searchdbvalue('Zone_List', 'zone_id', $zone_id);
         $institute = $this->Form_data_model->searchdbvalue('Institute', 'ID', $institute_id);
         
         $service = array('ID' => $service_id, 'person_id' => $person_id,'nic' => $nic, 'service_mode' => '10', 'work_place_id'=>$work_place_id,  'duty_date'=>$work_date, 'off_letter_no'=>$official_letter_no, 'user_updated' => $this->session->username);
@@ -104,9 +105,10 @@ class Placement extends CI_Controller {
         
         $res = $this->Form_data_model->insertData('Service', $service);
         
+        //$res =1;
         if ($res == 1){
             //generate Letter as PDF
-            $this->view_data_array = array('work_place'=>$work_place, 'division'=>$main_division, 'branch'=>$main_branch, 'personal_details'=>$personal_details, 'work_date'=>$work_date, 'psc_letter'=>$psc_letter, 'appoint_date'=>$appoint_date, 'off_letter_no'=>$official_letter_no, 'province'=>$province, 'school' => $institute, 'designation' => $designation);
+            $this->view_data_array = array('work_place'=>$work_place, 'division'=>$main_division, 'branch'=>$main_branch, 'personal_details'=>$personal_details, 'work_date'=>$work_date, 'psc_letter'=>$psc_letter, 'appoint_date'=>$appoint_date, 'off_letter_no'=>$official_letter_no, 'province'=>$province, 'zone' => $zone, 'school' => $institute, 'designation' => $designation);
 
             $pdfFilePath = 'file_library/'.$person_id.'/service/';
             $pdfFileName = date("Y-m-d") . '-' . $nic. '-Placement' . '.pdf';

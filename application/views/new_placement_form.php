@@ -116,7 +116,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <?php    } ?>
                                         <option value="other" class="c-other hidden"> Other </option>
                                     </select>
-                                    <?php } ?>
+                                <?php } ?>
                             </div>
                             
                             <div class="form-group">
@@ -139,7 +139,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <div class="form-actions fluid">
                             <div class="col-md-offset-3 col-md-9">
                                 <button type="reset" id="reset-button" class="btn btn-info">Clear</button>
-                                <button type="submit" class="btn btn-info form-reset"><i class="fa fa-print"></i> Print letter </button>
+                                <button type="submit" class="btn btn-info"><i class="fa fa-print"></i> Print letter </button>
                             </div>
                         </div>
                     <?php echo form_close(); ?>
@@ -166,7 +166,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             
             rules: {
                 work_place: "required",
-                work_date: "required",
                 official_letter_no: "required",
                 psc_letter: "required",
                 appoint_date: "required"
