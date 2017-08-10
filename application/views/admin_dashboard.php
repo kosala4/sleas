@@ -139,7 +139,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </div>
                     </div>
 
-                    <div class="col-md-6">
+                    <!--<div class="col-md-6">
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h3 class="panel-title">Daily progress Grade 11</h3>
@@ -152,7 +152,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 
                             </div>
                         </div>
-                    </div>
+                    </div>-->
 
                 </div>
                                 
@@ -200,8 +200,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         data: dataarray,
                         success: function(res){
                             $('#province_office').empty();
-                            $.each(res, function(ID,provine_office){
-                                $('#province_office').append('<option value='+res[ID].ID+'>'+res[ID].provine_office+'</option>');
+                            $.each(res, function(ID,province_office){
+                                $('#province_office').append('<option value='+res[ID].ID+'>'+res[ID].province_office+'</option>');
                             });
                         }
                     });

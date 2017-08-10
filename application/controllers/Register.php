@@ -152,7 +152,9 @@ class Register extends CI_Controller {
         }
         
         if($service_mood != 1){
-            $general_service['base_increment_date'] = $date_appoint;
+            $general_service['promotion_date'] = date("y-m-d", strtotime($date_appoint));
+        } else{
+            $general_service['promotion_date'] = date("y-m-d", strtotime($date_join));
         }
         
         //Populate Services Array

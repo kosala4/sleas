@@ -221,8 +221,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     data: dataarray,
                     success: function(res){
                         $('#province_office').empty();
-                        $.each(res, function(ID,provine_office){
-                            $('#province_office').append('<option value='+res[ID].ID+'>'+res[ID].provine_office+'</option>');
+                        $.each(res, function(ID,province_office){
+                            $('#province_office').append('<option value='+res[ID].ID+'>'+res[ID].province_office+'</option>');
                         });
                     }
                 });
@@ -239,7 +239,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 data: dataarray,
                 success: function(res){
                     $('#main_division').empty();
-                    $.each(res, function(ID,provine_office){
+                    $.each(res, function(ID,province_office){
                         $('#main_division').append('<option value='+res[ID].ID+'>'+res[ID].office_division+'</option>');
                     });
                 }
@@ -256,7 +256,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 data: dataarray,
                 success: function(res){
                     $('#main_branch').empty();
-                    $.each(res, function(ID,provine_office){
+                    $.each(res, function(ID,province_office){
                         $('#main_branch').append('<option value='+res[ID].ID+'>'+res[ID].office_branch+'</option>');
                     });
                 }

@@ -47,6 +47,7 @@ class Main extends CI_Controller {
 		$this->load->view('admin_sidebar');
         
         $this->response['workPlaces'] = $this->Form_data_model->select('workplace');
+        $this->response['provinceList'] = $this->Form_data_model->select('province_list');
         
 		$this->load->view('master/' . $place, $this->response);
         
@@ -171,6 +172,124 @@ class Main extends CI_Controller {
         }
         
     }
+    
+    public function addDivision()
+    {
+        $this->check_sess($this->session->user_logged);
+        if($this->session->user_level != '0') {$this->logout();}
+        
+        header('Content-Type: application/x-json; charset=utf-8');
+        
+        $division_id_array = $this->Main_data_model->get_recent_id('Main_Office_Divisions');
+        $division_id = $division_id_array['0']['ID'] + 1;
+        
+        $division_name = $this->input->post('division_name');
+        $work_place_id = $this->input->post('work_place_id');
+        
+        $user_array = array('ID' => $division_id, 'work_place_id' => $work_place_id, 'office_division' => $division_name);
+        $res = $this->Main_data_model->insert('Main_Office_Divisions', $user_array);
+        
+        if(res == '1'){
+            //echo strval($workplace_id);
+            echo "success";
+        }else {
+            echo strval($division_id);
+        }
+    }
+    
+    public function updateDivision()
+    {
+		$this->check_sess($this->session->user_logged);
+        if($this->session->user_level != '0') {$this->logout();}
+        
+        
+        header('Content-Type: application/x-json; charset=utf-8');
+        $division_id = $this->input->post('division_id');
+        $division_name = $this->input->post('division_name');
+        
+        $user_array = array('office_division' => $division_name);
+        $res = $this->Main_data_model->update('Main_Office_Divisions', 'ID', $division_id, $user_array);
+        
+        if(res == '1'){
+            echo "Success";
+        }
+        
+    }
+    
+    public function deleteDivision()
+    {
+		$this->check_sess($this->session->user_logged);
+        if($this->session->user_level != '0') {$this->logout();}
+        
+        header('Content-Type: application/x-json; charset=utf-8');
+        $division_id = $this->input->post('division_id');
+        
+        $res = $this->Main_data_model->delete('Main_Office_Divisions', 'ID', $division_id);
+        
+        if(res == '1'){
+            echo "Success";
+        }
+        
+    }
+    
+    public function addProvince()
+    {
+        $this->check_sess($this->session->user_logged);
+        if($this->session->user_level != '0') {$this->logout();}
+        
+        header('Content-Type: application/x-json; charset=utf-8');
+        
+        $province_id_no_array = $this->Main_data_model->get_recent_id('Province_Offices');
+        $province_id_no = $province_id_no_array['0']['ID'] + 1;
+        
+        $province_name = $this->input->post('province_name');
+        $work_place_id = $this->input->post('work_place_id');
+        $province_id = $this->input->post('province_id_no');
+        
+        $user_array = array('ID' => $province_id_no, 'work_place_id' => $work_place_id, 'province_id' => $province_id, 'province_office' => $province_name);
+        $res = $this->Main_data_model->insert('Province_Offices', $user_array);
+        
+        if(res == '1'){
+            echo strval($province_id_no);
+        }else {
+            echo strval($province_id_no);
+        }
+    }
+    
+    public function updateProvince()
+    {
+		$this->check_sess($this->session->user_logged);
+        if($this->session->user_level != '0') {$this->logout();}
+        
+        header('Content-Type: application/x-json; charset=utf-8');
+        $province_id_no = $this->input->post('province_id');
+        $province_name = $this->input->post('province_name');
+        
+        $user_array = array('province_office' => $province_name);
+        $res = $this->Main_data_model->update('Province_Offices', 'ID', $province_id_no, $user_array);
+        
+        if(res == '1'){
+            echo "Success";
+        }
+        
+    }
+    
+    public function deleteProvince()
+    {
+		$this->check_sess($this->session->user_logged);
+        if($this->session->user_level != '0') {$this->logout();}
+        
+        header('Content-Type: application/x-json; charset=utf-8');
+        $province_id_no = $this->input->post('province_id');
+        
+        $res = $this->Main_data_model->delete('Province_Offices', 'ID', $province_id_no);
+        
+        if(res == '1'){
+            echo "Success";
+        }
+        
+    }
+    
     
     
 }

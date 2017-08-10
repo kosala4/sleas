@@ -83,7 +83,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 </tr>
                                 <tr valign="top">
                                     <th style="padding-right: 0px;">Next Increment Date</th>
-                                    <td><?php echo date("Y-m-d", strtotime(date( 'Y' ) . date("-m-d", strtotime($user_details[general][0]['date_join'])) ."+1 year" )); ?></td>
+                                    <td><?php if( strtotime(date( '-m-d' )) > strtotime(date("-m-d", strtotime($user_details[general][0]['promotion_date']))) ){
+                                            echo date("Y-m-d", strtotime(date( 'Y' ) . date("-m-d", strtotime($user_details[general][0]['promotion_date'])) ."+1 year" ));
+                                            } else { echo date("Y-m-d", strtotime(date( 'Y' ) . date("-m-d", strtotime($user_details[general][0]['promotion_date']))  )); } ?></td>
                                 </tr>
                             </table>
                             <?php if($this->session->user_level != '1'){ ?>

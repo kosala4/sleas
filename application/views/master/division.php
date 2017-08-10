@@ -121,16 +121,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         $('#work_place').change(function(){
             var gr = $(this).find(':selected').data('code');
             var workplace_id = $(this).val();
-
-            if ($.inArray(gr, ['moe','exam','epd']) >=0){
-                $(".c-firstapp-work-institute").addClass("hidden");
-                $(".province_office").addClass("hidden");
-                $(".c-firstapp-work-main-institue").removeClass("hidden");
-                $(".divisional_office").addClass("hidden");
-                $(".zonal_office").addClass("hidden");
-                getMainDivision(workplace_id);  
-                
-            }
+            
+            getMainDivision(workplace_id);  
+               
         });
         
         $(document).on('click', '.edit_division', function(){
@@ -259,11 +252,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     $('#tablebody').empty();
                     $.each(res, function(ID,provine_office){
                         //$('#main_division').append('<option value='+res[ID].ID+'>'+res[ID].office_division+'</option>');
-                        
+                        if(res[ID].office_division){
                         $('#division tbody').append('<tr><td>'+res[ID].office_division+'</td>'+
                                                        '<td> <button class="edit_division btn btn-xs btn-success " data-ID="'+res[ID].ID+'" data-name="'+res[ID].office_division+'" ><i class="fa fa-edit"></i></button> ' +
                                                        ' <button class="delete_division btn btn-xs btn-danger " data-ID="'+res[ID].ID+'" data-name="'+res[ID].office_division+'" ><i class="fa fs-remove"></i></button> </td>'+
                                                        '</tr>');
+                        } else {
+                            $('#tablebody').empty();
+                            $('#division tbody').append('<tr>Sorry No Divisiones found in Selected Work Place <td></td><td></td></tr>');
+                        }
                     });
                 },
                 error: function(){

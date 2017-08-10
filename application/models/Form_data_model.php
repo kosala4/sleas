@@ -369,13 +369,13 @@ class Form_data_model extends CI_Model{
                         break;
                     case 5:
                     case 6:
-                        $this->db->select('provine_office');
+                        $this->db->select('province_office');
                         $this->db->from('Province_Offices');
                         $this->db->where('ID', $row['sub_location_id']);
                         $sub_loc_query = $this->db->get();
                         
                         $sub_loc = $sub_loc_query->result_array();
-                        if (isset($sub_loc)){ $res[$i]['sub_location'] = $sub_loc['0']['provine_office']; }
+                        if (isset($sub_loc)){ $res[$i]['sub_location'] = $sub_loc['0']['province_office']; }
                         
                         break;
                     case 7:
@@ -473,13 +473,13 @@ class Form_data_model extends CI_Model{
                         break;
                     case 5:
                     case 6:
-                        $this->db->select('provine_office');
+                        $this->db->select('province_office');
                         $this->db->from('Province_Offices');
                         $this->db->where('ID', $row['sub_location_id']);
                         $sub_loc_query = $this->db->get();
                         
                         $sub_loc = $sub_loc_query->result_array();
-                        if (isset($sub_loc)){ $res['0']['sub_location'] = $sub_loc['0']['provine_office']; }
+                        if (isset($sub_loc)){ $res['0']['sub_location'] = $sub_loc['0']['province_office']; }
                         
                         break;
                     case 7:

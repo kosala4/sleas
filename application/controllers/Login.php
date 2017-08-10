@@ -42,7 +42,7 @@ class Login extends CI_Controller {
         }else if ($user_level == "2") {
             redirect('/admin/sclerk');
         }else if ($user_level == "3") {
-            redirect('/admin/sclerk');
+            redirect('/management/index');
         }else{
 			redirect('/editor/index');
 		}
