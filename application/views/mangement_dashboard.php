@@ -58,48 +58,51 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <script src="<?php echo base_url()."assets/plugins/datatables/js/DT_bootstrap.js"?>"></script>
     <script src="<?php echo base_url()."assets/plugins/iCheck-master/jquery.icheck.min.js"?>"></script>
 
+    <!--<script src="<?php echo base_url()."assets/js/loader.js"?>"></script>-->
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
 
     <script>
         
     $(document).ready(function(){
-
+       
 
 
     });
     </script>
-<!--'P01', 'P02', 'P03', 'P03', 'P04', 'P05', 'P06', 'P07', 'P08', 'P09'-->
-<script type="text/javascript">
-      google.charts.load('current', {'packages':['bar']});
-      google.charts.setOnLoadCallback(drawChart);
 
-      function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-          ['Province', 'Grade I', 'Grade II', 'Grade III'],
-          ['MoE', <?php echo $moe_1; ?>, <?php echo $moe_2; ?>, <?php echo $moe_3; ?>],
-          ['Exams', <?php echo $exam_1; ?>, <?php echo $exam_2; ?>, <?php echo $exam_3; ?>],
-          ['Publications', <?php echo $epub_1; ?>, <?php echo $epub_2; ?>, <?php echo $epub_3; ?>],
-          ['Western', <?php echo $P01_1; ?>, <?php echo $P01_2; ?>, <?php echo $P01_3; ?>],
-          ['Central', <?php echo $P02_1; ?>, <?php echo $P02_2; ?>, <?php echo $P02_3; ?>],
-          ['Southern', <?php echo $P03_1; ?>, <?php echo $P03_2; ?>, <?php echo $P03_3; ?>],
-          ['Northern', <?php echo $P04_1; ?>, <?php echo $P04_2; ?>, <?php echo $P04_3; ?>],
-          ['Eastern', <?php echo $P05_1; ?>, <?php echo $P05_2; ?>, <?php echo $P05_3; ?>],
-          ['North Western', <?php echo $P06_1; ?>, <?php echo $P06_2; ?>, <?php echo $P06_3; ?>],
-          ['North Central', <?php echo $P07_1; ?>, <?php echo $P07_2; ?>, <?php echo $P07_3; ?>],
-          ['Uva', <?php echo $P08_1; ?>, <?php echo $P08_2; ?>, <?php echo $P08_3; ?>],
-          ['Sabaragamuwa', <?php echo $P09_1; ?>, <?php echo $P09_2; ?>, <?php echo $P09_3; ?>]
-        ]);
+    <script type="text/javascript">
+          google.charts.load('current', {'packages':['bar']});
+          google.charts.setOnLoadCallback(drawChart);
 
-        var options = {
-          chart: {
-            title: 'SLEAS Officers',
-            subtitle: 'Officers in areas',
+          function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+              ['Province', 'Grade I', 'Grade II', 'Grade III'],
+              ['MoE', <?php echo $moe_1; ?>, <?php echo $moe_2; ?>, <?php echo $moe_3; ?>],
+              ['Exams', <?php echo $exam_1; ?>, <?php echo $exam_2; ?>, <?php echo $exam_3; ?>],
+              ['Publications', <?php echo $epub_1; ?>, <?php echo $epub_2; ?>, <?php echo $epub_3; ?>],
+              ['Western', <?php echo $listgrade['01']['P01']; ?>, <?php echo $listgrade['02']['P01']; ?>, <?php echo $listgrade['03']['P01']; ?>],
+              ['Central', <?php echo $listgrade['01']['P02']; ?>, <?php echo $listgrade['02']['P02']; ?>, <?php echo $listgrade['03']['P02']; ?>],
+              ['Southern', <?php echo $listgrade['01']['P03']; ?>, <?php echo $listgrade['02']['P03']; ?>, <?php echo $listgrade['03']['P03']; ?>],
+              ['Northern', <?php echo $listgrade['01']['P04']; ?>, <?php echo $listgrade['02']['P04']; ?>, <?php echo $listgrade['03']['P04']; ?>],
+              ['Eastern', <?php echo $listgrade['01']['P05']; ?>, <?php echo $listgrade['02']['P05']; ?>, <?php echo $listgrade['03']['P05']; ?>],
+              ['North Western', <?php echo $listgrade['01']['P06']; ?>, <?php echo $listgrade['02']['P06']; ?>, <?php echo $listgrade['03']['P06']; ?>],
+              ['North ', <?php echo $listgrade['01']['P07']; ?>, <?php echo $listgrade['02']['P07']; ?>, <?php echo $listgrade['03']['P07']; ?>],
+              ['Uva', <?php echo $listgrade['01']['P08']; ?>, <?php echo $listgrade['02']['P08']; ?>, <?php echo $listgrade['03']['P08']; ?>],
+              ['Sabaragamuwa', <?php echo $listgrade['01']['P09']; ?>, <?php echo $listgrade['02']['P09']; ?>, <?php echo $listgrade['03']['P09']; ?>]
+            ]);
+
+            var options = {
+              chart: {
+                title: 'SLEAS Officers',
+                subtitle: 'Officers in areas',
+              }
+            };
+
+            var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
+
+            chart.draw(data, google.charts.Bar.convertOptions(options));
+
+
           }
-        };
-
-        var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
-
-        chart.draw(data, google.charts.Bar.convertOptions(options));
-      }
-    </script>
+        </script>

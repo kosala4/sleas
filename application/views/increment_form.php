@@ -146,11 +146,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     var current_salary = res['current_salary'].toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
                     var new_salary = res['new_salary'].toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
                     var increment = res['increment'].toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
-                    var next_salary = res['next_salary'].toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+                    
                     $('#current_salary').val(current_salary);
                     $('#new_salary').val(new_salary);
                     $('#increment').val(increment);
-                    $('#next_salary').val(next_salary);
+                    
+                    if('<?php echo $class; ?>' == 'Revision'){
+                        var next_salary = res['next_salary'].toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+                        $('#next_salary').val(next_salary);
+                    }
                 }
             });
         });

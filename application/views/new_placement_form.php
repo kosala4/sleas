@@ -18,7 +18,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <div class="form-group">
                             <label>Add placement for</label>
                             <?php if ($result) { ?>
-                                <label><?php echo $result[0]['title'] . ' ' ;?> <?php echo $result[0]['f_name'] ;?> <?php echo $result[0]['l_name'] ;?></label>
+                                <label><?php echo $result[0]['title'] . ' ' ;?> <?php echo $result[0]['in_name'] ;?> </label>
                             <?php    } ?>
                                     
                                 <input type="hidden" name="person_id" value="<?php echo $result[0]['ID'] ;?>">

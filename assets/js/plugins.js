@@ -76,7 +76,7 @@ var FormValidationInline = function (){
                 gender: "required",
                 civil_st: "required",
                 email: {
-                        required: true,
+                        required: false,
                         email: true
                 },
                 password: {
@@ -95,7 +95,9 @@ var FormValidationInline = function (){
                 numbers: {
                     required: true,
                     digits: true
-                }
+                },
+                address1: "required",
+                address2: "required"
             },
             
             messages: {

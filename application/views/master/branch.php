@@ -125,6 +125,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             if ($.inArray(gr, ['moe','exam','epd']) >=0){
               
             getMainBranch(workplace_id);  
+            }
                 
         });
         
