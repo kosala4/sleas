@@ -41,79 +41,79 @@ class Register extends CI_Controller {
         $service_id_array = $this->Form_data_model->get_recent_service_id();
         $service_id = $service_id_array['0']['ID'] + 1;
         
-         $nic = $this->security->xss_clean($_REQUEST['nic']);
-         $title = $this->security->xss_clean($_REQUEST['title']);
-         $fname = $this->security->xss_clean($_REQUEST['fname']);
-         $mname = $this->security->xss_clean($_REQUEST['mname']);
-         $lname = $this->security->xss_clean($_REQUEST['lname']);
-         $inname = $this->security->xss_clean($_REQUEST['inname']);
-         $dob = $this->security->xss_clean($_REQUEST['dob']);
-         $ethnicity = $this->security->xss_clean($_REQUEST['ethnicity']);
-         $gender = $this->security->xss_clean($_REQUEST['gender']);
-         $civil_st = $this->security->xss_clean($_REQUEST['civil_st']);
+        $nic = $this->security->xss_clean($_REQUEST['nic']);
+        $title = $this->security->xss_clean($_REQUEST['title']);
+        $fname = $this->security->xss_clean($_REQUEST['fname']);
+        $mname = $this->security->xss_clean($_REQUEST['mname']);
+        $lname = $this->security->xss_clean($_REQUEST['lname']);
+        $inname = $this->security->xss_clean($_REQUEST['inname']);
+        $dob = $this->security->xss_clean($_REQUEST['dob']);
+        $ethnicity = $this->security->xss_clean($_REQUEST['ethnicity']);
+        $gender = $this->security->xss_clean($_REQUEST['gender']);
+        $civil_st = $this->security->xss_clean($_REQUEST['civil_st']);
         
-         $address1 = $this->security->xss_clean($_REQUEST['address1']);
-         $address2 = $this->security->xss_clean($_REQUEST['address2']);
-         $address3 = $this->security->xss_clean($_REQUEST['address3']);
-         $pocode = $this->security->xss_clean($_REQUEST['pocode']);
-         $landp = $this->security->xss_clean($_REQUEST['landp']);
-         $mobile = $this->security->xss_clean($_REQUEST['mobile']);
-         $email = $this->security->xss_clean($_REQUEST['email']);
+        $address1 = $this->security->xss_clean($_REQUEST['address1']);
+        $address2 = $this->security->xss_clean($_REQUEST['address2']);
+        $address3 = $this->security->xss_clean($_REQUEST['address3']);
+        $pocode = $this->security->xss_clean($_REQUEST['pocode']);
+        $landp = $this->security->xss_clean($_REQUEST['landp']);
+        $mobile = $this->security->xss_clean($_REQUEST['mobile']);
+        $email = $this->security->xss_clean($_REQUEST['email']);
         
-         $addresstemp1 = $this->security->xss_clean($_REQUEST['addresstemp1']);
-         $addresstemp2 = $this->security->xss_clean($_REQUEST['addresstemp2']);
-         $addresstemp3 = $this->security->xss_clean($_REQUEST['addresstemp3']);
-         $pocodetemp = $this->security->xss_clean($_REQUEST['pocodetemp']);
-         $landptemp = $this->security->xss_clean($_REQUEST['landptemp']);
-         $mobiletemp = $this->security->xss_clean($_REQUEST['mobiletemp']);
-         $emailtemp = $this->security->xss_clean($_REQUEST['emailtemp']);
+        $addresstemp1 = $this->security->xss_clean($_REQUEST['addresstemp1']);
+        $addresstemp2 = $this->security->xss_clean($_REQUEST['addresstemp2']);
+        $addresstemp3 = $this->security->xss_clean($_REQUEST['addresstemp3']);
+        $pocodetemp = $this->security->xss_clean($_REQUEST['pocodetemp']);
+        $landptemp = $this->security->xss_clean($_REQUEST['landptemp']);
+        $mobiletemp = $this->security->xss_clean($_REQUEST['mobiletemp']);
+        $emailtemp = $this->security->xss_clean($_REQUEST['emailtemp']);
 
-         $date_join = $this->security->xss_clean($_REQUEST['date_join']);
-         $way_joined = $this->security->xss_clean($_REQUEST['way_joined']);
-         $cadre = $this->security->xss_clean($_REQUEST['cadre']);
-         $cadre_supern = $this->security->xss_clean($_REQUEST['cadre_supern']);
-         $grade_special = $this->security->xss_clean($_REQUEST['grade_special']);
-         $grade_general = $this->security->xss_clean($_REQUEST['grade_general']);
-         $grade_supern = $this->security->xss_clean($_REQUEST['grade_supern']);
-         $special_subject = $this->security->xss_clean($_REQUEST['special_subject']);
-         $medium_recruit = $this->security->xss_clean($_REQUEST['medium_recruit']);
-         $confirm = $this->security->xss_clean($_REQUEST['confirm']);
-         $date_confirm = $this->security->xss_clean($_REQUEST['date_confirm']);
-         $date_f_appoint = $this->security->xss_clean($_REQUEST['date_f_appoint']);
+        $date_join = $this->security->xss_clean($_REQUEST['date_join']);
+        $way_joined = $this->security->xss_clean($_REQUEST['way_joined']);
+        $cadre = $this->security->xss_clean($_REQUEST['cadre']);
+        $cadre_supern = $this->security->xss_clean($_REQUEST['cadre_supern']);
+        $grade_special = $this->security->xss_clean($_REQUEST['grade_special']);
+        $grade_general = $this->security->xss_clean($_REQUEST['grade_general']);
+        $grade_supern = $this->security->xss_clean($_REQUEST['grade_supern']);
+        $special_subject = $this->security->xss_clean($_REQUEST['special_subject']);
+        $medium_recruit = $this->security->xss_clean($_REQUEST['medium_recruit']);
+        $confirm = $this->security->xss_clean($_REQUEST['confirm']);
+        $date_confirm = $this->security->xss_clean($_REQUEST['date_confirm']);
+        $date_f_appoint = $this->security->xss_clean($_REQUEST['date_f_appoint']);
 
-         $service_mood = $this->security->xss_clean($_REQUEST['service_mood']);
-         $date_appoint = $this->security->xss_clean($_REQUEST['date_appoint']);
-         $work_place = $this->security->xss_clean($_REQUEST['work_place']);
-         $work_other = $this->security->xss_clean($_REQUEST['work_other']);
-         $main_division = $this->security->xss_clean($_REQUEST['main_division']);
-         $main_branch = $this->security->xss_clean($_REQUEST['main_branch']);
-         $designation = $this->security->xss_clean($_REQUEST['designation']);
-         $present_grade = $this->security->xss_clean($_REQUEST['present_grade']);
-         $date_promoted = $this->security->xss_clean($_REQUEST['date_promoted']);
-         $date_assumed = $this->security->xss_clean($_REQUEST['date_assumed']);
-         $official_letter_no = $this->security->xss_clean($_REQUEST['official_letter_no']);
+        $service_mood = $this->security->xss_clean($_REQUEST['service_mood']);
+        $date_appoint = $this->security->xss_clean($_REQUEST['date_appoint']);
+        $work_place = $this->security->xss_clean($_REQUEST['work_place']);
+        $work_other = $this->security->xss_clean($_REQUEST['work_other']);
+        $main_division = $this->security->xss_clean($_REQUEST['main_division']);
+        $main_branch = $this->security->xss_clean($_REQUEST['main_branch']);
+        $designation = $this->security->xss_clean($_REQUEST['designation']);
+        $present_grade = $this->security->xss_clean($_REQUEST['present_grade']);
+        $date_promoted = $this->security->xss_clean($_REQUEST['date_promoted']);
+        $date_assumed = $this->security->xss_clean($_REQUEST['date_assumed']);
+        $official_letter_no = $this->security->xss_clean($_REQUEST['official_letter_no']);
 
-         $province_office = $this->security->xss_clean($_REQUEST['province_office']);
+        $province_office = $this->security->xss_clean($_REQUEST['province_office']);
 
-         $province = $this->security->xss_clean($_REQUEST['province']);
-         $district = $this->security->xss_clean($_REQUEST['district']);
-         $zonal_office = $this->security->xss_clean($_REQUEST['zonal_office']);
+        $province = $this->security->xss_clean($_REQUEST['province']);
+        $district = $this->security->xss_clean($_REQUEST['district']);
+        $zonal_office = $this->security->xss_clean($_REQUEST['zonal_office']);
 
-         $zone = $this->security->xss_clean($_REQUEST['zone']);
-         $divisional_office = $this->security->xss_clean($_REQUEST['divisional_office']);
+        $zone = $this->security->xss_clean($_REQUEST['zone']);
+        $divisional_office = $this->security->xss_clean($_REQUEST['divisional_office']);
 
-         $division = $this->security->xss_clean($_REQUEST['division']);
-         $institute = $this->security->xss_clean($_REQUEST['institute']);
+        $division = $this->security->xss_clean($_REQUEST['division']);
+        $institute = $this->security->xss_clean($_REQUEST['institute']);
 
-         $salary_drawn = $this->security->xss_clean($_REQUEST['salary_drawn']);
+        $salary_drawn = $this->security->xss_clean($_REQUEST['salary_drawn']);
         
-         $release_type = $this->security->xss_clean($_REQUEST['release_type']);
-         $release_institute_name = $this->security->xss_clean($_REQUEST['release_institute_name']);
-         $release_study_st_date = $this->security->xss_clean($_REQUEST['release_study_st_date']);
-         $release_study_end_date = $this->security->xss_clean($_REQUEST['release_study_end_date']);
-         $release_work_designation = $this->security->xss_clean($_REQUEST['release_work_designation']);
-         $release_work_date_assumed = $this->security->xss_clean($_REQUEST['release_work_date_assumed']);
-         $release_official_letter = $this->security->xss_clean($_REQUEST['rel_official_letter_no']);
+        $release_type = $this->security->xss_clean($_REQUEST['release_type']);
+        $release_institute_name = $this->security->xss_clean($_REQUEST['release_institute_name']);
+        $release_study_st_date = $this->security->xss_clean($_REQUEST['release_study_st_date']);
+        $release_study_end_date = $this->security->xss_clean($_REQUEST['release_study_end_date']);
+        $release_work_designation = $this->security->xss_clean($_REQUEST['release_work_designation']);
+        $release_work_date_assumed = $this->security->xss_clean($_REQUEST['release_work_date_assumed']);
+        $release_official_letter = $this->security->xss_clean($_REQUEST['rel_official_letter_no']);
         $release_place = $this->security->xss_clean($_REQUEST['release_place']);
         $release_salary_drawn = $this->security->xss_clean($_REQUEST['release_salary_drawn']);
         
@@ -212,7 +212,7 @@ class Register extends CI_Controller {
         //Generate Data for user account
         $uname = $lname . date("Ymd", strtotime($dob));
         $name = $fname .' '. $lname;
-        $passwd = uniqid();
+        $passwd = password_hash(uniqid(), PASSWORD_DEFAULT);
         $pdfFileName = $name . 'User Account Details';
         
         $userAccount = array('name'=>$name ,'user_name'=>$uname ,'passwd'=>$passwd, 'person_id' => $person_id ,'level'=>'1');

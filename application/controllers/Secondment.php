@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class PromotionTransfer extends CI_Controller {
+class Secondment extends CI_Controller {
     
     public function __construct()
     {
@@ -11,7 +11,7 @@ class PromotionTransfer extends CI_Controller {
         #$this->load->model('District_model'); //load database model.
     }
     
-    public $response = array("result"=>"none", "data"=>"none", "register"=>"x", "sidemenu" => "menu_promotansfer", "class" => "PromotionTransfer");
+    public $response = array("result"=>"none", "data"=>"none", "register"=>"x", "sidemenu" => "menu_secondment", "class" => "Secondment");
     public $view_data_array = array();
     
     public function check_sess($user_logged)
@@ -21,7 +21,7 @@ class PromotionTransfer extends CI_Controller {
 		}//Redirect to login page if admin session not initiated.
 	}
     
-    public function newpromotiontransfer()
+    public function newsecondment()
     {
         $this->check_sess($this->session->user_logged);
 		$this->load->view('head');
@@ -39,27 +39,13 @@ class PromotionTransfer extends CI_Controller {
 		$this->load->view('head');
 		$this->load->view('sclerk_sidebar');
         
-        //$search_array = array('ID'=> $id);
-        $this->response['result'] = $this->Form_data_model->get_Officer_Details($id);
+        $search_array = array('ID'=> $id);
+        $this->response['result'] = $this->Form_data_model->searchdb('Personal_Details', $search_array);
         $this->response['workPlaces'] = $this->Form_data_model->select('workplace');
         $this->response['provinceList'] = $this->Form_data_model->select('province_list');
         $this->response['designation'] = $this->Form_data_model->select('designation');
-        $this->response['service_type'] = 'promoTrans';
-        $this->response['method'] = 'promotiontransfer_add';
-        
-        $current_grade = $this->response['result']['general'][0]['grade']; 
-        switch ($current_grade) {
-            case 'Grade III':
-                $this->response['new_grade'] = 'Grade II';
-                break;
-            case 'Grade II':
-                $this->response['new_grade'] = 'Grade I';
-                break;
-            case 'Grade I':
-                $this->response['new_grade'] = 'Special Grade';
-                break;
-        }
-        
+        $this->response['service_type'] = 'second';
+        $this->response['method'] = 'secondment_add';
 		$this->load->view('service_change', $this->response);
 
 		$this->load->view('footer');
@@ -72,34 +58,21 @@ class PromotionTransfer extends CI_Controller {
 		$this->load->view('head');
 		$this->load->view('sclerk_sidebar');
         
-        //$search_array = array('ID'=> $id);
-        $this->response['result'] = $this->Form_data_model->get_Officer_Details($id);
+        $search_array = array('ID'=> $id);
+        $this->response['result'] = $this->Form_data_model->searchdb('Personal_Details', $search_array);
         $this->response['workPlaces'] = $this->Form_data_model->select('workplace');
         $this->response['provinceList'] = $this->Form_data_model->select('province_list');
         $this->response['designation'] = $this->Form_data_model->select('designation');
-        $this->response['service_type'] = 'promoTrans';
-        $this->response['method'] = 'promotiontransfer_add';
+        $this->response['service_type'] = 'second';
+        $this->response['method'] = 'attachment_add';
         $this->response['type'] = 'history';
-        
-        $current_grade = $this->response['result']['general'][0]['grade']; 
-        switch ($current_grade) {
-            case 'Grade III':
-                $this->response['new_grade'] = 'Grade II';
-                break;
-            case 'Grade II':
-                $this->response['new_grade'] = 'Grade I';
-                break;
-            case 'Grade I':
-                $this->response['new_grade'] = 'Special Grade';
-                break;
-        }
         
 		$this->load->view('service_change', $this->response);
 
 		$this->load->view('footer');
     }
     
-    public function promotiontransfer_add()
+    public function secondment_add()
     {
         //Get form data
         $nic = $this->security->xss_clean($_REQUEST['nic']);
@@ -125,8 +98,8 @@ class PromotionTransfer extends CI_Controller {
         $province_office_id = $this->security->xss_clean($_REQUEST['province_office']);
         $zonal_office_id = $this->security->xss_clean($_REQUEST['zonal_office']);
         $divisional_office_id = $this->security->xss_clean($_REQUEST['divisional_office']);
-        
-        
+        $salary_drawn = $this->security->xss_clean($_REQUEST['salary_drawn']);
+        $submit = $this->security->xss_clean($_REQUEST['submit']);
         
         //Get Data from database
         $service_id_array = $this->Form_data_model->get_recent_service_id();
@@ -134,6 +107,7 @@ class PromotionTransfer extends CI_Controller {
         
         $search_array = array('ID'=> $person_id);
         $personal_details = $this->Form_data_model->searchdb('Personal_Details', $search_array);
+        
         
         $work_place = $this->Form_data_model->searchdbvalue('Work_Place', 'ID', $work_place_id);
         $main_division = $this->Form_data_model->searchdbvalue('Main_Office_Divisions', 'ID', $main_division_id);
@@ -144,7 +118,7 @@ class PromotionTransfer extends CI_Controller {
         
         $type = $this->security->xss_clean($_REQUEST['type']);
         
-        $service = array('ID' => $service_id,'nic' => $nic, 'service_mode' => '4', 'work_place_id'=>$work_place_id, 'designation_id'=>$designation_id , 'duty_date'=>$work_date, 'off_letter_no'=>$official_letter_no, 'user_updated' => $this->session->username);
+        $service = array('ID' => $service_id, 'person_id' => $person_id, 'service_mode' => '6', 'work_place_id'=>$work_place_id, 'designation_id'=>$designation_id , 'duty_date'=>$work_date, 'off_letter_no'=>$official_letter_no, 'user_updated' => $this->session->username);
         
         switch ($work_place_id) {
             case 1:
@@ -185,8 +159,12 @@ class PromotionTransfer extends CI_Controller {
         
         $service['barcode'] = $this->view_data_array['barcode'];
         
-        $res = $this->Form_data_model->insertData('Service', $service);
-        //$res = '1';
+        if($submit == '1'){
+            $res = $this->Form_data_model->insertData('Service', $service);
+        }else{
+            $res = '1';
+        }
+        
         if ($res == 1){
             if ($type){
                 redirect('admin/profile/'.$person_id );
@@ -214,17 +192,17 @@ class PromotionTransfer extends CI_Controller {
 		$this->load->view('head');
 		$this->load->view('sclerk_sidebar');
         $this->load->view('letter/letter-header',$this->view_data_array);
-        $this->load->view('letter/promotionTransfer/province',$this->view_data_array);
+        $this->load->view('letter/secondment/province',$this->view_data_array);
 		$this->load->view('footer');
         
         $html = $this->load->view('letter/letter-header',$this->view_data_array,true);
         
         if($work_place_id == '18'){
-            $html = $html . $this->load->view('letter/promotionTransfer/province',$this->view_data_array,true);
+            $html = $html . $this->load->view('letter/secondment/province',$this->view_data_array,true);
         }else if($work_place_id == '16'){
-            $html = $html . $this->load->view('letter/promotionTransfer/school',$this->view_data_array,true);
+            $html = $html . $this->load->view('letter/secondment/school',$this->view_data_array,true);
         }else if($work_place_id == '1' || $work_place_id == '2' || $work_place_id == '3') {
-            $html = $html . $this->load->view('letter/promotionTransfer/main_office',$this->view_data_array,true);
+            $html = $html . $this->load->view('letter/secondment/main_office',$this->view_data_array,true);
         }
         
         return $html;

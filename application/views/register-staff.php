@@ -652,7 +652,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                                     </select>
                                                                 </div>
 
-                                                            </div><!--End of promotion block-->
+                                                            </div><!--End of releasement block-->
 
                                                         </div>
                                                     </div>

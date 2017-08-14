@@ -115,6 +115,17 @@ class FormControl extends CI_Controller {
         echo json_encode($res);
     }
     
+    public function getQualifications(){
+        header('Content-Type: application/x-json; charset=utf-8');
+        $q_type = $this->input->post('q_type');
+        $searchArray = array('qualification_type_id' => $q_type);
+        
+        $res = $this->Form_data_model->searchdb('Qualification_List', $searchArray);
+        
+        echo json_encode($res);
+        //echo $res;
+    }
+    
     public function searchOfficers(){
         $searchField = $this->input->post('searchField');
         $searchKey = $this->input->post('searchKey');
@@ -156,6 +167,54 @@ class FormControl extends CI_Controller {
                         $fileDetails = $file_path . '/' . $file_name;
                         $fileDetailsArray = array("path" => $fileDetails);
                         echo json_encode($fileDetailsArray);
+                    }
+                }
+            }
+        } else {
+            echo 'Please choose a file';
+        }
+    }
+    
+    public function addQualification(){
+        header('Content-Type: application/x-json; charset=utf-8');
+        $user_id = $this->input->post('user_id');
+        $q_id = $this->input->post('q_id');
+        $q_name = $this->input->post('q_name');
+        $q_type_id = $this->input->post('q_type_id');
+        $q_institute = $this->input->post('q_institute');
+        $q_date = $this->input->post('q_date');
+        $nic = $this->input->post('nic');
+        $q_grade = $this->input->post('q_grade');
+        
+        if($q_type_id == '1'){
+            $q_type = 'academic';
+        } else if($q_type_id == '2'){
+            $q_type = 'professional';
+        }
+        
+        if (isset($_FILES['file']['name'])) {
+            if (0 < $_FILES['file']['error']) {
+                echo 'Error during file upload' . $_FILES['file']['error'];
+            } else {
+                $ext = pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION);
+                $file_name = $q_date . $nic . '-' . $q_name . '-certificate.' . $ext;
+                $file_path = 'file_library/'.$user_id . '/qualifications/' . $q_type;
+                
+                $dataarray = array("person_id" => $user_id, 'qualification_type_id' => $q_type_id, 'qualification_id' => $q_id, 'qualified_date' => $q_date, 'qualification_grade' => $q_grade, 'qualified_institute' => $q_institute,'certificate_path' => $file_path . '/' .$file_name);
+                
+                if (!file_exists($file_path)) {
+                    mkdir($file_path, 0777, true);
+                }
+                
+                if (file_exists($file_path . '/' . $file_name)) {
+                    
+                    echo 'Sorry! This Certificate already saved.';
+                    
+                } else {
+                    $res = $this->Form_data_model->insertData('Qualifications', $dataarray);
+                    if ($res == '1'){
+                        move_uploaded_file($_FILES['file']['tmp_name'], $file_path . '/' . $file_name);
+                        echo json_encode($dataarray);
                     }
                 }
             }

@@ -137,6 +137,37 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </div>
                     </div>
 
+                    <!-- Modal to verify letter from barcode-->
+                    <div id="verifyLetter" class="modal fade" role="dialog">
+                      <div class="modal-dialog">
+
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                          <div class="modal-header">
+                              <button type="button" class="close" data-dismiss="modal">&times;</button>
+                              <h4 id="require_modal-title"> Verify Letter </h4>
+
+                          </div>
+
+                        <?php echo form_open() ?> 
+                          <div class="modal-body">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label> Barcode Number </label>
+                                    <input type="text" class="form-control" name="verify_barcode" id="verify_barcode" placeholder="Barcode Number" autofocus>
+                                </div>
+                            </div>
+                          </div>
+                          <div class="modal-footer" style="border-top:0;">
+                            <button type="button" class="btn btn-success" data-dismiss="modal" id="verify_submit">Save</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                          </div>
+                        <?php echo form_close() ?>
+                        </div>
+
+                      </div>
+                    </div>
+                    
                     <div class="col-md-6">
                         
                     </div>
@@ -176,6 +207,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             $('#messagetitle').text(message_title);
             $('.modal-title').text(message_sender);
         });*/
+            
+            $('#verify_letter').click(function(){
+                $('#verifyLetter').modal('toggle');
+            });
             
             $('.messagetoggle').click(function(){
                 var person_id = $(this).data('message').id;

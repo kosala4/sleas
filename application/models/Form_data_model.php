@@ -281,9 +281,9 @@ class Form_data_model extends CI_Model{
         $this->db->join('Service s1', 'Personal_Details.ID = s1.person_id', 'inner');
         $this->db->join('Designation', 's1.designation_id = Designation.ID');
         $this->db->join('Work_Place', 's1.work_place_id = Work_Place.ID');
-        $this->db->join('Service s2', 'Personal_Details.NIC = s2.NIC AND 
+        $this->db->join('Service s2', 'Personal_Details.ID = s2.person_id AND 
     (s1.time_updated < s2.time_updated OR s1.time_updated = s2.time_updated AND s1.time_updated < s2.time_updated)', 'left outer');
-        $this->db->where('s2.NIC is NULL');
+        $this->db->where('s2.person_id is NULL');
         
         $this->db->order_by('Personal_Details.NIC', 'Service.ID');
         $query = $this->db->get();
@@ -293,14 +293,14 @@ class Form_data_model extends CI_Model{
     
     public function search_officers($searchField, $searchKey){
         $this->db->cache_off();
-        $this->db->select('Personal_Details.ID, Personal_Details.NIC, Personal_Details.title, Personal_Details.f_name, Personal_Details.l_name, Designation.designation, Work_Place.work_place');
+        $this->db->select('Personal_Details.ID, Personal_Details.NIC, Personal_Details.title, Personal_Details.in_name, Designation.designation, Work_Place.work_place');
         $this->db->from('Personal_Details');
         $this->db->join('Service s1', 'Personal_Details.ID = s1.person_id');
         $this->db->join('Designation', 'Designation.ID = s1.designation_id');
         $this->db->join('Work_Place', 'Work_Place.ID = s1.work_place_id');
-        $this->db->join('Service s2', 'Personal_Details.NIC = s2.NIC AND 
+        $this->db->join('Service s2', 'Personal_Details.ID = s2.person_id AND 
     (s1.time_updated < s2.time_updated OR s1.time_updated = s2.time_updated AND s1.time_updated < s2.time_updated)', 'left outer');
-        $this->db->where('s2.NIC is NULL');
+        $this->db->where('s2.person_id is NULL');
         $this->db->like('LOWER(Personal_Details.'.$searchField.')', $searchKey, after);
         $this->db->order_by('Personal_Details.NIC', 'Service.ID');
         $query = $this->db->get();
@@ -318,7 +318,7 @@ class Form_data_model extends CI_Model{
     
     public function get_Officer_Details($personID){
         $this->db->cache_off();
-        $this->db->select('*, s1.work_place_id, p.ID');
+        $this->db->select('*, s1.work_place_id, p.ID, s1.ID AS service_id');
         $this->db->from('Service s1');
         $this->db->join('Personal_Details p', 'p.ID = s1.person_id');
         $this->db->join('Main_Office_Branches br', 's1.work_branch_id = br.ID','left');
@@ -352,6 +352,16 @@ class Form_data_model extends CI_Model{
         $this->db->where('person_id', $personID);
         $ge_service_query = $this->db->get();
         $res['salary'] = $ge_service_query->result_array();
+        
+        //Get Qualifications Details of officer and add to $res Array
+        $this->db->select('*');
+        $this->db->from('Qualifications q');
+        $this->db->join('Qualification_List ql', 'q.qualification_id = ql.ID');
+        $this->db->join('Qualification_Type qt', 'q.qualification_type_id = qt.ID');
+        $this->db->where('q.person_id', $personID);
+        $this->db->order_by('q.qualified_date', 'ASC');
+        $ge_service_query = $this->db->get();
+        $res['qual'] = $ge_service_query->result_array();
         
         
         
@@ -599,6 +609,10 @@ class Form_data_model extends CI_Model{
         
         $this->db->where($search_field, $search_key);
         $this->db->update($table, $update_array);
+        
+        if($this->db->affected_rows()){
+            return 1;
+        }
     }
 }
 ?>

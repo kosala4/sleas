@@ -22,6 +22,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <?php    } ?>
                                     
                                 <input type="hidden" name="person_id" value="<?php echo $result[0]['ID'] ;?>">
+                                <input type="hidden" name="type" value="<?php echo $type ;?>">
                                 <input type="hidden" name="submit" id="submit" value="">
                             </div>
                         </div>
@@ -63,22 +64,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </div>
                         <div class="col-md-6">
 
-                            <div class="form-group hidden" id="eb_1_date">
+                            <div class="form-group hidden" id="eb_1_date_div">
                                 <label>Efficiency Bar Examination I Pass Date</label>
                                 <input type="text" class="form-control date-picker" name="eb_1_date">
                             </div>
 
-                            <div class="form-group hidden" id="eb_2_grade3_date">
+                            <div class="form-group hidden" id="eb_2_grade3_date_div">
                                 <label>Efficiency Bar Examination II (P. G. D. or Equalent) Pass Date</label>
                                 <input type="text" class="form-control date-picker" name="eb_2_grade3_date">
                             </div>
 
-                            <div class="form-group hidden" id="eb_2_date">
+                            <div class="form-group hidden" id="eb_2_date_div">
                                 <label>Efficiency Bar Examination II Pass Date</label>
                                 <input type="text" class="form-control date-picker" name="eb_2_date" id="eb_2_date">
                             </div>
 
-                            <div class="form-group hidden" id="eb_3_date">
+                            <div class="form-group hidden" id="eb_3_date_div">
                                 <label>Efficiency Bar Examination III Pass Date</label>
                                 <input type="text" class="form-control date-picker" name="eb_3_date" id="eb_3_date">
                             </div>
@@ -117,8 +118,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         
                         <div class="form-actions fluid">
                             <div class="col-md-offset-3 col-md-9">
-                                <button type="reset" id="reset-button" class="btn btn-info">Clear</button>
+                                <?php if($type){ ?>
+                                <button type="submit" class="btn btn-success form-reset"> Save </button>
+                                <?php } else {?>
                                 <button type="submit" class="btn btn-info form-reset"><i class="fa fa-print"></i> Print letter </button>
+                                <?php } ?>
                             </div>
                         </div>
                             
@@ -142,12 +146,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 
         var grade = $(present_grade).val();
         if(grade == 'Grade II'){
-            $("#eb_1_date").removeClass("hidden");
-            $("#eb_2_grade3_date").removeClass("hidden");
+            $("#eb_1_date_div").removeClass("hidden");
+            $("#eb_2_grade3_date_div").removeClass("hidden");
         }else if(grade == 'Grade I'){
-            $('#eb_2_date').removeClass('hidden');
+            $('#eb_2_date_div').removeClass('hidden');
         }else if(grade == 'Special Grade'){
-            $('#eb_3_date').removeClass('hidden');
+            $('#eb_3_date_div').removeClass('hidden');
         }
         
         $("#addPromotionForm").validate({

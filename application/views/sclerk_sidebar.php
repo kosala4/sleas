@@ -46,6 +46,13 @@
                         </a>
                     </li>
                     
+                    <li class="menu" id="menu_attachment"> 
+                        <a class="top-menu" href="<?php echo base_url()."index.php/secondment/newsecondment"?>">
+                            <span class="sicon"><i class="fa fs-link-4"></i></span>
+                            <span class="sidebar-title"> Secondment </span>
+                        </a>
+                    </li>
+                    
                     <li class="menu" id="menu_promotransfer"> 
                         <a class="top-menu" href="<?php echo base_url()."index.php/promotionTransfer/newpromotiontransfer"?>">
                             <span class="sicon"><i class="fa fs-upload-3"></i></span>
@@ -71,6 +78,13 @@
                         <a class="top-menu" href="<?php echo base_url()."index.php/disciplinary/addDisciplinary"?>">
                             <span class="sicon"><i class="fa fa-plus"></i></span>
                             <span class="sidebar-title">Disciplinary Action </span>
+                        </a>
+                    </li>
+                    
+                    <li class="menu" id="menu_disciplinary"> 
+                        <a class="top-menu" href="#" id="verify_letter">
+                            <span class="sicon success"><i class="fa fa-check success"></i></span>
+                            <span class="sidebar-title"> Verify Letter </span>
                         </a>
                     </li>
 

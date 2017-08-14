@@ -103,8 +103,11 @@ class Admin extends CI_Controller {
         $this->response['requests'] = $this->Form_data_model->get_Change_Requests_Officer($user_ID);
         $this->response['user_details'] = $this->Form_data_model->get_Officer_Details($user_ID);
         $this->response['deativate_type'] = $this->Form_data_model->select('deativate_type');
+        $this->response['workPlaces'] = $this->Form_data_model->select('workplace');
+        $this->response['provinceList'] = $this->Form_data_model->select('province_list');
+        $this->response['designation'] = $this->Form_data_model->select('designation');
+        
 		$this->load->view('officer_profile', $this->response);
-
 		$this->load->view('footer');
     }
     
@@ -216,7 +219,6 @@ class Admin extends CI_Controller {
         
         $dataarray = array($field_name => $field_date);
         
-        
         //$table, $search_field, $search_key, $update_array
         $res = $this->Form_data_model->update('General_Service', 'person_id', $person_id, $dataarray);
         
@@ -291,6 +293,139 @@ class Admin extends CI_Controller {
         
         if(res == '1'){
             echo "Success";
+        }
+    }
+    
+    public function updateServiceForm($service_id)
+    {
+        $this->check_sess($this->session->user_logged);
+        $searchArray = array('ID' => $service_id);
+        $this->response['service'] = $this->Form_data_model->searchdb('Service', $searchArray);
+        $this->response['workPlaces'] = $this->Form_data_model->select('workplace');
+        $this->response['provinceList'] = $this->Form_data_model->select('province_list');
+        $this->response['designation'] = $this->Form_data_model->select('designation');
+        
+        if($this->response['service']['0']['sub_location_id']){
+            $this->response['institute'] = $this->Form_data_model->searchdbvalue('Institute', 'ID', $this->response['service']['0']['sub_location_id'] );
+        }
+        
+        if($this->response['service']['0']['work_place_id'] == '7'){
+            $this->response['zone'] = $this->Form_data_model->searchdbvalue('Zonal_Offices', 'ID', $this->response['service']['0']['sub_location_id'] );
+        } else if($this->response['service']['0']['work_place_id'] == '8'){
+            $this->response['division'] = $this->Form_data_model->searchdbvalue('Divisional_Offices', 'ID', $this->response['service']['0']['sub_location_id'] );
+        }
+        
+        //echo $this->response['service']['0']['person_id'];
+		$this->load->view('head');
+		$this->load->view('sclerk_sidebar');
+        
+		$this->load->view('service_update', $this->response);
+		$this->load->view('footer');
+    }
+    
+    public function updateService()
+    {
+        
+        $person_id = $this->security->xss_clean($_REQUEST['person_id']);
+        $service_id = $this->security->xss_clean($_REQUEST['service_id']);
+        $service_mood = $this->security->xss_clean($_REQUEST['service_mood']);
+        $work_place = $this->security->xss_clean($_REQUEST['work_place']);
+        $work_other = $this->security->xss_clean($_REQUEST['work_other']);
+        $main_division = $this->security->xss_clean($_REQUEST['main_division']);
+        $main_branch = $this->security->xss_clean($_REQUEST['main_branch']);
+        $designation = $this->security->xss_clean($_REQUEST['designation']);
+        $present_grade = $this->security->xss_clean($_REQUEST['present_grade']);
+        $date_promoted = $this->security->xss_clean($_REQUEST['date_promoted']);
+        $date_assumed = $this->security->xss_clean($_REQUEST['date_assumed']);
+        $official_letter_no = $this->security->xss_clean($_REQUEST['official_letter_no']);
+
+        $province_office = $this->security->xss_clean($_REQUEST['province_office']);
+
+        $province = $this->security->xss_clean($_REQUEST['province']);
+        $district = $this->security->xss_clean($_REQUEST['district']);
+        $zonal_office = $this->security->xss_clean($_REQUEST['zonal_office']);
+
+        $zone = $this->security->xss_clean($_REQUEST['zone']);
+        $divisional_office = $this->security->xss_clean($_REQUEST['divisional_office']);
+
+        $division = $this->security->xss_clean($_REQUEST['division']);
+        $institute = $this->security->xss_clean($_REQUEST['institute']);
+
+        $salary_drawn = $this->security->xss_clean($_REQUEST['salary_drawn']);
+        
+        $release_type = $this->security->xss_clean($_REQUEST['release_type']);
+        $release_institute_name = $this->security->xss_clean($_REQUEST['release_institute_name']);
+        $release_study_st_date = $this->security->xss_clean($_REQUEST['release_study_st_date']);
+        $release_study_end_date = $this->security->xss_clean($_REQUEST['release_study_end_date']);
+        $release_work_designation = $this->security->xss_clean($_REQUEST['release_work_designation']);
+        $release_work_date_assumed = $this->security->xss_clean($_REQUEST['release_work_date_assumed']);
+        $release_official_letter = $this->security->xss_clean($_REQUEST['rel_official_letter_no']);
+        $release_place = $this->security->xss_clean($_REQUEST['release_place']);
+        $release_salary_drawn = $this->security->xss_clean($_REQUEST['release_salary_drawn']);
+        
+        $letter_create = $this->security->xss_clean($_REQUEST['letter_create']);
+        
+        
+        //Populate Services Array
+        $service = array('ID' => $service_id, 'user_updated' => $this->session->username);
+        
+        if ($service_mood == '7'){
+            //releasement
+
+            $releasement = array('service_id' => $service_id, 'rel_type_id' => $release_type, 'rel_place_id' => $release_place, 'rel_start_date' => date("y-m-d", strtotime($release_study_st_date)), 'rel_end_date' => date("y-m-d", strtotime($release_study_end_date)), 'rel_designation' => $release_work_designation, 'rel_date' => date("y-m-d", strtotime($release_work_date_assumed)), 'salary_drawn' => $release_salary_drawn, 'rel_institute' => $release_institute_name, 'off_letter_no' => $release_official_letter);
+           // print_r($releasement);
+            
+        }else{
+            $service['work_place_id'] = $work_place;
+            $service['designation_id'] = $designation;
+            $service['grade'] = $present_grade;
+            $service['off_letter_no'] = $official_letter_no;
+            $service['duty_date'] = date("y-m-d", strtotime($date_assumed));
+            
+            switch ($work_place) {
+                case 1:
+                case 2:
+                case 3:
+                case 4:
+                    $service['work_division_id'] = $main_division;
+                    $service['work_branch_id'] = $main_branch;
+                    break;
+                case 5:
+                case 6:
+                    $service['sub_location_id'] = $province_office;
+                    break;
+                case 7:
+                    $service['sub_location_id'] = $zonal_office;
+                    break;
+                case 8:
+                    $service['sub_location_id'] = $divisional_office;
+                    break;
+                case 9:
+                case 10:
+                case 11:
+                case 12:
+                case 13:
+                case 14:
+                case 15:
+                case 16:
+                case 17:
+                    $service['sub_location_id'] = $institute;
+                    break;
+
+                default:
+            }
+        }
+        
+        if($service_mood == '7'){
+            $res = $this->Form_data_model->update('Releasement', 'service_id', $service_id, $releasement);
+        } else {
+            $res = $this->Form_data_model->update('Service', 'ID', $service_id, $service);
+        }
+        
+        if($res == '1'){
+            redirect('admin/profile/'.$person_id );
+        } else {
+            echo "Error updating!";
         }
     }
 }

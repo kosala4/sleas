@@ -33,8 +33,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <thead>
                             <tr>
                                 <th> NIC no </th>
-                                <th> First Name </th>
-                                <th> Last Name </th>
+                                <th> Name With Initials </th>
                                 <th> Designation </th>
                                 <th> Working Place </th>
                                 <th> <?php echo $class ?> </th>
@@ -69,8 +68,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         $('.data-cell').remove();
                         $.each(res, function(ID){
                             $('#officers_list').append('<tr class="data-cell"><td>'+res[ID].NIC+'</td>'+
-                                                       '<td>'+res[ID].f_name+'</td>'+
-                                                      '<td>'+res[ID].l_name+'</td>'+
+                                                       '<td>'+res[ID].in_name+'</td>'+
                                                       '<td>'+res[ID].designation+'</td>'+
                                                       '<td>'+res[ID].work_place+'</td>'+
                                                       '<td><a href="add/'+res[ID].ID+'"> <?php echo $class ?> </a></td>');
@@ -93,8 +91,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         $('.data-cell').remove();
                         $.each(res, function(ID){
                             $('#officers_list').append('<tr class="data-cell"><td>'+res[ID].NIC+'</td>'+
-                                                       '<td>'+res[ID].f_name+'</td>'+
-                                                      '<td>'+res[ID].l_name+'</td>'+
+                                                       '<td>'+res[ID].in_name+'</td>'+
                                                       '<td>'+res[ID].designation+'</td>'+
                                                       '<td>'+res[ID].work_place+'</td>'+
                                                       '<td><a href="add/'+res[ID].ID+'"> <?php echo $class ?> </a></td>');

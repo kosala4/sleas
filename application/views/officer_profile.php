@@ -167,6 +167,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             
                             <div class="tab-pane active" id="tab_1_1">
                                 <h3><?php echo $user_details[0]['title'] . ' ' . $user_details[0]['in_name']?></h3>
+                                
                                 <div class="col-md-6">
                                     <table border="0" width="100%">
                                         <tr valign="middle">
@@ -208,49 +209,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     </table>
                                 </div>
                                 
-                    <!-- Modal for Deactivation info-->
-                                <div id="deactivationModal" class="modal fade" role="dialog">
-                                  <div class="modal-dialog">
-
-                                    <!-- Modal content-->
-                                    <div class="modal-content">
-                                      <div class="modal-header">
-                                          <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                          <h4 class="modal-title">Deactivate officer service</h4>
-
-                                      </div>
-
-                                    <?php echo form_open() ?> 
-                                      <div class="modal-body">
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label>Reason to deactivate service</label>
-                                            <?php if ($deativate_type) { ?>
-                                                <select class="select2" name="deactivate_reason" id="deactivate_reason" style="width:100%">
-                                                    <option value="" hidden selected> ---------Please Select--------- </option>
-                                                    <?php foreach ($deativate_type as $row) { ?>
-                                                        <option value="<?php echo $row['ID'];?>" > <?php echo $row['type'] ;?> </option>
-                                            <?php    } ?>
-                                                    <option value="other" class="c-other hidden"> Other </option>
-                                                </select>
-                                            <?php } ?>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Date of deactivating service</label>
-                                                <input type="text" class="form-control date-picker" name="deactivate_date" id="deactivate_date" placeholder="yyyy-mm-dd">
-                                            </div>
-                                        </div>
-                                      </div>
-                                      <div class="modal-footer" style="border-top:0;">
-                                        <button type="button" class="btn btn-success" data-dismiss="modal" id="deactive_submit">Save</button>
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                      </div>
-                                    <?php echo form_close() ?>
-                                    </div>
-
-                                  </div>
-                                </div>
-                                
                                 <div class="col-md-6">
                                     <table border="0" width="100%">
                                         <tr valign="top">
@@ -267,11 +225,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         </tr>
                                         <tr valign="top">
                                             <td><label style="margin-bottom:15px;"> Mobile </label></td>
-                                            <td><label>- <?php if($user_details['contact'][0]['mobile']){ echo $user_details['contact'][0]['mobile'] ; }?> </label></td>
+                                            <td><label>- <?php if($user_details['contact'][0]['mobile']){ echo '0'.$user_details['contact'][0]['mobile'] ; }?> </label></td>
                                         </tr>
                                         <tr valign="top">
                                             <td><label style="margin-bottom:15px;"> Telephone </label></td>
-                                            <td><label>- <?php if($user_details['contact'][0]['telephone']){ echo $user_details['contact'][0]['telephone'];} ?> </label></td>
+                                            <td><label>- <?php if($user_details['contact'][0]['telephone']){ echo '0'.$user_details['contact'][0]['telephone'];} ?> </label></td>
                                         </tr>
                                         <tr valign="top">
                                             <td><label style="margin-bottom:15px;"> Email </label></td>
@@ -279,7 +237,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         </tr>
                                     </table>
                                 </div>
-                                
                                 
                             </div>
                             
@@ -353,8 +310,51 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <?php echo form_close(); ?>
                             </div>
 
+                        <!-- Modal for Deactivation info-->
+                            <div id="deactivationModal" class="modal fade" role="dialog">
+                              <div class="modal-dialog">
+
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                      <h4 class="modal-title">Deactivate officer service</h4>
+
+                                  </div>
+
+                                <?php echo form_open() ?> 
+                                  <div class="modal-body">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>Reason to deactivate service</label>
+                                        <?php if ($deativate_type) { ?>
+                                            <select class="select2" name="deactivate_reason" id="deactivate_reason" style="width:100%">
+                                                <option value="" hidden selected> ---------Please Select--------- </option>
+                                                <?php foreach ($deativate_type as $row) { ?>
+                                                    <option value="<?php echo $row['ID'];?>" > <?php echo $row['type'] ;?> </option>
+                                                <?php } ?>
+                                                <option value="other" class="c-other hidden"> Other </option>
+                                            </select>
+                                        <?php } ?>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Date of deactivating service</label>
+                                            <input type="text" class="form-control date-picker" name="deactivate_date" id="deactivate_date" placeholder="yyyy-mm-dd">
+                                        </div>
+                                    </div>
+                                  </div>
+                                  <div class="modal-footer" style="border-top:0;">
+                                    <button type="button" class="btn btn-success" data-dismiss="modal" id="deactive_submit">Save</button>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                  </div>
+                                <?php echo form_close() ?>
+                                </div>
+
+                              </div>
+                            </div>
+                                
                         </div>
-                    </div>
+                    </div> <!--Basic Details --Personal and Contact -->
                     <div class="panel panel-info">
                         <div class="panel-heading reg-main-panel">
                             <h3 class="panel-title">General Service Details</h3>
@@ -383,7 +383,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 </tr>
                             </table>
                         </div>
-                    </div>
+                    </div> <!--General Service Details-->
                     <div class="panel panel-info">
                         <div class="panel-heading reg-main-panel">
                             <h3 class="panel-title"> Requirements for Promotions </h3>
@@ -433,7 +433,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 </tr>
                             </table>
                         </div>
-                    </div>
+                    </div> <!--Promotion Requirements-->
 
         <!-- Modal to get performance dates-->
                     <div id="requiredateModal" class="modal fade" role="dialog">
@@ -476,11 +476,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <table class="table table-striped table-bordered table-hover">
                                 <thead>
                                     <tr>
-                                        <th> Date</th>
-                                        <th> Service mode</th>
-                                        <th> Work place</th>
-                                        <th> Institute / Branch</th>
-                                        <th> Designation</th>
+                                        <th> Date </th>
+                                        <th> Service mode </th>
+                                        <th> Work place </th>
+                                        <th> Division </th>
+                                        <th> Institute / Branch </th>
+                                        <th> Designation </th>
+                                        <th> Edit </th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -491,8 +493,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <td><?php echo $row['duty_date']; ?></td>
                                             <td><?php echo $row['mode']; ?></td>
                                             <td><?php echo $row['work_place']; ?></td>
+                                            <td><?php if($row['office_division']){ echo $row['office_division'];}else{ echo "Not Applicable" ;} ?></td>
                                             <td><?php echo $row['sub_location'] . $row['office_branch']; ?></td>
                                             <td><?php echo $row['designation']; ?></td>
+                                            <td> <a href="<?php echo base_url()."index.php/Admin/updateServiceForm/" . $row['service_id']?>" class="edit_service btn btn-xs btn-success pull-middle" role="button"><i class="fa fa-edit"></i></a> </td>
                                         </tr>
                                         <?php }?>
                                     <?php }?>
@@ -502,16 +506,156 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <?php if($this->session->user_level != '1'){ ?>
                             <div class="col-md-12" style="margin-bottom:10px;">
                                 <p>Add Service History</p>
-                                <a href="<?php echo base_url()."index.php/transfer/add/".$user_details[0]['ID']?>" role="button" class="btn btn-white btn-xs">Add Transfer</a>
-                                <a href="<?php echo base_url()."index.php/promotion/add/".$user_details[0]['ID']?>" role="button" class="btn btn-white btn-xs">Add Promotion</a>
-                                <a href="<?php echo base_url()."index.php/promotionTransfer/add/".$user_details[0]['ID']?>" role="button" class="btn btn-white btn-xs">Add Promotion Transfer</a>
-                                <a href="<?php echo base_url()."index.php/transfer/add/".$user_details[0]['ID']?>" role="button" class="btn btn-white btn-xs">Add Attachment</a>
-                                <a href="<?php echo base_url()."index.php/transfer/add/".$user_details[0]['ID']?>" role="button" class="btn btn-white btn-xs">Add Secondment</a>
+                                <a href="<?php echo base_url()."index.php/transfer/addHistory/".$user_details[0]['ID']?>" role="button" class="btn btn-white btn-xs">Add Transfer</a>
+                                <a href="<?php echo base_url()."index.php/promotion/addHistory/".$user_details[0]['ID']?>" role="button" class="btn btn-white btn-xs">Add Promotion</a>
+                                <a href="<?php echo base_url()."index.php/promotionTransfer/addHistory/".$user_details[0]['ID']?>" role="button" class="btn btn-white btn-xs">Add Promotion Transfer</a>
+                                <a href="<?php echo base_url()."index.php/transfer/addHistory/".$user_details[0]['ID']?>" role="button" class="btn btn-white btn-xs">Add Attachment</a>
+                                <a href="<?php echo base_url()."index.php/secondment/add/".$user_details[0]['ID']?>" role="button" class="btn btn-white btn-xs">Add Secondment</a>
                                 <a href="<?php echo base_url()."index.php/transfer/add/".$user_details[0]['ID']?>" role="button" class="btn btn-white btn-xs">Add Releasement</a>
                             </div>
                             <?php } ?>
                         </div>
+                    </div> <!--Service History-->
+
+                </div> <!--Service Details Div-->
+                <div class="col-md-12">
+                    <div class="col-md-6">
+
+                        <div class="panel panel-info">
+                            <div class="panel-heading reg-main-panel">
+                                <h3 class="panel-title"> Educational Qualifications </h3>
+                            </div><!--End of panel-heading-->
+                            <div class="panel-body">
+                                <table class="table table-striped table-bordered table-hover" id="q_1">
+                                    <thead>
+                                        <tr>
+                                            <th> </th>
+                                            <th> Date </th>
+                                            <th> Marks/ Grade </th>
+                                            <th> Institute/ School </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php if(is_array($user_details)) {?>
+                                        <?php foreach($user_details['qual'] as $row) {?>
+                                            <?php if($row['qualification_type_id'] == '1') {?>
+                                            <tr>
+                                                <th><?php echo $row['qualification']; ?></th>
+                                                <td><?php echo $row['qualified_date']; ?></td>
+                                                <td><?php echo $row['qualification_grade']; ?></td>
+                                                <td><?php echo $row['qualified_institute'] ?></td>
+                                            </tr>
+                                            <?php }?>
+                                        <?php }?>
+                                        <?php } ?>
+                                    </tbody>
+                                </table>
+                                <?php if($this->session->user_level != '1'){ ?>
+                                <div class="col-md-12" style="margin-bottom:10px;">
+                                    <p> Add Qualification </p>
+                                    <a role="button" class="btn btn-white btn-xs add_qualification" data-type="academic"> Add Academic Qualification </a>
+                                </div>
+                                <?php } ?>
+                            </div>
+                        </div>
                     </div>
+                    <div class="col-md-6">
+
+                        <div class="panel panel-info">
+                            <div class="panel-heading reg-main-panel">
+                                <h3 class="panel-title"> Professional Qualifications </h3>
+                            </div><!--End of panel-heading-->
+                            <div class="panel-body">
+                                <table class="table table-striped table-bordered table-hover" id="q_2">
+                                    <thead>
+                                        <tr>
+                                            <th> </th>
+                                            <th> Date </th>
+                                            <th> Marks/ Grade </th>
+                                            <th> Institute </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php if(is_array($user_details)) {?>
+                                        <?php foreach($user_details['qual'] as $row) {?>
+                                            <?php if($row['qualification_type_id'] == '2') {?>
+                                            <tr>
+                                                <th><?php echo $row['qualification']; ?></th>
+                                                <td><?php echo $row['qualified_date']; ?></td>
+                                                <td><?php echo $row['qualification_grade']; ?></td>
+                                                <td><?php echo $row['qualified_institute'] ?></td>
+                                            </tr>
+                                            <?php }?>
+                                        <?php }?>
+                                        <?php } ?>
+                                    </tbody>
+                                </table>
+                                <?php if($this->session->user_level != '1'){ ?>
+                                <div class="col-md-12" style="margin-bottom:10px;">
+                                    <p> Add Qualification </p>
+                                    <a role="button" class="btn btn-white btn-xs add_qualification" data-type="professional"> Add Professional Qualification </a>
+                                </div>
+                                <?php } ?>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!--Qualifications Div-->
+
+        <!-- Modal to get qualifications details -->
+                <div id="qualificationsModal" class="modal fade" role="dialog">
+                  <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                      <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          <h4 id="qualificationsModal-title"></h4>
+
+                      </div>
+
+                    <?php echo form_open() ?> 
+                      <div class="modal-body">
+                        <input type="text" class="form-control hidden" name="q_type" id="q_type">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label> NIC </label>
+                                <input type="text" class="form-control" name="nic" id="qualified_nic" value="<?php echo $user_details[0]['NIC'] ;?>" readonly>
+                            </div>
+                            <div class="form-group ">
+                                <label>Qualification</label>
+                                <select class="select2 " name="q_name" id="q_name" style="width:100%">
+                                    <option value="" hidden selected> ---------Please Select---------</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label> Institute/ School </label>
+                                <input type="text" class="form-control" name="q_institute" id="q_institute" placeholder="Institute or School">
+                            </div>
+                            <div class="form-group">
+                                <label> Grade/ Marks </label>
+                                <input type="text" class="form-control" name="q_grade" id="q_grade" placeholder="Final Grade or Results">
+                            </div>
+                            <div class="form-group">
+                                <label> Qualified Date </label>
+                                <input type="text" class="form-control date-picker" name="qualified_date" id="qualified_date" placeholder="yyyy-mm-dd">
+                            </div>
+                            <div class="form-group">
+                                <label> Upload Scanned Certificate </label>
+                                <div class="fileinput fileinput-new" data-provides="fileinput">
+                                    <input type="file" name="cetificate" id="cetificate">
+                                    <span class="fileinput-filename"></span>
+                                </div>
+                            </div>
+                        </div>
+                      </div>
+                      <div class="modal-footer" style="border-top:0;">
+                        <button type="button" class="btn btn-success" data-dismiss="modal" id="qualification_submit">Save</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                      </div>
+                    <?php echo form_close() ?>
+                    </div>
+
+                  </div>
                 </div>
                 <?php //print_r($user_details); ?>
             </div><!--End of Conainer-->
@@ -524,10 +668,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <script src="<?php echo base_url()."assets/plugins/bootstrap-toggle/js/bootstrap-toggle.min.js"?>"></script>
             
         <script>
+            
             $(document).ready(function(){ 
                 if("<?php echo $user_details[general][0]['status'];?>" == "Active"){
-                    $('#toggle-status').bootstrapToggle('on')
-                }
+                    $('#toggle-status').bootstrapToggle('on');
+                }//Check whether officer is ACtive, If so show him as active
+                
                 $('.messagetoggle').click(function(){
                     var person_id = $(this).data('message').id;
                     var message_body = $(this).data('message').message;
@@ -537,7 +683,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         $('.modal-title').text(message_title);
                     });
                 });
-                
 
                 $('#image_submit').click(function(){
                     var post_url = "index.php/FormControl/setProfileImage/"+'2';
@@ -644,7 +789,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     }else if(field == "eb_3"){
                         var field_name = "Efficiency Bar Examination 3 Pass Date";
                     }else if(field == "pg_dip"){
-                        var field_name = "Post Graduate Diploma in Education Pass Date";
+                        var field_name = "Efficiency Bar Examination 2 or Post Graduate Diploma in Education Pass Date";
                     }else if(field == "pg_dip"){
                         var field_name = "Post Graduate Degree in Education Pass Date";
                     }else if(field == "cb_1"){
@@ -719,10 +864,85 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     });
                 });
                 
+                $('.add_qualification').click(function(){
+                    var qual_type = $(this).data("type");
+                    if(qual_type == 'academic'){
+                        var q_type = '1';
+                        $('#qualificationsModal-title').text("Add Educational Qualifications of <?php echo $user_details[0]['title'] . ' ' . $user_details[0]['in_name']?>");
+                        $('#q_type').val('1');
+                        $('#qualificationsModal').modal('toggle');
+                    } else if(qual_type == 'professional'){
+                        var q_type = '2';
+                        $('#qualificationsModal-title').text("Add Professional Qualifications of <?php echo $user_details[0]['title'] . ' ' . $user_details[0]['in_name']?>");
+                        $('#q_type').val('2');
+                        $('#qualificationsModal').modal('toggle');
+                    }
+                    
+                    var post_url = "index.php/FormControl/getQualifications/"+'2';
+                    var dataarray = {'<?php echo $this->security->get_csrf_token_name(); ?>':'<?php echo $this->security->get_csrf_hash(); ?>',q_type: q_type};
+                    $.ajax({
+                        type: "POST",
+                        url: "<?php echo base_url(); ?>" + post_url,
+                        dataType :'json',
+                        data: dataarray,
+                        success: function(res){
+                            $('#q_name').empty();
+                            $.each(res, function(ID,province_office){
+                                $('#q_name').append('<option value='+res[ID].ID+' data-name ="'+ res[ID].qualification +'" >'+res[ID].qualification+'</option>');
+                            });
+                        }
+                    });
+                });
+
+                $('#qualification_submit').click(function(){
+                    var post_url = "index.php/FormControl/addQualification/"+'2';
+                    var form_data = new FormData();
+                    var file_data = $('#cetificate').prop('files')[0];
+                    var q_date = $('#qualified_date').val();
+                    var q_type_id = $('#q_type').val();
+                    var q_institute = $('#q_institute').val();
+                    var q_id = $('#q_name').val();
+                    var q_grade = $('#q_grade').val();
+                    var q_name = $('#q_name').find(':selected').data('name');
+                    
+                    form_data.append('<?php echo $this->security->get_csrf_token_name(); ?>','<?php echo $this->security->get_csrf_hash(); ?>');
+                    form_data.append('q_date', q_date);
+                    form_data.append('q_type_id', q_type_id);
+                    form_data.append('q_id', q_id);
+                    form_data.append('q_name', q_name);
+                    form_data.append('q_institute', q_institute);
+                    form_data.append('q_grade', q_grade);
+                    form_data.append( 'user_id', '<?php echo $user_details[0]['ID'] ?>');
+                    form_data.append( 'nic', '<?php echo $user_details[0]['NIC'] ?>');
+                    form_data.append('file', file_data);
+                    $.ajax({
+                        type: "POST",
+                        url: "<?php echo base_url(); ?>" + post_url,
+                        dataType :'json',
+                        data: form_data,
+                        contentType: false,
+                        processData: false,
+                        success: function(response){
+                            //console.log(JSON.parse(response));
+                            console.log(response);
+                            
+                            $('#q_'+q_type_id+' tbody').append('<tr><th>'+q_name+'</th>'+
+                                                       '<td>'+ q_date +'</td>' +
+                                                       '<td>'+ q_grade +'</td>' +
+                                                       '<td>'+ q_institute +'</td>' +
+                                                       '</tr>');
+                            //console.log('#q_'+q_id+' tbody');
+                            },
+                        error: function (response) {
+                            alert("Error Adding Qualification");
+                        }
+                    });
+                });
                 
-            });
+ 
             
-            
+                
+            });  
 
         </script>
             

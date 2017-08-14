@@ -51,6 +51,26 @@ class Transfer extends CI_Controller {
 		$this->load->view('footer');
     }
     
+    public function addHistory($id)
+    {
+        $this->check_sess($this->session->user_logged);
+        
+		$this->load->view('head');
+		$this->load->view('sclerk_sidebar');
+        
+        $search_array = array('ID'=> $id);
+        $this->response['result'] = $this->Form_data_model->searchdb('Personal_Details', $search_array);
+        $this->response['workPlaces'] = $this->Form_data_model->select('workplace');
+        $this->response['provinceList'] = $this->Form_data_model->select('province_list');
+        $this->response['designation'] = $this->Form_data_model->select('designation');
+        $this->response['service_type'] = 'trans';
+        $this->response['method'] = 'transfer_add';
+        $this->response['type'] = 'history';
+        
+		$this->load->view('service_change', $this->response);
+		$this->load->view('footer');
+    }
+    
     public function transfer_add()
     {
         //Get form data
@@ -80,7 +100,6 @@ class Transfer extends CI_Controller {
         $salary_drawn = $this->security->xss_clean($_REQUEST['salary_drawn']);
         
         
-        
         //Get Data from database
         $service_id_array = $this->Form_data_model->get_recent_service_id();
         $service_id = $service_id_array['0']['ID'] + 1;
@@ -95,6 +114,8 @@ class Transfer extends CI_Controller {
         $designation = $this->Form_data_model->searchdbvalue('Designation', 'ID', $designation_id);
         $province = $this->Form_data_model->searchdbvalue('Province_List', 'province_id', $province_id);
         $institute = $this->Form_data_model->searchdbvalue('Institute', 'ID', $institute_id);
+        
+        $type = $this->security->xss_clean($_REQUEST['type']);
         
         $service = array('ID' => $service_id, 'person_id' => $person_id, 'nic' => $nic, 'service_mode' => '3', 'work_place_id'=>$work_place_id, 'designation_id'=>$designation_id , 'duty_date'=>$date_assumed, 'off_letter_no'=>$official_letter_no, 'user_updated' => $this->session->username);
         
@@ -140,16 +161,21 @@ class Transfer extends CI_Controller {
         $res = $this->Form_data_model->insertData('Service', $service);
         //$res = '1';
         if ($res == 1){
-            //generate Letter as PDF
-            $this->view_data_array = array('work_place'=>$work_place, 'division'=>$main_division, 'branch'=>$main_branch, 'personal_details'=>$personal_details, 'work_date'=>$work_date, 'psc_letter'=>$psc_letter, 'appoint_date'=>$appoint_date, 'off_letter_no'=>$official_letter_no, 'province'=>$province, 'school' => $institute, 'designation' => $designation);
+            if ($type){
+                redirect('admin/profile/'.$person_id );
+            } else {
+                //generate Letter as PDF
+                $this->view_data_array = array('work_place'=>$work_place, 'division'=>$main_division, 'branch'=>$main_branch, 'personal_details'=>$personal_details, 'work_date'=>$work_date, 'psc_letter'=>$psc_letter, 'appoint_date'=>$appoint_date, 'off_letter_no'=>$official_letter_no, 'province'=>$province, 'school' => $institute, 'designation' => $designation);
 
-            $pdfFilePath = 'file_library/'.$person_id.'/service/';
-            $pdfFileName = date("Y-m-d") . '-' . $nic. '-Transfer' . '.pdf';
-            //Get letter HTML
-            $letter_html = $this->generate_letter_data($view_data_array, $person_id, $work_place_id);
+                $pdfFilePath = 'file_library/'.$person_id.'/service/';
+                $pdfFileName = date("Y-m-d") . '-' . $nic. '-Transfer' . '.pdf';
+                //Get letter HTML
+                $letter_html = $this->generate_letter_data($view_data_array, $person_id, $work_place_id);
 
-            //Generate Letter pdf
-            $this->generate_letter($letter_html, $pdfFilePath, $pdfFileName);
+                //Generate Letter pdf
+                $this->generate_letter($letter_html, $pdfFilePath, $pdfFileName);
+            }
+            
         }else {
             echo ('alert("Please Check the Data and Try Again!");');
         }

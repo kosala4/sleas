@@ -210,13 +210,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     contentType: false,
                     processData: false,
                     success: function(response){
-                        console.log("success");
 
                         $('#province tbody tr:eq('+rowID+') td:eq("0")').text(province_name);
-
-                        console.log($('#province tbody tr:eq('+rowID+') td:eq("0")').text());
-                        //$("tr").index(rowID)
-                        console.log(rowID);
 
                         },
                     error: function (response) {
@@ -243,7 +238,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                        '<td> <button class="edit_province btn btn-xs btn-success " data-ID="'+response+'" data-name="'+province_name+'" ><i class="fa fa-edit"></i></button> ' +
                                                        ' <button class="delete_province btn btn-xs btn-danger " data-ID="'+response+'" data-name="'+province_name+'" ><i class="fa fs-remove"></i></button> </td>'+
                                                        '</tr>');
-                        console.log(response);
+                        
                         },
                     error: function (response) {
                         alert("Error Updating! Please try again.");
