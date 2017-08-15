@@ -620,6 +620,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             
         });
         
-        $('#work_place').val('1');
+        //$('#work_place').val('1');
     });
 </script>

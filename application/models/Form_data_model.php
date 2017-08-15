@@ -210,7 +210,7 @@ class Form_data_model extends CI_Model{
                 $this->db->insert('General_Service', $general_service);
                 $this->db->insert('Service', $service);
                 $this->db->insert('Contact_Details', $contact_details_temp);
-                $this->db->insert('user', $userAccount);
+                $this->db->insert('User', $userAccount);
                 
                 if ($this->db->trans_status() === TRUE){
                     $res = 1;
@@ -256,7 +256,7 @@ class Form_data_model extends CI_Model{
                 $this->db->insert('Service', $service);
                 $this->db->insert('Contact_Details', $contact_details_temp);
                 $this->db->insert('Releasement', $releasement);
-                $this->db->insert('user', $userAccount);
+                $this->db->insert('User', $userAccount);
                 
                 if ($this->db->trans_status() === TRUE){
                     $res = 1;
@@ -285,7 +285,7 @@ class Form_data_model extends CI_Model{
     (s1.time_updated < s2.time_updated OR s1.time_updated = s2.time_updated AND s1.time_updated < s2.time_updated)', 'left outer');
         $this->db->where('s2.person_id is NULL');
         
-        $this->db->order_by('Personal_Details.NIC', 'Service.ID');
+        $this->db->order_by('Personal_Details.NIC', 's1.NIC');
         $query = $this->db->get();
         $res  = $query->result_array();
         return $res;

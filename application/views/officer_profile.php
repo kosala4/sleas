@@ -75,17 +75,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <table  class="table table-striped table-hover" border="0">
                                 <tr valign="top">
                                     <th width="60%" style="padding-right: 0px;">Current Salary</th>
-                                    <td></td>
+                                    <td><?php echo $user_details[salary][0]['salary']; ?></td>
                                 </tr>
                                 <tr valign="top">
                                     <th style="padding-right: 0px;">Salary Step</th>
-                                    <td></td>
+                                    <td><?php echo $user_details[salary][0]['step']; ?></td>
                                 </tr>
                                 <tr valign="top">
                                     <th style="padding-right: 0px;">Next Increment Date</th>
                                     <td><?php if( strtotime(date( '-m-d' )) > strtotime(date("-m-d", strtotime($user_details[general][0]['promotion_date']))) ){
                                             echo date("Y-m-d", strtotime(date( 'Y' ) . date("-m-d", strtotime($user_details[general][0]['promotion_date'])) ."+1 year" ));
                                             } else { echo date("Y-m-d", strtotime(date( 'Y' ) . date("-m-d", strtotime($user_details[general][0]['promotion_date']))  )); } ?></td>
+                                </tr>
+                                <tr valign="top" <?php if(date("Y", strtotime($user_details[salary][0]['increment_date'])) < date( 'Y' )){echo 'class="danger"';}  ?> >
+                                    <th style="padding-right: 0px;" >Last Increment Date</th>
+                                    <td><?php echo $user_details[salary][0]['increment_date']; ?></td>
                                 </tr>
                             </table>
                             <?php if($this->session->user_level != '1'){ ?>
@@ -362,9 +366,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <div class="panel-body">
                             <table class="table table-striped table-bordered table-hover">
                                 <thead>
+                                    <tr valign="middle">
+                                        <th> State Service </th>
+                                        <th colspan="6" style="text-align:center;"> SLEAS </th>
+                                        <th>  </th>
+                                    </tr>
                                     <tr valign="top">
                                         <th> Date Joined </th>
-                                        <th> SLEAS Grade </th>
+                                        <th> Date Joined </th>
+                                        <th> Grade </th>
                                         <th> Way of Joined </th>
                                         <th> Cadre when joining </th>
                                         <th> Medium </th>
@@ -373,8 +383,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     </tr>
                                 </thead>
                                 <tr valign="top">
+                                    <td><?php echo $user_details[general][0]['f_appoint_date'] ;?> </td>
                                     <td><?php echo $user_details[general][0]['date_join'] ;?> </td>
-                                    <td><?php echo $user_details[general][0]['grade'] ;?> </td>
+                                    <td style="min-width:80px;"><?php echo $user_details[general][0]['grade'] ;?> </td>
                                     <td><?php echo $user_details[general][0]['way_join'] ;?> </td>
                                     <td><?php echo $user_details[general][0]['cadre'] ;?> </td>
                                     <td><?php echo $user_details[general][0]['medium'] ;?> </td>
@@ -506,6 +517,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <?php if($this->session->user_level != '1'){ ?>
                             <div class="col-md-12" style="margin-bottom:10px;">
                                 <p>Add Service History</p>
+                                <a href="<?php echo base_url()."index.php/placement/addHistory/".$user_details[0]['ID']?>" role="button" class="btn btn-white btn-xs">Add Placement </a>
                                 <a href="<?php echo base_url()."index.php/transfer/addHistory/".$user_details[0]['ID']?>" role="button" class="btn btn-white btn-xs">Add Transfer</a>
                                 <a href="<?php echo base_url()."index.php/promotion/addHistory/".$user_details[0]['ID']?>" role="button" class="btn btn-white btn-xs">Add Promotion</a>
                                 <a href="<?php echo base_url()."index.php/promotionTransfer/addHistory/".$user_details[0]['ID']?>" role="button" class="btn btn-white btn-xs">Add Promotion Transfer</a>
@@ -657,7 +669,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                   </div>
                 </div>
-                <?php //print_r($user_details); ?>
+                <?php print_r($user_details); ?>
             </div><!--End of Conainer-->
         </section>
 

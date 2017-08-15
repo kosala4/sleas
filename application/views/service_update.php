@@ -659,6 +659,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             case '2':
             case '3':
             case '4':
+                $('.c-firstapp-work-main-institue').removeClass("hidden");
                 $('#main_division').val('<?php echo $service[0]['work_division_id'] ?>');
                 $('#main_branch').val('<?php echo $service[0]['work_branch_id'] ?>');
                 break;

@@ -22,6 +22,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <?php    } ?>
                                     
                                 <input type="hidden" name="person_id" value="<?php echo $result[0]['ID'] ;?>">
+                                <input type="hidden" name="type" value="<?php echo $type ;?>">
                             </div>
                         </div>
                         
@@ -138,8 +139,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </div>
                         <div class="form-actions fluid">
                             <div class="col-md-offset-3 col-md-9">
-                                <button type="reset" id="reset-button" class="btn btn-info">Clear</button>
-                                <button type="submit" class="btn btn-info"><i class="fa fa-print"></i> Print letter </button>
+                                <?php if($type){ ?>
+                                <button type="submit" class="btn btn-success "> Save </button>
+                                <?php } else {?>
+                                <button type="submit" class="btn btn-info "><i class="fa fa-print"></i> Print letter </button>
+                                <?php } ?>
                             </div>
                         </div>
                     <?php echo form_close(); ?>
@@ -207,7 +211,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     $(".designation").removeClass("hidden");
                      }
         });
-        
         
         function getMainDivision(workPlace_id){
             var post_url = "index.php/FormControl/getMainDivision/"+workPlace_id;

@@ -266,10 +266,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                                 <label><span style="color:red;">*</span>Way of joined the SLEAS</label>
                                                                 <select class="select2  " name="way_joined" id="way_joined" style="width:100%;">
                                                                     <option value="" hidden selected>---------Please Select--------- </option>
-                                                                    <option value="open">Open</option>
-                                                                    <option value="limited">Limited</option>
-                                                                    <option value="merit">Merit</option>
-                                                                    <option value="supern">Super Numeral (PVC)</option>
+                                                                    <option value="Open">Open</option>
+                                                                    <option value="Limited">Limited</option>
+                                                                    <option value="Merit">Merit</option>
+                                                                    <option value="Super Numeral (PVC)">Super Numeral (PVC)</option>
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -281,8 +281,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                                     <label>SLEAS Cadre when joining the SLEAS</label>
                                                                     <select class="select2 gen-serv-set1-cadre" name="cadre" id="cadre" style="width:100%;">
                                                                         <option value="" hidden selected>---------Please Select--------- </option>
-                                                                        <option value="general-carder">General Cadre</option>
-                                                                        <option value="special-carder">Special Cadre</option>
+                                                                        <option value="General Cadre">General Cadre</option>
+                                                                        <option value="Special Cadre">Special Cadre</option>
                                                                     </select>
                                                                 </div>
                                                                 
@@ -324,8 +324,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                                     <label>SLEAS Cadre when joining the SLEAS</label>
                                                                     <select class="select2 " name="cadre_supern" id="cadre_supern" style="width:100%;">
                                                                         <option value="" hidden selected>---------Please Select--------- </option>
-                                                                        <option value="general-carder">General Cadre</option>
-                                                                        <option value="not-specified">Not Specified</option>
+                                                                        <option value="General Cadre">General Cadre</option>
+                                                                        <option value="Special Cadre">Special Cadre</option>
+                                                                        <option value="Not Specified">Not Specified</option>
                                                                     </select>
                                                                 </div>
 
@@ -344,9 +345,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                                 <label><span style="color:red;">*</span>Medium in which recruited</label>
                                                                 <select class="select2  " name="medium_recruit" id="medium_recruit" style="width:100%;">
                                                                     <option value="" hidden selected>---------Please Select--------- </option>
-                                                                    <option value="sinhala">Sinhala</option>
-                                                                    <option value="tamil">Tamil</option>
-                                                                    <option value="english">English</option>
+                                                                    <option value="Sinhala">Sinhala</option>
+                                                                    <option value="Tamil">Tamil</option>
+                                                                    <option value="English">English</option>
                                                                 </select>
                                                             </div>
 
@@ -362,6 +363,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                             <div class="form-group">
                                                                 <label>Activate Date of Confirmation</label>
                                                                 <input type="text" class="form-control date-picker " name="date_confirm" id="date_confirm">
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label> Rank in Entrance Exam </label>
+                                                                <input type="text" class="form-control " name="rank_entrance" id="rank_entrance">
                                                             </div>
                                                         </div>
 
@@ -553,20 +559,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                                                                 <div class="form-group hidden salary-drawn">
                                                                     <label>Place where salary drawn</label>
-                                                                    <select class="select2 " name="salary_drawn" id="salary_drawn" style="width:100%">
-                                                                        <option value="" hidden selected> ------------------Please Select------------------ </option>
-                                                                        <option value="moe"> MoE </option>
-                                                                        <option value="exam"> Exams </option>
-                                                                        <option value="epd"> EPD </option>
-                                                                        <option value="nie" class="c-attach hidden"> NIE </option>
-                                                                        <option value="province"> Province </option>
-                                                                        <option value="zone"> Zone </option>
-                                                                        <option value="division"> Division </option>
-                                                                        <option value="ncoe"> NCoE </option>
-                                                                        <option value="ttc"> TTC </option>
-                                                                        <option value="school"> School </option>
-                                                                        <option value="other" class="c-other hidden"> Other </option>
-                                                                    </select>
+                                                                    <?php if ($workPlaces) { ?>
+                                                                        <select class="select2 col-md-12 workPlaces" name="salary_drawn" id="salary_drawn" style="padding-left:0;" >
+                                                                            <option value="" hidden selected> ---------Please Select--------- </option>
+                                                                            <?php foreach ($workPlaces as $row) { ?>
+                                                                                <option value="<?php echo $row['ID'];?>" data-code="<?php echo $row['work_place_code'];?>" > <?php echo $row['work_place'] ;?> </option>
+                                                                    <?php    } ?>
+                                                                            <option value="other" class="c-other hidden"> Other </option>
+                                                                        </select>
+                                                                    <?php } ?>
                                                                 </div>
 
                                                             </div><!--End of first appointment block--> 
@@ -636,20 +637,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                                 
                                                                 <div class="form-group">
                                                                     <label>Place where salary drawn</label>
-                                                                    <select class="select2 " name="release_salary_drawn" id="release_salary_drawn" style="width:100%">
-                                                                        <option value="" hidden selected> ------------------Please Select------------------ </option>
-                                                                        <option value="moe"> MoE </option>
-                                                                        <option value="exam"> Exams </option>
-                                                                        <option value="epd"> EPD </option>
-                                                                        <option value="nie" class="c-attach hidden"> NIE </option>
-                                                                        <option value="province"> Province </option>
-                                                                        <option value="zone"> Zone </option>
-                                                                        <option value="division"> Division </option>
-                                                                        <option value="ncoe"> NCoE </option>
-                                                                        <option value="ttc"> TTC </option>
-                                                                        <option value="school"> School </option>
-                                                                        <option value="other" class="c-other hidden"> Other </option>
-                                                                    </select>
+                                                                    <?php if ($workPlaces) { ?>
+                                                                        <select class="select2 col-md-12 workPlaces" name="release_salary_drawn" id="release_salary_drawn" style="padding-left:0;" >
+                                                                            <option value="" hidden selected> ---------Please Select--------- </option>
+                                                                            <?php foreach ($workPlaces as $row) { ?>
+                                                                                <option value="<?php echo $row['ID'];?>" data-code="<?php echo $row['work_place_code'];?>" > <?php echo $row['work_place'] ;?> </option>
+                                                                    <?php    } ?>
+                                                                            <option value="other" class="c-other hidden"> Other </option>
+                                                                        </select>
+                                                                    <?php } ?>
                                                                 </div>
 
                                                             </div><!--End of releasement block-->

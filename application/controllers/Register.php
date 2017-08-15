@@ -41,12 +41,13 @@ class Register extends CI_Controller {
         $service_id_array = $this->Form_data_model->get_recent_service_id();
         $service_id = $service_id_array['0']['ID'] + 1;
         
-        $nic = $this->security->xss_clean($_REQUEST['nic']);
+        $nicor = $this->security->xss_clean($_REQUEST['nic']);
+        $nic = strtoupper($nicor);
         $title = $this->security->xss_clean($_REQUEST['title']);
-        $fname = $this->security->xss_clean($_REQUEST['fname']);
-        $mname = $this->security->xss_clean($_REQUEST['mname']);
-        $lname = $this->security->xss_clean($_REQUEST['lname']);
-        $inname = $this->security->xss_clean($_REQUEST['inname']);
+        $fname = ucfirst($this->security->xss_clean($_REQUEST['fname']));
+        $mname = ucfirst($this->security->xss_clean($_REQUEST['mname']));
+        $lname = ucfirst($this->security->xss_clean($_REQUEST['lname']));
+        $inname = ucfirst($this->security->xss_clean($_REQUEST['inname']));
         $dob = $this->security->xss_clean($_REQUEST['dob']);
         $ethnicity = $this->security->xss_clean($_REQUEST['ethnicity']);
         $gender = $this->security->xss_clean($_REQUEST['gender']);
@@ -80,6 +81,7 @@ class Register extends CI_Controller {
         $confirm = $this->security->xss_clean($_REQUEST['confirm']);
         $date_confirm = $this->security->xss_clean($_REQUEST['date_confirm']);
         $date_f_appoint = $this->security->xss_clean($_REQUEST['date_f_appoint']);
+        $rank_entrance = $this->security->xss_clean($_REQUEST['rank_entrance']);
 
         $service_mood = $this->security->xss_clean($_REQUEST['service_mood']);
         $date_appoint = $this->security->xss_clean($_REQUEST['date_appoint']);
@@ -128,7 +130,7 @@ class Register extends CI_Controller {
         
         $contact_details_temp = array('person_id' => $person_id, 'nic' => $nic, 'address_type' => 'temp', 'address_1' => $addresstemp1, 'address_2' => $addresstemp2, 'address_3' => $addresstemp3, 'postal_code' => $pocodetemp, 'mobile' => $mobiletemp, 'telephone' => $landptemp, 'email' => $emailtemp);
         
-        $general_service = array('person_id' => $person_id, 'nic' => $nic, 'date_join' => date("y-m-d", strtotime($date_join)), 'way_join' => $way_joined,'grade' => $present_grade, 'medium' => $medium_recruit, 'confirm' => $confirm, 'confirm_date' => $date_confirm, 'f_appoint_date' => $date_f_appoint);
+        $general_service = array('person_id' => $person_id, 'nic' => $nic, 'date_join' => date("y-m-d", strtotime($date_join)), 'way_join' => $way_joined,'grade' => $present_grade, 'medium' => $medium_recruit, 'confirm' => $confirm, 'confirm_date' => $date_confirm, 'f_appoint_date' => $date_f_appoint, 'entrance_exam_rank' => $rank_entrance);
         
         switch ($way_joined){
             case 'open':
@@ -212,10 +214,12 @@ class Register extends CI_Controller {
         //Generate Data for user account
         $uname = $lname . date("Ymd", strtotime($dob));
         $name = $fname .' '. $lname;
-        $passwd = password_hash(uniqid(), PASSWORD_DEFAULT);
+        $passwd = uniqid();
+        $passwdToDb = password_hash($passwd, PASSWORD_DEFAULT);
         $pdfFileName = $name . 'User Account Details';
         
-        $userAccount = array('name'=>$name ,'user_name'=>$uname ,'passwd'=>$passwd, 'person_id' => $person_id ,'level'=>'1');
+        $userAccount = array('name'=>$name ,'user_name'=>$uname ,'passwd'=>$passwdToDb, 'person_id' => $person_id ,'level'=>'1');
+        $userAccountDisplay = array('name'=>$name ,'user_name'=>$uname ,'passwd'=>$passwd, 'person_id' => $person_id ,'level'=>'1');
         
         if (!$addresstemp1){
             
@@ -234,12 +238,11 @@ class Register extends CI_Controller {
         }
         
         
-        
         //$res = 1;
         if ($res == 1){
             
             $this->session->set_flashdata('register','success');
-            $this->createUserPdf($userAccount, $pdfFileName);
+            $this->createUserPdf($userAccountDisplay, $pdfFileName);
             redirect('/admin/sclerk');
             
         } else {

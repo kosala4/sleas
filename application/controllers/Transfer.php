@@ -117,7 +117,7 @@ class Transfer extends CI_Controller {
         
         $type = $this->security->xss_clean($_REQUEST['type']);
         
-        $service = array('ID' => $service_id, 'person_id' => $person_id, 'nic' => $nic, 'service_mode' => '3', 'work_place_id'=>$work_place_id, 'designation_id'=>$designation_id , 'duty_date'=>$date_assumed, 'off_letter_no'=>$official_letter_no, 'user_updated' => $this->session->username);
+        $service = array('ID' => $service_id, 'person_id' => $person_id, 'service_mode' => '3', 'work_place_id'=>$work_place_id, 'designation_id'=>$designation_id , 'duty_date'=>$date_assumed, 'off_letter_no'=>$official_letter_no, 'user_updated' => $this->session->username);
         
         switch ($work_place_id) {
             case 1:
