@@ -11,5 +11,6 @@ class M_pdf {
     {
         $this->param =$param;
         $this->pdf = new mPDF($this->param);
+        //$this->pdf->SetHTMLFooter('<div style="font-weight: bold; font-size: 8pt; font-style: italic;">This is a SLEAS-HRM System generated letter.</div>','E');
     }
 }

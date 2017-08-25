@@ -705,23 +705,24 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             //Check Way joind in general service
             $('#way_joined').change(function(){
                 var gr = $(this).val();
-                if ($.inArray(gr, ['open', 'limited', 'merit']) >=0){
+                if ($.inArray(gr, ['Open', 'Limited', 'Merit']) >=0){
                     $(".gen-serv-set1").removeClass("hidden");
                     $(".gen-serv-set2").addClass("hidden");
-                }else if(gr == "supern"){
+                }else if(gr == "Super Numeral (PVC)"){
                     $(".gen-serv-set1").addClass("hidden");
                     $(".gen-serv-set2").removeClass("hidden");
                     
                 }
             });
             
+            
             //Check When joining SLEAS
             $('.gen-serv-set1-cadre').change(function(){
                 var gr = $(this).val();
-                if (gr == "general-carder"){
+                if (gr == "General Cadre"){
                     $(".gen-serv-set1-general").removeClass("hidden");
                     $(".gen-serv-set1-special").addClass("hidden");
-                }else if(gr == "special-carder"){
+                }else if(gr == "Special Cadre"){
                     $(".gen-serv-set1-general").addClass("hidden");
                     $(".gen-serv-set1-special").removeClass("hidden");
                     

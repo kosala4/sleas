@@ -118,7 +118,7 @@ class Placement extends CI_Controller {
             if($designation_id){ $service['designation_id'] = $designation_id;}
         }
         
-        //generate barcode        
+        //generate barcode
         $barcode = $this->generate_barcode($person_id);
         $this->view_data_array['barcode'] = $barcode;
         
@@ -141,6 +141,8 @@ class Placement extends CI_Controller {
 
                 //Generate Letter pdf
                 $this->generate_letter($letter_html, $pdfFilePath, $pdfFileName);
+                
+                redirect('admin/profile/'.$person_id );
             }
             
         }else {
@@ -179,9 +181,10 @@ class Placement extends CI_Controller {
     
     public function generate_letter($letter_html, $pdfFilePath, $pdfFileName){
         $this->load->library('m_pdf');
-
+        
         //generate the PDF from the given html
         $this->m_pdf->pdf->WriteHTML($letter_html);
+        //$this->m_pdf->pdf->AddPage();
 
         //remove generated barcode image
         $barcode_image = 'generated/barcode.png';

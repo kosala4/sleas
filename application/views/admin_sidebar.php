@@ -5,7 +5,7 @@
             <div id="sidebar-menu">
                 <ul class="nav sidebar-nav">
                     <li> 
-                        <a href="index">
+                        <a href="<?php echo base_url()."index.php/admin/index"?>">
                             <span class="sicon"><i class="fa fa-tachometer"></i></span>
                             <span class="sidebar-title">Dashboard</span>
                         </a> 
@@ -17,11 +17,23 @@
                             <span class="sidebar-title"> Work Places </span>
                         </a>
                         <ul id="mnuOne" class="nav sub-nav">
-                            <li><a href="<?php echo base_url()."index.php/main/places/work_places"?>"> Work Places List </a></li>
-                            <li><a href="<?php echo base_url()."index.php/main/places/division"?>"> Divisions List </a></li>
-                            <li><a href="<?php echo base_url()."index.php/main/places/branch"?>"> Branches List </a></li>
-                            <li><a href="<?php echo base_url()."index.php/main/places/province"?>"> Provincial Offices List </a></li>
-                            <li><a href="<?php echo base_url()."index.php/main/places/institute"?>"> Institutes List </a></li>
+                            <li id="mnu_add_work_place"><a href="<?php echo base_url()."index.php/main/places/work_places"?>"> Work Places List </a></li>
+                            <li id="mnu_add_division"><a href="<?php echo base_url()."index.php/main/places/division"?>"> Divisions List </a></li>
+                            <li id="mnu_add_branch"><a href="<?php echo base_url()."index.php/main/places/branch"?>"> Branches List </a></li>
+                            <li id="mnu_add_province"><a href="<?php echo base_url()."index.php/main/places/province"?>"> Provincial Offices List </a></li>
+                            <li id="mnu_add_zone"><a href="<?php echo base_url()."index.php/main/places/zone"?>"> Zonal Education Offices List </a></li>
+                            <li id="mnu_add_division"><a href="<?php echo base_url()."index.php/main/places/division"?>"> Divisional Education Offices List </a></li>
+                            <li id="mnu_add_institute"><a href="<?php echo base_url()."index.php/main/places/institute"?>"> Institutes List </a></li>
+                        </ul>
+                    </li>
+                    
+                    <li>
+                        <a class="top-menu-toggle openable" href="#mnuTwo">
+                            <span class="sicon"><i class="fa fs-users"></i></span>
+                            <span class="sidebar-title"> Qualifications </span>
+                        </a>
+                        <ul id="mnuTwo" class="nav sub-nav">
+                            <li id="mnu_add_qual"><a href="<?php echo base_url()."index.php/main/places/qualifications"?>"> Qualifications List </a></li>
                         </ul>
                     </li>
 

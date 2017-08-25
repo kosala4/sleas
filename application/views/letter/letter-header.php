@@ -16,6 +16,18 @@
     
     
 </style>       
+
+<!--mpdf
+
+<htmlpagefooter name="myfooter">
+<div style="border-top: 1px solid #000000; font-size: 9pt; text-align: center; padding-top: 3mm; ">
+This is a SLEAS-HRM System generated letter.
+</div>
+</htmlpagefooter>
+
+<sethtmlpagefooter name="myfooter" value="on" />
+mpdf-->
+
         <section id="content">
             <div class="col-md-12">
                 <table border="0" width="100%" style="line-height:1">

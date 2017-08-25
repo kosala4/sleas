@@ -3,9 +3,10 @@ FROM  Personal_Details p
 JOIN Service s1 ON p.ID = s1.person_id
 JOIN Work_Place w ON w.ID = s1.work_place_id
 JOIN General_Service g ON p.ID = g.person_id
-JOIN Designation desig ON s1.designation_id = desig.ID
+LEFT JOIN Designation desig ON s1.designation_id = desig.ID
+
 LEFT OUTER JOIN Service s2 ON p.ID = s2.person_id AND (s1.time_updated &lt; s2.time_updated OR s1.time_updated = s2.time_updated AND s1.time_updated &lt; s2.time_updated)
-WHERE s2.NIC is NULL
+WHERE s2.person_id is NULL
 
 [AND s1.work_place_id IN ({workplace})]
 [AND g.grade IN ({grade})]

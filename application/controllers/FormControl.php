@@ -126,6 +126,16 @@ class FormControl extends CI_Controller {
         //echo $res;
     }
     
+    public function getQSubjects(){
+        header('Content-Type: application/x-json; charset=utf-8');
+        $q_id = $this->input->post('q_id');
+        $searchArray = array('qualification_name_id' => $q_id);
+        
+        $res = $this->Form_data_model->searchdb('Qualification_Subjects', $searchArray);
+        //$res = $this->Form_data_model->select('workplace');
+        echo json_encode($res);
+    }
+    
     public function searchOfficers(){
         $searchField = $this->input->post('searchField');
         $searchKey = $this->input->post('searchKey');
@@ -180,6 +190,7 @@ class FormControl extends CI_Controller {
         $user_id = $this->input->post('user_id');
         $q_id = $this->input->post('q_id');
         $q_name = $this->input->post('q_name');
+        $q_subj_id = $this->input->post('q_subj_id');
         $q_type_id = $this->input->post('q_type_id');
         $q_institute = $this->input->post('q_institute');
         $q_date = $this->input->post('q_date');
@@ -200,7 +211,9 @@ class FormControl extends CI_Controller {
                 $file_name = $q_date . $nic . '-' . $q_name . '-certificate.' . $ext;
                 $file_path = 'file_library/'.$user_id . '/qualifications/' . $q_type;
                 
-                $dataarray = array("person_id" => $user_id, 'qualification_type_id' => $q_type_id, 'qualification_id' => $q_id, 'qualified_date' => $q_date, 'qualification_grade' => $q_grade, 'qualified_institute' => $q_institute,'certificate_path' => $file_path . '/' .$file_name);
+                $dataarray = array("person_id" => $user_id, 'qualification_type_id' => $q_type_id, 'qualification_id' => $q_id,  'qualified_date' => $q_date, 'qualification_grade' => $q_grade, 'qualified_institute' => $q_institute,'certificate_path' => $file_path . '/' .$file_name);
+                
+                if($q_subj_id){ $dataarray['qualification_subject_id'] = $q_subj_id; }
                 
                 if (!file_exists($file_path)) {
                     mkdir($file_path, 0777, true);

@@ -153,7 +153,7 @@ class Admin extends CI_Controller {
         $address_2 = $this->security->xss_clean($_REQUEST['address2']);
         $address_3 = $this->security->xss_clean($_REQUEST['address3']);
         
-        $personal_details = array('f_name' => $fname, 'm_name' => $mname, 'l_name' => $lname, 'dob' => $dob, 'user_updated' => $this->session->user_name);
+        $personal_details = array('f_name' => $fname, 'm_name' => $mname, 'l_name' => $lname, 'in_name' => $initname, 'dob' => $dob, 'user_updated' => $this->session->user_name);
         
         $contact_details = array('address_1' => $address_1, 'address_2' => $address_2, 'address_3' => $address_3, 'mobile' => $mobile, 'telephone' => $telephone, 'email' => $email);
         

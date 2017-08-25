@@ -28,7 +28,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </div>
             
             <div class="col-md-8" style="color:#000;margin-top:20px;">            
-            03. නව සේවා ස්ථානයේ රාජකාරී භාර ගෙන ඒ බැව් අතිරේක ලේකම්/ අධ්‍යාපන අධ්‍යක්ෂ (<?php echo $branch[0]['office_branch'] ;?>) මගින්  මා වෙත වාර්තා කරන්න.
+            03. නව සේවා ස්ථානයේ රාජකාරී භාර ගෙන ඒ බැව් අතිරේක ලේකම්/ අධ්‍යාපන අධ්‍යක්ෂ (<?php echo $branch[0]['office_branch'] ;?>) මඟින්  මා වෙත වාර්තා කරන්න.
             </div> 
 
             <div class="col-md-12" style="margin-top:100px;">

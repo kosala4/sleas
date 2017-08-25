@@ -107,6 +107,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             
 <script>
     $(document).ready(function(){
+        
+        $('#mnuOne').addClass('menu-open');
+        $('#mnu_add_work_place').addClass('active');   
+        
         $(document).on('click', '.edit_workplace', function(){
             var place_id = $(this).data("id");
             var place_name = $(this).data("name");

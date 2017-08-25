@@ -25,7 +25,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </div>
             
             <div class="col-md-8" style="color:#000;margin-top:20px;">            
-            02. ඒ අනුව <?php echo ucwords(strtolower($province[0]['province'])) ?> Province පළාත් අධ්‍යාපන ලේකම්/පළාත් අධ්‍යාපන අධ්‍යක්ෂ වෙත රජකාරි සඳහා වාර්තා කොට ඒ බැව්  <?php echo ucwords(strtolower($province[0]['province'])) ?> Province පළාත් අධ්‍යාපන ලේකම්/පළාත් අධ්‍යාපන අධ්‍යක්ෂ මඟින් මා වෙත වාර්තා කරන්න.
+            02. ඒ අනුව <?php echo ucwords(strtolower($province[0]['province'])) ?> Province පළාත් අධ්‍යාපන ලේකම්/පළාත් අධ්‍යාපන අධ්‍යක්ෂ වෙත රාජකාරි සඳහා වාර්තා කොට ඒ බැව්  <?php echo ucwords(strtolower($province[0]['province'])) ?> Province පළාත් අධ්‍යාපන ලේකම්/පළාත් අධ්‍යාපන අධ්‍යක්ෂ මඟින් මා වෙත වාර්තා කරන්න.
             </div> 
 
             <div class="col-md-12" style="margin-top:100px;">

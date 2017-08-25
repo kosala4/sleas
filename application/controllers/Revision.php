@@ -142,13 +142,13 @@ class Revision extends CI_Controller {
         
         $increment_array = array('person_id' => $person_id, 'increment_date' => $revision_date, 'step' => $salary_step + 1, 'increment' => $increment , 'salary'=>$new_salary, 'user_updated' => $user_updated);
         
-        /*if($submit == '1'){
+        if($submit == '1'){
             $res = $this->Form_data_model->insertData('Salary', $increment_array);
         }else{
             $res = '1';
-        }*/
+        }
         
-        $res = '1';
+        //$res = '1';
         
         if($res == '1'){
             
@@ -166,7 +166,7 @@ class Revision extends CI_Controller {
 
 
             $pdfFilePath = 'file_library/'.$person_id.'/revision/';
-            $pdfFileName = $nic. '-Revision' . $revision_date . '.pdf';
+            $pdfFileName = $nic. '-Revision-' . $revision_date . '.pdf';
             $this->generate_letter($html, $pdfFilePath, $pdfFileName);
         }
     }

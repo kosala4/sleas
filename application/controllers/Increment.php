@@ -158,7 +158,7 @@ class Increment extends CI_Controller {
 
 
             $pdfFilePath = 'file_library/'.$person_id.'/increment/';
-            $pdfFileName = $nic. '-Increment' . $increment_date . '.pdf';
+            $pdfFileName = $nic. '-Increment-' . $increment_date . '.pdf';
             $this->generate_letter($html, $pdfFilePath, $pdfFileName);
         }
     }

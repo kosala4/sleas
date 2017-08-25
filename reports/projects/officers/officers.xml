@@ -5,7 +5,7 @@ FROM  Personal_Details p
 JOIN Service s1 ON p.ID = s1.person_id
 JOIN Work_Place w ON w.ID = s1.work_place_id
 JOIN General_Service g ON p.ID = g.person_id
-JOIN Designation desig ON s1.designation_id = desig.ID
+LEFT JOIN Designation desig ON s1.designation_id = desig.ID
 
 LEFT JOIN Province_Offices po ON s1.sub_location_id = po.ID
 LEFT JOIN Zonal_Offices zn1 ON s1.sub_location_id = zn1.ID

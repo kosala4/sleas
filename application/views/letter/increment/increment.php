@@ -21,6 +21,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     
 </style>       
 <section id="content">
+    
+<!--mpdf
+
+<htmlpagefooter name="myfooter">
+<div style="border-top: 1px solid #000000; font-size: 9pt; text-align: center; padding-top: 3mm; ">
+This is a SLEAS-HRM System generated letter.
+</div>
+</htmlpagefooter>
+
+<sethtmlpagefooter name="myfooter" value="on" />
+mpdf-->
+    
     <div class="col-md-8" style="color:#000;margin-top:20px;">
         <table border="0" width="100%">
             <tr>

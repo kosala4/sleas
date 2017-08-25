@@ -279,7 +279,7 @@ class Form_data_model extends CI_Model{
         $this->db->select('Personal_Details.ID AS person_id, Personal_Details.NIC, Personal_Details.title, Personal_Details.f_name, Personal_Details.l_name, Designation.designation, Work_Place.work_place, s1.ID');
         $this->db->from('Personal_Details');
         $this->db->join('Service s1', 'Personal_Details.ID = s1.person_id', 'inner');
-        $this->db->join('Designation', 's1.designation_id = Designation.ID');
+        $this->db->join('Designation', 's1.designation_id = Designation.ID', 'left');
         $this->db->join('Work_Place', 's1.work_place_id = Work_Place.ID');
         $this->db->join('Service s2', 'Personal_Details.ID = s2.person_id AND 
     (s1.time_updated < s2.time_updated OR s1.time_updated = s2.time_updated AND s1.time_updated < s2.time_updated)', 'left outer');
@@ -296,7 +296,7 @@ class Form_data_model extends CI_Model{
         $this->db->select('Personal_Details.ID, Personal_Details.NIC, Personal_Details.title, Personal_Details.in_name, Designation.designation, Work_Place.work_place');
         $this->db->from('Personal_Details');
         $this->db->join('Service s1', 'Personal_Details.ID = s1.person_id');
-        $this->db->join('Designation', 'Designation.ID = s1.designation_id');
+        $this->db->join('Designation', 'Designation.ID = s1.designation_id', 'left');
         $this->db->join('Work_Place', 'Work_Place.ID = s1.work_place_id');
         $this->db->join('Service s2', 'Personal_Details.ID = s2.person_id AND 
     (s1.time_updated < s2.time_updated OR s1.time_updated = s2.time_updated AND s1.time_updated < s2.time_updated)', 'left outer');
@@ -325,7 +325,7 @@ class Form_data_model extends CI_Model{
         $this->db->join('Main_Office_Divisions div', 's1.work_division_id = div.ID','left');
         $this->db->join('Service_Mode smood', 'smood.ID = s1.service_mode');
         $this->db->join('Work_Place', 'Work_Place.ID = s1.work_place_id');
-        $this->db->join('Designation', 'Designation.ID = s1.designation_id');
+        $this->db->join('Designation', 'Designation.ID = s1.designation_id', 'left');
         $this->db->where('p.ID', $personID);
         $this->db->order_by('s1.duty_date', 'DESC');
         $query = $this->db->get();
@@ -456,7 +456,7 @@ class Form_data_model extends CI_Model{
         $this->db->join('Main_Office_Divisions div', 's1.work_division_id = div.ID','left');
         $this->db->join('Service_Mode smood', 'smood.ID = s1.service_mode');
         $this->db->join('Work_Place', 'Work_Place.ID = s1.work_place_id');
-        $this->db->join('Designation', 'Designation.ID = s1.designation_id');
+        $this->db->join('Designation', 'Designation.ID = s1.designation_id', 'left');
         $this->db->where('s1.person_id', $personID);
         $this->db->order_by('s1.duty_date', 'DESC');
         $this->db->limit(1);
@@ -611,7 +611,7 @@ class Form_data_model extends CI_Model{
         $this->db->update($table, $update_array);
         
         if($this->db->affected_rows()){
-            return 1;
+            return '1';
         }
     }
 }

@@ -117,6 +117,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             
 <script>
     $(document).ready(function(){
+        
+        $('#mnuOne').addClass('menu-open');
+        $('#mnu_add_division').addClass('active');   
                     
         $('#work_place').change(function(){
             var gr = $(this).find(':selected').data('code');

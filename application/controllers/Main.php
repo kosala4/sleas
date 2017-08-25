@@ -290,7 +290,128 @@ class Main extends CI_Controller {
         
     }
     
+    public function addInstitute()
+    {
+        $this->check_sess($this->session->user_logged);
+        if($this->session->user_level != '0') {$this->logout();}
+        
+        header('Content-Type: application/x-json; charset=utf-8');
+        
+        $institute_data_array = $this->Main_data_model->get_recent_id('Institute');
+        $institute_data_id = $institute_data_array['0']['ID'] + 1;
+        
+        $work_place_id = $this->input->post('work_place_id');
+        $division_id = $this->input->post('division_id');
+        $institute_id = $this->input->post('institute_id');
+        $institute_name = $this->input->post('institute_name');
+        $institute_address = $this->input->post('institute_address');
+        
+        $user_array = array('ID' => $institute_data_id, 'div_id' => $division_id, 'institute_id' => $institute_id, 'workplace_id' => $work_place_id, 'institute_name' => $institute_name, 'institute_address' => $institute_address);
+        $res = $this->Main_data_model->insert('Institute', $user_array);
+        
+        if(res == '1'){
+            //echo strval($workplace_id);
+            echo "success";
+        }else {
+            echo strval($institute_data_id);
+        }
+    }
     
+    public function updateInstitute()
+    {
+		$this->check_sess($this->session->user_logged);
+        if($this->session->user_level != '0') {$this->logout();}
+        
+        
+        header('Content-Type: application/x-json; charset=utf-8');
+        $work_place_id = $this->input->post('work_place_id');
+        $division_id = $this->input->post('division_id');
+        $institute_data_id = $this->input->post('institute_data_id');
+        $institute_id = $this->input->post('institute_id');
+        $institute_name = $this->input->post('institute_name');
+        $institute_address = $this->input->post('institute_address');
+        
+        $user_array = array('div_id' => $division_id, 'institute_id' => $institute_id,'institute_name' => $institute_name, 'institute_address' => $institute_address);
+        $res = $this->Main_data_model->update('Institute', 'ID', $institute_data_id, $user_array);
+        
+        if(res == '1'){
+            echo "Success";
+        }
+        
+    }
+    
+    public function deleteInstitute()
+    {
+		$this->check_sess($this->session->user_logged);
+        if($this->session->user_level != '0') {$this->logout();}
+        
+        header('Content-Type: application/x-json; charset=utf-8');
+        $institute_data_id = $this->input->post('institute_data_id');
+        
+        $res = $this->Main_data_model->delete('Institute', 'ID', $institute_data_id);
+        
+        if(res == '1'){
+            echo "Success";
+        }
+        
+    }
+    
+    public function addQualification()
+    {
+        $this->check_sess($this->session->user_logged);
+        if($this->session->user_level != '0') {$this->logout();}
+        
+        header('Content-Type: application/x-json; charset=utf-8');
+        
+        $q_id_no_array = $this->Main_data_model->get_recent_id('Qualification_List');
+        $q_id_no = $q_id_no_array['0']['ID'] + 1;
+        
+        $q_type_id = $this->input->post('q_id');
+        $q_name = $this->input->post('q_name');
+        
+        $user_array = array('ID' => $q_id_no, 'qualification_type_id' => $q_type_id, 'qualification' => $q_name);
+        $res = $this->Main_data_model->insert('Qualification_List', $user_array);
+        
+        if(res == '1'){
+            echo strval($q_id_no);
+        }else {
+            echo strval($q_id_no);
+        }
+    }
+    
+    public function updateQualification()
+    {
+		$this->check_sess($this->session->user_logged);
+        if($this->session->user_level != '0') {$this->logout();}
+        
+        header('Content-Type: application/x-json; charset=utf-8');
+        $q_id = $this->input->post('q_id');
+        $q_name = $this->input->post('q_name');
+        
+        $user_array = array('qualification' => $q_name);
+        $res = $this->Main_data_model->update('Qualification_List', 'ID', $q_id, $user_array);
+        
+        if(res == '1'){
+            echo "Success";
+        }
+        
+    }
+    
+    public function deleteQualification()
+    {
+		$this->check_sess($this->session->user_logged);
+        if($this->session->user_level != '0') {$this->logout();}
+        
+        header('Content-Type: application/x-json; charset=utf-8');
+        $q_id = $this->input->post('q_id');
+        
+        $res = $this->Main_data_model->delete('Qualification_List', 'ID', $q_id);
+        
+        if(res == '1'){
+            echo "Success";
+        }
+        
+    }
     
 }
 ?>

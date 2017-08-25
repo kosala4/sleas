@@ -23,6 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     
 </style>       
 <section id="content" style="font-size:13px;">
+    
     <div class="col-md-8">  </div>
     <div class="col-md-4" style="color:#000;margin-top:10px;">
         <table border="0" width="100%">
@@ -39,31 +40,31 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </table>
     </div>
     <div class="col-md-4" style="color:#000;margin-top:10px; margin-bottom:0;">
-        <table border="0" width="40%">
+        <table border="0" width="60%">
             <tr>
-                <td valign="top" width="50%"> නිලධාරියාගේ නම </td>
-                <td valign="top">  </td>
+                <td valign="top" width="30%"> නිලධාරියාගේ නම </td>
+                <td valign="top"> : <?php echo $name; ?></td>
             </tr>
             <tr>
                 <td valign="top"> තනතුර </td>
-                <td valign="top"> : </td>
+                <td valign="top"> : <?php echo $designation; ?></td>
             </tr>
             <tr>
                 <td valign="top"> සේවය </td>
-                <td valign="top"> : </td>
+                <td valign="top"> : ශ්‍රී ලංකා අධ්‍යාපන පරිපාලන සේවය </td>
             </tr>
             <tr>
                 <td valign="top"> ශ්‍රේණිය </td>
-                <td valign="top"> : </td>
+                <td valign="top"> : <?php echo $grade; ?></td>
             </tr>
         </table>
     </div>
     <div class="col-md-8" style="color:#000;margin-top:10px; text-align:center; font-size:15px; font-weight:700;">
-        <b><center>රාජ්‍ය පරිපාලන චක්‍රෙල්ඛ 03/2016 අනුව <?php echo $revision_date; ?> දිනට වැටුප පරිවර්තනය කිරිම</center></b>
+        <b><center>රාජ්‍ය පරිපාලන චක්‍රලේඛ 03/2016 අනුව <?php echo $revision_date; ?> දිනට වැටුප පරිවර්තනය කිරිම</center></b>
     </div>
 
     <div class="col-md-8" style="color:#000;margin-top:10px;">
-        යථෝක්ත චක්‍රෙල්ඛය පරිදි ඔබගේ වැටුප <?php echo $revision_date; ?> දිනට පහත සඳහන් පරිදි පරිවර්තනය කරනු ලැබේ.
+        යථෝක්ත චක්‍රලේඛය පරිදි ඔබගේ වැටුප <?php echo $revision_date; ?> දිනට පහත සඳහන් පරිදි පරිවර්තනය කරනු ලැබේ.
     </div>
 
     <div class="col-md-8" style="color:#000;margin-top:10px; margin-left: 20px;">            
@@ -131,20 +132,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </div>
     3. ඉහත 1 (ඊ) හි වැටුප් තලයට අනුරූපි උපලේඛන II අනුව <?php echo $revision_date; ?> දින සිට ගෙවිය යුතු වැටුප
         <div style="color:#000;margin-top:0px; margin-left:10px; margin-bottom:10px;">     
-            <table border="0" width="80%">
+            <table border="0" width="90%">
                 <tr>
                     <td valign="top" width="50%"> (අ)	මුලික වැටුප </td>
                     <td valign="top"> : <?php echo $new_salary; ?> </td>
                 </tr>
                 <tr>
-                    <td valign="top"> (ආ)	දළ වැටුපෙහි ගැලපුම් දිමනාව </td>
+                    <td valign="top"> (ආ)	දළ වැටුපෙහි ගැලපුම් දීමනාව </td>
                     <td valign="top"> :  </td>
                 </tr>
             </table>
         </div>
     4. 2016.01.18 දිනට වැටුප වර්ධකය සමඟ වැටුප 
         <div style="color:#000;margin-top:0px; margin-left:10px; margin-bottom:20px;">     
-            <table border="0" width="80%">
+            <table border="0" width="90%">
                 <tr>
                     <td valign="top" width="50%"> (අ)	උපලේඛන I අනුව වැටුප් තලය </td>
                     <td valign="top"> : <?php echo number_format($final_salary_increment, 2); ?> </td>
@@ -154,7 +155,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <td valign="top"> : <?php echo $next_salary; ?> </td>
                 </tr>
                 <tr>
-                    <td valign="top"> (ආ)	එදින සිට අදාළවන දළ වැටුපෙහි ගැලපුම් දිමනාව </td>
+                    <td valign="top"> (ආ)	එදින සිට අදාළවන දළ වැටුපෙහි ගැලපුම් දීමනාව </td>
                     <td valign="top"> :  </td>
                 </tr>
             </table>
@@ -185,7 +186,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </table><br>
         <table border="0" width="80%">
             <tr>
-                <td valign="top" width="50%"> ආයතන ප්‍රධානියා </td>
+                <td valign="top" width="25%"> ආයතන ප්‍රධානියා </td>
                 <td valign="top"> :  </td>
                 <td valign="top">  </td>
             </tr>
@@ -215,7 +216,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <div class="col-md-8" style="color:#000;margin-top:10px;"> 
         පිටපත්
         <ol style="color:#000;margin-left:10px;">
-            <li> විගණකාධීපති 		-කරු.අ.ක.ස.</li>
+            <li> විගණකාධිපති 		-කරු.අ.ක.ස.</li>
             <li> ගණකාධිකාරි(ගෙවීම්)		-කරු.අ.ක.ස. </li>
             <li> පෞද්ගලික ලිපි ගොනුවට </li>
         </ol>

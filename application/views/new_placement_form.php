@@ -205,10 +205,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     $(".schools").addClass("hidden");
                     $(".work_main_institue").addClass("hidden");
                     $(".designation").addClass("hidden");
-                    $("#designation").rules( "add", { required: true });
+                    $("#designation").rules( "add", { required: false });
                     break;
                 default:
                     $(".designation").removeClass("hidden");
+                    $("#designation").rules( "add", { required: false });
                      }
         });
         

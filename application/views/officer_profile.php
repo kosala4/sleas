@@ -636,7 +636,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <div class="form-group ">
                                 <label>Qualification</label>
                                 <select class="select2 " name="q_name" id="q_name" style="width:100%">
-                                    <option value="" hidden selected> ---------Please Select---------</option>
+                                    <option value="" selected> ---------Please Select---------</option>
+                                </select>
+                            </div>
+                            <div class="form-group ">
+                                <label>Subject</label>
+                                <select class="select2 " name="q_subj" id="q_subj" style="width:100%">
+                                    <option value="" selected> ---------Please Select---------</option>
                                 </select>
                             </div>
                             <div class="form-group">
@@ -669,7 +675,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                   </div>
                 </div>
-                <?php print_r($user_details); ?>
+                <?php //print_r($user_details); ?>
             </div><!--End of Conainer-->
         </section>
 
@@ -899,8 +905,28 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         data: dataarray,
                         success: function(res){
                             $('#q_name').empty();
+                            $('#q_name').append('<option value="" selected> ---------Please Select---------</option>');
                             $.each(res, function(ID,province_office){
                                 $('#q_name').append('<option value='+res[ID].ID+' data-name ="'+ res[ID].qualification +'" >'+res[ID].qualification+'</option>');
+                            });
+                        }
+                    });
+                });
+                
+                $('#q_name').change(function(){
+                    var id = $(this).val();
+                    var post_url = "index.php/FormControl/getQSubjects/"+id;
+                    var dataarray = { '<?php echo $this->security->get_csrf_token_name(); ?>':'<?php echo $this->security->get_csrf_hash(); ?>',q_id: id };
+                    $.ajax({
+                        type: "POST",
+                        url: "<?php echo base_url(); ?>" + post_url,
+                        dataType :'json',
+                        data: dataarray,
+                        success: function(res){
+                            $('#q_subj').empty();
+                            $('#q_subj').append('<option value="" selected> ---------Please Select--------- </option>');
+                            $.each(res, function(ID){
+                                $('#q_subj').append('<option value='+res[ID].ID+'>'+res[ID].qualification_subject+'</option>');
                             });
                         }
                     });
@@ -912,16 +938,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     var file_data = $('#cetificate').prop('files')[0];
                     var q_date = $('#qualified_date').val();
                     var q_type_id = $('#q_type').val();
-                    var q_institute = $('#q_institute').val();
                     var q_id = $('#q_name').val();
+                    var q_subj_id = $('#q_subj').val();
+                    var q_institute = $('#q_institute').val();
                     var q_grade = $('#q_grade').val();
                     var q_name = $('#q_name').find(':selected').data('name');
+                    console.log($('#q_name').val());
                     
                     form_data.append('<?php echo $this->security->get_csrf_token_name(); ?>','<?php echo $this->security->get_csrf_hash(); ?>');
                     form_data.append('q_date', q_date);
                     form_data.append('q_type_id', q_type_id);
                     form_data.append('q_id', q_id);
                     form_data.append('q_name', q_name);
+                    form_data.append('q_subj_id', q_subj_id);
                     form_data.append('q_institute', q_institute);
                     form_data.append('q_grade', q_grade);
                     form_data.append( 'user_id', '<?php echo $user_details[0]['ID'] ?>');
