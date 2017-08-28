@@ -56,7 +56,7 @@ class Main extends CI_Controller {
         $this->response['provinceList'] = $this->Form_data_model->select('province_list');
         $this->response['districtList'] = $this->Form_data_model->select('district_list');
         
-		$this->load->view('master/' . $place, $this->response);
+		$this->load->view('master/workplaces/' . $place, $this->response);
         
 		$this->load->view('footer');
 	}
@@ -483,6 +483,25 @@ class Main extends CI_Controller {
         
     }
     
+    /******** End of WorkPlaces Changes ********/
+    /******** Qualification Master Table Changes ********/
+    
+	public function Qualifications($qual)
+	{
+		$this->check_sess($this->session->user_logged);
+        if($this->session->user_level != '0') {$this->logout();}
+        
+        
+		$this->load->view('head');
+		$this->load->view('admin_sidebar');
+        
+        $this->response['modes'] = $this->Form_data_model->select('service_mode');
+        
+		$this->load->view('master/qualifications/' . $qual, $this->response);
+        
+		$this->load->view('footer');
+	}
+    
     public function addQualification()
     {
         $this->check_sess($this->session->user_logged);
@@ -533,6 +552,420 @@ class Main extends CI_Controller {
         $q_id = $this->input->post('q_id');
         
         $res = $this->Main_data_model->delete('Qualification_List', 'ID', $q_id);
+        
+        if(res == '1'){
+            echo "Success";
+        }
+        
+    }
+    
+    /******** End of ualification Master Table Changes ********/
+    /******** Service Details Master Table Changes ********/
+    
+	public function Service($service)
+	{
+		$this->check_sess($this->session->user_logged);
+        if($this->session->user_level != '0') {$this->logout();}
+        
+        
+		$this->load->view('head');
+		$this->load->view('admin_sidebar');
+        
+        $this->response['modes'] = $this->Form_data_model->select('service_mode');
+        
+		$this->load->view('master/service/' . $service, $this->response);
+        
+		$this->load->view('footer');
+	}
+    
+    public function addServiceMode()
+    {
+        $this->check_sess($this->session->user_logged);
+        if($this->session->user_level != '0') {$this->logout();}
+        
+        header('Content-Type: application/x-json; charset=utf-8');
+        
+        $mode_id_no_array = $this->Main_data_model->get_recent_id('Service_Mode');
+        $mode_id_no = $mode_id_no_array['0']['ID'] + 1;
+        
+        $mode_name = $this->input->post('mode_name');
+        
+        $user_array = array('ID' => $mode_id_no, 'mode' => $mode_name);
+        $res = $this->Main_data_model->insert('Service_Mode', $user_array);
+        
+        if(res == '1'){
+            echo strval($mode_id_no);
+        }else {
+            echo strval($mode_id_no);
+        }
+    }
+    
+    public function updateServiceMode()
+    {
+		$this->check_sess($this->session->user_logged);
+        if($this->session->user_level != '0') {$this->logout();}
+        
+        header('Content-Type: application/x-json; charset=utf-8');
+        $mode_id = $this->input->post('mode_id');
+        $mode_name = $this->input->post('mode_name');
+        
+        $user_array = array('mode' => $mode_name);
+        $res = $this->Main_data_model->update('Service_Mode', 'ID', $mode_id, $user_array);
+        
+        if(res == '1'){
+            echo "Success";
+        }
+        
+    }
+    
+    public function deleteServiceMode()
+    {
+		$this->check_sess($this->session->user_logged);
+        if($this->session->user_level != '0') {$this->logout();}
+        
+        header('Content-Type: application/x-json; charset=utf-8');
+        $mode_id = $this->input->post('mode_id');
+        
+        $res = $this->Main_data_model->delete('Service_Mode', 'ID', $mode_id);
+        
+        if(res == '1'){
+            echo "Success";
+        }
+        
+    }
+    
+    public function addDeactType()
+    {
+        $this->check_sess($this->session->user_logged);
+        if($this->session->user_level != '0') {$this->logout();}
+        
+        header('Content-Type: application/x-json; charset=utf-8');
+        
+        $deact_id_no_array = $this->Main_data_model->get_recent_id('Deactivation_Type');
+        $deact_id_no = $deact_id_no_array['0']['ID'] + 1;
+        
+        $deact_name = $this->input->post('deact_name');
+        
+        $user_array = array('ID' => $deact_id_no, 'type' => $deact_name);
+        $res = $this->Main_data_model->insert('Deactivation_Type', $user_array);
+        
+        if(res == '1'){
+            echo strval($deact_id_no);
+        }else {
+            echo strval($deact_id_no);
+        }
+    }
+    
+    public function updateDeactType()
+    {
+		$this->check_sess($this->session->user_logged);
+        if($this->session->user_level != '0') {$this->logout();}
+        
+        header('Content-Type: application/x-json; charset=utf-8');
+        $deact_id = $this->input->post('deact_id');
+        $deact_name = $this->input->post('deact_name');
+        
+        $user_array = array('type' => $deact_name);
+        $res = $this->Main_data_model->update('Deactivation_Type', 'ID', $deact_id, $user_array);
+        
+        if(res == '1'){
+            echo "Success";
+        }
+        
+    }
+    
+    public function deleteDeactType()
+    {
+		$this->check_sess($this->session->user_logged);
+        if($this->session->user_level != '0') {$this->logout();}
+        
+        header('Content-Type: application/x-json; charset=utf-8');
+        $deact_id = $this->input->post('deact_id');
+        
+        $res = $this->Main_data_model->delete('Deactivation_Type', 'ID', $deact_id);
+        
+        if(res == '1'){
+            echo "Success";
+        }
+        
+    }
+    
+    public function addDiscipType()
+    {
+        $this->check_sess($this->session->user_logged);
+        if($this->session->user_level != '0') {$this->logout();}
+        
+        header('Content-Type: application/x-json; charset=utf-8');
+        
+        $discip_id_no_array = $this->Main_data_model->get_recent_id('Disciplinary_Type');
+        $discip_id_no = $discip_id_no_array['0']['ID'] + 1;
+        
+        $discip_name = $this->input->post('discip_name');
+        
+        $user_array = array('ID' => $discip_id_no, 'action_type' => $discip_name);
+        $res = $this->Main_data_model->insert('Disciplinary_Type', $user_array);
+        
+        if(res == '1'){
+            echo strval($discip_id_no);
+        }else {
+            echo strval($discip_id_no);
+        }
+    }
+    
+    public function updateDiscipType()
+    {
+		$this->check_sess($this->session->user_logged);
+        if($this->session->user_level != '0') {$this->logout();}
+        
+        header('Content-Type: application/x-json; charset=utf-8');
+        $discip_id = $this->input->post('discip_id');
+        $discip_name = $this->input->post('discip_name');
+        
+        $user_array = array('action_type' => $discip_name);
+        $res = $this->Main_data_model->update('Disciplinary_Type', 'ID', $discip_id, $user_array);
+        
+        if(res == '1'){
+            echo "Success";
+        }
+        
+    }
+    
+    public function deleteDiscipType()
+    {
+		$this->check_sess($this->session->user_logged);
+        if($this->session->user_level != '0') {$this->logout();}
+        
+        header('Content-Type: application/x-json; charset=utf-8');
+        $discip_id = $this->input->post('discip_id');
+        
+        $res = $this->Main_data_model->delete('Disciplinary_Type', 'ID', $discip_id);
+        
+        if(res == '1'){
+            echo "Success";
+        }
+        
+    }
+    
+    public function addDisciplinaryAction()
+    {
+        $this->check_sess($this->session->user_logged);
+        if($this->session->user_level != '0') {$this->logout();}
+        
+        header('Content-Type: application/x-json; charset=utf-8');
+        
+        $discip_id_no_array = $this->Main_data_model->get_recent_id('Disciplinary_Actions_List');
+        $discip_id_no = $discip_id_no_array['0']['ID'] + 1;
+        
+        $discip_name = $this->input->post('discip_name');
+        $discip_type = $this->input->post('discip_type');
+        
+        $user_array = array('ID' => $discip_id_no, 'action_type_id' => $discip_type, 'action_name' => $discip_name);
+        $res = $this->Main_data_model->insert('Disciplinary_Actions_List', $user_array);
+        
+        if(res == '1'){
+            echo strval($discip_id_no);
+        }else {
+            echo strval($discip_id_no);
+        }
+    }
+    
+    public function updateDisciplinaryAction()
+    {
+		$this->check_sess($this->session->user_logged);
+        if($this->session->user_level != '0') {$this->logout();}
+        
+        header('Content-Type: application/x-json; charset=utf-8');
+        $discip_id = $this->input->post('discip_id');
+        $discip_name = $this->input->post('discip_name');
+        
+        $user_array = array('action_name' => $discip_name);
+        $res = $this->Main_data_model->update('Disciplinary_Actions_List', 'ID', $discip_id, $user_array);
+        
+        if(res == '1'){
+            echo "Success";
+        }
+        
+    }
+    
+    public function deleteDisciplinaryAction()
+    {
+		$this->check_sess($this->session->user_logged);
+        if($this->session->user_level != '0') {$this->logout();}
+        
+        header('Content-Type: application/x-json; charset=utf-8');
+        $discip_id = $this->input->post('discip_id');
+        
+        $res = $this->Main_data_model->delete('Disciplinary_Actions_List', 'ID', $discip_id);
+        
+        if(res == '1'){
+            echo "Success";
+        }
+        
+    }
+    
+    public function addRelType()
+    {
+        $this->check_sess($this->session->user_logged);
+        if($this->session->user_level != '0') {$this->logout();}
+        
+        header('Content-Type: application/x-json; charset=utf-8');
+        
+        $reltype_id_no_array = $this->Main_data_model->get_recent_id('Releasement_Type');
+        $reltype_id_no = $reltype_id_no_array['0']['ID'] + 1;
+        
+        $reltype_name = $this->input->post('reltype_name');
+        
+        $user_array = array('ID' => $reltype_id_no, 'rel_type' => $reltype_name);
+        $res = $this->Main_data_model->insert('Releasement_Type', $user_array);
+        
+        if(res == '1'){
+            echo strval($reltype_id_no);
+        }else {
+            echo strval($reltype_id_no);
+        }
+    }
+    
+    public function updateRelType()
+    {
+		$this->check_sess($this->session->user_logged);
+        if($this->session->user_level != '0') {$this->logout();}
+        
+        header('Content-Type: application/x-json; charset=utf-8');
+        $reltype_id = $this->input->post('reltype_id');
+        $reltype_name = $this->input->post('reltype_name');
+        
+        $user_array = array('rel_type' => $reltype_name);
+        $res = $this->Main_data_model->update('Releasement_Type', 'ID', $reltype_id, $user_array);
+        
+        if(res == '1'){
+            echo "Success";
+        }
+        
+    }
+    
+    public function deleteRelType()
+    {
+		$this->check_sess($this->session->user_logged);
+        if($this->session->user_level != '0') {$this->logout();}
+        
+        header('Content-Type: application/x-json; charset=utf-8');
+        $reltype_id = $this->input->post('reltype_id');
+        
+        $res = $this->Main_data_model->delete('Releasement_Type', 'ID', $reltype_id);
+        
+        if(res == '1'){
+            echo "Success";
+        }
+        
+    }
+    
+    public function addRelPlace()
+    {
+        $this->check_sess($this->session->user_logged);
+        if($this->session->user_level != '0') {$this->logout();}
+        
+        header('Content-Type: application/x-json; charset=utf-8');
+        
+        $rel_id_no_array = $this->Main_data_model->get_recent_id('Releasement_Place');
+        $rel_id_no = $rel_id_no_array['0']['ID'] + 1;
+        
+        $rel_type = $this->input->post('rel_type');
+        $relplace_name = $this->input->post('relplace_name');
+        
+        $user_array = array('ID' => $rel_id_no, 'rel_type_id' => $rel_type, 'rel_place' => $relplace_name);
+        $res = $this->Main_data_model->insert('Releasement_Place', $user_array);
+        
+        if(res == '1'){
+            echo strval($rel_id_no);
+        }else {
+            echo strval($rel_id_no);
+        }
+    }
+    
+    public function updateRelPlace()
+    {
+		$this->check_sess($this->session->user_logged);
+        if($this->session->user_level != '0') {$this->logout();}
+        
+        header('Content-Type: application/x-json; charset=utf-8');
+        
+        $relplace_id = $this->input->post('relplace_id');
+        $relplace_name = $this->input->post('relplace_name');
+        
+        $user_array = array('rel_place' => $relplace_name);
+        $res = $this->Main_data_model->update('Releasement_Place', 'ID', $relplace_id, $user_array);
+        
+        if(res == '1'){
+            echo "Success";
+        }
+        
+    }
+    
+    public function deleteRelPlace()
+    {
+		$this->check_sess($this->session->user_logged);
+        if($this->session->user_level != '0') {$this->logout();}
+        
+        header('Content-Type: application/x-json; charset=utf-8');
+        $relplace_id = $this->input->post('relplace_id');
+        
+        $res = $this->Main_data_model->delete('Releasement_Place', 'ID', $relplace_id);
+        
+        if(res == '1'){
+            echo "Success";
+        }
+        
+    }
+    
+    public function addSpSubject()
+    {
+        $this->check_sess($this->session->user_logged);
+        if($this->session->user_level != '0') {$this->logout();}
+        
+        header('Content-Type: application/x-json; charset=utf-8');
+        
+        $spsubject_id_no_array = $this->Main_data_model->get_recent_id('Sleas_Subject');
+        $spsubject_id_no = $spsubject_id_no_array['0']['ID'] + 1;
+        
+        $spsubject_name = $this->input->post('spsubject_name');
+        
+        $user_array = array('ID' => $spsubject_id_no, 'sub_name' => $spsubject_name);
+        $res = $this->Main_data_model->insert('Sleas_Subject', $user_array);
+        
+        if(res == '1'){
+            echo strval($spsubject_id_no);
+        }else {
+            echo strval($spsubject_id_no);
+        }
+    }
+    
+    public function updateSpSubject()
+    {
+		$this->check_sess($this->session->user_logged);
+        if($this->session->user_level != '0') {$this->logout();}
+        
+        header('Content-Type: application/x-json; charset=utf-8');
+        $spsubject_id = $this->input->post('spsubject_id');
+        $spsubject_name = $this->input->post('spsubject_name');
+        
+        $user_array = array('sub_name' => $spsubject_name);
+        $res = $this->Main_data_model->update('Sleas_Subject', 'ID', $spsubject_id, $user_array);
+        
+        if(res == '1'){
+            echo "Success";
+        }
+        
+    }
+    
+    public function deleteSpSubject()
+    {
+		$this->check_sess($this->session->user_logged);
+        if($this->session->user_level != '0') {$this->logout();}
+        
+        header('Content-Type: application/x-json; charset=utf-8');
+        $spsubject_id = $this->input->post('spsubject_id');
+        
+        $res = $this->Main_data_model->delete('Sleas_Subject', 'ID', $spsubject_id);
         
         if(res == '1'){
             echo "Success";

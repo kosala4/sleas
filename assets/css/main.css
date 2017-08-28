@@ -350,6 +350,7 @@ ul.dropdown-items > li {
     width: 240px;
     z-index: 1024;
     left: auto;
+    padding-bottom: 50px;
 }
 
 #sidebar:before {

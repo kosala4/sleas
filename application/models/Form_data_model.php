@@ -28,6 +28,15 @@ class Form_data_model extends CI_Model{
             case "district_list":
                 $res = $this->getAllRecords('District_List');
                 break;
+            case "service_mode":
+                $res = $this->getAllRecords('Service_Mode');
+                break;
+            case "deactivation_type":
+                $res = $this->getAllRecords('Deactivation_Type');
+                break;
+            case "disciplinary_type":
+                $res = $this->getAllRecords('Disciplinary_Type');
+                break;
         }
         
         return $res;

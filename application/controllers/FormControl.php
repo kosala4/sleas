@@ -132,6 +132,46 @@ class FormControl extends CI_Controller {
         echo json_encode($res);
     }
     
+    public function getServiceModes(){
+        header('Content-Type: application/x-json; charset=utf-8');
+        
+        $res = $this->Form_data_model->select('service_mode');
+
+        echo json_encode($res);
+    }
+    
+    public function getDeactTypes(){
+        header('Content-Type: application/x-json; charset=utf-8');
+        
+        $res = $this->Form_data_model->select('deactivation_type');
+
+        echo json_encode($res);
+    }
+    
+    public function getRelTypes(){
+        header('Content-Type: application/x-json; charset=utf-8');
+        
+        $res = $this->Form_data_model->select('release_type');
+
+        echo json_encode($res);
+    }
+    
+    public function getSpSubject(){
+        header('Content-Type: application/x-json; charset=utf-8');
+        
+        $res = $this->Form_data_model->select('subject');
+
+        echo json_encode($res);
+    }
+    
+    public function getDiscipTypes(){
+        header('Content-Type: application/x-json; charset=utf-8');
+        
+        $res = $this->Form_data_model->select('disciplinary_type');
+
+        echo json_encode($res);
+    }
+    
     public function searchOfficers(){
         $searchField = $this->input->post('searchField');
         $searchKey = $this->input->post('searchKey');

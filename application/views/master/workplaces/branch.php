@@ -15,7 +15,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </div>
                 </div>
             <?php } ?>
-                
 
                 <div class="col-md-8">
                     <div class="panel panel-success" style="margin-top:20px;">
@@ -33,7 +32,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             switch($row['ID']){
                                                       case 1:
                                                       case 2: 
-                                                      case 3: ?>
+                                                      case 3: 
+                                                      case 4: ?>
                                                         <option value="<?php echo $row['ID'];?>" data-code="<?php echo $row['work_place_code'];?>" > <?php echo $row['work_place'] ;?> </option>
                                                         break;
                                                 <?php default: ?>
