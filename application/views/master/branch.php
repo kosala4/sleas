@@ -119,7 +119,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     $(document).ready(function(){
         
         $('#mnuOne').addClass('menu-open');
-        $('#mnu_add_branch').addClass('active');            
+        $('#mnu_add_branch').addClass('active');
+        $('#addBranch').attr('disabled', 'true');
         
         $('#work_place').change(function(){
             var gr = $(this).find(':selected').data('code');
@@ -128,6 +129,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             if ($.inArray(gr, ['moe','exam','epd']) >=0){
               
             getMainBranch(workplace_id);  
+            $('#addBranch').removeAttr('disabled');
             }
                 
         });

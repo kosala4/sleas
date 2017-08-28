@@ -23,10 +23,6 @@ class FormControl extends CI_Controller {
         
     }
     
-    public function register(){
-        
-    }
-    
     public function getProvinceOffices(){
         $workplace_id = $this->input->post('workplace_id');
         header('Content-Type: application/x-json; charset=utf-8');

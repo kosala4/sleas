@@ -126,6 +126,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         
         $('#mnuOne').addClass('menu-open');
         $('#mnu_add_zone').addClass('active');   
+        $('#addZonal').attr('disabled', 'true');
         
         var workplace_id = '7';
         
@@ -151,6 +152,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         $('#district').change(function(){
             var dist_id = $(this).val();
             getZonalOffices(dist_id);
+            $('#addZonal').removeAttr('disabled');
             
         });
 
@@ -177,14 +179,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         });
         
         $(document).on('click', '.delete_zonal', function(){
-            var post_url = "index.php/Main/deleteZonal/"+'2';
+            var post_url = "index.php/Main/deleteZonal/2";
             var form_data = new FormData();
-            var place_id = $(this).data("id");
+            var dist_id = $('#district').val();
+            var zonal_id = $(this).data("id");
             var row = $(this).closest('tr');
-            var rowID = parseInt(row[0].rowIndex) - 1;
             
             form_data.append('<?php echo $this->security->get_csrf_token_name(); ?>','<?php echo $this->security->get_csrf_hash(); ?>');
-            form_data.append('province_id', place_id);
+            form_data.append('zonal_id', zonal_id);
             $.ajax({
                 type: "POST",
                 url: "<?php echo base_url(); ?>" + post_url,
@@ -193,7 +195,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 contentType: false,
                 processData: false,
                 success: function(response){
-                    $('#province tbody tr:eq('+rowID+')').remove();
+                    getZonalOffices(dist_id);
                     },
                 error: function (response) {
                     alert("Error Delete! Please try again.");
@@ -218,14 +220,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             var form_data = new FormData();
             var dist_id = $('#dist_id').val();
             var workplace_id = '7';
+            var zonal_id = $('#zonal_name').data("ID");
             var zonal_name = $('#zonal_name').val();
             var zonal_address = $('#zonal_address').val();
             var action = $('#action').val();
             var rowID = parseInt($('#province_name').data("rowID")) - 1;
             
             if(action == 'edit'){
-                var post_url = "index.php/Main/updateZonal/"+'2';
+                var post_url = "index.php/Main/updateZonal/2";
                 form_data.append('<?php echo $this->security->get_csrf_token_name(); ?>','<?php echo $this->security->get_csrf_hash(); ?>');
+                form_data.append('zonal_id', zonal_id);
                 form_data.append('dist_id', dist_id);
                 form_data.append('workplace_id', workplace_id);
                 form_data.append('zonal_name', zonal_name);
@@ -247,9 +251,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     }
                 });
             }else if(action == 'add'){
-                var post_url = "index.php/Main/addZonal/"+'2';
+                var post_url = "index.php/Main/addZonal/2";
                 form_data.append('<?php echo $this->security->get_csrf_token_name(); ?>','<?php echo $this->security->get_csrf_hash(); ?>');
-                form_data.append('work_place_id', work_place_id);
+                form_data.append('workplace_id', workplace_id);
                 form_data.append('dist_id', dist_id);
                 form_data.append('zonal_name', zonal_name);
                 form_data.append('zonal_address', zonal_address);

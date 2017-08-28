@@ -128,12 +128,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         
         $('#mnuOne').addClass('menu-open');
         $('#mnu_add_province').addClass('active');   
+        $('#addProvince').attr('disabled', 'true');
                     
         $('#work_place').change(function(){
             var gr = $(this).find(':selected').data('code');
             var workplace_id = $(this).val();
             
             getMainDivision(workplace_id);  
+            $('#addProvince').removeAttr('disabled');
                
         });
         

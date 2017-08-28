@@ -21,8 +21,8 @@
                             <li id="mnu_add_division"><a href="<?php echo base_url()."index.php/main/places/division"?>"> Divisions List </a></li>
                             <li id="mnu_add_branch"><a href="<?php echo base_url()."index.php/main/places/branch"?>"> Branches List </a></li>
                             <li id="mnu_add_province"><a href="<?php echo base_url()."index.php/main/places/province"?>"> Provincial Offices List </a></li>
-                            <li id="mnu_add_zone"><a href="<?php echo base_url()."index.php/main/places/zone"?>"> Zonal Education Offices List </a></li>
-                            <li id="mnu_add_division"><a href="<?php echo base_url()."index.php/main/places/division"?>"> Divisional Education Offices List </a></li>
+                            <li id="mnu_add_zone"><a href="<?php echo base_url()."index.php/main/places/zonal"?>"> Zonal Education Offices List </a></li>
+                            <li id="mnu_add_divisional_office"><a href="<?php echo base_url()."index.php/main/places/divisional"?>"> Divisional Education Offices List </a></li>
                             <li id="mnu_add_institute"><a href="<?php echo base_url()."index.php/main/places/institute"?>"> Institutes List </a></li>
                         </ul>
                     </li>

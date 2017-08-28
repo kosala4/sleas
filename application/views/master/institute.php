@@ -167,6 +167,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         
         $('#mnuOne').addClass('menu-open');
         $('#mnu_add_institute').addClass('active');            
+        $('#addInstitute').attr('disabled', 'true');
         
         $('#work_place').change(function(){
             var workplace_id = $(this).val();
@@ -241,6 +242,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             var workplace_id = $('#work_place').val();
 
             getMainInstitute(workplace_id, division_id);
+            $('#addInstitute').removeAttr('disabled');
 
         });
         

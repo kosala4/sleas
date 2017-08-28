@@ -25,6 +25,9 @@ class Form_data_model extends CI_Model{
             case "disciplinary":
                 $res = $this->getAllRecords('Disciplinary_Type');
                 break;
+            case "district_list":
+                $res = $this->getAllRecords('District_List');
+                break;
         }
         
         return $res;

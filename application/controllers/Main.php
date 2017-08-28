@@ -34,6 +34,12 @@ class Main extends CI_Controller {
 		}//Redirect to login page if session not initiated.
 	}
 
+	function logout()
+	{
+		$this->session->sess_destroy();
+		redirect('/login/index');
+	}
+
     public $response = array("result"=>"none", "data"=>"none");
 
     //work_places
@@ -48,6 +54,7 @@ class Main extends CI_Controller {
         
         $this->response['workPlaces'] = $this->Form_data_model->select('workplace');
         $this->response['provinceList'] = $this->Form_data_model->select('province_list');
+        $this->response['districtList'] = $this->Form_data_model->select('district_list');
         
 		$this->load->view('master/' . $place, $this->response);
         
@@ -283,6 +290,126 @@ class Main extends CI_Controller {
         $province_id_no = $this->input->post('province_id');
         
         $res = $this->Main_data_model->delete('Province_Offices', 'ID', $province_id_no);
+        
+        if(res == '1'){
+            echo "Success";
+        }
+        
+    }
+    
+    public function addZonal()
+    {
+        $this->check_sess($this->session->user_logged);
+        if($this->session->user_level != '0') {$this->logout();}
+        
+        header('Content-Type: application/x-json; charset=utf-8');
+        
+        $zonal_id_no_array = $this->Main_data_model->get_recent_id('Zonal_Offices');
+        $zonal_id_no = $zonal_id_no_array['0']['ID'] + 1;
+        
+        $workplace_id = $this->input->post('workplace_id');
+        $dist_id = $this->input->post('dist_id');
+        $zonal_name = $this->input->post('zonal_name');
+        $zonal_address = $this->input->post('zonal_address');
+        
+        $user_array = array('ID' => $zonal_id_no, 'work_place_id' => $workplace_id, 'dist_id' => $dist_id, 'zonal_office' => $zonal_name, 'zonal_office_address' => $zonal_address);
+        $res = $this->Main_data_model->insert('Zonal_Offices', $user_array);
+        
+        if(res == '1'){
+            echo strval($zonal_id_no);
+        }else {
+            echo strval($zonal_id_no);
+        }
+    }
+    
+    public function updateZonal()
+    {
+		$this->check_sess($this->session->user_logged);
+        if($this->session->user_level != '0') {$this->logout();}
+        
+        header('Content-Type: application/x-json; charset=utf-8');
+        $zonal_id_no = $this->input->post('zonal_id');
+        $zonal_name = $this->input->post('zonal_name');
+        $zonal_address = $this->input->post('zonal_address');
+        
+        $user_array = array('zonal_office' => $zonal_name, 'zonal_office_address' => $zonal_address);
+        $res = $this->Main_data_model->update('Zonal_Offices', 'ID', $zonal_id_no, $user_array);
+        
+        if(res == '1'){
+            echo "Success";
+        }
+        
+    }
+    
+    public function deleteZonal()
+    {
+		$this->check_sess($this->session->user_logged);
+        if($this->session->user_level != '0') {$this->logout();}
+        
+        header('Content-Type: application/x-json; charset=utf-8');
+        $zonal_id_no = $this->input->post('zonal_id');
+        
+        $res = $this->Main_data_model->delete('Zonal_Offices', 'ID', $zonal_id_no);
+        
+        if(res == '1'){
+            echo "Success";
+        }
+        
+    }
+    
+    public function addDivisional()
+    {
+        $this->check_sess($this->session->user_logged);
+        if($this->session->user_level != '0') {$this->logout();}
+        
+        header('Content-Type: application/x-json; charset=utf-8');
+        
+        $divisional_id_no_array = $this->Main_data_model->get_recent_id('Divisional_Offices');
+        $divisional_id_no = $divisional_id_no_array['0']['ID'] + 1;
+        
+        $workplace_id = $this->input->post('workplace_id');
+        $zone_id = $this->input->post('zone_id');
+        $divisional_name = $this->input->post('divisional_name');
+        $divisional_address = $this->input->post('divisional_address');
+        
+        $user_array = array('ID' => $divisional_id_no, 'work_place_id' => $workplace_id, 'zone_id' => $zone_id, 'division_office' => $divisional_name, 'division_office_address' => $divisional_address);
+        $res = $this->Main_data_model->insert('Divisional_Offices', $user_array);
+        
+        if(res == '1'){
+            echo strval($divisional_id_no);
+        }else {
+            echo strval($divisional_id_no);
+        }
+    }
+    
+    public function updateDivisional()
+    {
+		$this->check_sess($this->session->user_logged);
+        if($this->session->user_level != '0') {$this->logout();}
+        
+        header('Content-Type: application/x-json; charset=utf-8');
+        $divisional_id_no = $this->input->post('divisional_id');
+        $divisional_name = $this->input->post('divisional_name');
+        $divisionall_address = $this->input->post('divisional_address');
+        
+        $user_array = array('division_office' => $divisional_name, 'division_office_address' => $divisionall_address);
+        $res = $this->Main_data_model->update('Divisional_Offices', 'ID', $divisional_id_no, $user_array);
+        
+        if(res == '1'){
+            echo "Success";
+        }
+        
+    }
+    
+    public function deleteDivisional()
+    {
+		$this->check_sess($this->session->user_logged);
+        if($this->session->user_level != '0') {$this->logout();}
+        
+        header('Content-Type: application/x-json; charset=utf-8');
+        $divisional_id_no = $this->input->post('divisional_id');
+        
+        $res = $this->Main_data_model->delete('Divisional_Offices', 'ID', $divisional_id_no);
         
         if(res == '1'){
             echo "Success";
