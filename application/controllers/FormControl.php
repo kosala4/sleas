@@ -20,6 +20,7 @@ class FormControl extends CI_Controller {
         parent::__construct();
         $this->load->model('Form_data_model'); //load database model.
         $this->load->model('User_model'); //load database model.
+        $this->load->model('Main_data_model'); //load database model.
         
     }
     
@@ -111,6 +112,24 @@ class FormControl extends CI_Controller {
         echo json_encode($res);
     }
     
+    public function getQualificationDetails(){
+        header('Content-Type: application/x-json; charset=utf-8');
+        $q_id = $this->input->post('q_id');
+        $searchArray = array('ID' => $q_id);
+        
+        $res = $this->Form_data_model->searchdb('Qualifications', $searchArray);
+        
+        echo json_encode($res);
+    }
+    
+    public function getQTypes(){
+        header('Content-Type: application/x-json; charset=utf-8');
+        
+        $res = $this->Form_data_model->select('qtype');
+        
+        echo json_encode($res);
+    }
+    
     public function getQualifications(){
         header('Content-Type: application/x-json; charset=utf-8');
         $q_type = $this->input->post('q_type');
@@ -152,6 +171,14 @@ class FormControl extends CI_Controller {
         header('Content-Type: application/x-json; charset=utf-8');
         
         $res = $this->Form_data_model->select('release_type');
+
+        echo json_encode($res);
+    }
+    
+    public function getLeaveTypes(){
+        header('Content-Type: application/x-json; charset=utf-8');
+        
+        $res = $this->Form_data_model->select('leavetype');
 
         echo json_encode($res);
     }
@@ -269,6 +296,79 @@ class FormControl extends CI_Controller {
             }
         } else {
             echo 'Please choose a file';
+        }
+    }
+    
+    public function editQualification(){
+        header('Content-Type: application/x-json; charset=utf-8');
+        $user_id = $this->input->post('user_id');
+        $q_id = $this->input->post('q_id');
+        $q_name = $this->input->post('q_name');
+        $q_subj_id = $this->input->post('q_subj_id');
+        $q_type_id = $this->input->post('q_type_id');
+        $q_institute = $this->input->post('q_institute');
+        $q_date = $this->input->post('q_date');
+        $nic = $this->input->post('nic');
+        $q_grade = $this->input->post('q_grade');
+        $qual_id = $this->input->post('qual_id');
+        
+        if($q_type_id == '1'){
+            $q_type = 'academic';
+        } else if($q_type_id == '2'){
+            $q_type = 'professional';
+        }
+        
+        if (isset($_FILES['file']['name'])) {
+            if (0 < $_FILES['file']['error']) {
+                echo 'Error during file upload' . $_FILES['file']['error'];
+            } else {
+                $ext = pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION);
+                $file_name = $q_date . $nic . '-' . $q_name . '-certificate.' . $ext;
+                $file_path = 'file_library/'.$user_id . '/qualifications/' . $q_type;
+                
+                $dataarray = array("person_id" => $user_id, 'qualification_type_id' => $q_type_id, 'qualification_id' => $q_id,  'qualified_date' => $q_date, 'qualification_grade' => $q_grade, 'qualified_institute' => $q_institute,'certificate_path' => $file_path . '/' .$file_name);
+                
+                if($q_subj_id){ $dataarray['qualification_subject_id'] = $q_subj_id; }
+                
+                if (!file_exists($file_path)) {
+                    mkdir($file_path, 0777, true);
+                }
+                
+                if (file_exists($file_path . '/' . $file_name)) {
+                    $res = $this->Form_data_model->update('Qualifications', 'ID', $qual_id, $dataarray);
+                    if ($res == '1'){
+                        move_uploaded_file($_FILES['file']['tmp_name'], $file_path . '/' . $file_name);
+                        echo json_encode($dataarray);
+                    }
+                    
+                } else {
+                    $res = $this->Form_data_model->update('Qualifications', 'ID', $qual_id, $dataarray);
+                    if ($res == '1'){
+                        move_uploaded_file($_FILES['file']['tmp_name'], $file_path . '/' . $file_name);
+                        echo json_encode($dataarray);
+                    }
+                }
+            }
+        } else {
+            
+            $dataarray = array("person_id" => $user_id, 'qualification_type_id' => $q_type_id, 'qualification_id' => $q_id,  'qualified_date' => $q_date, 'qualification_grade' => $q_grade, 'qualified_institute' => $q_institute);
+            $res = $this->Form_data_model->update('Qualifications', 'ID', $qual_id, $dataarray);
+            if ($res == '1'){
+                echo json_encode($dataarray);
+            } else{
+                echo ('error updating');
+            }
+        }
+    }
+    
+    public function deleteQualification(){
+        
+        header('Content-Type: application/x-json; charset=utf-8');
+        $qual_id = $this->input->post('qual_id');
+        
+        $res = $this->Main_data_model->delete('Qualifications', 'ID', $qual_id);
+        if($res == '1'){
+            echo "Success";
         }
     }
     

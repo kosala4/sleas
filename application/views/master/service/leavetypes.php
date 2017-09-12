@@ -15,57 +15,32 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </div>
                 </div>
             <?php } ?>
+                
 
                 <div class="col-md-8">
                     <div class="panel panel-success" style="margin-top:20px;">
                         <div class="panel-heading reg-main-panel">
-                            <h3 class="panel-title"> Branches List </h3>
+                            <h3 class="panel-title"> Leave Types List </h3>
                         </div><!--End of panel-heading-->
                         <div class="panel-body">
                             
-                            <div class="form-group ">
-                                <label>Working place</label><br>
-                                <?php if ($workPlaces) { ?>
-                                    <select class="select2 col-md-10 workPlaces" name="work_place" id="work_place" style="padding-left:0;" >
-                                        <option value="" hidden selected> ---------Please Select--------- </option>
-                                        <?php foreach ($workPlaces as $row) { 
-                                            switch($row['ID']){
-                                                      case 1:
-                                                      case 2: 
-                                                      case 3: 
-                                                      case 4: ?>
-                                                        <option value="<?php echo $row['ID'];?>" data-code="<?php echo $row['work_place_code'];?>" > <?php echo $row['work_place'] ;?> </option>
-                                                        break;
-                                                <?php default: ?>
-                                                <?php }?>
-                                        
-                                            
-                                <?php    } ?>
-                                        <option value="other" class="c-other hidden"> Other </option>
-                                    </select>
-                                <?php } ?>
-                            </div>
-                            
-                    <?php if ($workPlaces) { ?>
-                        <table  class="table table-striped table-hover DynamicTable" border="0" id="branch">
+                        <table  class="table table-striped table-hover DynamicTable" border="0" id="dataTable">
                             <thead>
                                 <tr>
-                                    <th> Branch Name </th>
-                                    <th> Action </th>
+                                    <th> Leave Type </th>
+                                    <th style="width:80px;"> Action </th>
                                 </tr>
                             </thead>
                             <tbody id="tablebody">
-                            
                             </tbody>
                         </table>
                         <table  class="table table-striped table-hover DynamicTable" border="0" >
                             <tr>
-                                <td> <button class="delete_workplace btn btn-large btn-success " id="addNew" ><i class="fa fa-plus"></i></button> Add New Branch </td>
+                                <td> <button class="delete_workplace btn btn-large btn-success " id="addNew" ><i class="fa fa-plus"></i></button> Add New Leave Type </td>
                                 <td> </td>
                                 <td> </td>
                             </tr>
                         </table>
-                    <?php } ?>
                             
                   
                     <!-- Modal to update Work Places dates-->
@@ -83,17 +58,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <?php echo form_open() ?> 
                               <div class="modal-body">
                                 <div class="col-md-12">
-                                        <input type="text" class="form-control hidden" name="work_place_id" id="work_place_id" >
-                                        <input type="text" class="form-control hidden" name="branch_id" id="branch_id" >
+                                        <input type="text" class="form-control hidden" name="leavetype_id" id="leavetype_id" >
                                         <input type="text" class="form-control hidden" name="action" id="action" >
                                     <div class="form-group">
-                                        <label class="modal_q"> Branch Name </label>
-                                        <input type="text" class="form-control" name="branch_name" id="branch_name">
+                                        <label class="modal_q"> Leave Type </label>
+                                        <input type="text" class="form-control" name="leavetype_name" id="leavetype_name">
                                     </div>
                                 </div>
                               </div>
                               <div class="modal-footer" style="border-top:0;">
-                                <button type="button" class="btn btn-success" data-dismiss="modal" id="branch_submit">Save</button>
+                                <button type="button" class="btn btn-success" data-dismiss="modal" id="modal_submit">Save</button>
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                               </div>
                             <?php echo form_close() ?>
@@ -118,40 +92,30 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <script>
     $(document).ready(function(){
         
-        $('#mnuOne').addClass('menu-open');
-        $('#mnu_add_branch').addClass('active');
-        $('#addNew').attr('disabled', 'true');
-        
-        $('#work_place').change(function(){
-            var gr = $(this).find(':selected').data('code');
-            var workplace_id = $(this).val();
-              
-            getMainBranch(workplace_id);  
-            $('#addNew').removeAttr('disabled');
-                
-        });
+        $('#mnuThree').addClass('menu-open');
+        $('#mnu_service-leavetypes').addClass('active');
+        getLeaveTypes();
         
         $(document).on('click', '.edit', function(){
-            var place_id = $(this).data("id");
-            var place_name = $(this).data("name");
+            var leavetype_id = $(this).data("id");
+            var leavetype_name = $(this).data("name");
             
-            $('#branch_id').val(place_id);
-            $('#branch_name').data("ID", place_id);
-            $('#branch_name').val(place_name);
+            $('#leavetype_id').val(leavetype_id);
+            $('#leavetype_name').data("ID", leavetype_id);
+            $('#leavetype_name').val(leavetype_name);
             $('#action').val('edit');
-            $('#modal_title').text("Edit Branch name");
-            $('#branch_submit').text("Save");
+            $('#modal_title').text("Edit Leave Type");
+            $('#modal_submit').text("Save");
             $('#UpdateModal').modal('toggle');
         });
         
         $(document).on('click', '.delete', function(){
-            var post_url = "index.php/Main/deleteBranch/"+'2';
+            var post_url = "index.php/Main/deleteLType/2";
             var form_data = new FormData();
-            var work_place_id = $('#work_place').val();
-            var place_id = $(this).data("id");
+            var leavetype_id = $(this).data("id");
             
             form_data.append('<?php echo $this->security->get_csrf_token_name(); ?>','<?php echo $this->security->get_csrf_hash(); ?>');
-            form_data.append('branch_id', place_id);
+            form_data.append('leavetype_id', leavetype_id);
             $.ajax({
                 type: "POST",
                 url: "<?php echo base_url(); ?>" + post_url,
@@ -160,7 +124,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 contentType: false,
                 processData: false,
                 success: function(response){
-                    getMainBranch(work_place_id);
+                    getLeaveTypes();
                     },
                 error: function (response) {
                     alert("Error Delete! Please try again.");
@@ -169,27 +133,24 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         });
         
         $('#addNew').click(function(){
-            var work_place_id = $('#work_place').val();
-            $('#work_place_id').val(work_place_id);
-            $('#modal_title').text("Add New Branch");
-            $('#branch_submit').text("Add");
+            
+            $('#modal_title').text("Add New Leave Type");
+            $('#modal_submit').text("Add");
             $('#action').val('add');
             $('#UpdateModal').modal('toggle');
         });
         
-        $('#branch_submit').click(function(){
+        $('#modal_submit').click(function(){
             var form_data = new FormData();
-            var branch_id = $('#branch_id').val();
-            var branch_name = $('#branch_name').val();
-            var work_place_id = $('#work_place_id').val();
+            var leavetype_id = $('#leavetype_id').val();
+            var leavetype_name = $('#leavetype_name').val();
             var action = $('#action').val();
             
             if(action == 'edit'){
-                var post_url = "index.php/Main/updateBranch/"+'2';
+                var post_url = "index.php/Main/updateLType/2";
                 form_data.append('<?php echo $this->security->get_csrf_token_name(); ?>','<?php echo $this->security->get_csrf_hash(); ?>');
-                form_data.append('work_place_id', work_place_id);
-                form_data.append('branch_id', branch_id);
-                form_data.append('branch_name', branch_name);
+                form_data.append('leavetype_id', leavetype_id);
+                form_data.append('leavetype_name', leavetype_name);
                 $.ajax({
                     type: "POST",
                     url: "<?php echo base_url(); ?>" + post_url,
@@ -198,7 +159,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     contentType: false,
                     processData: false,
                     success: function(response){
-                        getMainBranch(work_place_id);
+                        
+                        getLeaveTypes()
 
                         },
                     error: function (response) {
@@ -206,10 +168,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     }
                 });
             }else if(action == 'add'){
-                var post_url = "index.php/Main/addBranch/"+'2';
+                var post_url = "index.php/Main/addLType/2";
                 form_data.append('<?php echo $this->security->get_csrf_token_name(); ?>','<?php echo $this->security->get_csrf_hash(); ?>');
-                form_data.append('work_place_id', work_place_id);
-                form_data.append('branch_name', branch_name);
+                form_data.append('leavetype_id', leavetype_id);
+                form_data.append('leavetype_name', leavetype_name);
                 $.ajax({
                     type: "POST",
                     url: "<?php echo base_url(); ?>" + post_url,
@@ -218,16 +180,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     contentType: false,
                     processData: false,
                     success: function(response){
-                        getMainBranch(work_place_id);
+                        
+                        getLeaveTypes();
+                        
+                        },
+                    error: function (response) {
+                        alert("Error Updating! Please try again.");
                     }
                 });
             }
             
         });
+        
+        function getLeaveTypes(){
             
-        function getMainBranch(workplace_id){
-            var post_url = "index.php/FormControl/getMainBranch/"+workplace_id;
-            var dataarray = {'<?php echo $this->security->get_csrf_token_name(); ?>':'<?php echo $this->security->get_csrf_hash(); ?>',workplace_id: workplace_id};
+            var dataarray = {'<?php echo $this->security->get_csrf_token_name(); ?>':'<?php echo $this->security->get_csrf_hash(); ?>'};
+            var post_url = "index.php/FormControl/getLeaveTypes/2";
             $.ajax({
                 type: "POST",
                 url: "<?php echo base_url(); ?>" + post_url,
@@ -235,21 +203,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 data: dataarray,
                 success: function(res){
                     $('#tablebody').empty();
-                    $.each(res, function(ID,provine_office){
-                        //$('#main_branch').append('<option value='+res[ID].ID+'>'+res[ID].office_branch+'</option>');
-                        
-                        $('#branch tbody').append('<tr><td>'+res[ID].office_branch+'</td>'+
-                                                       '<td> <button class="edit btn btn-xs btn-success " data-ID="'+res[ID].ID+'" data-name="'+res[ID].office_branch+'" ><i class="fa fa-edit"></i></button> ' +
-                                                       ' <button class="delete btn btn-xs btn-danger " data-ID="'+res[ID].ID+'" data-name="'+res[ID].office_branch+'" ><i class="fa fs-remove"></i></button> </td>'+
+                    $.each(res, function(ID,province_office){
+                        $('#dataTable tbody').append('<tr><td>'+res[ID].leave_type+'</td>'+
+                                                       '<td> <button class="edit btn btn-xs btn-success " data-ID="'+res[ID].ID+'" data-name="'+res[ID].leave_type+'" ><i class="fa fa-edit"></i></button> ' +
+                                                       ' <button class="delete btn btn-xs btn-danger " data-ID="'+res[ID].ID+'" ><i class="fa fs-remove"></i></button> </td>'+
                                                        '</tr>');
                     });
-                },
-                error: function(){
-                    $('#tablebody').empty();
-                    $('#branch tbody').append('<tr>Sorry No Branches found in Selected Work Place <td></td><td></td></tr>');
                 }
             });
+            
         }
+                      
     });
 
 </script>

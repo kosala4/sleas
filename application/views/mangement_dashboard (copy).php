@@ -59,7 +59,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <div class="col-md-6" style="margin-top:20px; padding-left:0; padding-right:0;">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <h3 class="panel-title"> SLEAS Cadre at Selected Place </h3>
+                            <h3 class="panel-title"> SLEAS Officers by Area </h3>
 
                             <div class="panel-tools">
                             </div>
@@ -126,11 +126,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
     <script type="text/javascript">
         var cadreSize = {'01':'', '02':'', '03':'', 'sp':''};
-        cadreSize['01'] = {'0' : 100, '1' : 8, '2' : 2, '12': 3, '3' : 20, '4' : 11, '5' : 11, '6' : 18, '7' : 10, '8' : 11, '9' : 15, '10' : 14, '11' : 15};
-        cadreSize['02'] = {'0' : 0, '1' : 0, '2' : 0, '12': 0, '3' : 72, '4' : 36, '5' : 36, '6' : 65, '7' : 32, '8' : 36, '9' : 52, '10' : 48, '11' : 52};
-        cadreSize['03'] = {'0' : 281, '1' : 64, '2' : 8, '12': 0, '3' : 49, '4' : 32, '5' : 32, '6' : 65, '7' : 32, '8' : 24, '9' : 34, '10' : 60, '11' : 52};
-        cadreSize['sp'] = {'0' : 43, '1' : 0, '2' : 30, '12': 7, '3' : 146, '4' : 120, '5' : 112, '6' : 232, '7' : 84, '8' : 85, '9' : 125, '10' : 115, '11' : 168};
-        
         $('.stater').click(function(){
             var selGrade = $(this).data("grade");
             var selGradeg = 'g' + selGrade;
@@ -139,18 +134,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             $('#cadre_details').empty();
             if (selGrade == '01'){
                 modalTitle = "GRADE I Officers Details.";
+                cadreSize[selGrade] = {'moe' : 100, 'exam' : 8, 'epub' : 2, 'service': 3, 'west' : 20, 'cent' : 11, 'sout' : 11, 'nort' : 18, 'east' : 10, 'nw' : 11, 'nc' : 15, 'uva' : 14, 'saba' : 15}
                 
             }else if (selGrade == '02'){
                 modalTitle = "General Cadre GRADE II Officers Details.";
-                
+                cadreSize[selGrade] = {'moe' : 0, 'exam' : 0, 'epub' : 0, 'service': 0, 'west' : 72, 'cent' : 36, 'sout' : 36, 'nort' : 65, 'east' : 32, 'nw' : 36, 'nc' : 52, 'uva' : 48, 'saba' : 52}
                 
             }else if (selGrade == '03'){
                 modalTitle = "General Cadre GRADE II/III Officers Details.";
-                
+                cadreSize[selGrade] = {'moe' : 281, 'exam' : 64, 'epub' : 8, 'service': 0, 'west' : 49, 'cent' : 32, 'sout' : 32, 'nort' : 65, 'east' : 32, 'nw' : 24, 'nc' : 34, 'uva' : 60, 'saba' : 52}
                 
             }else if (selGrade == 'sp'){
                 modalTitle = "Special Cadre GRADE II/III Officers Details.";
-                
+                cadreSize[selGrade] = {'moe' : 43, 'exam' : 0, 'epub' : 30, 'service': 7, 'west' : 146, 'cent' : 120, 'sout' : 112, 'nort' : 232, 'east' : 84, 'nw' : 85, 'nc' : 125, 'uva' : 115, 'saba' : 168}
                 
             }
             
@@ -180,19 +176,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 }
                     
                     $('#cadre_details').empty();
-                    $('#cadre_details').append('<tr><th> Ministry of Education </th> <td>'+cadreSize[selGrade]['0']+'</td> <td>'+res[selGradeg].moe+'</td> <td>'+ (parseInt(cadreSize[selGrade]['0']) - parseInt(res[selGradeg].moe))+'</td> </tr>');
-                    $('#cadre_details').append('<tr><th> Department of Examinations </th> <td>'+cadreSize[selGrade]['1']+'</td> <td>'+res[selGradeg].exam+'</td> <td>'+ (parseInt(cadreSize[selGrade]['1']) - parseInt(res[selGradeg].exam))+'</td> </tr>');
-                    $('#cadre_details').append('<tr><th> Department of Publications </th> <td>'+cadreSize[selGrade]['2']+'</td> <td>'+res[selGradeg].epub+'</td> <td>'+ (parseInt(cadreSize[selGrade]['2']) - parseInt(res[selGradeg].epub)) +'</td> </tr>');
-                    $('#cadre_details').append('<tr><th> Education service </th> <td>'+cadreSize[selGrade]['12']+'</td> <td></td> <td></td> </tr>');
-                    $('#cadre_details').append('<tr><th> Western Province </th> <td>'+cadreSize[selGrade]['3']+'</td> <td>'+res.provinces[selGrade].P01+'</td> <td>'+ (parseInt(cadreSize[selGrade]['3']) - parseInt(res.provinces[selGrade].P01)) +'</td> </tr>');
-                    $('#cadre_details').append('<tr><th> Central Province </th> <td>'+cadreSize[selGrade]['4']+'</td> <td>'+res.provinces[selGrade].P03+'</td> <td>'+ (parseInt(cadreSize[selGrade]['4']) - parseInt(res.provinces[selGrade].P03)) +'</td> </tr>');
-                    $('#cadre_details').append('<tr><th> Southern Province </th> <td>'+cadreSize[selGrade]['5']+'</td> <td>'+res.provinces[selGrade].P02+'</td> <td>'+ (parseInt(cadreSize[selGrade]['5']) - parseInt(res.provinces[selGrade].P02)) +'</td> </tr>');
-                    $('#cadre_details').append('<tr><th> Northern Province </th> <td>'+cadreSize[selGrade]['6']+'</td> <td>'+res.provinces[selGrade].P07+'</td> <td>'+ (parseInt(cadreSize[selGrade]['6']) - parseInt(res.provinces[selGrade].P07)) +'</td> </tr>');
-                    $('#cadre_details').append('<tr><th> Eastern Province </th> <td>'+cadreSize[selGrade]['7']+'</td> <td>'+res.provinces[selGrade].P09+'</td> <td>'+ (parseInt(cadreSize[selGrade]['7']) - parseInt(res.provinces[selGrade].P09)) +'</td> </tr>');
-                    $('#cadre_details').append('<tr><th> North Western Province </th> <td>'+cadreSize[selGrade]['8']+'</td> <td>'+res.provinces[selGrade].P05+'</td> <td>'+ (parseInt(cadreSize[selGrade]['8']) - parseInt(res.provinces[selGrade].P05)) +'</td> </tr>');
-                    $('#cadre_details').append('<tr><th> North Central Province </th> <td>'+cadreSize[selGrade]['9']+'</td> <td>'+res.provinces[selGrade].P06+'</td> <td>'+ (parseInt(cadreSize[selGrade]['9']) - parseInt(res.provinces[selGrade].P06)) +'</td> </tr>');
-                    $('#cadre_details').append('<tr><th> Uva Province </th> <td>'+cadreSize[selGrade]['10']+'</td> <td>'+res.provinces[selGrade].P04+'</td> <td>'+ (parseInt(cadreSize[selGrade]['10']) - parseInt(res.provinces[selGrade].P04)) +'</td> </tr>');
-                    $('#cadre_details').append('<tr><th> Sabaragamuwa Province </th> <td>'+cadreSize[selGrade]['11']+'</td> <td>'+res.provinces[selGrade].P08+'</td> <td>'+ (parseInt(cadreSize[selGrade]['11']) - parseInt(res.provinces[selGrade].P08)) +'</td> </tr>');
+                    $('#cadre_details').append('<tr><th> Ministry of Education </th> <td>'+cadreSize[selGrade]['moe']+'</td> <td>'+res[selGradeg].moe+'</td> <td>'+ (parseInt(cadreSize[selGrade]['moe']) - parseInt(res[selGradeg].moe))+'</td> </tr>');
+                    $('#cadre_details').append('<tr><th> Department of Examinations </th> <td>'+cadreSize[selGrade]['exam']+'</td> <td>'+res[selGradeg].exam+'</td> <td>'+ (parseInt(cadreSize[selGrade]['exam']) - parseInt(res[selGradeg].exam))+'</td> </tr>');
+                    $('#cadre_details').append('<tr><th> Department of Publications </th> <td>'+cadreSize[selGrade]['epub']+'</td> <td>'+res[selGradeg].epub+'</td> <td>'+ (parseInt(cadreSize[selGrade]['epub']) - parseInt(res[selGradeg].epub)) +'</td> </tr>');
+                    $('#cadre_details').append('<tr><th> Education service </th> <td>'+cadreSize[selGrade]['service']+'</td> <td></td> <td></td> </tr>');
+                    $('#cadre_details').append('<tr><th> Western Province </th> <td>'+cadreSize[selGrade]['west']+'</td> <td>'+res.provinces[selGrade].P01+'</td> <td>'+ (parseInt(cadreSize[selGrade]['west']) - parseInt(res.provinces[selGrade].P01)) +'</td> </tr>');
+                    $('#cadre_details').append('<tr><th> Central Province </th> <td>'+cadreSize[selGrade]['cent']+'</td> <td>'+res.provinces[selGrade].P03+'</td> <td>'+ (parseInt(cadreSize[selGrade]['cent']) - parseInt(res.provinces[selGrade].P03)) +'</td> </tr>');
+                    $('#cadre_details').append('<tr><th> Southern Province </th> <td>'+cadreSize[selGrade]['sout']+'</td> <td>'+res.provinces[selGrade].P02+'</td> <td>'+ (parseInt(cadreSize[selGrade]['sout']) - parseInt(res.provinces[selGrade].P02)) +'</td> </tr>');
+                    $('#cadre_details').append('<tr><th> Northern Province </th> <td>'+cadreSize[selGrade]['nort']+'</td> <td>'+res.provinces[selGrade].P07+'</td> <td>'+ (parseInt(cadreSize[selGrade]['nort']) - parseInt(res.provinces[selGrade].P07)) +'</td> </tr>');
+                    $('#cadre_details').append('<tr><th> Eastern Province </th> <td>'+cadreSize[selGrade]['east']+'</td> <td>'+res.provinces[selGrade].P09+'</td> <td>'+ (parseInt(cadreSize[selGrade]['east']) - parseInt(res.provinces[selGrade].P09)) +'</td> </tr>');
+                    $('#cadre_details').append('<tr><th> North Western Province </th> <td>'+cadreSize[selGrade]['nw']+'</td> <td>'+res.provinces[selGrade].P05+'</td> <td>'+ (parseInt(cadreSize[selGrade]['nw']) - parseInt(res.provinces[selGrade].P05)) +'</td> </tr>');
+                    $('#cadre_details').append('<tr><th> North Central Province </th> <td>'+cadreSize[selGrade]['nc']+'</td> <td>'+res.provinces[selGrade].P06+'</td> <td>'+ (parseInt(cadreSize[selGrade]['nc']) - parseInt(res.provinces[selGrade].P06)) +'</td> </tr>');
+                    $('#cadre_details').append('<tr><th> Uva Province </th> <td>'+cadreSize[selGrade]['uva']+'</td> <td>'+res.provinces[selGrade].P04+'</td> <td>'+ (parseInt(cadreSize[selGrade]['uva']) - parseInt(res.provinces[selGrade].P04)) +'</td> </tr>');
+                    $('#cadre_details').append('<tr><th> Sabaragamuwa Province </th> <td>'+cadreSize[selGrade]['saba']+'</td> <td>'+res.provinces[selGrade].P08+'</td> <td>'+ (parseInt(cadreSize[selGrade]['saba']) - parseInt(res.provinces[selGrade].P08)) +'</td> </tr>');
                     
                 },
                 error: function(){
@@ -232,7 +228,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     subtitle: 'Officers in areas',
                     chartArea:{left:5,top:0,width:'100%',height:'75%'},
                     tooltip: {trigger:'selection'},
-                    
                 }
             };
             var chart = new google.visualization.ColumnChart(document.getElementById('columnchart_material'));
@@ -245,54 +240,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     tooltip: {trigger:'selection'},
                     width: 500,
                     height: 400,
-                },
-                view: {'columns': [0, 3]}
+                }
             };
-            //var piechart = new google.visualization.PieChart(document.getElementById('piechart_div'));
-            //piechart.draw(data, PieOptions);
-            
-            var piechart = new google.visualization.ChartWrapper({
-              'chartType': 'PieChart',
-              'containerId': 'piechart_div',
-                'dataTable': data,
-              'options': {
-                'width': 500,
-                'height': 400,
-                'pieSliceText': 'label'
-              },
-              // Instruct the piechart to use colums 0 (Name) and 1 (Donuts Eaten)
-              // from the 'data' DataTable.
-              'view': {'columns': [0, 1]}
-            });
-            piechart.draw();
+            var piechart = new google.visualization.PieChart(document.getElementById('piechart_div'));
+            piechart.draw(data, PieOptions);
             
             google.visualization.events.addListener(piechart, 'select', selectHandler);
             
             var table = new google.visualization.Table(document.getElementById('table_div'));
-            table.draw(data, {showRowNumber: false, width: '100%', sort: 'disable'});
+            table.draw(data, {showRowNumber: true, width: '100%', height: '100%'});
             
             function selectHandler(){
-                var chartObject = piechart.getChart();
-                var selection = chartObject.getSelection();
-                //alert(selection[0].row);
-                //alert(cadreSize['01'][selection[0].row]);
-                var Placedata = google.visualization.arrayToDataTable([
-                    ['', 'Grade I', 'Grade II', 'Grade II/III', 'Special Cadre'],
-                    ['Cadre Size', cadreSize['01'][selection[0].row], cadreSize['02'][selection[0].row], cadreSize['03'][selection[0].row], cadreSize['sp'][selection[0].row]],
-                    ['Available Officers', data.getValue(selection[0].row, 1), data.getValue(selection[0].row, 2), data.getValue(selection[0].row, 3), data.getValue(selection[0].row, 4)]
-                    
-                ]);
+                var selection = piechart.getSelection();
+                alert(data.getValue(selection[0].row, 4));
                 
-                if ($.inArray(selection[0].row, [0, 1, 2]) > -1){
-                    Placedata.addRow(['Difference', (cadreSize['01'][selection[0].row] - data.getValue(selection[0].row, 1)), 0, (cadreSize['03'][selection[0].row] - (data.getValue(selection[0].row, 3) + data.getValue(selection[0].row, 2))), (cadreSize['sp'][selection[0].row] - data.getValue(selection[0].row, 4))]);
-                } else{
-                    Placedata.addRow(['Difference', (cadreSize['01'][selection[0].row] - data.getValue(selection[0].row, 1)), (cadreSize['02'][selection[0].row] - data.getValue(selection[0].row, 2)), (cadreSize['03'][selection[0].row] - data.getValue(selection[0].row, 3)), (cadreSize['sp'][selection[0].row] - data.getValue(selection[0].row, 4))])
-                }
-                
-                var table = new google.visualization.Table(document.getElementById('table_div'));
-                table.draw(Placedata, {showRowNumber: false, width: '100%', sort: 'disable'});
             }
-            
         }
         
         function drawPieChart() {

@@ -7,11 +7,11 @@ class Report_model extends CI_Model{
         /*$this->db->where($array);
         $query = $this->db->get('General_Service');*/
         
-        $this->db->select('*, s1.time_updated, COALESCE(pl1.province_id, pl2.province_id, pl3.province_id, pl4.province_id) AS province');
+        $this->db->select('*, s1.time_updated, COALESCE(pl1.province_id, pl2.province_id, pl3.province_id, pl4.province_id, pl5.province_id) AS province');
         $this->db->from('Personal_Details');
         $this->db->join('Service s1', 'Personal_Details.ID = s1.person_id');
         $this->db->join('General_Service g', 'Personal_Details.ID = g.person_id');
-        $this->db->join('Designation', 'Designation.ID = s1.designation_id');
+        $this->db->join('Designation', 'Designation.ID = s1.designation_id', 'left');
         $this->db->join('Work_Place', 'Work_Place.ID = s1.work_place_id');
         
         $this->db->join('Province_Offices po', 's1.sub_location_id = po.ID', 'left');
@@ -29,6 +29,7 @@ class Report_model extends CI_Model{
         $this->db->join('Province_List pl2', 'dl1.province_id = pl2.province_id', 'left');
         $this->db->join('Province_List pl3', 'dl2.province_id = pl3.province_id', 'left');
         $this->db->join('Province_List pl4', 'dl3.province_id = pl4.province_id', 'left');
+        $this->db->join('Province_List pl5', 's1.sub_location_id = pl5.province_id', 'left');
         
         $this->db->join('Service s2', 'Personal_Details.ID = s2.person_id AND 
         (s1.time_updated < s2.time_updated OR s1.time_updated = s2.time_updated AND s1.time_updated < s2.time_updated)', 'left outer');
@@ -49,8 +50,6 @@ class Report_model extends CI_Model{
         }
     }
 
-    
-    
 }
 
 ?>

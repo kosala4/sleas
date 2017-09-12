@@ -24,6 +24,7 @@ class Admin extends CI_Controller {
         parent::__construct();
         $this->load->model('User_model'); //load database model.
         $this->load->model('Form_data_model'); //load database model.
+        $this->load->model('Main_data_model'); //load database model.
         
     }
 
@@ -69,7 +70,7 @@ class Admin extends CI_Controller {
         $this->response['user_details'] = $this->Form_data_model->get_Officer_Details($this->session->officer_ID);
         $this->response['deativate_type'] = $this->Form_data_model->select('deativate_type');
         
-		$this->load->view('officer_profile', $this->response);
+		$this->load->view('officer_profile_view', $this->response);
     }
     
     //Function to show dashboard for logged in subject clerk.
@@ -106,6 +107,7 @@ class Admin extends CI_Controller {
         $this->response['workPlaces'] = $this->Form_data_model->select('workplace');
         $this->response['provinceList'] = $this->Form_data_model->select('province_list');
         $this->response['designation'] = $this->Form_data_model->select('designation');
+        $this->response['leavetype'] = $this->Form_data_model->select('leavetype');
         
 		$this->load->view('officer_profile', $this->response);
 		$this->load->view('footer');
@@ -162,7 +164,13 @@ class Admin extends CI_Controller {
         if($res == '1'){
             $this->session->set_flashdata('update','success');
         }
-        redirect("/admin/profile/$person_id");
+        
+        if($this->session->user_level == '1'){
+            redirect("/admin/officer");
+        }else if($this->session->user_level == '2'){
+            redirect("/admin/profile/$person_id");
+        }
+        
     }
     
     public function deactivateOfficer()
@@ -427,6 +435,60 @@ class Admin extends CI_Controller {
         } else {
             echo "Error updating!";
         }
+    }
+    
+    public function addLeave(){
+        header('Content-Type: application/x-json; charset=utf-8');
+        $person_id = $this->input->post('person_id');
+        $l_year = $this->input->post('l_year');
+        $l_type = $this->input->post('l_type');
+        $l_count = $this->input->post('l_count');
+        
+        $dataarray = array("person_id" => $person_id, 'leave_year' => $l_year, 'leave_type_id' => $l_type, 'leave_count' => $l_count, 'user_updated' => $this->session->username);
+        $res = $this->Form_data_model->insertData('Leaves', $dataarray);
+        
+        if ($res == '1'){
+            echo json_encode('1');
+        }
+    }
+    
+    public function editLeave(){
+        header('Content-Type: application/x-json; charset=utf-8');
+        $l_id = $this->input->post('l_id');
+        $l_year = $this->input->post('l_year');
+        $l_type = $this->input->post('l_type');
+        $l_count = $this->input->post('l_count');
+        
+        $dataarray = array('leave_year' => $l_year, 'leave_type_id' => $l_type, 'leave_count' => $l_count, 'user_updated' => $this->session->username);
+        $res = $this->Form_data_model->update('Leaves', 'ID', $l_id,  $dataarray);
+        
+        if ($res == '1'){
+            echo json_encode('1');
+        }
+    }
+    
+    public function deleteLeave(){
+        header('Content-Type: application/x-json; charset=utf-8');
+        $l_id = $this->input->post('l_id');
+        
+        $res = $this->Main_data_model->delete('Leaves', 'ID', $l_id);
+        if($res == '1'){
+            echo "Success";
+        }
+    }
+    
+    public function verifyBarcode()
+    {
+        header('Content-Type: application/x-json; charset=utf-8');
+        $barcode = $this->input->post('barcode');
+        $searchArray = array('barcode' => $barcode);
+        $res = $this->Form_data_model->searchdb('Service', $searchArray);
+        if ($res){
+            echo 1;
+        }else{
+            echo 0;
+        }
+        
     }
 }
 

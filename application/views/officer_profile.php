@@ -454,7 +454,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <div class="modal-content">
                           <div class="modal-header">
                               <button type="button" class="close" data-dismiss="modal">&times;</button>
-                              <h4 id="require_modal-title"></h4>
+                              <h4 id="requiremodal-title"></h4>
 
                           </div>
 
@@ -545,6 +545,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <th> Date </th>
                                             <th> Marks/ Grade </th>
                                             <th> Institute/ School </th>
+                                            <th style="width:80px;"> Edit </th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -556,6 +557,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                 <td><?php echo $row['qualified_date']; ?></td>
                                                 <td><?php echo $row['qualification_grade']; ?></td>
                                                 <td><?php echo $row['qualified_institute'] ?></td>
+                                                <td><button class="edit_qualification btn btn-xs btn-success" data-type="academic" data-id="<?php echo $row['qid']; ?>"><i class="fa fa-edit"></i></button>&nbsp;<button class="delete_qualification btn btn-xs btn-danger" data-type="academic" data-id="<?php echo $row['qid']; ?>"><i class="fa fs-remove"></i></button></td>
                                             </tr>
                                             <?php }?>
                                         <?php }?>
@@ -585,6 +587,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <th> Date </th>
                                             <th> Marks/ Grade </th>
                                             <th> Institute </th>
+                                            <th style="width:80px;"> Edit </th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -596,6 +599,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                 <td><?php echo $row['qualified_date']; ?></td>
                                                 <td><?php echo $row['qualification_grade']; ?></td>
                                                 <td><?php echo $row['qualified_institute'] ?></td>
+                                                <td><button class="edit_qualification btn btn-xs btn-success" data-type="professional" data-id="<?php echo $row['qid']; ?>"><i class="fa fa-edit"></i></button>&nbsp;<button class="delete_qualification btn btn-xs btn-danger" data-type="professional" data-id="<?php echo $row['qid']; ?>"><i class="fa fs-remove"></i></button></td>
                                             </tr>
                                             <?php }?>
                                         <?php }?>
@@ -613,7 +617,44 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </div>
                 </div> <!--Qualifications Div-->
 
-        <!-- Modal to get qualifications details -->
+                <div class="col-md-6">
+                    <div class="panel panel-info">
+                        <div class="panel-heading reg-main-panel">
+                            <h3 class="panel-title"> Leave Summary </h3>
+                        </div><!--End of panel-heading-->
+                        <div class="panel-body">
+                            <table class="table table-striped table-bordered table-hover" id="q_1">
+                                <thead>
+                                    <tr>
+                                        <th> Leave Type </th>
+                                        <th> Year </th>
+                                        <th> Count </th>
+                                        <th style="width:80px;"> Edit </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php if(is_array($user_details['leave'])) {?>
+                                    <?php foreach($user_details['leave'] as $row) {?>
+                                        <tr>
+                                            <th><?php echo $row['leave_type']; ?></th>
+                                            <td><?php echo $row['leave_year']; ?></td>
+                                            <td><?php echo $row['leave_count']; ?></td>
+                                            <td><button class="edit_leave btn btn-xs btn-success" data-id="<?php echo $row['lid']; ?>" data-type="<?php echo $row['leave_type_id']; ?>" data-year="<?php echo $row['leave_year']; ?>" data-count="<?php echo $row['leave_count']; ?>"><i class="fa fa-edit"></i></button>&nbsp;<button class="delete_leave btn btn-xs btn-danger" data-id="<?php echo $row['lid']; ?>"><i class="fa fs-remove"></i></button></td>
+                                        </tr>
+                                    <?php }?>
+                                    <?php } ?>
+                                </tbody>
+                            </table>
+                            <?php if($this->session->user_level != '1'){ ?>
+                            <div class="col-md-12" style="margin-bottom:10px;">
+                                <p> Add Leave </p>
+                                <a role="button" class="btn btn-white btn-xs add_leave" data-type="academic"> Add Leave </a>
+                            </div>
+                            <?php } ?>
+                        </div>
+                    </div>
+                </div>
+        <!-- Modal to add qualifications details -->
                 <div id="qualificationsModal" class="modal fade" role="dialog">
                   <div class="modal-dialog">
 
@@ -636,13 +677,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <div class="form-group ">
                                 <label>Qualification</label>
                                 <select class="select2 " name="q_name" id="q_name" style="width:100%">
-                                    <option value="" selected> ---------Please Select---------</option>
+                                    <option value="" > ---------Please Select---------</option>
                                 </select>
                             </div>
                             <div class="form-group ">
                                 <label>Subject</label>
                                 <select class="select2 " name="q_subj" id="q_subj" style="width:100%">
-                                    <option value="" selected> ---------Please Select---------</option>
+                                    <option value="" > ---------Please Select---------</option>
                                 </select>
                             </div>
                             <div class="form-group">
@@ -660,7 +701,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <div class="form-group">
                                 <label> Upload Scanned Certificate </label>
                                 <div class="fileinput fileinput-new" data-provides="fileinput">
-                                    <input type="file" name="cetificate" id="cetificate">
+                                    <input type="file" name="certificate" id="certificate">
                                     <span class="fileinput-filename"></span>
                                 </div>
                             </div>
@@ -668,6 +709,56 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                       </div>
                       <div class="modal-footer" style="border-top:0;">
                         <button type="button" class="btn btn-success" data-dismiss="modal" id="qualification_submit">Save</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                      </div>
+                    <?php echo form_close() ?>
+                    </div>
+
+                  </div>
+                </div>
+        <!-- Modal to add Leave details -->
+                <div id="leaveModal" class="modal fade" role="dialog">
+                  <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                      <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          <h4 id="leaveModal-title"> Add Leave Summary </h4>
+
+                      </div>
+
+                    <?php echo form_open() ?> 
+                      <div class="modal-body">
+                        <input type="text" class="form-control hidden" name="q_type" id="q_type">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label> NIC </label>
+                                <input type="text" class="form-control" name="nic" id="qualified_nic" value="<?php echo $user_details[0]['NIC'] ;?>" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label> Year </label>
+                                <input type="text" class="form-control " name="l_year" id="l_year" placeholder="YYYY">
+                            </div>
+                            <div class="form-group ">
+                                <label> Leave Type </label>
+                                <select class="select2 " name="l_type" id="l_type" style="width:100%">
+                                    <option value="" > ---------Please Select---------</option>
+                            <?php if($leavetype){ ?>
+                                <?php foreach($leavetype as $row){ ?>
+                                    <option value="<?php echo $row['ID'] ?>" > <?php echo $row['leave_type'] ?> </option>
+                                <?php } ?>
+                            <?php } ?>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label> No. of Leaves </label>
+                                <input type="text" class="form-control" name="l_count" id="l_count" placeholder="Number of Leaves">
+                            </div>
+                        </div>
+                      </div>
+                      <div class="modal-footer" style="border-top:0;">
+                        <button type="button" class="btn btn-success" data-dismiss="modal" id="leave_submit">Save</button>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                       </div>
                     <?php echo form_close() ?>
@@ -817,8 +908,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     }else if(field == "cb_3"){
                         var field_name = "Capacity Building Training 3 Completed Date";
                     }
-                    
-                    $('#require_modal-title').text(field_name);
+                    console.log(field_name);
+                    $('#requiremodal-title').text(field_name);
                     $('#require_date').data("field", field);
                     $('#requiredateModal').modal('toggle');
                 });
@@ -895,6 +986,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         $('#q_type').val('2');
                         $('#qualificationsModal').modal('toggle');
                     }
+                    $('#qualification_submit').data('action', 'add');
                     
                     var post_url = "index.php/FormControl/getQualifications/"+'2';
                     var dataarray = {'<?php echo $this->security->get_csrf_token_name(); ?>':'<?php echo $this->security->get_csrf_hash(); ?>',q_type: q_type};
@@ -913,6 +1005,84 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     });
                 });
                 
+                $(document).on('click', '.edit_qualification', function(){
+                    var qual_id = $(this).data("id");
+                    var qual_type = $(this).data("type");
+                    $('#qualification_submit').data('action', 'edit');
+                    $('#qualification_submit').data('qual_id', qual_id);
+                    if(qual_type == 'academic'){
+                        var q_type = '1';
+                        $('#qualificationsModal-title').text("Edit Qualifications of <?php echo $user_details[0]['title'] . ' ' . $user_details[0]['in_name']?>");
+                        $('#q_type').val('1');
+                    } else if(qual_type == 'professional'){
+                        var q_type = '2';
+                        $('#qualificationsModal-title').text("Edit Qualifications of <?php echo $user_details[0]['title'] . ' ' . $user_details[0]['in_name']?>");
+                        $('#q_type').val('2');
+                        
+                    }
+                    
+                    var post_url = "index.php/FormControl/getQualifications/"+'2';
+                    var dataarray = {'<?php echo $this->security->get_csrf_token_name(); ?>':'<?php echo $this->security->get_csrf_hash(); ?>',q_type: q_type};
+                    $.ajax({
+                        type: "POST",
+                        url: "<?php echo base_url(); ?>" + post_url,
+                        dataType :'json',
+                        async: false,
+                        data: dataarray,
+                        success: function(res){
+                            $('#q_name').empty();
+                            $('#q_name').append('<option value="" > ---------Please Select---------</option>');
+                            $.each(res, function(ID,province_office){
+                                $('#q_name').append('<option value='+res[ID].ID+' data-name ="'+ res[ID].qualification +'" >'+res[ID].qualification+'</option>');
+                            });
+                        }
+                    });
+                    
+                    var post_url = "index.php/FormControl/getQualificationDetails/2";
+                    var dataarray = {'<?php echo $this->security->get_csrf_token_name(); ?>':'<?php echo $this->security->get_csrf_hash(); ?>',q_id: qual_id};
+                    $.ajax({
+                        type: "POST",
+                        url: "<?php echo base_url(); ?>" + post_url,
+                        dataType :'json',
+                        data: dataarray,
+                        success: function(res){
+                            $('#q_name').val(res[0].qualification_id).trigger('change');
+                            if(res[0].qualification_subject_id){
+                                $('#q_subj').val(res[0].qualification_subject_id).trigger('change');
+                            }
+                            $('#q_institute').val(res[0].qualified_institute);
+                            $('#q_grade').val(res[0].qualification_grade);
+                            $('#qualified_date').val(res[0].qualified_date);
+                            $('.fileinput-filename').empty();
+                            $('.fileinput-filename').append('<a href="<?php echo base_url()?>'+res[0].certificate_path+'" target="_blank"> Certificate </a>');
+                            //$('#q_name').val(res[0].qualification_id);
+                        }
+                    });
+                    
+                    $('#qualificationsModal').modal('toggle');
+                    console.log($('#qualification_submit').data('action'));
+                });
+                
+                $(document).on('click', '.delete_qualification', function(){
+                    var qual_id = $(this).data("id");
+                    
+                    var post_url = "index.php/FormControl/deleteQualification/2";
+                    var dataarray = {'<?php echo $this->security->get_csrf_token_name(); ?>':'<?php echo $this->security->get_csrf_hash(); ?>',qual_id: qual_id};
+                    $.ajax({
+                        type: "POST",
+                        url: "<?php echo base_url(); ?>" + post_url,
+                        dataType :'json',
+                        async: false,
+                        data: dataarray,
+                        success: function(res){
+                            location.reload();
+                            console.log(qual_id);
+                        }
+                    });
+                    
+                    
+                });
+                
                 $('#q_name').change(function(){
                     var id = $(this).val();
                     var post_url = "index.php/FormControl/getQSubjects/"+id;
@@ -921,21 +1091,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         type: "POST",
                         url: "<?php echo base_url(); ?>" + post_url,
                         dataType :'json',
+                        async: false,
                         data: dataarray,
                         success: function(res){
                             $('#q_subj').empty();
-                            $('#q_subj').append('<option value="" selected> ---------Please Select--------- </option>');
+                            $('#q_subj').append('<option value="" > ---------Please Select--------- </option>');
                             $.each(res, function(ID){
                                 $('#q_subj').append('<option value='+res[ID].ID+'>'+res[ID].qualification_subject+'</option>');
                             });
                         }
                     });
                 });
-
+                
                 $('#qualification_submit').click(function(){
-                    var post_url = "index.php/FormControl/addQualification/"+'2';
+                    var action = $(this).data('action');
+                    
                     var form_data = new FormData();
-                    var file_data = $('#cetificate').prop('files')[0];
+                    var file_data = $('#certificate').prop('files')[0];
                     var q_date = $('#qualified_date').val();
                     var q_type_id = $('#q_type').val();
                     var q_id = $('#q_name').val();
@@ -943,8 +1115,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     var q_institute = $('#q_institute').val();
                     var q_grade = $('#q_grade').val();
                     var q_name = $('#q_name').find(':selected').data('name');
-                    console.log($('#q_name').val());
-                    
+
                     form_data.append('<?php echo $this->security->get_csrf_token_name(); ?>','<?php echo $this->security->get_csrf_hash(); ?>');
                     form_data.append('q_date', q_date);
                     form_data.append('q_type_id', q_type_id);
@@ -953,37 +1124,140 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     form_data.append('q_subj_id', q_subj_id);
                     form_data.append('q_institute', q_institute);
                     form_data.append('q_grade', q_grade);
-                    form_data.append( 'user_id', '<?php echo $user_details[0]['ID'] ?>');
-                    form_data.append( 'nic', '<?php echo $user_details[0]['NIC'] ?>');
+                    form_data.append('user_id', '<?php echo $user_details[0]['ID'] ?>');
+                    form_data.append('nic', '<?php echo $user_details[0]['NIC'] ?>');
                     form_data.append('file', file_data);
+                    
+                    if (action == 'add'){
+                        var post_url = "index.php/FormControl/addQualification/"+'2';
+                        $.ajax({
+                            type: "POST",
+                            url: "<?php echo base_url(); ?>" + post_url,
+                            dataType :'json',
+                            data: form_data,
+                            contentType: false,
+                            processData: false,
+                            success: function(response){
+                                
+                                $('#q_'+q_type_id+' tbody').append('<tr><th>'+q_name+'</th>'+
+                                                           '<td>'+ q_date +'</td>' +
+                                                           '<td>'+ q_grade +'</td>' +
+                                                           '<td>'+ q_institute +'</td>' +
+                                                           '</tr>');
+                                //console.log('#q_'+q_id+' tbody');
+                                },
+                            error: function (response) {
+                                alert("Error Adding Qualification");
+                            }
+                        });
+                    }else if (action == 'edit'){
+                        var qual_id = $(this).data('qual_id');
+                        form_data.append('qual_id', qual_id);
+                        
+                        var post_url = "index.php/FormControl/editQualification/2";
+                        $.ajax({
+                            type: "POST",
+                            url: "<?php echo base_url(); ?>" + post_url,
+                            dataType :'json',
+                            data: form_data,
+                            contentType: false,
+                            processData: false,
+                            success: function(response){
+                                location.reload();
+                                },
+                            error: function (response) {
+                                alert("Error Adding Qualification");
+                            }
+                        });
+                    }
+                    
+                });
+                
+                $('.add_leave').click(function(){
+                    
+                    $('#leaveModal').modal('toggle');
+                    $('#leave_submit').data('action', 'add');
+                    
+                });
+                
+                $(document).on('click', '.edit_leave', function(){
+                    var l_id = $(this).data("id");
+                    var l_type = $(this).data("type");
+                    var l_year = $(this).data("year");
+                    var l_count = $(this).data("count");
+                    
+                    $('#l_year').val(l_year);
+                    $('#l_type').val(l_type).trigger('change');
+                    $('#l_count').val(l_count);
+                    $('#leave_submit').data('action', 'edit');
+                    $('#leave_submit').data('l_id', l_id);
+                    $('#leaveModal').modal('toggle');
+                });
+                
+                $(document).on('click', '.delete_leave', function(){
+                    var post_url = "index.php/Admin/deleteLeave/2/";
+                    var form_data = new FormData();
+                    var l_id = $(this).data("id");
+                    var obj = $(this);
+                    form_data.append('<?php echo $this->security->get_csrf_token_name(); ?>','<?php echo $this->security->get_csrf_hash(); ?>');
+                    form_data.append('l_id', l_id);
                     $.ajax({
                         type: "POST",
                         url: "<?php echo base_url(); ?>" + post_url,
-                        dataType :'json',
+                        dataType :'text',
                         data: form_data,
                         contentType: false,
                         processData: false,
                         success: function(response){
-                            //console.log(JSON.parse(response));
-                            console.log(response);
-                            
-                            $('#q_'+q_type_id+' tbody').append('<tr><th>'+q_name+'</th>'+
-                                                       '<td>'+ q_date +'</td>' +
-                                                       '<td>'+ q_grade +'</td>' +
-                                                       '<td>'+ q_institute +'</td>' +
-                                                       '</tr>');
-                            //console.log('#q_'+q_id+' tbody');
+                            location.reload();
                             },
                         error: function (response) {
-                            alert("Error Adding Qualification");
+                            alert("Error Deleting Leave Detail! Please try again.");
                         }
                     });
                 });
                 
- 
-            
+                $('#leave_submit').click(function(){
+                    var action = $(this).data('action');
+                    var l_id = $(this).data('l_id');
+                    
+                    var form_data = new FormData();
+                    var leve_year = $('#l_year').val();
+                    var leve_type_id = $('#l_type').val();
+                    var leve_count = $('#l_count').val();
+                    
+                    form_data.append('<?php echo $this->security->get_csrf_token_name(); ?>','<?php echo $this->security->get_csrf_hash(); ?>');
+                    form_data.append('l_year', leve_year);
+                    form_data.append('l_type', leve_type_id);
+                    form_data.append('l_count', leve_count);
+                    form_data.append('person_id', '<?php echo $user_details[0]['ID'] ?>');
+                    
+                    if(action == 'add'){
+                        var post_url = "index.php/Admin/addLeave/2";
+                        var errorMessage = "Error Adding Leave Details";
+                    } else if(action == 'edit'){
+                        form_data.append('l_id', l_id);
+                        var post_url = "index.php/Admin/editLeave/2";
+                        var errorMessage = "Error Updating Leave Details";
+                    }
+                    $.ajax({
+                                type: "POST",
+                                url: "<?php echo base_url(); ?>" + post_url,
+                                dataType :'json',
+                                data: form_data,
+                                contentType: false,
+                                processData: false,
+                                success: function(response){
+                                    
+                                    location.reload();
+                                    },
+                                error: function (response) {
+                                    alert(errorMessage);
+                                }
+                            });
+                    
+                });
                 
-            });  
-
+            });
         </script>
             

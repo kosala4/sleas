@@ -67,6 +67,8 @@
                             
                             <li id="mnu_service-spsubjects"><a href="<?php echo base_url()."index.php/main/service/spsubjects"?>"> Special Cadre Subjects </a></li>
                             
+                            <li id="mnu_service-leavetypes"><a href="<?php echo base_url()."index.php/main/service/leavetypes"?>"> Leave Types </a></li>
+                            
                         </ul>
                     </li>
 

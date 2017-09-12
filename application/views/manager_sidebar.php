@@ -11,7 +11,7 @@
                         </a> 
                     </li>
                     
-                    <li> <a href="<?php echo base_url()."reports/"?>"><i class="fa fs-users"></i> Get Reports  </a> </li>
+                    <li> <a href="<?php echo base_url()."reports/"?>" target="_blank"><i class="fa fs-users"></i> Get Reports  </a> </li>
 
                 </ul>
             </div>

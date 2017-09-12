@@ -14,11 +14,11 @@ $(document).ready( function (){
     handelTagInput();
     handleDateRangePickers();
     handleDatePickers();
-    handleTimePicker();
-    handleClockface();
-    handelRatty();
-    handleSummernote();
-    handelTouchSpin();
+    //handleTimePicker();
+    //handleClockface();
+    //handelRatty();
+    //handleSummernote();
+    //handelTouchSpin();
     handelTooltip();
     handelPopovers();
     handelResponsivePagination();
@@ -433,6 +433,5 @@ function handleScrollToTop() {
             return false;
         });
 };   //  scroll to top of the page
-
 
     

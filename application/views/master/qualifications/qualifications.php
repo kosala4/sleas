@@ -33,7 +33,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 </select>
                             </div>
                             
-                        <table  class="table table-striped table-hover DynamicTable" border="0" id="qualifications">
+                        <table  class="table table-striped table-hover DynamicTable" border="0" id="dataTable">
                             <thead>
                                 <tr>
                                     <th> Qualification </th>
@@ -46,7 +46,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </table>
                         <table  class="table table-striped table-hover DynamicTable" border="0" >
                             <tr>
-                                <td> <button class="delete_workplace btn btn-large btn-success " id="addQualification" ><i class="fa fa-plus"></i></button> Add New Qualification </td>
+                                <td> <button class="delete_workplace btn btn-large btn-success " id="addNew" ><i class="fa fa-plus"></i></button> Add New Qualification </td>
                                 <td> </td>
                                 <td> </td>
                             </tr>
@@ -77,7 +77,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 </div>
                               </div>
                               <div class="modal-footer" style="border-top:0;">
-                                <button type="button" class="btn btn-success" data-dismiss="modal" id="q_submit">Save</button>
+                                <button type="button" class="btn btn-success" data-dismiss="modal" id="submit">Save</button>
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                               </div>
                             <?php echo form_close() ?>
@@ -104,9 +104,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         
         $('#mnuTwo').addClass('menu-open');
         $('#mnu_add_qual').addClass('active');
-                    
+        $('#addNew').attr('disabled', 'true');
+        getQTypes();
+        
         $('#q_type').change(function(){
             var q_id = $(this).val();
+            $('#addNew').removeAttr('disabled');
               
             getQSubjects(q_id);
                 
@@ -123,7 +126,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             $('#q_name').val(q_name);
             $('#action').val('edit');
             $('#modal_title').text("Edit Qualification");
-            $('#q_submit').text("Save");
+            $('#submit').text("Save");
             $('#UpdateModal').modal('toggle');
         });
         
@@ -144,7 +147,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 contentType: false,
                 processData: false,
                 success: function(response){
-                    $('#qualifications tbody tr:eq('+rowID+')').remove();
+                    $('#dataTable tbody tr:eq('+rowID+')').remove();
                     },
                 error: function (response) {
                     alert("Error Delete! Please try again.");
@@ -152,16 +155,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             });
         });
         
-        $('#addQualification').click(function(){
+        $('#addNew').click(function(){
             var q_type_id = $('#q_type').val();
             $('#q_type_id').val(q_type_id);
             $('#modal_title').text("Add New Qualification");
-            $('#q_submit').text("Add");
+            $('#submit').text("Add");
             $('#action').val('add');
             $('#UpdateModal').modal('toggle');
         });
         
-        $('#q_submit').click(function(){
+        $('#submit').click(function(){
             var form_data = new FormData();
             var q_type_id = $('#q_type_id').val();
             var q_name = $('#q_name').val();
@@ -183,7 +186,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     success: function(response){
 
                         console.log(response);
-                        $('#qualifications tbody tr:eq('+rowID+') td:eq("0")').text(q_name);
+                        $('#dataTable tbody tr:eq('+rowID+') td:eq("0")').text(q_name);
 
                         },
                     error: function (response) {
@@ -191,7 +194,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     }
                 });
             }else if(action == 'add'){
-                var post_url = "index.php/Main/addQualification/"+'2';
+                var post_url = "index.php/Main/addNew/"+'2';
                 form_data.append('<?php echo $this->security->get_csrf_token_name(); ?>','<?php echo $this->security->get_csrf_hash(); ?>');
                 form_data.append('q_id', q_type_id);
                 form_data.append('q_name', q_name);
@@ -205,7 +208,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     success: function(response){
                         console.log(response);
 
-                        $('#qualifications tbody').append('<tr><td>'+q_name+'</td>'+
+                        $('#dataTable tbody').append('<tr><td>'+q_name+'</td>'+
                                                        '<td> <button class="edit_q btn btn-xs btn-success " data-ID="'+response+'" data-name="'+q_name+'" ><i class="fa fa-edit"></i></button> ' +
                                                        ' <button class="delete_q btn btn-xs btn-danger " data-ID="'+response+'" data-name="'+q_name+'" ><i class="fa fs-remove"></i></button> </td>'+
                                                        '</tr>');
@@ -231,7 +234,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     $.each(res, function(ID,provine_office){
                         //$('#main_q').append('<option value='+res[ID].ID+'>'+res[ID].office_q+'</option>');
                         
-                        $('#qualifications tbody').append('<tr><td>'+res[ID].qualification+'</td>'+
+                        $('#dataTable tbody').append('<tr><td>'+res[ID].qualification+'</td>'+
                                                        '<td> <button class="edit_q btn btn-xs btn-success " data-ID="'+res[ID].ID+'" data-name="'+res[ID].qualification+'" ><i class="fa fa-edit"></i></button> ' +
                                                        ' <button class="delete_q btn btn-xs btn-danger " data-ID="'+res[ID].ID+'" data-name="'+res[ID].qualification+'" ><i class="fa fs-remove"></i></button> </td>'+
                                                        '</tr>');
@@ -239,7 +242,27 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 },
                 error: function(){
                     $('#tablebody').empty();
-                    $('#qualifications tbody').append('<tr><td> Sorry No Qualifications Found </td><td></td></tr>');
+                    $('#dataTable tbody').append('<tr><td> Sorry No Qualifications Found </td><td></td></tr>');
+                }
+            });
+        }
+        
+        function getQTypes(){
+            
+            var post_url = "index.php/FormControl/getQTypes/2";
+            var dataarray = { '<?php echo $this->security->get_csrf_token_name(); ?>':'<?php echo $this->security->get_csrf_hash(); ?>' };
+            $.ajax({
+                type: "POST",
+                url: "<?php echo base_url(); ?>" + post_url,
+                dataType :'json',
+                data: dataarray,
+                success: function(res){
+                    $('#q_type').empty();
+                    $('#q_type').append('<option value="" selected> ---------Please Select--------- </option>');
+                    $.each(res, function(ID){
+                        $('#q_type').append('<option value='+res[ID].ID+'>'+res[ID].qualification_type+'</option>');
+                        
+                    });
                 }
             });
         }

@@ -59,14 +59,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label><span style="color:red;">*</span> Uer Type </label>
+                                    <label><span style="color:red;">*</span> User Type </label>
                                     <select class="select2 " style="width:100%" name="type" id="type" >
                                         <option value="" hidden selected> ---------Please Select--------- </option>
                                         <option value="3"> Administrator </option>
                                         <option value="2"> Subject Clerk </option>
                                     </select>
                                 </div>
-
+                                
                                 <div class="form-group ">
                                     <label><span style="color:red;">*</span> Working place </label>
                                     <?php if ($workPlaces) { ?>

@@ -109,8 +109,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         <tr>
                                             <th> NIC </th>
                                             <th> Title </th>
-                                            <th> First Name </th>
-                                            <th> Last Name </th>
+                                            <th> Name with Initials </th>
                                             <th> Designation </th>
                                             <th> Working Place </th>
                                             <th>  </th>
@@ -123,8 +122,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <tr>
                                                 <td><?php echo $row['NIC'] ;?> </td>
                                                 <td><?php echo $row['title'] ;?> </td>
-                                                <td><?php echo $row['f_name'] ;?> </td>
-                                                <td><?php echo $row['l_name'] ;?> </td>
+                                                <td><?php echo $row['in_name'] ;?> </td>
                                                 <td><?php echo $row['designation'] ;?> </td>
                                                 <td><?php echo $row['work_place'] ;?> </td>
                                                 <td><a href="profile/<?php echo $row['person_id'] ;?>"> View Profile </a> </td>
@@ -135,37 +133,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 </table>
                             </div>
                         </div>
-                    </div>
-
-                    <!-- Modal to verify letter from barcode-->
-                    <div id="verifyLetter" class="modal fade" role="dialog">
-                      <div class="modal-dialog">
-
-                        <!-- Modal content-->
-                        <div class="modal-content">
-                          <div class="modal-header">
-                              <button type="button" class="close" data-dismiss="modal">&times;</button>
-                              <h4 id="require_modal-title"> Verify Letter </h4>
-
-                          </div>
-
-                        <?php echo form_open() ?> 
-                          <div class="modal-body">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label> Barcode Number </label>
-                                    <input type="text" class="form-control" name="verify_barcode" id="verify_barcode" placeholder="Barcode Number" autofocus>
-                                </div>
-                            </div>
-                          </div>
-                          <div class="modal-footer" style="border-top:0;">
-                            <button type="button" class="btn btn-success" data-dismiss="modal" id="verify_submit">Save</button>
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                          </div>
-                        <?php echo form_close() ?>
-                        </div>
-
-                      </div>
                     </div>
                     
                     <div class="col-md-6">
@@ -222,6 +189,30 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 $('.modal-title').text(message_sender);
                 $('#messageModal').modal('toggle');
 
+            });
+            
+            $('#verify_submit').click(function(){
+                var barcode = $('#verify_barcode').val();
+                $('#verified-letter').addClass('hidden');
+                
+                var post_url = "index.php/Admin/verifyBarcode/2";
+                var dataarray = {'<?php echo $this->security->get_csrf_token_name(); ?>':'<?php echo $this->security->get_csrf_hash(); ?>', 'barcode' : barcode};
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo base_url(); ?>" + post_url,
+                    dataType :'json',
+                    data: dataarray,
+                    success: function(res){
+                        if (res == 1){
+                            $('#verified-letter').removeClass('hidden');
+                            $('#notverified-letter').addClass('hidden');
+                        }else{
+                            $('#notverified-letter').removeClass('hidden');
+                            $('#verified-letter').addClass('hidden');
+                        }
+                        
+                    }
+                });
             });
 
             

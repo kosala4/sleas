@@ -37,6 +37,12 @@ class Form_data_model extends CI_Model{
             case "disciplinary_type":
                 $res = $this->getAllRecords('Disciplinary_Type');
                 break;
+            case "qtype":
+                $res = $this->getAllRecords('Qualification_Type');
+                break;
+            case "leavetype":
+                $res = $this->getAllRecords('Leave_Types');
+                break;
         }
         
         return $res;
@@ -288,7 +294,7 @@ class Form_data_model extends CI_Model{
     
     public function get_Officers_List(){
         
-        $this->db->select('Personal_Details.ID AS person_id, Personal_Details.NIC, Personal_Details.title, Personal_Details.f_name, Personal_Details.l_name, Designation.designation, Work_Place.work_place, s1.ID');
+        $this->db->select('Personal_Details.ID AS person_id, Personal_Details.NIC, Personal_Details.title, Personal_Details.in_name, Designation.designation, Work_Place.work_place, s1.ID');
         $this->db->from('Personal_Details');
         $this->db->join('Service s1', 'Personal_Details.ID = s1.person_id', 'inner');
         $this->db->join('Designation', 's1.designation_id = Designation.ID', 'left');
@@ -366,7 +372,7 @@ class Form_data_model extends CI_Model{
         $res['salary'] = $ge_service_query->result_array();
         
         //Get Qualifications Details of officer and add to $res Array
-        $this->db->select('*');
+        $this->db->select('*, q.ID as qid');
         $this->db->from('Qualifications q');
         $this->db->join('Qualification_List ql', 'q.qualification_id = ql.ID');
         $this->db->join('Qualification_Type qt', 'q.qualification_type_id = qt.ID');
@@ -375,7 +381,17 @@ class Form_data_model extends CI_Model{
         $ge_service_query = $this->db->get();
         $res['qual'] = $ge_service_query->result_array();
         
-        
+        //Get Leave Details of officer and add to $res Array
+        $this->db->select('*, l.ID as lid');
+        //$this->db->select('MAX(l.ID) as lid, MAX(l.leave_year) as leave_year, SUM(l.leave_count) as leave_count, MAX(lt.leave_type) as leave_type');
+        $this->db->from('Leaves l');
+        $this->db->join('Leave_Types lt', 'l.leave_type_id = lt.ID');
+        $this->db->where('l.person_id', $personID);
+        $this->db->order_by('l.leave_year', 'ASC');
+        $this->db->order_by('l.leave_type_id', 'ASC');
+        //$this->db->group_by("l.leave_year, l.leave_type_id HAVING SUM(l.leave_type_id) > 0");
+        $leave_query = $this->db->get();
+        $res['leave'] = $leave_query->result_array();
         
         //Output Officer details
         if ($query->num_rows() >= 1) {

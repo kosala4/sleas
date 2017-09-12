@@ -23,7 +23,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="col-md-8" style="color:#000;margin-top:20px;">
             වහාම ක්‍රියාත්මක වන පරිදි ඔබ <?php echo $branch[0]['office_branch'] ;?> ශාඛාවේ <?php echo $designation['0']['designation'] ;?> ලෙස ස්ථාන මාරු කරමි.
             </div>
-            <div>
+
+            <div class="col-md-8" style="color:#000;margin-top:20px;">
             02. ස්ථාන මාරු වී යාමට ප්‍රථම ඔබ භාරයේ ඇති රජයට අයත් සියළුම රාජකාරී ලිපි ලේඛන හා බඩු බාහිරාදිය අධ්‍යාපන අධ්‍යක්ෂ (<?php echo $recent_work_branch ;?>) විසින් නම් කරනු ලබන නිලධාරියෙකු වෙත විධිමත් පරිදි භාර දීමට කටයුතු කරන්න.
             </div>
             

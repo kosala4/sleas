@@ -559,6 +559,63 @@ class Main extends CI_Controller {
         
     }
     
+    public function addQualificationSubject()
+    {
+        $this->check_sess($this->session->user_logged);
+        if($this->session->user_level != '0') {$this->logout();}
+        
+        header('Content-Type: application/x-json; charset=utf-8');
+        
+        $q_id_no_array = $this->Main_data_model->get_recent_id('Qualification_Subjects');
+        $q_id_no = $q_id_no_array['0']['ID'] + 1;
+        
+        $q_name_id = $this->input->post('q_name_id');
+        $q_subject = $this->input->post('q_subject');
+        
+        $user_array = array('ID' => $q_id_no, 'qualification_name_id' => $q_name_id, 'qualification_subject' => $q_subject);
+        $res = $this->Main_data_model->insert('Qualification_Subjects', $user_array);
+        
+        if(res == '1'){
+            echo strval($q_id_no);
+        }else {
+            echo strval($q_id_no);
+        }
+    }
+    
+    public function updateQualificationSubject()
+    {
+		$this->check_sess($this->session->user_logged);
+        if($this->session->user_level != '0') {$this->logout();}
+        
+        header('Content-Type: application/x-json; charset=utf-8');
+        $q_subject_id = $this->input->post('q_subject_id');
+        $q_subject = $this->input->post('q_subject');
+        
+        $user_array = array('qualification_subject' => $q_subject);
+        $res = $this->Main_data_model->update('Qualification_Subjects', 'ID', $q_subject_id, $user_array);
+        
+        if(res == '1'){
+            echo "Success";
+        }
+        
+    }
+    
+    public function deleteQualificationSubject()
+    {
+		$this->check_sess($this->session->user_logged);
+        if($this->session->user_level != '0') {$this->logout();}
+        
+        header('Content-Type: application/x-json; charset=utf-8');
+        $q_subject_id = $this->input->post('q_subject_id');
+        
+        $res = $this->Main_data_model->delete('Qualification_Subjects', 'ID', $q_subject_id);
+        
+        if(res == '1'){
+            echo "Success";
+        }
+        
+    }
+    
     /******** End of ualification Master Table Changes ********/
     /******** Service Details Master Table Changes ********/
     
@@ -852,6 +909,62 @@ class Main extends CI_Controller {
         $reltype_id = $this->input->post('reltype_id');
         
         $res = $this->Main_data_model->delete('Releasement_Type', 'ID', $reltype_id);
+        
+        if(res == '1'){
+            echo "Success";
+        }
+        
+    }
+    
+    public function addLType()
+    {
+        $this->check_sess($this->session->user_logged);
+        if($this->session->user_level != '0') {$this->logout();}
+        
+        header('Content-Type: application/x-json; charset=utf-8');
+        
+        $ltype_id_no_array = $this->Main_data_model->get_recent_id('Leave_Types');
+        $ltype_id_no = $ltype_id_no_array['0']['ID'] + 1;
+        
+        $ltype_name = $this->input->post('leavetype_name');
+        
+        $user_array = array('ID' => $ltype_id_no, 'leave_type' => $ltype_name);
+        $res = $this->Main_data_model->insert('Leave_Types', $user_array);
+        
+        if(res == '1'){
+            echo strval($ltype_id_no);
+        }else {
+            echo strval($ltype_id_no);
+        }
+    }
+    
+    public function updateLType()
+    {
+		$this->check_sess($this->session->user_logged);
+        if($this->session->user_level != '0') {$this->logout();}
+        
+        header('Content-Type: application/x-json; charset=utf-8');
+        $ltype_id = $this->input->post('leavetype_id');
+        $ltype_name = $this->input->post('leavetype_name');
+        
+        $user_array = array('leave_type' => $ltype_name);
+        $res = $this->Main_data_model->update('Leave_Types', 'ID', $ltype_id, $user_array);
+        
+        if(res == '1'){
+            echo "Success";
+        }
+        
+    }
+    
+    public function deleteLType()
+    {
+		$this->check_sess($this->session->user_logged);
+        if($this->session->user_level != '0') {$this->logout();}
+        
+        header('Content-Type: application/x-json; charset=utf-8');
+        $ltype_id = $this->input->post('leavetype_id');
+        
+        $res = $this->Main_data_model->delete('Leave_Types', 'ID', $ltype_id);
         
         if(res == '1'){
             echo "Success";

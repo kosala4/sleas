@@ -7,9 +7,9 @@ class Management extends CI_Controller {
 	 * Index Page for this controller.
 	 *
 	 * Maps to the following URL
-	 * 		http://example.com/index.php/DataAdmin
+	 * 		http://example.com/index.php/Management
 	 *	- or -
-	 * 		http://example.com/index.php/DataAdmin/index
+	 * 		http://example.com/index.php/Management/index
 	 *	- or -
 	 * Since this controller is set as the default controller in
 	 * config/routes.php, it's displayed at http://example.com/
@@ -42,7 +42,6 @@ class Management extends CI_Controller {
 	}
 
     public $response = array("result"=>"none", "data"=>"none");
-
     
     public function index()
     {
@@ -51,14 +50,17 @@ class Management extends CI_Controller {
 		$this->load->view('head');
 		$this->load->view('manager_sidebar');
         
-        $this->countOfficers();
+        $this->countOfficers("res");
         $this->load->view('mangement_dashboard', $this->response);
 		$this->load->view('footer');
     }
     
-    public function countOfficers()
+    public function countOfficers($res)
     {
         //Count All Officers
+        
+        //header('Content-Type: application/x-json; charset=utf-8');
+        
         $searchArray = array('1' => '1');
         $this->response['countAll'] = $this->Report_model->countOfficers($searchArray, 'count');
         
@@ -67,55 +69,71 @@ class Management extends CI_Controller {
         $this->response['countgr1'] = $this->Report_model->countOfficers($searchArray, 'count');
         
         //Count Grade II Officers
-        $searchArray = array('g.grade' => 'Grade II');
+        $searchArray = array('g.grade' => 'Grade II', 'g.cadre' => 'General Cadre');
         $this->response['countgr2'] = $this->Report_model->countOfficers($searchArray, 'count');
         
         //Count Grade III Officers
-        $searchArray = array('g.grade' => 'Grade III');
+        $searchArray = array('g.grade' => 'Grade III', 'g.cadre' => 'General Cadre');
         $this->response['countgr3'] = $this->Report_model->countOfficers($searchArray, 'count');
+        
+        //Count Grade III Special Officers
+        $searchArray = array( 'g.cadre' => 'Special Cadre');
+        $this->response['countspecial'] = $this->Report_model->countOfficers($searchArray, 'count');
         
         //Count officer Grade I in MoE
         $searchArray = array('g.grade' => 'Grade I', 's1.work_place_id' => '1');
-        $this->response['moe_1'] = $this->Report_model->countOfficers($searchArray, 'count');
+        $this->response['g01']['moe'] = $this->Report_model->countOfficers($searchArray, 'count');
         
         //Count officer Grade II in MoE
-        $searchArray = array('g.grade' => 'Grade II', 's1.work_place_id' => '1');
-        $this->response['moe_2'] = $this->Report_model->countOfficers($searchArray, 'count');
+        $searchArray = array('g.grade' => 'Grade II', 's1.work_place_id' => '1', 'g.cadre' => 'General Cadre');
+        $this->response['g02']['moe'] = $this->Report_model->countOfficers($searchArray, 'count');
         
         //Count officer Grade III in MoE
-        $searchArray = array('g.grade' => 'Grade III', 's1.work_place_id' => '1');
-        $this->response['moe_3'] = $this->Report_model->countOfficers($searchArray, 'count');
+        $searchArray = array('g.grade' => 'Grade III', 's1.work_place_id' => '1', 'g.cadre' => 'General Cadre');
+        $this->response['g03']['moe'] = $this->Report_model->countOfficers($searchArray, 'count');
+        
+        //Count officer Special Cadre in MoE
+        $searchArray = array('s1.work_place_id' => '1', 'g.cadre' => 'Special Cadre');
+        $this->response['gsp']['moe'] = $this->Report_model->countOfficers($searchArray, 'count');
         
         //Count officer Grade I in Exams
         $searchArray = array('g.grade' => 'Grade I', 's1.work_place_id' => '2');
-        $this->response['exam_1'] = $this->Report_model->countOfficers($searchArray, 'count');
+        $this->response['g01']['exam'] = $this->Report_model->countOfficers($searchArray, 'count');
         
         //Count officer Grade II in Exams
-        $searchArray = array('g.grade' => 'Grade II', 's1.work_place_id' => '2');
-        $this->response['exam_2'] = $this->Report_model->countOfficers($searchArray, 'count');
+        $searchArray = array('g.grade' => 'Grade II', 's1.work_place_id' => '2', 'g.cadre' => 'General Cadre');
+        $this->response['g02']['exam'] = $this->Report_model->countOfficers($searchArray, 'count');
         
         //Count officer Grade III in Exams
-        $searchArray = array('g.grade' => 'Grade III', 's1.work_place_id' => '2');
-        $this->response['exam_3'] = $this->Report_model->countOfficers($searchArray, 'count');
+        $searchArray = array('g.grade' => 'Grade III', 's1.work_place_id' => '2', 'g.cadre' => 'General Cadre');
+        $this->response['g03']['exam'] = $this->Report_model->countOfficers($searchArray, 'count');
+        
+        //Count officer Special Cadre in Exams
+        $searchArray = array('s1.work_place_id' => '2', 'g.cadre' => 'Special Cadre');
+        $this->response['gsp']['exam'] = $this->Report_model->countOfficers($searchArray, 'count');
         
         //Count officer Grade I in Publications
         $searchArray = array('g.grade' => 'Grade I', 's1.work_place_id' => '3');
-        $this->response['epub_1'] = $this->Report_model->countOfficers($searchArray, 'count');
+        $this->response['g01']['epub'] = $this->Report_model->countOfficers($searchArray, 'count');
         
         //Count officer Grade II in Publications
-        $searchArray = array('g.grade' => 'Grade II', 's1.work_place_id' => '3');
-        $this->response['epub_2'] = $this->Report_model->countOfficers($searchArray, 'count');
+        $searchArray = array('g.grade' => 'Grade II', 's1.work_place_id' => '3', 'g.cadre' => 'General Cadre');
+        $this->response['g02']['epub'] = $this->Report_model->countOfficers($searchArray, 'count');
         
         //Count officer Grade III in Publications
-        $searchArray = array('g.grade' => 'Grade III', 's1.work_place_id' => '3');
-        $this->response['epub_3'] = $this->Report_model->countOfficers($searchArray, 'count');
+        $searchArray = array('g.grade' => 'Grade III', 's1.work_place_id' => '3', 'g.cadre' => 'General Cadre');
+        $this->response['g03']['epub'] = $this->Report_model->countOfficers($searchArray, 'count');
+        
+        //Count officer Special Cadre in Publications
+        $searchArray = array('s1.work_place_id' => '3', 'g.cadre' => 'Special Cadre');
+        $this->response['gsp']['epub'] = $this->Report_model->countOfficers($searchArray, 'count');
         
         //Count Officer in Provinces
         
-        //$Province_list = array( '01'=>'P01'=>0, '01'=>'P02'=>0, '01'=>'P03', '01'=>'P04'=>0, '01'=>'P05'=>0, '01'=>'P06'=>0, '01'=>'P07'=>0, '01'=>'P08'=>0, '01'=>'P09'=>0 );
         $Province_list = array('01' => array('P01'=>0, 'P02'=>0, 'P03'=>0, 'P03'=>0, 'P04'=>0, 'P05'=>0, 'P06'=>0, 'P07'=>0, 'P08'=>0, 'P09'=>0),
                               '02' => array('P01'=>0, 'P02'=>0, 'P03'=>0, 'P03'=>0, 'P04'=>0, 'P05'=>0, 'P06'=>0, 'P07'=>0, 'P08'=>0, 'P09'=>0),
-                              '03' => array('P01'=>0, 'P02'=>0, 'P03'=>0, 'P03'=>0, 'P04'=>0, 'P05'=>0, 'P06'=>0, 'P07'=>0, 'P08'=>0, 'P09'=>0) );
+                              '03' => array('P01'=>0, 'P02'=>0, 'P03'=>0, 'P03'=>0, 'P04'=>0, 'P05'=>0, 'P06'=>0, 'P07'=>0, 'P08'=>0, 'P09'=>0),
+                              'sp' => array('P01'=>0, 'P02'=>0, 'P03'=>0, 'P03'=>0, 'P04'=>0, 'P05'=>0, 'P06'=>0, 'P07'=>0, 'P08'=>0, 'P09'=>0) );
         
         //Count Grade I officers
         $searchArray = array('g.grade' => 'Grade I');
@@ -128,7 +146,7 @@ class Management extends CI_Controller {
         }
         
         //Count Grade II officers
-        $searchArray = array('g.grade' => 'Grade II');
+        $searchArray = array('g.grade' => 'Grade II', 'g.cadre' => 'General Cadre');
         $Grade1Array = $this->Report_model->countOfficers($searchArray, 'list');
         
         foreach($Grade1Array as $row){
@@ -138,7 +156,7 @@ class Management extends CI_Controller {
         }
         
         //Count Grade III officers
-        $searchArray = array('g.grade' => 'Grade III');
+        $searchArray = array('g.grade' => 'Grade III', 'g.cadre' => 'General Cadre');
         $Grade1Array = $this->Report_model->countOfficers($searchArray, 'list');
         
         foreach($Grade1Array as $row){
@@ -147,8 +165,25 @@ class Management extends CI_Controller {
             }
         }
         
+        //Count Special Cadre officers
+        $searchArray = array('g.cadre' => 'Special Cadre');
+        $Grade1Array = $this->Report_model->countOfficers($searchArray, 'list');
         
-        $this->response['listgrade'] = $Province_list;
+        foreach($Grade1Array as $row){
+            if ($row['province']){
+                $Province_list['sp'][$row['province']]++;
+            }
+        }
+        
+        if ($res == 'res'){
+            $this->response['listgrade'] = $Province_list;
+        }else{
+            $this->response['provinces'] = $Province_list;
+            //echo json_encode($Province_list);
+            echo json_encode($this->response);
+        }
+        
+        
         
         /*$Province_list = array('P01', 'P02', 'P03', 'P03', 'P04', 'P05', 'P06', 'P07', 'P08', 'P09');
         foreach ($Province_list as $Province){

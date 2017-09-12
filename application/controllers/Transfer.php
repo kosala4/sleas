@@ -199,9 +199,9 @@ class Transfer extends CI_Controller {
             $html = $html . $this->load->view('letter/transfer/internal',$this->view_data_array,true);
         }else if($work_place_id == '16'){
             $html = $html . $this->load->view('letter/transfer/school',$this->view_data_array,true);
-        }/*else if($work_place_id == '1' || $work_place_id == '2' || $work_place_id == '3') {
-            $html = $html . $this->load->view('letter/transfer/main_office',$this->view_data_array,true);
-        }*/
+        }else if($work_place_id == '18' AND $recent_work_place == '1') {
+            $html = $html . $this->load->view('letter/transfer/release_to_province',$this->view_data_array,true);
+        }
         
         return $html;
     }

@@ -10,13 +10,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <div class="col-md-6">
                             <div class="alert alert-success">
                                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                                Successfully updated the member details
+                                Successfully updated the details
                             </div>
                         </div>
                 </div>
             <?php } ?>
                 
-
                 <div class="col-md-8">
                     <div class="panel panel-success" style="margin-top:20px;">
                         <div class="panel-heading reg-main-panel">
@@ -60,7 +59,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </table>
                         <table  class="table table-striped table-hover DynamicTable" border="0" >
                             <tr>
-                                <td> <button class="delete_workplace btn btn-large btn-success " id="addDivision" ><i class="fa fa-plus"></i></button> Add New Division </td>
+                                <td> <button class="delete_workplace btn btn-large btn-success " id="addNew" ><i class="fa fa-plus"></i></button> Add New Division </td>
                                 <td> </td>
                                 <td> </td>
                             </tr>
@@ -77,7 +76,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                               <div class="modal-header">
                                   <button type="button" class="close" data-dismiss="modal">&times;</button>
                                   <h4 id="modal_title">  </h4>
-
                               </div>
 
                             <?php echo form_open() ?> 
@@ -120,14 +118,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         
         $('#mnuOne').addClass('menu-open');
         $('#mnu_add_division').addClass('active');   
-        $('#addDivision').attr('disabled', 'true');
+        $('#addNew').attr('disabled', 'true');
                     
         $('#work_place').change(function(){
             var gr = $(this).find(':selected').data('code');
             var workplace_id = $(this).val();
             
             getMainDivision(workplace_id);  
-            $('#addDivision').removeAttr('disabled');
+            $('#addNew').removeAttr('disabled');
                
         });
         
@@ -150,6 +148,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         $(document).on('click', '.delete_division', function(){
             var post_url = "index.php/Main/deleteDivision/"+'2';
             var form_data = new FormData();
+            var work_place_id = $('#work_place').val();
             var place_id = $(this).data("id");
             var row = $(this).closest('tr');
             var rowID = parseInt(row[0].rowIndex) - 1;
@@ -164,7 +163,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 contentType: false,
                 processData: false,
                 success: function(response){
-                    $('#division tbody tr:eq('+rowID+')').remove();
+                    getMainDivision(work_place_id);
                     },
                 error: function (response) {
                     alert("Error Delete! Please try again.");
@@ -172,7 +171,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             });
         });
         
-        $('#addDivision').click(function(){
+        $('#addNew').click(function(){
             var work_place_id = $('#work_place').val();
             $('#work_place_id').val(work_place_id);
             $('#modal_title').text("Add New Division");
@@ -203,14 +202,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     contentType: false,
                     processData: false,
                     success: function(response){
-                        console.log("success");
-
-                        $('#division tbody tr:eq('+rowID+') td:eq("0")').text(division_name);
-
-                        console.log($('#division tbody tr:eq('+rowID+') td:eq("0")').text());
-                        //$("tr").index(rowID)
-                        console.log(rowID);
-
+                        getMainDivision(work_place_id);
                         },
                     error: function (response) {
                         alert("Error Updating! Please try again.");
@@ -229,13 +221,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     contentType: false,
                     processData: false,
                     success: function(response){
-                        console.log(response);
-
-                        $('#division tbody').append('<tr><td>'+division_name+'</td>'+
-                                                       '<td> <button class="edit_division btn btn-xs btn-success " data-ID="'+response+'" data-name="'+division_name+'" ><i class="fa fa-edit"></i></button> ' +
-                                                       ' <button class="delete_division btn btn-xs btn-danger " data-ID="'+response+'" data-name="'+division_name+'" ><i class="fa fs-remove"></i></button> </td>'+
-                                                       '</tr>');
-                        console.log(response);
+                        getMainDivision(work_place_id);
                         },
                     error: function (response) {
                         alert("Error Updating! Please try again.");
@@ -264,13 +250,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                        '</tr>');
                         } else {
                             $('#tablebody').empty();
-                            $('#division tbody').append('<tr>Sorry No Divisiones found in Selected Work Place <td></td><td></td></tr>');
+                            $('#division tbody').append('<tr>Sorry No Divisions found in Selected Work Place <td></td><td></td></tr>');
                         }
                     });
                 },
                 error: function(){
                     $('#tablebody').empty();
-                    $('#division tbody').append('<tr>Sorry No Divisiones found in Selected Work Place <td></td><td></td></tr>');
+                    $('#division tbody').append('<tr>Sorry No Divisions found in Selected Work Place <td></td><td></td></tr>');
                 }
             });
         }
