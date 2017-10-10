@@ -368,7 +368,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <thead>
                                     <tr valign="middle">
                                         <th> State Service </th>
-                                        <th colspan="6" style="text-align:center;"> SLEAS </th>
+                                        <th colspan="7" style="text-align:center;"> SLEAS </th>
                                         <th>  </th>
                                     </tr>
                                     <tr valign="top">
@@ -380,6 +380,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         <th> Medium </th>
                                         <th> Confirmation </th>
                                         <th> Pensionable Date </th>
+                                        <th> Edit </th>
                                     </tr>
                                 </thead>
                                 <tr valign="top">
@@ -391,6 +392,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <td><?php echo $user_details[general][0]['medium'] ;?> </td>
                                     <td><?php echo $user_details[general][0]['confirm'] ;?> </td>
                                     <td><?php echo date("Y-m-d", strtotime(date("Y-m-d", strtotime($user_details[0]['dob'])) . " +60 years")); ?> </td>
+                                    <td> <a href="<?php echo base_url()."index.php/Admin/updateGeneralServiceForm/" . $user_details[general][0]['ID']; ?>" class="edit_service btn btn-xs btn-success pull-middle" role="button"><i class="fa fa-edit"></i></a> </td>
                                 </tr>
                             </table>
                         </div>
@@ -689,6 +691,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <div class="form-group">
                                 <label> Institute/ School </label>
                                 <input type="text" class="form-control" name="q_institute" id="q_institute" placeholder="Institute or School">
+                            </div>
+                            <div class="form-group">
+                                <label> Instition </label>
+                                <input type="radio" class="form-control" name="q_institution" id="q_institution_l"> Local
+                                <input type="radio" class="form-control" name="q_institution" id="q_institution_f"> Foreign
                             </div>
                             <div class="form-group">
                                 <label> Grade/ Marks </label>

@@ -437,6 +437,53 @@ class Admin extends CI_Controller {
         }
     }
     
+    public function updateGeneralServiceForm($id)
+    {
+        $this->check_sess($this->session->user_logged);
+        $searchArray = array('ID' => $id);
+        $this->response['general'] = $this->Form_data_model->searchdb('General_Service', $searchArray);
+        $this->response['subjects'] = $this->Form_data_model->select('subject');
+        
+        //echo $this->response['service']['0']['person_id'];
+		$this->load->view('head');
+		$this->load->view('sclerk_sidebar');
+        
+		$this->load->view('update_general', $this->response);
+		$this->load->view('footer');
+    }
+    
+    public function updateGeneralService()
+    {
+        
+        $person_id = $this->security->xss_clean($_REQUEST['person_id']);
+        $service_id = $this->security->xss_clean($_REQUEST['service_id']);
+        $date_f_appoint = $this->security->xss_clean($_REQUEST['date_f_appoint']);
+        $date_join = $this->security->xss_clean($_REQUEST['date_join']);
+        $way_joined = $this->security->xss_clean($_REQUEST['way_joined']);
+        $cadre = $this->security->xss_clean($_REQUEST['cadre']);
+        $grade = $this->security->xss_clean($_REQUEST['grade']);
+        $special_subject = $this->security->xss_clean($_REQUEST['special_subject']);
+        $medium_recruit = $this->security->xss_clean($_REQUEST['medium_recruit']);
+        $confirm = $this->security->xss_clean($_REQUEST['confirm']);
+        $date_confirm = $this->security->xss_clean($_REQUEST['date_confirm']);
+        $rank_entrance = $this->security->xss_clean($_REQUEST['rank_entrance']);
+
+        //Populate Services Array
+        $service = array('ID' => $service_id, 'f_appoint_date' => $date_f_appoint, 'date_join' => $date_join, 'way_join' => $way_joined, 'cadre' => $cadre, 'grade' => $grade, 'medium' => $medium_recruit, 'confirm' => $confirm, 'confirm_date' => $date_confirm, 'entrance_exam_rank' => $rank_entrance);
+        
+        if($special_subject){ $service['subject'] = $special_subject; }
+        
+        $res = $this->Form_data_model->update('General_Service', 'ID', $service_id, $service);
+        
+        if($res == '1'){
+            redirect('admin/profile/'.$person_id );
+        } else {
+            echo "Error updating!";
+        }
+    }
+    
+    
+    
     public function addLeave(){
         header('Content-Type: application/x-json; charset=utf-8');
         $person_id = $this->input->post('person_id');

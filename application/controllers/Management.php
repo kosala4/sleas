@@ -40,7 +40,7 @@ class Management extends CI_Controller {
 		$this->session->sess_destroy();
 		redirect('/login/index');
 	}
-
+    
     public $response = array("result"=>"none", "data"=>"none");
     
     public function index()
@@ -96,6 +96,9 @@ class Management extends CI_Controller {
         $searchArray = array('s1.work_place_id' => '1', 'g.cadre' => 'Special Cadre');
         $this->response['gsp']['moe'] = $this->Report_model->countOfficers($searchArray, 'count');
         
+        //Count Total Officers in MoE
+        $this->response['tot']['moe'] = $this->response['g01']['moe'] + $this->response['g02']['moe'] + $this->response['g03']['moe'] + $this->response['gsp']['moe'];
+        
         //Count officer Grade I in Exams
         $searchArray = array('g.grade' => 'Grade I', 's1.work_place_id' => '2');
         $this->response['g01']['exam'] = $this->Report_model->countOfficers($searchArray, 'count');
@@ -111,6 +114,9 @@ class Management extends CI_Controller {
         //Count officer Special Cadre in Exams
         $searchArray = array('s1.work_place_id' => '2', 'g.cadre' => 'Special Cadre');
         $this->response['gsp']['exam'] = $this->Report_model->countOfficers($searchArray, 'count');
+        
+        //Count Total Officers in Exams
+        $this->response['tot']['exam'] = $this->response['g01']['exam'] + $this->response['g02']['exam'] + $this->response['g03']['exam'] + $this->response['gsp']['exam'];
         
         //Count officer Grade I in Publications
         $searchArray = array('g.grade' => 'Grade I', 's1.work_place_id' => '3');
@@ -128,12 +134,16 @@ class Management extends CI_Controller {
         $searchArray = array('s1.work_place_id' => '3', 'g.cadre' => 'Special Cadre');
         $this->response['gsp']['epub'] = $this->Report_model->countOfficers($searchArray, 'count');
         
+        //Count Total Officers in Publications
+        $this->response['tot']['epub'] = $this->response['g01']['epub'] + $this->response['g02']['epub'] + $this->response['g03']['epub'] + $this->response['gsp']['epub'];
+        
         //Count Officer in Provinces
         
         $Province_list = array('01' => array('P01'=>0, 'P02'=>0, 'P03'=>0, 'P03'=>0, 'P04'=>0, 'P05'=>0, 'P06'=>0, 'P07'=>0, 'P08'=>0, 'P09'=>0),
                               '02' => array('P01'=>0, 'P02'=>0, 'P03'=>0, 'P03'=>0, 'P04'=>0, 'P05'=>0, 'P06'=>0, 'P07'=>0, 'P08'=>0, 'P09'=>0),
                               '03' => array('P01'=>0, 'P02'=>0, 'P03'=>0, 'P03'=>0, 'P04'=>0, 'P05'=>0, 'P06'=>0, 'P07'=>0, 'P08'=>0, 'P09'=>0),
-                              'sp' => array('P01'=>0, 'P02'=>0, 'P03'=>0, 'P03'=>0, 'P04'=>0, 'P05'=>0, 'P06'=>0, 'P07'=>0, 'P08'=>0, 'P09'=>0) );
+                              'sp' => array('P01'=>0, 'P02'=>0, 'P03'=>0, 'P03'=>0, 'P04'=>0, 'P05'=>0, 'P06'=>0, 'P07'=>0, 'P08'=>0, 'P09'=>0) ,
+                              'tot' => array('P01'=>0, 'P02'=>0, 'P03'=>0, 'P03'=>0, 'P04'=>0, 'P05'=>0, 'P06'=>0, 'P07'=>0, 'P08'=>0, 'P09'=>0) );
         
         //Count Grade I officers
         $searchArray = array('g.grade' => 'Grade I');
@@ -142,6 +152,7 @@ class Management extends CI_Controller {
         foreach($Grade1Array as $row){
             if ($row['province']){
                 $Province_list['01'][$row['province']]++;
+                $Province_list['tot'][$row['province']]++;
             }
         }
         
@@ -152,6 +163,7 @@ class Management extends CI_Controller {
         foreach($Grade1Array as $row){
             if ($row['province']){
                 $Province_list['02'][$row['province']]++;
+                $Province_list['tot'][$row['province']]++;
             }
         }
         
@@ -162,6 +174,7 @@ class Management extends CI_Controller {
         foreach($Grade1Array as $row){
             if ($row['province']){
                 $Province_list['03'][$row['province']]++;
+                $Province_list['tot'][$row['province']]++;
             }
         }
         
@@ -172,6 +185,7 @@ class Management extends CI_Controller {
         foreach($Grade1Array as $row){
             if ($row['province']){
                 $Province_list['sp'][$row['province']]++;
+                $Province_list['tot'][$row['province']]++;
             }
         }
         

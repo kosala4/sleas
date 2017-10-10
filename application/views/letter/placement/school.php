@@ -21,7 +21,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </div>
             
             <div class="col-md-8" style="color:#000;margin-top:20px;">
-            විවෘත තරඟ විභාග ප්‍රතිඵල මත ශ්‍රී ලංකා අධ්‍යාපන පරිපාලන සේවයේ III පන්තියට පත් කරමින් ඔබ වෙත නිකුත් කරන ලද රාජ්‍ය සේවා කොමිෂන් සභා ලේකම්ගේ අංක <?php echo $psc_letter ?> හා  <?php echo $appoint_date; ?>  දිනැති පත්වීම් ලිපියෙහි විධිවිධානයන්ට යටත්ව <?php echo $work_date ?> දින සිට ක්‍රියාත්මක වන පරිදි ඔබ <?php echo ucwords(strtolower($school[0]['institute_name'])); ?> හි <?php echo ucwords(strtolower($designation[0]['designation'])) ?> තනතුර සඳහා පත් කරමි.
+            01. විවෘත තරඟ විභාග ප්‍රතිඵල මත ශ්‍රී ලංකා අධ්‍යාපන පරිපාලන සේවයේ III පන්තියට පත් කරමින් ඔබ වෙත නිකුත් කරන ලද රාජ්‍ය සේවා කොමිෂන් සභා ලේකම්ගේ අංක <?php echo $psc_letter ?> හා  <?php echo $appoint_date; ?>  දිනැති පත්වීම් ලිපියෙහි විධිවිධානයන්ට යටත්ව <?php echo $work_date ?> දින සිට ක්‍රියාත්මක වන පරිදි ඔබ <?php echo ucwords(strtolower($school[0]['institute_name'])); ?> හි <?php echo ucwords(strtolower($designation[0]['designation'])) ?> තනතුර සඳහා පත් කරමි.
             </div>
             
             <div class="col-md-8" style="color:#000;margin-top:20px;">            

@@ -35,7 +35,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <div class="col-md-12" style="margin-top:20px; padding-left:0; padding-right:0;">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <h3 class="panel-title"> SLEAS Officers by Area </h3>
+                            <h3 class="panel-title"> Deployment of SLEAS Officers </h3>
 
                             <div class="panel-tools">
                             </div>
@@ -47,7 +47,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <div class="col-md-6" style="margin-top:20px; padding-left:0; padding-right:0;">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <h3 class="panel-title"> SLEAS Officers by Area </h3>
+                            <h3 class="panel-title"> Deployment of SLEAS Officers </h3>
 
                             <div class="panel-tools">
                             </div>
@@ -59,7 +59,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <div class="col-md-6" style="margin-top:20px; padding-left:0; padding-right:0;">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <h3 class="panel-title"> SLEAS Cadre at Selected Place </h3>
+                            <h3 class="panel-title"> Deployment of SLEAS Officers Vs Cadre </h3>
 
                             <div class="panel-tools">
                             </div>
@@ -125,6 +125,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     </script>
 
     <script type="text/javascript">
+        //Define Cadre Size of Places
+        /*0  - MoE
+          1  - Exams
+          2  - Publications
+          12 - Services
+          3  - Western Province
+          4  - Central Province
+          5  - Southern Province
+          6  - Northern Province
+          7  - Eastern Province
+          8  - N. Western Province
+          9  - N. Central Province
+          10 - Uva Province
+          11 - Sabaragamuwa Province
+          */
         var cadreSize = {'01':'', '02':'', '03':'', 'sp':''};
         cadreSize['01'] = {'0' : 100, '1' : 8, '2' : 2, '12': 3, '3' : 20, '4' : 11, '5' : 11, '6' : 18, '7' : 10, '8' : 11, '9' : 15, '10' : 14, '11' : 15};
         cadreSize['02'] = {'0' : 0, '1' : 0, '2' : 0, '12': 0, '3' : 72, '4' : 36, '5' : 36, '6' : 65, '7' : 32, '8' : 36, '9' : 52, '10' : 48, '11' : 52};
@@ -143,18 +158,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             }else if (selGrade == '02'){
                 modalTitle = "General Cadre GRADE II Officers Details.";
                 
-                
             }else if (selGrade == '03'){
                 modalTitle = "General Cadre GRADE II/III Officers Details.";
-                
                 
             }else if (selGrade == 'sp'){
                 modalTitle = "Special Cadre GRADE II/III Officers Details.";
                 
-                
             }
-            
-            console.log(JSON.stringify(cadreSize[selGrade]));
             
             var post_url = "index.php/Management/countOfficers/2";
             var dataarray = {'<?php echo $this->security->get_csrf_token_name(); ?>':'<?php echo $this->security->get_csrf_hash(); ?>'};
@@ -185,14 +195,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     $('#cadre_details').append('<tr><th> Department of Publications </th> <td>'+cadreSize[selGrade]['2']+'</td> <td>'+res[selGradeg].epub+'</td> <td>'+ (parseInt(cadreSize[selGrade]['2']) - parseInt(res[selGradeg].epub)) +'</td> </tr>');
                     $('#cadre_details').append('<tr><th> Education service </th> <td>'+cadreSize[selGrade]['12']+'</td> <td></td> <td></td> </tr>');
                     $('#cadre_details').append('<tr><th> Western Province </th> <td>'+cadreSize[selGrade]['3']+'</td> <td>'+res.provinces[selGrade].P01+'</td> <td>'+ (parseInt(cadreSize[selGrade]['3']) - parseInt(res.provinces[selGrade].P01)) +'</td> </tr>');
-                    $('#cadre_details').append('<tr><th> Central Province </th> <td>'+cadreSize[selGrade]['4']+'</td> <td>'+res.provinces[selGrade].P03+'</td> <td>'+ (parseInt(cadreSize[selGrade]['4']) - parseInt(res.provinces[selGrade].P03)) +'</td> </tr>');
-                    $('#cadre_details').append('<tr><th> Southern Province </th> <td>'+cadreSize[selGrade]['5']+'</td> <td>'+res.provinces[selGrade].P02+'</td> <td>'+ (parseInt(cadreSize[selGrade]['5']) - parseInt(res.provinces[selGrade].P02)) +'</td> </tr>');
-                    $('#cadre_details').append('<tr><th> Northern Province </th> <td>'+cadreSize[selGrade]['6']+'</td> <td>'+res.provinces[selGrade].P07+'</td> <td>'+ (parseInt(cadreSize[selGrade]['6']) - parseInt(res.provinces[selGrade].P07)) +'</td> </tr>');
-                    $('#cadre_details').append('<tr><th> Eastern Province </th> <td>'+cadreSize[selGrade]['7']+'</td> <td>'+res.provinces[selGrade].P09+'</td> <td>'+ (parseInt(cadreSize[selGrade]['7']) - parseInt(res.provinces[selGrade].P09)) +'</td> </tr>');
-                    $('#cadre_details').append('<tr><th> North Western Province </th> <td>'+cadreSize[selGrade]['8']+'</td> <td>'+res.provinces[selGrade].P05+'</td> <td>'+ (parseInt(cadreSize[selGrade]['8']) - parseInt(res.provinces[selGrade].P05)) +'</td> </tr>');
-                    $('#cadre_details').append('<tr><th> North Central Province </th> <td>'+cadreSize[selGrade]['9']+'</td> <td>'+res.provinces[selGrade].P06+'</td> <td>'+ (parseInt(cadreSize[selGrade]['9']) - parseInt(res.provinces[selGrade].P06)) +'</td> </tr>');
-                    $('#cadre_details').append('<tr><th> Uva Province </th> <td>'+cadreSize[selGrade]['10']+'</td> <td>'+res.provinces[selGrade].P04+'</td> <td>'+ (parseInt(cadreSize[selGrade]['10']) - parseInt(res.provinces[selGrade].P04)) +'</td> </tr>');
-                    $('#cadre_details').append('<tr><th> Sabaragamuwa Province </th> <td>'+cadreSize[selGrade]['11']+'</td> <td>'+res.provinces[selGrade].P08+'</td> <td>'+ (parseInt(cadreSize[selGrade]['11']) - parseInt(res.provinces[selGrade].P08)) +'</td> </tr>');
+                    $('#cadre_details').append('<tr><th> Central Province </th> <td>'+cadreSize[selGrade]['4']+'</td> <td>'+res.provinces[selGrade].P02+'</td> <td>'+ (parseInt(cadreSize[selGrade]['4']) - parseInt(res.provinces[selGrade].P02)) +'</td> </tr>');
+                    $('#cadre_details').append('<tr><th> Southern Province </th> <td>'+cadreSize[selGrade]['5']+'</td> <td>'+res.provinces[selGrade].P03+'</td> <td>'+ (parseInt(cadreSize[selGrade]['5']) - parseInt(res.provinces[selGrade].P03)) +'</td> </tr>');
+                    $('#cadre_details').append('<tr><th> Northern Province </th> <td>'+cadreSize[selGrade]['6']+'</td> <td>'+res.provinces[selGrade].P04+'</td> <td>'+ (parseInt(cadreSize[selGrade]['6']) - parseInt(res.provinces[selGrade].P04)) +'</td> </tr>');
+                    $('#cadre_details').append('<tr><th> Eastern Province </th> <td>'+cadreSize[selGrade]['7']+'</td> <td>'+res.provinces[selGrade].P05+'</td> <td>'+ (parseInt(cadreSize[selGrade]['7']) - parseInt(res.provinces[selGrade].P05)) +'</td> </tr>');
+                    $('#cadre_details').append('<tr><th> North Western Province </th> <td>'+cadreSize[selGrade]['8']+'</td> <td>'+res.provinces[selGrade].P06+'</td> <td>'+ (parseInt(cadreSize[selGrade]['8']) - parseInt(res.provinces[selGrade].P06)) +'</td> </tr>');
+                    $('#cadre_details').append('<tr><th> North Central Province </th> <td>'+cadreSize[selGrade]['9']+'</td> <td>'+res.provinces[selGrade].P07+'</td> <td>'+ (parseInt(cadreSize[selGrade]['9']) - parseInt(res.provinces[selGrade].P07)) +'</td> </tr>');
+                    $('#cadre_details').append('<tr><th> Uva Province </th> <td>'+cadreSize[selGrade]['10']+'</td> <td>'+res.provinces[selGrade].P08+'</td> <td>'+ (parseInt(cadreSize[selGrade]['10']) - parseInt(res.provinces[selGrade].P08)) +'</td> </tr>');
+                    $('#cadre_details').append('<tr><th> Sabaragamuwa Province </th> <td>'+cadreSize[selGrade]['11']+'</td> <td>'+res.provinces[selGrade].P09+'</td> <td>'+ (parseInt(cadreSize[selGrade]['11']) - parseInt(res.provinces[selGrade].P09)) +'</td> </tr>');
                     
                 },
                 error: function(){
@@ -207,49 +217,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         
         google.charts.load('current', {'packages':['corechart', 'table']});
         google.charts.setOnLoadCallback(drawChart);
-        //google.charts.setOnLoadCallback(drawPieChart);
 
         function drawChart() {
             var data = google.visualization.arrayToDataTable([
-            ['Province', 'Grade I', 'Grade II', 'Grade III', 'Special Cadre'],
-            ['MoE', <?php echo $g01['moe']; ?>, <?php echo $g02['moe']; ?>, <?php echo $g03['moe']; ?>, <?php echo $gsp['moe']; ?>],
-            ['Exams', <?php echo $g01['exam']; ?>, <?php echo $g02['exam']; ?>, <?php echo $g03['exam']; ?>, <?php echo $gsp['exam']; ?>],
-            ['Publications', <?php echo $g01['epub']; ?>, <?php echo $g02['epub']; ?>, <?php echo $g03['epub']; ?>, <?php echo $gsp['epub']; ?>],
-            ['Western', <?php echo $listgrade['01']['P01']; ?>, <?php echo $listgrade['02']['P01']; ?>, <?php echo $listgrade['03']['P01']; ?>, <?php echo $listgrade['sp']['P01']; ?>],
-            ['Central', <?php echo $listgrade['01']['P02']; ?>, <?php echo $listgrade['02']['P02']; ?>, <?php echo $listgrade['03']['P02']; ?>, <?php echo $listgrade['sp']['P02']; ?>],
-            ['Southern', <?php echo $listgrade['01']['P03']; ?>, <?php echo $listgrade['02']['P03']; ?>, <?php echo $listgrade['03']['P03']; ?>, <?php echo $listgrade['sp']['P03']; ?>],
-            ['Northern', <?php echo $listgrade['01']['P04']; ?>, <?php echo $listgrade['02']['P04']; ?>, <?php echo $listgrade['03']['P04']; ?>, <?php echo $listgrade['sp']['P04']; ?>],
-            ['Eastern', <?php echo $listgrade['01']['P05']; ?>, <?php echo $listgrade['02']['P05']; ?>, <?php echo $listgrade['03']['P05']; ?>, <?php echo $listgrade['sp']['P05']; ?>],
-            ['N. Western', <?php echo $listgrade['01']['P06']; ?>, <?php echo $listgrade['02']['P06']; ?>, <?php echo $listgrade['03']['P06']; ?>, <?php echo $listgrade['sp']['P06']; ?>],
-            ["N. Central", <?php echo $listgrade['01']['P07']; ?>, <?php echo $listgrade['02']['P07']; ?>, <?php echo $listgrade['03']['P07']; ?>, <?php echo $listgrade['sp']['P07']; ?>],
-            ['Uva', <?php echo $listgrade['01']['P08']; ?>, <?php echo $listgrade['02']['P08']; ?>, <?php echo $listgrade['03']['P08']; ?>, <?php echo $listgrade['sp']['P08']; ?>],
-            ['Sabaragamuwa', <?php echo $listgrade['01']['P09']; ?>, <?php echo $listgrade['02']['P09']; ?>, <?php echo $listgrade['03']['P09']; ?>, <?php echo $listgrade['sp']['P09']; ?>]
+            ['Province', 'Grade I', 'Grade II', 'Grade III', 'Special Cadre', 'Total'],
+            ['MoE', <?php echo $g01['moe']; ?>, <?php echo $g02['moe']; ?>, <?php echo $g03['moe']; ?>, <?php echo $gsp['moe']; ?>, <?php echo $tot['moe']; ?>],
+            ['Exams', <?php echo $g01['exam']; ?>, <?php echo $g02['exam']; ?>, <?php echo $g03['exam']; ?>, <?php echo $gsp['exam']; ?>, <?php echo $tot['exam']; ?>],
+            ['Publications', <?php echo $g01['epub']; ?>, <?php echo $g02['epub']; ?>, <?php echo $g03['epub']; ?>, <?php echo $gsp['epub']; ?>, <?php echo $tot['epub']; ?>],
+            ['Western', <?php echo $listgrade['01']['P01']; ?>, <?php echo $listgrade['02']['P01']; ?>, <?php echo $listgrade['03']['P01']; ?>, <?php echo $listgrade['sp']['P01']; ?>, <?php echo $listgrade['tot']['P01']; ?>],
+            ['Central', <?php echo $listgrade['01']['P02']; ?>, <?php echo $listgrade['02']['P02']; ?>, <?php echo $listgrade['03']['P02']; ?>, <?php echo $listgrade['sp']['P02']; ?>, <?php echo $listgrade['tot']['P02']; ?>],
+            ['Southern', <?php echo $listgrade['01']['P03']; ?>, <?php echo $listgrade['02']['P03']; ?>, <?php echo $listgrade['03']['P03']; ?>, <?php echo $listgrade['sp']['P03']; ?>, <?php echo $listgrade['tot']['P03']; ?>],
+            ['Northern', <?php echo $listgrade['01']['P04']; ?>, <?php echo $listgrade['02']['P04']; ?>, <?php echo $listgrade['03']['P04']; ?>, <?php echo $listgrade['sp']['P04']; ?>, <?php echo $listgrade['tot']['P04']; ?>],
+            ['Eastern', <?php echo $listgrade['01']['P05']; ?>, <?php echo $listgrade['02']['P05']; ?>, <?php echo $listgrade['03']['P05']; ?>, <?php echo $listgrade['sp']['P05']; ?>, <?php echo $listgrade['tot']['P05']; ?>],
+            ['N. Western', <?php echo $listgrade['01']['P06']; ?>, <?php echo $listgrade['02']['P06']; ?>, <?php echo $listgrade['03']['P06']; ?>, <?php echo $listgrade['sp']['P06']; ?>, <?php echo $listgrade['tot']['P06']; ?>],
+            ["N. Central", <?php echo $listgrade['01']['P07']; ?>, <?php echo $listgrade['02']['P07']; ?>, <?php echo $listgrade['03']['P07']; ?>, <?php echo $listgrade['sp']['P07']; ?>, <?php echo $listgrade['tot']['P07']; ?>],
+            ['Uva', <?php echo $listgrade['01']['P08']; ?>, <?php echo $listgrade['02']['P08']; ?>, <?php echo $listgrade['03']['P08']; ?>, <?php echo $listgrade['sp']['P08']; ?>, <?php echo $listgrade['tot']['P08']; ?>],
+            ['Sabaragamuwa', <?php echo $listgrade['01']['P09']; ?>, <?php echo $listgrade['02']['P09']; ?>, <?php echo $listgrade['03']['P09']; ?>, <?php echo $listgrade['sp']['P09']; ?>, <?php echo $listgrade['tot']['P09']; ?>]
             ]);
-
-            var options = {
-                chart: {
-                    title: 'SLEAS Officers',
-                    subtitle: 'Officers in areas',
-                    chartArea:{left:5,top:0,width:'100%',height:'75%'},
-                    tooltip: {trigger:'selection'},
-                    
-                }
-            };
-            var chart = new google.visualization.ColumnChart(document.getElementById('columnchart_material'));
-            chart.draw(data, options);
-            
-            var PieOptions = {
-                chart: {
-                    title: 'SLEAS Officers',
-                    subtitle: 'Officers in areas',
-                    tooltip: {trigger:'selection'},
-                    width: 500,
-                    height: 400,
-                },
-                view: {'columns': [0, 3]}
-            };
-            //var piechart = new google.visualization.PieChart(document.getElementById('piechart_div'));
-            //piechart.draw(data, PieOptions);
             
             var piechart = new google.visualization.ChartWrapper({
               'chartType': 'PieChart',
@@ -257,12 +241,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 'dataTable': data,
               'options': {
                 'width': 500,
-                'height': 400,
+                'height': 300,
                 'pieSliceText': 'label'
               },
               // Instruct the piechart to use colums 0 (Name) and 1 (Donuts Eaten)
               // from the 'data' DataTable.
-              'view': {'columns': [0, 1]}
+              'view': {'columns': [0, 5]}
             });
             piechart.draw();
             
@@ -274,8 +258,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             function selectHandler(){
                 var chartObject = piechart.getChart();
                 var selection = chartObject.getSelection();
-                //alert(selection[0].row);
-                //alert(cadreSize['01'][selection[0].row]);
+                
                 var Placedata = google.visualization.arrayToDataTable([
                     ['', 'Grade I', 'Grade II', 'Grade II/III', 'Special Cadre'],
                     ['Cadre Size', cadreSize['01'][selection[0].row], cadreSize['02'][selection[0].row], cadreSize['03'][selection[0].row], cadreSize['sp'][selection[0].row]],
@@ -293,6 +276,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 table.draw(Placedata, {showRowNumber: false, width: '100%', sort: 'disable'});
             }
             
+            var options = {
+                chart: {
+                    title: 'SLEAS Officers',
+                    subtitle: 'Officers in areas',
+                    chartArea:{left:5,top:0,width:'100%',height:'75%'},
+                    tooltip: {trigger:'selection'},
+                    
+                }
+            };
+            data.removeColumn(data.getNumberOfColumns()-1);		// remove total column
+            var chart = new google.visualization.ColumnChart(document.getElementById('columnchart_material'));
+            chart.draw(data, options);
         }
         
         function drawPieChart() {

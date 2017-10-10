@@ -185,7 +185,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                 <div class="panel-heading reg-sec-panel">
                                                   <h4 class="panel-title">
                                                       <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
-        Contact Information (Tempory)</a>
+        Contact Information (Temporary)</a>
                                                     </h4>
                                                 </div>
                                                 <div id="collapse3" class="panel-collapse collapse">
@@ -218,18 +218,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     <div class="col-md-6">
 
                                                         <div class="form-group">
-                                                            <label>Mobile Phone number</label>
-                                                            <input type="text" class="form-control validate[custom[phone]]" name="mobiletemp" id="mobiletemp" placeholder="Mobile No" data-prompt-position="topLeft" />
-                                                        </div>
-
-                                                        <div class="form-group">
                                                             <label>Land phone no 02</label>
                                                             <input type="text" class="form-control validate[custom[phone]]" name="landptemp" id="landptemp" placeholder="Land No" data-prompt-position="topLeft" />
-                                                        </div>
-
-                                                        <div class="form-group">
-                                                            <label>Email address</label>
-                                                            <input type="text" class="form-control validate[custom[email]]" name="emailtemp" id="emailtemp" placeholder="Email Address" data-prompt-position="topLeft" />
                                                         </div>
 
                                                     </div>

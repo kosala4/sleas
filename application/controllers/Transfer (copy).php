@@ -99,12 +99,14 @@ class Transfer extends CI_Controller {
         $divisional_office_id = $this->security->xss_clean($_REQUEST['divisional_office']);
         $salary_drawn = $this->security->xss_clean($_REQUEST['salary_drawn']);
         
+        
         //Get Data from database
         $service_id_array = $this->Form_data_model->get_recent_service_id();
         $service_id = $service_id_array['0']['ID'] + 1;
         
         $search_array = array('ID'=> $person_id);
         $personal_details = $this->Form_data_model->searchdb('Personal_Details', $search_array);
+        
         
         $work_place = $this->Form_data_model->searchdbvalue('Work_Place', 'ID', $work_place_id);
         $main_division = $this->Form_data_model->searchdbvalue('Main_Office_Divisions', 'ID', $main_division_id);
@@ -146,7 +148,7 @@ class Transfer extends CI_Controller {
             case 17:
                 $service['sub_location_id'] = $institute_id;
                 break;
-                
+
             default:
         }
         
@@ -156,28 +158,22 @@ class Transfer extends CI_Controller {
         
         $service['barcode'] = $this->view_data_array['barcode'];
         
-        //$res = $this->Form_data_model->insertData('Service', $service);
-        $res = '1';
+        $res = $this->Form_data_model->insertData('Service', $service);
+        //$res = '1';
         if ($res == 1){
             if ($type){
                 redirect('admin/profile/'.$person_id );
             } else {
                 //generate Letter as PDF
                 $this->view_data_array = array('work_place'=>$work_place, 'division'=>$main_division, 'branch'=>$main_branch, 'personal_details'=>$personal_details, 'work_date'=>$work_date, 'psc_letter'=>$psc_letter, 'appoint_date'=>$appoint_date, 'off_letter_no'=>$official_letter_no, 'province'=>$province, 'school' => $institute, 'designation' => $designation);
-                
-                $letter_html['pdfFilePath'] = 'file_library/'.$person_id.'/service/';
-                $letter_html['pdfFileName'] = date("Y-m-d") . '-' . $nic. '-Transfer' . '.pdf';
+
+                $pdfFilePath = 'file_library/'.$person_id.'/service/';
+                $pdfFileName = date("Y-m-d") . '-' . $nic. '-Transfer' . '.pdf';
                 //Get letter HTML
-                $letter_html['letter'] = $this->generate_letter_data($view_data_array, $person_id, $work_place_id);
-                
+                $letter_html = $this->generate_letter_data($view_data_array, $person_id, $work_place_id);
+
                 //Generate Letter pdf
-                //$this->generate_letter($letter_html, $pdfFilePath, $pdfFileName);
-                
-                $this->load->view('head');
-                $this->load->view('sclerk_sidebar');
-                $this->load->view('letter/view-letter',$letter_html);
-                $this->load->view('footer');
-                
+                $this->generate_letter($letter_html, $pdfFilePath, $pdfFileName);
             }
             
         }else {
@@ -187,6 +183,10 @@ class Transfer extends CI_Controller {
     
     public function generate_letter_data($view_data_array, $person_id, $work_place_id)
     {
+        
+		$this->load->view('head');
+		$this->load->view('sclerk_sidebar');
+        $this->load->view('letter/letter-header',$this->view_data_array);
         
         $html = $this->load->view('letter/letter-header',$this->view_data_array,true);
         
@@ -206,15 +206,6 @@ class Transfer extends CI_Controller {
         return $html;
     }
     
-    public function print_letter()
-    {
-        $letter_html = $this->security->xss_clean($_REQUEST['editor1']);
-        $fname = $this->security->xss_clean($_REQUEST['fname']);
-        $fpath = $this->security->xss_clean($_REQUEST['fpath']);
-        
-        $this->generate_letter($letter_html, $fpath, $fname);
-    }
-    
     public function generate_letter($letter_html, $pdfFilePath, $pdfFileName){
         $this->load->library('m_pdf');
 
@@ -227,6 +218,7 @@ class Transfer extends CI_Controller {
         if(is_writable($barcode_image)){
             unlink($barcode_image);
         }
+        
         
         if (!file_exists($pdfFilePath)) {
             mkdir($pdfFilePath, 0777, true);

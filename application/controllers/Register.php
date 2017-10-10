@@ -66,8 +66,6 @@ class Register extends CI_Controller {
         $addresstemp3 = $this->security->xss_clean($_REQUEST['addresstemp3']);
         $pocodetemp = $this->security->xss_clean($_REQUEST['pocodetemp']);
         $landptemp = $this->security->xss_clean($_REQUEST['landptemp']);
-        $mobiletemp = $this->security->xss_clean($_REQUEST['mobiletemp']);
-        $emailtemp = $this->security->xss_clean($_REQUEST['emailtemp']);
 
         $date_join = $this->security->xss_clean($_REQUEST['date_join']);
         $way_joined = $this->security->xss_clean($_REQUEST['way_joined']);
@@ -128,7 +126,7 @@ class Register extends CI_Controller {
         
         $contact_details_per = array('person_id' => $person_id, 'nic' => $nic, 'address_type' => 'permanant', 'address_1' => $address1, 'address_2' => $address2, 'address_3' => $address3, 'postal_code' => $pocode, 'mobile' => $mobile, 'telephone' => $landp, ' 	email' => $email);
         
-        $contact_details_temp = array('person_id' => $person_id, 'nic' => $nic, 'address_type' => 'temp', 'address_1' => $addresstemp1, 'address_2' => $addresstemp2, 'address_3' => $addresstemp3, 'postal_code' => $pocodetemp, 'mobile' => $mobiletemp, 'telephone' => $landptemp, 'email' => $emailtemp);
+        $contact_details_temp = array('person_id' => $person_id, 'nic' => $nic, 'address_type' => 'temp', 'address_1' => $addresstemp1, 'address_2' => $addresstemp2, 'address_3' => $addresstemp3, 'postal_code' => $pocodetemp, 'telephone' => $landptemp);
         
         $general_service = array('person_id' => $person_id, 'nic' => $nic, 'date_join' => date("y-m-d", strtotime($date_join)), 'way_join' => $way_joined,'grade' => $present_grade, 'medium' => $medium_recruit, 'confirm' => $confirm, 'confirm_date' => $date_confirm, 'f_appoint_date' => $date_f_appoint, 'entrance_exam_rank' => $rank_entrance);
         
