@@ -9,30 +9,30 @@ class User_model extends CI_Model
 		$this->db->where($array);
 		$query = $this->db->get('User');
 		//SELECT * FROM user
-		
+
 		$data  = $query->result_array();
 		return $data;
 	}
 
 	public function login($uname, $pwd){
 		$this->db->where('LOWER(user_name)', strtolower($uname));
-		$this->db->where('passwd', $pwd);
+		//$this->db->where('passwd', $pwd);
 		$query = $this->db->get('User');
 
-		//$data  = $query->result_array();
-        
+		$data  = $query->result_array();
+
 		if ($query->num_rows() == 1) {
-            //if(password_verify($pwd, $data['0']['passwd'])){
-                
+            if(password_verify($pwd, $data['0']['passwd'])){
+
 			return 1;
-            //}
+            }
 		}
 	}
-	
+
 	public function insert($data)
-	{	
-		$this->db->insert('User', $data); 
-		
+	{
+		$this->db->insert('User', $data);
+
 		if( $this->db->affected_rows() > 0)
 		{
 			return 1;
@@ -41,7 +41,7 @@ class User_model extends CI_Model
 			return 0;
 		}
 	}
-	
+
 	public function select($data)
 	{
 		$this->db->select($data);
@@ -54,13 +54,13 @@ class User_model extends CI_Model
 			return 0;
 		}
 	}
-    
+
     public function check_username($username)
     {
 		$this->db->select('user_name');
         $this->db->where('user_name', $username);
 		$query = $this->db->get('User');
-        
+
         if ($query->num_rows() >= 1) {
 			return 1;
 		} else{
@@ -70,7 +70,7 @@ class User_model extends CI_Model
 
 	public function update()
 	{}
-	
+
 	public function delete()
 	{}
 }
