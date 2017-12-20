@@ -1,7 +1,7 @@
 <?php
 
 class Form_data_model extends CI_Model{
-    
+
     public function select($table){
         switch ($table){
             case "subject":
@@ -44,80 +44,80 @@ class Form_data_model extends CI_Model{
                 $res = $this->getAllRecords('Leave_Types');
                 break;
         }
-        
+
         return $res;
     }
-    
+
     public function get_province_offices($work_place_id){
         $search_array = array('work_place_id'=> $work_place_id);
         $result = $this->searchdb('Province_Offices', $search_array);
-        
-        return $result;  
+
+        return $result;
     }
-    
+
     public function get_main_division($work_place_id){
         $search_array = array('work_place_id'=> $work_place_id);
         $result = $this->searchdb('Main_Office_Divisions', $search_array);
-        
+
         return $result;
     }
-    
+
     public function get_main_branch($work_place_id){
         $search_array = array('work_place_id'=> $work_place_id);
         $result = $this->searchdb('Main_Office_Branches', $search_array);
-        
+
         return $result;
     }
-    
+
     public function get_rel_place($rel_type_id){
         $search_array = array('rel_type_id'=> $rel_type_id);
         $result = $this->searchdb('Releasement_Place', $search_array);
-        
+
         return $result;
     }
-    
+
     public function get_districts($province_id){
         $search_array = array('province_id'=> $province_id);
         $result = $this->searchdb('District_List', $search_array);
-        
+
         return $result;
     }
-    
+
     public function get_zones($district_id){
         $search_array = array('dist_id'=> $district_id);
         $result = $this->searchdb('Zone_List', $search_array);
-        
+
         return $result;
     }
-    
+
     public function get_zone_offices($district_id){
         $search_array = array('dist_id'=> $district_id);
         $result = $this->searchdb('Zonal_Offices', $search_array);
-        
+
         return $result;
     }
-    
+
     public function get_divisions($zone_id){
         $search_array = array('zone_id'=> $zone_id);
         $result = $this->searchdb('Division_List', $search_array);
-        
+
         return $result;
     }
-    
+
     public function get_divisional_offices($zone_id){
         $search_array = array('zone_id'=> $zone_id);
         $result = $this->searchdb('Divisional_Offices', $search_array);
-        
+
         return $result;
     }
-    
+
     public function get_institutes($workplace_id, $division_id){
         $search_array = array('div_id' => $division_id, 'workplace_id'=> $workplace_id);
         $result = $this->searchdb('Institute', $search_array);
-        
+
         return $result;
     }
-    
+
     public function searchdb($table, $search_array){
 		$this->db->where($search_array);
 		$query = $this->db->get($table);
@@ -129,7 +129,7 @@ class Form_data_model extends CI_Model{
 			return 0;
 		}
     }
-    
+
     public function searchdbvalue($table, $field, $value){
         $array = array($field => $value);
 		$this->db->where($array);
@@ -142,9 +142,9 @@ class Form_data_model extends CI_Model{
 			return 0;
 		}
     }
-    
+
     public function getAllRecords($table){
-        
+
 		$this->db->select('*');
 		$query = $this->db->get($table);
 
@@ -155,60 +155,60 @@ class Form_data_model extends CI_Model{
 			return 0;
 		}
     }
-    
+
     public function insertData($table, $data){
-        $this->db->insert($table, $data); 
-		
+        $this->db->insert($table, $data);
+
 		if( $this->db->affected_rows() > 0) {
 			return 1;
 		} else {
 			return 0;
 		}
     }
-    
+
     public function updateprofileImage($key, $data){
         $this->db->where('ID', $key);
         $this->db->update('Personal_Details', $data);
-		
+
 		if( $this->db->affected_rows() > 0) {
 			return 1;
 		} else {
 			return 0;
 		}
     }
-    
+
     public function get_recent_service_id(){
         $this->db->select('ID');
         $this->db->order_by('ID', 'DESC');
         $this->db->limit(1);
         $query = $this->db->get('Service');
         $res  = $query->result_array();
-        
+
         return $res;
     }
-    
+
     public function get_recent_person_id(){
         $this->db->select('ID');
         $this->db->order_by('ID', 'DESC');
         $this->db->limit(1);
         $query = $this->db->get('Personal_Details');
         $res  = $query->result_array();
-        
+
         return $res;
     }
-    
+
     public function registerNew($personal_details, $contact_details_per, $general_service, $service, $releasement, $contact_details_temp, $userAccount){
         if (!$releasement){
             if (!$contact_details_temp){
                 $res=0;
                 $this->db->trans_start();
-                
+
                 $this->db->insert('Personal_Details', $personal_details);
                 $this->db->insert('Contact_Details', $contact_details_per);
                 $this->db->insert('General_Service', $general_service);
                 $this->db->insert('Service', $service);
                 $this->db->insert('User', $userAccount);
-                
+
                 if ($this->db->trans_status() === TRUE){
                     $res = 1;
                     $this->db->trans_complete();
@@ -217,19 +217,19 @@ class Form_data_model extends CI_Model{
                     log_message('error', $err_message);
                     $this->db->trans_complete();
                 }
-                
+
                 return $res;
             }else{
                 $res=0;
                 $this->db->trans_start();
-                
+
                 $this->db->insert('Personal_Details', $personal_details);
                 $this->db->insert('Contact_Details', $contact_details_per);
                 $this->db->insert('General_Service', $general_service);
                 $this->db->insert('Service', $service);
                 $this->db->insert('Contact_Details', $contact_details_temp);
                 $this->db->insert('User', $userAccount);
-                
+
                 if ($this->db->trans_status() === TRUE){
                     $res = 1;
                     $this->db->trans_complete();
@@ -238,15 +238,15 @@ class Form_data_model extends CI_Model{
                     log_message('error', $err_message);
                     $this->db->trans_complete();
                 }
-                
+
                 return $res;
-                
+
             }
         } else {
             if (!$contact_details_temp){
                 $res=0;
                 $this->db->trans_start();
-                
+
                 $this->db->insert('Personal_Details', $personal_details);
                 $this->db->insert('Contact_Details', $contact_details_per);
                 $this->db->insert('General_Service', $general_service);
@@ -262,12 +262,12 @@ class Form_data_model extends CI_Model{
                     log_message('error', $err_message);
                     $this->db->trans_complete();
                 }
-                
+
                 return $res;
             }else{
                 $res=0;
                 $this->db->trans_start();
-                
+
                 $this->db->insert('Personal_Details', $personal_details);
                 $this->db->insert('Contact_Details', $contact_details_per);
                 $this->db->insert('General_Service', $general_service);
@@ -275,7 +275,7 @@ class Form_data_model extends CI_Model{
                 $this->db->insert('Contact_Details', $contact_details_temp);
                 $this->db->insert('Releasement', $releasement);
                 $this->db->insert('User', $userAccount);
-                
+
                 if ($this->db->trans_status() === TRUE){
                     $res = 1;
                     $this->db->trans_complete();
@@ -284,31 +284,31 @@ class Form_data_model extends CI_Model{
                     log_message('error', $err_message);
                     $this->db->trans_complete();
                 }
-                
+
                 return $res;
-                
+
             }
         }
-        
+
     }
-    
+
     public function get_Officers_List(){
-        
-        $this->db->select('Personal_Details.ID AS person_id, Personal_Details.NIC, Personal_Details.title, Personal_Details.in_name, Designation.designation, Work_Place.work_place, s1.ID');
+
+        $this->db->select('Personal_Details.ID AS person_id, Personal_Details.NIC, Personal_Details.title, UPPER(Personal_Details.in_name) AS in_name, Designation.designation, Work_Place.work_place, s1.ID');
         $this->db->from('Personal_Details');
         $this->db->join('Service s1', 'Personal_Details.ID = s1.person_id', 'inner');
         $this->db->join('Designation', 's1.designation_id = Designation.ID', 'left');
         $this->db->join('Work_Place', 's1.work_place_id = Work_Place.ID');
-        $this->db->join('Service s2', 'Personal_Details.ID = s2.person_id AND 
+        $this->db->join('Service s2', 'Personal_Details.ID = s2.person_id AND
     (s1.time_updated < s2.time_updated OR s1.time_updated = s2.time_updated AND s1.time_updated < s2.time_updated)', 'left outer');
         $this->db->where('s2.person_id is NULL');
-        
+
         $this->db->order_by('Personal_Details.NIC', 's1.NIC');
         $query = $this->db->get();
         $res  = $query->result_array();
         return $res;
     }
-    
+
     public function search_officers($searchField, $searchKey){
         $this->db->cache_off();
         $this->db->select('Personal_Details.ID, Personal_Details.NIC, Personal_Details.title, Personal_Details.in_name, Designation.designation, Work_Place.work_place');
@@ -316,7 +316,7 @@ class Form_data_model extends CI_Model{
         $this->db->join('Service s1', 'Personal_Details.ID = s1.person_id');
         $this->db->join('Designation', 'Designation.ID = s1.designation_id', 'left');
         $this->db->join('Work_Place', 'Work_Place.ID = s1.work_place_id');
-        $this->db->join('Service s2', 'Personal_Details.ID = s2.person_id AND 
+        $this->db->join('Service s2', 'Personal_Details.ID = s2.person_id AND
     (s1.time_updated < s2.time_updated OR s1.time_updated = s2.time_updated AND s1.time_updated < s2.time_updated)', 'left outer');
         $this->db->where('s2.person_id is NULL');
         $this->db->like('LOWER(Personal_Details.'.$searchField.')', $searchKey, after);
@@ -331,12 +331,12 @@ class Form_data_model extends CI_Model{
 		}
         //return $query;
     }
-    
+
     //LEFT JOIN (SELECT p2.PersonID, p2.PlaceTypeID, c.CityName FROM DLAccountingSystem.tblPersons p2 INNER JOIN DLAccountingSystem.tblCity c ON p2.ObjectID = c.CityID WHERE PlaceTypeID = @CityTypeID) tcity ON p1.PersonID = tcity.PersonID
-    
+
     public function get_Officer_Details($personID){
         $this->db->cache_off();
-        $this->db->select('*, s1.work_place_id, p.ID, s1.ID AS service_id');
+        $this->db->select('*, UPPER(p.in_name) AS in_name, s1.work_place_id, p.ID, s1.ID AS service_id');
         $this->db->from('Service s1');
         $this->db->join('Personal_Details p', 'p.ID = s1.person_id');
         $this->db->join('Main_Office_Branches br', 's1.work_branch_id = br.ID','left');
@@ -348,7 +348,7 @@ class Form_data_model extends CI_Model{
         $this->db->order_by('s1.duty_date', 'DESC');
         $query = $this->db->get();
         $res = $query->result_array();
-        
+
         //Get Contact Details of officer and add to $res Array
         $this->db->select('*');
         $this->db->from('Contact_Details');
@@ -356,21 +356,21 @@ class Form_data_model extends CI_Model{
         $this->db->where('address_type', 'permanant');
         $query_contact = $this->db->get();
         $res['contact'] = $query_contact->result_array();
-        
+
         //Get General Service Details of officer and add to $res Array
         $this->db->select('*');
         $this->db->from('General_Service');
         $this->db->where('person_id', $personID);
         $ge_service_query = $this->db->get();
         $res['general'] = $ge_service_query->result_array();
-        
+
         //Get Salary Details of officer and add to $res Array
         $this->db->select('*');
         $this->db->from('Salary');
         $this->db->where('person_id', $personID);
         $ge_service_query = $this->db->get();
         $res['salary'] = $ge_service_query->result_array();
-        
+
         //Get Qualifications Details of officer and add to $res Array
         $this->db->select('*, q.ID as qid');
         $this->db->from('Qualifications q');
@@ -380,7 +380,7 @@ class Form_data_model extends CI_Model{
         $this->db->order_by('q.qualified_date', 'ASC');
         $ge_service_query = $this->db->get();
         $res['qual'] = $ge_service_query->result_array();
-        
+
         //Get Leave Details of officer and add to $res Array
         $this->db->select('*, l.ID as lid');
         //$this->db->select('MAX(l.ID) as lid, MAX(l.leave_year) as leave_year, SUM(l.leave_count) as leave_count, MAX(lt.leave_type) as leave_type');
@@ -392,7 +392,7 @@ class Form_data_model extends CI_Model{
         //$this->db->group_by("l.leave_year, l.leave_type_id HAVING SUM(l.leave_type_id) > 0");
         $leave_query = $this->db->get();
         $res['leave'] = $leave_query->result_array();
-        
+
         //Output Officer details
         if ($query->num_rows() >= 1) {
 			//$res = $query->result_array();
@@ -411,31 +411,31 @@ class Form_data_model extends CI_Model{
                         $this->db->from('Province_Offices');
                         $this->db->where('ID', $row['sub_location_id']);
                         $sub_loc_query = $this->db->get();
-                        
+
                         $sub_loc = $sub_loc_query->result_array();
                         if (isset($sub_loc)){ $res[$i]['sub_location'] = $sub_loc['0']['province_office']; }
-                        
+
                         break;
                     case 7:
                         $this->db->select('zonal_office');
                         $this->db->from('Zonal_Offices');
                         $this->db->where('ID', $row['sub_location_id']);
                         $sub_loc_query = $this->db->get();
-                        
+
                         $sub_loc = $sub_loc_query->result_array();
-                        
+
                         if (isset($sub_loc)){ $res[$i]['sub_location'] = $sub_loc['0']['zonal_office']; }
-                        
+
                         break;
                     case 8:
                         $this->db->select('division_office');
                         $this->db->from('Divisional_Offices');
                         $this->db->where('ID', $row['sub_location_id']);
                         $sub_loc_query = $this->db->get();
-                        
+
                         $sub_loc = $sub_loc_query->result_array();
                         if (isset($sub_loc)){ $res[$i]['sub_location'] = $sub_loc['0']['division_office']; }
-                        
+
                         break;
                     case 9:
                     case 10:
@@ -450,20 +450,20 @@ class Form_data_model extends CI_Model{
                         $this->db->from('Institute');
                         $this->db->where('ID', $row['sub_location_id']);
                         $sub_loc_query = $this->db->get();
-                        
+
                         $sub_loc = $sub_loc_query->result_array();
                         if (isset($sub_loc)){ $res[$i]['sub_location'] = $sub_loc['0']['institute_name']; }
                         break;
-                        
+
                     case 18:
                         $this->db->select('province');
                         $this->db->from('Province_List');
                         $this->db->where('province_id', $row['sub_location_id']);
                         $sub_loc_query = $this->db->get();
-                        
+
                         $sub_loc = $sub_loc_query->result_array();
                         if (isset($sub_loc)){ $res[$i]['sub_location'] = $sub_loc['0']['province']; }
-                        
+
                         break;
                 }
                 $i++;
@@ -473,9 +473,9 @@ class Form_data_model extends CI_Model{
 		} else{
 			return 0;
 		}
-        
+
     }
-    
+
     public function get_Officer_recent_service($personID){
         $this->db->cache_off();
         $this->db->select('*, s1.work_place_id, s1.person_id');
@@ -490,14 +490,14 @@ class Form_data_model extends CI_Model{
         $this->db->limit(1);
         $query = $this->db->get();
         $res = $query->result_array();
-        
+
         //Get General Service Details of officer and add to $res Array
         $this->db->select('*');
         $this->db->from('General_Service');
         $this->db->where('person_id', $personID);
         $ge_service_query = $this->db->get();
         $res['general'] = $ge_service_query->result_array();
-        
+
         //Output Officer details
         if ($query->num_rows() >= 1) {
 			//$res = $query->result_array();
@@ -515,31 +515,31 @@ class Form_data_model extends CI_Model{
                         $this->db->from('Province_Offices');
                         $this->db->where('ID', $row['sub_location_id']);
                         $sub_loc_query = $this->db->get();
-                        
+
                         $sub_loc = $sub_loc_query->result_array();
                         if (isset($sub_loc)){ $res['0']['sub_location'] = $sub_loc['0']['province_office']; }
-                        
+
                         break;
                     case 7:
                         $this->db->select('zonal_office');
                         $this->db->from('Zonal_Offices');
                         $this->db->where('ID', $row['sub_location_id']);
                         $sub_loc_query = $this->db->get();
-                        
+
                         $sub_loc = $sub_loc_query->result_array();
-                        
+
                         if (isset($sub_loc)){ $res['0']['sub_location'] = $sub_loc['0']['zonal_office']; }
-                        
+
                         break;
                     case 8:
                         $this->db->select('division_office');
                         $this->db->from('Divisional_Offices');
                         $this->db->where('ID', $row['sub_location_id']);
                         $sub_loc_query = $this->db->get();
-                        
+
                         $sub_loc = $sub_loc_query->result_array();
                         if (isset($sub_loc)){ $res['0']['sub_location'] = $sub_loc['0']['division_office']; }
-                        
+
                         break;
                     case 9:
                     case 10:
@@ -554,20 +554,20 @@ class Form_data_model extends CI_Model{
                         $this->db->from('Institute');
                         $this->db->where('ID', $row['sub_location_id']);
                         $sub_loc_query = $this->db->get();
-                        
+
                         $sub_loc = $sub_loc_query->result_array();
                         if (isset($sub_loc)){ $res['0']['sub_location'] = $sub_loc['0']['institute_name']; }
                         break;
-                        
+
                     case 18:
                         $this->db->select('province');
                         $this->db->from('Province_List');
                         $this->db->where('province_id', $row['sub_location_id']);
                         $sub_loc_query = $this->db->get();
-                        
+
                         $sub_loc = $sub_loc_query->result_array();
                         if (isset($sub_loc)){ $res['0']['sub_location'] = $sub_loc['0']['province']; }
-                        
+
                         break;
                 }
             }
@@ -576,23 +576,23 @@ class Form_data_model extends CI_Model{
 		} else{
 			return 0;
 		}
-        
+
     }
-    
+
     public function updateOfficer($person_id, $personal_details, $contact_details){
-        
+
         $this->db->where('ID', $person_id);
         $this->db->update('Personal_Details', $personal_details);
-        
-        
+
+
         $this->db->where('person_id', $person_id);
         $this->db->update('Contact_Details', $contact_details);
-        
+
         if($this->db->affected_rows()){
             return 1;
         }
     }
-    
+
     public function get_Change_Requests($sclerk){
         $this->db->select('*, C.ID AS msg_id');
         $this->db->from('Change_Request C');
@@ -601,12 +601,12 @@ class Form_data_model extends CI_Model{
         $this->db->where('C.viewed', '0');
         $query = $this->db->get();
         $res = $query->result_array();
-        
+
         if($query->num_rows() >= 1){
             return $res;
         }
     }
-    
+
     public function get_Change_Requests_Officer($person_id){
         $this->db->select('*, C.ID AS msg_id');
         $this->db->from('Change_Request C');
@@ -615,12 +615,12 @@ class Form_data_model extends CI_Model{
         $this->db->order_by('C.viewed', 'ASC');
         $query = $this->db->get();
         $res = $query->result_array();
-        
+
         if($query->num_rows() >= 1){
             return $res;
         }
     }
-    
+
     public function get_work_place($personID){
         $this->db->select('work_place');
         $this->db->from('Service s');
@@ -632,12 +632,12 @@ class Form_data_model extends CI_Model{
             return $res;
         }
     }
-    
+
     public function update($table, $search_field, $search_key, $update_array){
-        
+
         $this->db->where($search_field, $search_key);
         $this->db->update($table, $update_array);
-        
+
         if($this->db->affected_rows()){
             return '1';
         }

@@ -1,6 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-?>            
+?>
         <section id="content">
             <div class="container" style="padding-top: 20px;">
             <div class="col-md-12">
@@ -20,13 +20,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <?php if ($result) { ?>
                                 <label><?php echo $result[0]['title'] . ' ' ;?> <?php echo $result[0]['in_name'] ;?></label>
                             <?php    } ?>
-                                    
+
                                 <input type="hidden" name="person_id" id="person_id" value="<?php echo $result[0]['ID'] ;?>">
                                 <input type="hidden" name="work_place" id="work_place" value="<?php echo $result[0]['work_place'] ;?>">
                                 <input type="hidden" name="submit" id="submit" value="">
                             </div>
                         </div>
-                        
+
                         <div class="row">
                             <div class="col-md-6">
 
@@ -34,12 +34,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <label>NIC Number</label>
                                     <input type="text" class="form-control " name="nic" id="nic" value="<?php echo $result[0]['NIC'] ;?>" readonly>
                                 </div>
-                                <div class="form-group">
-                                    <label><span style="color:red;">*</span><?php echo $class ?> Date</label>
-                                    <input type="text" class="form-control date-picker" name="increment_date" id="increment_date">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
 
                                 <div class="form-group ">
                                     <label>Present SLEAS Grade</label>
@@ -53,13 +47,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 </div>
 
                                 <div class="form-group">
+                                    <label><span style="color:red;">*</span><?php echo $class ?> Date</label>
+                                    <input type="text" class="form-control date-picker" name="increment_date" id="increment_date">
+                                </div>
+
+                                <div class="form-group">
                                     <label><span style="color:red;">*</span>Present Salary Step</label>
                                     <input type="text" class="form-control" name="salary_step" id="salary_step" maxlength="2">
                                 </div>
 
                             </div>
-                        </div>
-                        <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label> Current Salary </label>
@@ -85,15 +82,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </div>
                         <?php } ?>
                         </div>
-                        
+
                         <div class="form-actions fluid">
-                            <div class="col-md-offset-3 col-md-9">
+                            <div class=" col-md-6">
                                 <button type="reset" id="reset-button" class="btn btn-info form-reset">Clear</button>
                                 <button type="button" id="calc-button" class="btn btn-success"> Calculate Increment </button>
-                                <button type="submit" id="submit-button" class="btn btn-info"><i class="fa fa-print"></i> Print letter </button>
                             </div>
+                                <div class=" col-md-6">
+                                    <button type="submit" id="submit-button" class="btn btn-info"><i class="fa fa-print"></i> Print letter </button>
+                                </div>
                         </div>
-                            
+
                     <?php echo form_close(); ?>
                     </div>
                 </div>
@@ -108,11 +107,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <script src="<?php echo base_url()."assets/plugins/validation/additional-methods.js"?>"></script>
 
     <script>
-    $(document).ready(function(){ 
-        
+    $(document).ready(function(){
+
         console.log("<?php echo $general[0]['grade']; ?>");
         $('#present_grade').val("<?php echo $general[0]['grade']; ?>");
-                
+
         $("#addIncrementForm").validate({
             errorElement: 'span', //default input error message container
             errorClass: 'help-block error', // default input error message class
@@ -133,10 +132,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             var increment_date = $('#increment_date').val();
             var grade = $('#present_grade').val();
             var salary_step = $('#salary_step').val();
-            
+
             var post_url = "index.php/<?php echo $class; ?>/calculate/";
             var dataarray = {'<?php echo $this->security->get_csrf_token_name(); ?>':'<?php echo $this->security->get_csrf_hash(); ?>',person_id: person_id, increment_date: increment_date, grade: grade, salary_step: salary_step };
-            
+
             $.ajax({
                 type: "POST",
                 url: "<?php echo base_url(); ?>" + post_url,
@@ -146,11 +145,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     var current_salary = res['current_salary'].toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
                     var new_salary = res['new_salary'].toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
                     var increment = res['increment'].toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
-                    
+
                     $('#current_salary').val(current_salary);
                     $('#new_salary').val(new_salary);
                     $('#increment').val(increment);
-                    
+
                     if('<?php echo $class; ?>' == 'Revision'){
                         var next_salary = res['next_salary'].toFixed(2).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
                         $('#next_salary').val(next_salary);
@@ -158,14 +157,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 }
             });
         });
-        
+
         $('#addIncrementForm').submit(function(e){
-            
+
             var submitCount = $('#submit').val() + 1;
             $('#submit').val(submitCount);
-            
+
         });
 
-        
+
     });
 </script>
