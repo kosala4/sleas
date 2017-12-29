@@ -1,4 +1,12 @@
 <?php
+# @Author: Kosala Gangabadage <Kosala>
+# @Date:   2017-12-29T09:59:47+05:30
+# @Email:  kosala4@gmail.com
+# @Last modified by:   Kosala
+# @Last modified time: 2017-12-29T12:27:06+05:30
+
+
+
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Welcome extends CI_Controller {
