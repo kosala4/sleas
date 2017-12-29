@@ -1,4 +1,12 @@
 <?php
+# @Author: Kosala Gangabadage <Kosala>
+# @Date:   2017-12-29T09:59:47+05:30
+# @Email:  kosala4@gmail.com
+# @Last modified by:   Kosala
+# @Last modified time: 2017-12-29T11:59:43+05:30
+
+
+
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Admin extends CI_Controller {
@@ -286,7 +294,7 @@ class Admin extends CI_Controller {
         $uname = $this->security->xss_clean($this->input->post('uname'));
         $passwd = password_hash($this->security->xss_clean($this->input->post('passwd')), PASSWORD_DEFAULT);
         $utype = $this->security->xss_clean($this->input->post('utype'));
-        $work_place = $this->security->xss_clean(->input->post('work_place'));
+        $work_place = $this->security->xss_clean($this->input->post('work_place'));
         $province_office = $this->security->xss_clean($this->input->post('province_office'));
         $zonal_office = $this->security->xss_clean($this->input->post('zonal_office'));
 

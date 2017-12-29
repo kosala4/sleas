@@ -1,55 +1,63 @@
 <?php
+# @Author: Kosala Gangabadage <Kosala>
+# @Date:   2017-12-29T09:59:47+05:30
+# @Email:  kosala4@gmail.com
+# @Last modified by:   Kosala
+# @Last modified time: 2017-12-29T11:43:45+05:30
+
+
+
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Increment extends CI_Controller {
-    
+
     /***
 	 * Controller that handle Increments.
-	 * 		
+	 *
 	 * Calculate increment according to 03.2016 circular
 	 *
-	 * Can use till 2020 
+	 * Can use till 2020
 	 *
 	 * So any other public methods not prefixed with an underscore will
 	 * map to /index.php/admin/<method_name>
 	 * @see http://codeigniter.com/user_guide/general/urls.html
 	 */
-    
+
     public function __construct()
     {
         parent::__construct();
         $this->load->model('User_model'); //load database model.
         $this->load->model('Form_data_model'); //load database model.
     }
-    
+
     public $response = array("sidemenu" => "menu_increment", "class" => "Increment");
-    
+
     public function check_sess($user_logged)
 	{
 		if ($user_logged != "in") {
 			redirect('/login/index');
 		}
 	}//Redirect to login page if session not initiated.
-    
+
     //Initiate officer search
     public function addIncrement()
     {
         $this->check_sess($this->session->user_logged);
 		$this->load->view('head');
 		$this->load->view('sclerk_sidebar');
-        
+
 		$this->load->view('search_officer', $this->response);
 		$this->load->view('footer');
     }
-    
+
     //Receive selected officer's ID. Then load the form to get data
     public function add($id)
     {
         $this->check_sess($this->session->user_logged);
-        
+
 		$this->load->view('head');
 		$this->load->view('sclerk_sidebar');
-        
+
         $search_array = array('ID'=> $id);
         $search_array_general = array('person_id'=> $id);
         $this->response['result'] = $this->Form_data_model->searchdb('Personal_Details', $search_array);
@@ -59,29 +67,29 @@ class Increment extends CI_Controller {
 
 		$this->load->view('footer');
     }
-    
+
     //Function to calculate incremented salary
     public function calculate()
     {
-        $person_id = $this->input->post('person_id');
-        $increment_date = $this->input->post('increment_date');
-        $grade = $this->input->post('grade');
-        $current_salary_step = $this->input->post('salary_step');
+        $person_id = $this->security->xss_clean($this->input->post('person_id'));
+        $increment_date = $this->security->xss_clean($this->input->post('increment_date'));
+        $grade = $this->security->xss_clean($this->input->post('grade'));
+        $current_salary_step = $this->security->xss_clean($this->input->post('salary_step'));
         $increment_year = date(Y, strtotime($increment_date));
-        
+
         $current_salary = $this->calculateSalary($grade, $current_salary_step, $increment_year);
         $new_salary = $this->calculateSalary($grade, $current_salary_step+1, $increment_year);
-        
+
         $increment = $new_salary - $current_salary;
-        
+
         $salaryDetails = array('new_salary' => $new_salary, 'increment' => $increment, 'current_salary' => $current_salary);
-        
+
         echo json_encode($salaryDetails);
     }
-    
+
     //Function to calculate salary using Grade, Step and year
     public function calculateSalary($grade, $salary_step, $increment_year){
-        $gr3_start = 22935;//Grade 3, step 01 basic salary at 2015 
+        $gr3_start = 22935;//Grade 3, step 01 basic salary at 2015
         $gr3_end = 47615;//Grade 3, step 01 basic salary at 2020
         $gr3_start_incr = 645;//Grade 3 increment at 2015
         $gr3_end_incr = 1335;//Grade 3 increment at 2020
@@ -120,8 +128,8 @@ class Increment extends CI_Controller {
         }
         return $salary;
     }
-    
-    
+
+
     public function increment_add()
     {
         $nic = $this->security->xss_clean($_REQUEST['nic']);
@@ -134,22 +142,22 @@ class Increment extends CI_Controller {
         $grade = $this->security->xss_clean($_REQUEST['present_grade']);
         $submit = $this->security->xss_clean($_REQUEST['submit']);
         $user_updated = $this->session->username;
-        
+
         $officer_details = $this->Form_data_model->get_Officer_Details($person_id);
-        
+
         $increment_array = array('person_id' => $person_id, 'increment_date' => $increment_date, 'step' => $salary_step + 1, 'increment' => $increment , 'salary'=>$new_salary, 'user_updated' => $user_updated);
-        
+
         if($submit == '1'){
             $res = $this->Form_data_model->insertData('Salary', $increment_array);
         }else{
             $res = '1';
         }
-        
+
         //$res = '1';
-        
+
         if($res == '1'){
             $view_data_array = array('increment_date' => $increment_date, 'current_salary'=>$current_salary, 'increment' => $increment, 'new_salary'=>$new_salary, 'work_place' => $officer_details[0]['work_place'], 'name' => $officer_details[0]['in_name'], 'designation' => $officer_details[0]['designation'], 'grade' => $grade);
-        
+
             $this->load->view('head');
             $this->load->view('sclerk_sidebar');
             $this->load->view('letter/increment/increment', $view_data_array);
@@ -162,13 +170,13 @@ class Increment extends CI_Controller {
             $this->generate_letter($html, $pdfFilePath, $pdfFileName);
         }
     }
-    
+
     public function generate_letter($letter_html, $pdfFilePath, $pdfFileName){
         $this->load->library('m_pdf');
 
         //generate the PDF from the given html
         $this->m_pdf->pdf->WriteHTML($letter_html);
-        
+
         //save it.
         if (!file_exists($pdfFilePath)) {
             mkdir($pdfFilePath, 0777, true);
@@ -177,9 +185,9 @@ class Increment extends CI_Controller {
 
         //download it.
         $this->m_pdf->pdf->Output($pdfFileName, "D");
-        
+
     }
-    
+
     //TcPDF Sample
     /*public function generate_letter($letter_html, $pdfFilePath, $pdfFileName){
         $this->load->library('tc_pdf');
@@ -212,14 +220,14 @@ class Increment extends CI_Controller {
         // Add a page
         // This method has several options, check the source code documentation for more information.
         $pdf->AddPage();
-        
+
         // set font
         $pdf->SetFont('freeserif', '', 12);
-        
+
         //$html = $letter_html;
         // set auto page breaks
         $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
-        
+
 
         // Print text using writeHTMLCell()
         $pdf->writeHTMLCell(0, 0, '', '', $letter_html, 0, 2, 0, true, '', true);
@@ -229,10 +237,10 @@ class Increment extends CI_Controller {
         // Close and output PDF document
         // This method has several options, check the source code documentation for more information.
         $pdf->Output('example_001.pdf', 'I');
-        
+
     }*/
-    
-    
+
+
 
 }
 ?>
