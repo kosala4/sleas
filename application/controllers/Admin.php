@@ -176,9 +176,9 @@ class Admin extends CI_Controller {
     public function deactivateOfficer()
     {
         header('Content-Type: application/x-json; charset=utf-8');
-        $person_id = $this->input->post('user_id');
-        $deactivate_type_id = $this->input->post('deactivate_type_id');
-        $deactivate_date = $this->input->post('deactivate_date');
+        $person_id = $this->security->xss_clean($this->input->post('user_id'));
+        $deactivate_type_id = $this->security->xss_clean($this->input->post('deactivate_type_id'));
+        $deactivate_date = $this->security->xss_clean($this->input->post('deactivate_date'));
 
         $dataarray = array("deactivate_type_id" => $deactivate_type_id, "deactivate_date" => $deactivate_date, "status" => Deactivated);
 
@@ -194,9 +194,9 @@ class Admin extends CI_Controller {
     public function requiredDateUpdate()
     {
         header('Content-Type: application/x-json; charset=utf-8');
-        $person_id = $this->input->post('user_id');
-        $field = $this->input->post('field');
-        $field_date = $this->input->post('field_date');
+        $person_id = $this->security->xss_clean($this->input->post('user_id'));
+        $field = $this->security->xss_clean($this->input->post('field'));
+        $field_date = $this->security->xss_clean($this->input->post('field_date'));
 
         switch ($field) {
             case "eb_1":
@@ -238,8 +238,8 @@ class Admin extends CI_Controller {
     public function deleteDateUpdate()
     {
         header('Content-Type: application/x-json; charset=utf-8');
-        $person_id = $this->input->post('user_id');
-        $field = $this->input->post('field');
+        $person_id = $this->security->xss_clean($this->input->post('user_id'));
+        $field = $this->security->xss_clean($this->input->post('field'));
 
         switch ($field) {
             case "eb_1":
@@ -282,13 +282,13 @@ class Admin extends CI_Controller {
     {
 
         header('Content-Type: application/x-json; charset=utf-8');
-        $name = $this->input->post('name');
-        $uname = $this->input->post('uname');
-        $passwd = password_hash($this->input->post('passwd'), PASSWORD_DEFAULT);
-        $utype = $this->input->post('utype');
-        $work_place = $this->input->post('work_place');
-        $province_office = $this->input->post('province_office');
-        $zonal_office = $this->input->post('zonal_office');
+        $name = $this->security->xss_clean($this->input->post('name'));
+        $uname = $this->security->xss_clean($this->input->post('uname'));
+        $passwd = password_hash($this->security->xss_clean($this->input->post('passwd')), PASSWORD_DEFAULT);
+        $utype = $this->security->xss_clean($this->input->post('utype'));
+        $work_place = $this->security->xss_clean(->input->post('work_place'));
+        $province_office = $this->security->xss_clean($this->input->post('province_office'));
+        $zonal_office = $this->security->xss_clean($this->input->post('zonal_office'));
 
         $user_array = array('name' => $name, 'user_name' => $uname, 'passwd' => $passwd, 'level' => $utype, 'workplace_id' => $work_place);
         $res = $this->Form_data_model->insertData('User', $user_array);
@@ -486,10 +486,10 @@ class Admin extends CI_Controller {
 
     public function addLeave(){
         header('Content-Type: application/x-json; charset=utf-8');
-        $person_id = $this->input->post('person_id');
-        $l_year = $this->input->post('l_year');
-        $l_type = $this->input->post('l_type');
-        $l_count = $this->input->post('l_count');
+        $person_id = $this->security->xss_clean($this->input->post('person_id'));
+        $l_year = $this->security->xss_clean($this->input->post('l_year'));
+        $l_type = $this->security->xss_clean($this->input->post('l_type'));
+        $l_count = $this->security->xss_clean($this->input->post('l_count'));
 
         $dataarray = array("person_id" => $person_id, 'leave_year' => $l_year, 'leave_type_id' => $l_type, 'leave_count' => $l_count, 'user_updated' => $this->session->username);
         $res = $this->Form_data_model->insertData('Leaves', $dataarray);
@@ -501,10 +501,10 @@ class Admin extends CI_Controller {
 
     public function editLeave(){
         header('Content-Type: application/x-json; charset=utf-8');
-        $l_id = $this->input->post('l_id');
-        $l_year = $this->input->post('l_year');
-        $l_type = $this->input->post('l_type');
-        $l_count = $this->input->post('l_count');
+        $l_id = $this->security->xss_clean($this->input->post('l_id'));
+        $l_year = $this->security->xss_clean($this->input->post('l_year'));
+        $l_type = $this->security->xss_clean($this->input->post('l_type'));
+        $l_count = $this->security->xss_clean($this->input->post('l_count'));
 
         $dataarray = array('leave_year' => $l_year, 'leave_type_id' => $l_type, 'leave_count' => $l_count, 'user_updated' => $this->session->username);
         $res = $this->Form_data_model->update('Leaves', 'ID', $l_id,  $dataarray);
@@ -516,7 +516,7 @@ class Admin extends CI_Controller {
 
     public function deleteLeave(){
         header('Content-Type: application/x-json; charset=utf-8');
-        $l_id = $this->input->post('l_id');
+        $l_id = $this->security->xss_clean($this->input->post('l_id'));
 
         $res = $this->Main_data_model->delete('Leaves', 'ID', $l_id);
         if($res == '1'){
@@ -527,7 +527,7 @@ class Admin extends CI_Controller {
     public function verifyBarcode()
     {
         header('Content-Type: application/x-json; charset=utf-8');
-        $barcode = $this->input->post('barcode');
+        $barcode = $this->security->xss_clean($this->input->post('barcode'));
         $searchArray = array('barcode' => $barcode);
         $res = $this->Form_data_model->searchdb('Service', $searchArray);
         if ($res){
