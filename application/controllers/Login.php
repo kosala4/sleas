@@ -1,4 +1,12 @@
 <?php
+# @Author: Kosala Gangabadage <Kosala>
+# @Date:   2017-12-29T09:59:47+05:30
+# @Email:  kosala4@gmail.com
+# @Last modified by:   Kosala
+# @Last modified time: 2017-12-29T13:55:50+05:30
+
+
+
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Login extends CI_Controller {
@@ -27,9 +35,8 @@ class Login extends CI_Controller {
     }
 	public function index()
 	{
-		//$this->load->view('head');
+        $this->session->sess_destroy();
 		$this->load->view('login');
-		//$this->load->view('footer');
 	}
 
 	function redirect_user($user_level)
@@ -64,7 +71,7 @@ class Login extends CI_Controller {
             $id = $data[0]['person_id'];
 			$userData = array('username' => $uname, 'name' => $name, 'user_level'=>$level, 'officer_ID' =>$id, 'user_logged' => "in");
 			$this->session->set_userdata($userData);
-            
+
             $this->redirect_user($data[0]['level']);
             //echo($data[0]['level']);
 
