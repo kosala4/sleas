@@ -2,8 +2,8 @@
 # @Author: Kosala Gangabadage <Kosala>
 # @Date:   2017-12-29T09:59:47+05:30
 # @Email:  kosala4@gmail.com
-# @Last modified by:   Kosala
-# @Last modified time: 2017-12-29T11:59:43+05:30
+# @Last modified by:   Kosala Gangabadage
+# @Last modified time: 2018-01-10T09:32:45+05:30
 
 
 
@@ -41,13 +41,13 @@ class Admin extends CI_Controller {
 	public function index()
 	{
 		$this->check_sess($this->session->user_logged);
-    if($this->session->user_level != '0') {$this->logout();}
+        if($this->session->user_level != '0') {$this->logout();}
 
 		$this->load->view('head');
 		$this->load->view('admin_sidebar');
 
-    $this->response['workPlaces'] = $this->Form_data_model->select('workplace');
-    $this->response['provinceList'] = $this->Form_data_model->select('province_list');
+        $this->response['workPlaces'] = $this->Form_data_model->select('workplace');
+        $this->response['provinceList'] = $this->Form_data_model->select('province_list');
 		$this->load->view('admin_dashboard', $this->response);
 
 		$this->load->view('footer');

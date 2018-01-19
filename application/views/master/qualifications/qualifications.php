@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
         <section id="content">   <!-- Start: Content -->
 	        <div class="container" style="padding-top: 20px;">
-                
+
             <?php if ($this->session->flashdata('update')=="success"){ ?>
                 <div class="col-md-12">
                         <div class="col-md-6">
@@ -15,7 +15,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </div>
                 </div>
             <?php } ?>
-                
+
 
                 <div class="col-md-8">
                     <div class="panel panel-success" style="margin-top:20px;">
@@ -23,7 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <h3 class="panel-title"> Qualifications List </h3>
                         </div><!--End of panel-heading-->
                         <div class="panel-body">
-                            
+
                             <div class="form-group ">
                                 <label> Qualifications Type </label><br>
                                 <select class="select2 workPlaces" name="q_type" id="q_type" style="width:100%;">
@@ -32,7 +32,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <option value="2" > Professional </option>
                                 </select>
                             </div>
-                            
+
                         <table  class="table table-striped table-hover DynamicTable" border="0" id="dataTable">
                             <thead>
                                 <tr>
@@ -41,7 +41,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 </tr>
                             </thead>
                             <tbody id="tablebody">
-                            
+
                             </tbody>
                         </table>
                         <table  class="table table-striped table-hover DynamicTable" border="0" >
@@ -51,8 +51,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <td> </td>
                             </tr>
                         </table>
-                            
-                  
+
+
                     <!-- Modal to update Qualifications -->
                         <div id="UpdateModal" class="modal fade" role="dialog">
                           <div class="modal-dialog">
@@ -65,7 +65,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                               </div>
 
-                            <?php echo form_open() ?> 
+                            <?php echo form_open() ?>
                               <div class="modal-body">
                                 <div class="col-md-12">
                                         <input type="text" class="form-control hidden" name="q_type_id" id="q_type_id" >
@@ -85,7 +85,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                           </div>
                         </div>
-                            
+
                         </div>
                     </div>
                 </div>
@@ -98,28 +98,28 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <script src="<?php echo base_url()."assets/plugins/datatables/js/DT_bootstrap.js"?>"></script>
     <script src="<?php echo base_url()."assets/plugins/validation/jquery.validate.min.js"?>"></script>
     <script src="<?php echo base_url()."assets/plugins/bootstrap-toggle/js/bootstrap-toggle.min.js"?>"></script>
-            
+
 <script>
     $(document).ready(function(){
-        
+
         $('#mnuTwo').addClass('menu-open');
         $('#mnu_add_qual').addClass('active');
         $('#addNew').attr('disabled', 'true');
         getQTypes();
-        
+
         $('#q_type').change(function(){
             var q_id = $(this).val();
             $('#addNew').removeAttr('disabled');
-              
+
             getQSubjects(q_id);
-                
+
         });
-        
+
         $(document).on('click', '.edit_q', function(){
             var q_id = $(this).data("id");
             var q_name = $(this).data("name");
             var row = $(this).closest('tr');
-            
+
             $('#q_type_id').val(q_id);
             $('#q_name').data("ID", q_id);
             $('#q_name').data("rowID", row[0].rowIndex);
@@ -129,14 +129,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             $('#submit').text("Save");
             $('#UpdateModal').modal('toggle');
         });
-        
+
         $(document).on('click', '.delete_q', function(){
             var post_url = "index.php/Main/deleteQualification/"+'2';
             var form_data = new FormData();
             var q_id = $(this).data("id");
             var row = $(this).closest('tr');
             var rowID = parseInt(row[0].rowIndex) - 1;
-            
+
             form_data.append('<?php echo $this->security->get_csrf_token_name(); ?>','<?php echo $this->security->get_csrf_hash(); ?>');
             form_data.append('q_id', q_id);
             $.ajax({
@@ -154,7 +154,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 }
             });
         });
-        
+
         $('#addNew').click(function(){
             var q_type_id = $('#q_type').val();
             $('#q_type_id').val(q_type_id);
@@ -163,14 +163,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             $('#action').val('add');
             $('#UpdateModal').modal('toggle');
         });
-        
+
         $('#submit').click(function(){
             var form_data = new FormData();
             var q_type_id = $('#q_type_id').val();
             var q_name = $('#q_name').val();
             var action = $('#action').val();
             var rowID = parseInt($('#q_name').data("rowID")) - 1;
-            
+
             if(action == 'edit'){
                 var post_url = "index.php/Main/updateQualification/"+'2';
                 form_data.append('<?php echo $this->security->get_csrf_token_name(); ?>','<?php echo $this->security->get_csrf_hash(); ?>');
@@ -218,9 +218,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     }
                 });
             }
-            
+
         });
-            
+
         function getQSubjects(q_id){
             var post_url = "index.php/FormControl/getQualifications/"+2;
             var dataarray = { '<?php echo $this->security->get_csrf_token_name(); ?>':'<?php echo $this->security->get_csrf_hash(); ?>',q_type: q_id };
@@ -233,7 +233,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     $('#tablebody').empty();
                     $.each(res, function(ID,provine_office){
                         //$('#main_q').append('<option value='+res[ID].ID+'>'+res[ID].office_q+'</option>');
-                        
+
                         $('#dataTable tbody').append('<tr><td>'+res[ID].qualification+'</td>'+
                                                        '<td> <button class="edit_q btn btn-xs btn-success " data-ID="'+res[ID].ID+'" data-name="'+res[ID].qualification+'" ><i class="fa fa-edit"></i></button> ' +
                                                        ' <button class="delete_q btn btn-xs btn-danger " data-ID="'+res[ID].ID+'" data-name="'+res[ID].qualification+'" ><i class="fa fs-remove"></i></button> </td>'+
@@ -246,9 +246,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 }
             });
         }
-        
+
         function getQTypes(){
-            
+
             var post_url = "index.php/FormControl/getQTypes/2";
             var dataarray = { '<?php echo $this->security->get_csrf_token_name(); ?>':'<?php echo $this->security->get_csrf_hash(); ?>' };
             $.ajax({
@@ -261,7 +261,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     $('#q_type').append('<option value="" selected> ---------Please Select--------- </option>');
                     $.each(res, function(ID){
                         $('#q_type').append('<option value='+res[ID].ID+'>'+res[ID].qualification_type+'</option>');
-                        
+
                     });
                 }
             });

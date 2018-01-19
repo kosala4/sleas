@@ -2,8 +2,8 @@
 # @Author: Kosala Gangabadage <Kosala>
 # @Date:   2017-12-29T09:59:47+05:30
 # @Email:  kosala4@gmail.com
-# @Last modified by:   Kosala
-# @Last modified time: 2017-12-29T11:43:45+05:30
+# @Last modified by:   Kosala Gangabadage
+# @Last modified time: 2018-01-03T09:32:22+05:30
 
 
 
@@ -163,7 +163,6 @@ class Increment extends CI_Controller {
             $this->load->view('letter/increment/increment', $view_data_array);
 
             $html = $this->load->view('letter/increment/increment', $view_data_array,true);
-
 
             $pdfFilePath = 'file_library/'.$person_id.'/increment/';
             $pdfFileName = $nic. '-Increment-' . $increment_date . '.pdf';

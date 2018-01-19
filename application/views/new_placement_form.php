@@ -1,6 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-?>            
+?>
         <section id="content">
             <div class="container" style="padding-top: 20px;">
             <div class="col-md-12">
@@ -20,14 +20,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <?php if ($result) { ?>
                                 <label><?php echo $result[0]['title'] . ' ' ;?> <?php echo $result[0]['in_name'] ;?> </label>
                             <?php    } ?>
-                                    
+
                                 <input type="hidden" name="person_id" value="<?php echo $result[0]['ID'] ;?>">
                                 <input type="hidden" name="type" value="<?php echo $type ;?>">
                             </div>
                         </div>
-                        
+
                         <div class="col-md-6">
-                            
+
                             <div class="form-group">
                                 <label>NIC Number</label>
                                 <input type="text" class="form-control " name="nic" id="nic" value="<?php echo $result[0]['NIC'] ;?>" readonly>
@@ -40,7 +40,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         <?php foreach ($workPlaces as $row) { ?>
                                         <?php if($row['ID'] == '1' || $row['ID'] == '2' || $row['ID'] == '3' || $row['ID'] == '16' || $row['ID'] == '18'){ ?>
                                             <option value="<?php echo $row['ID'];?>" data-code="<?php echo $row['work_place_code'];?>" > <?php echo $row['work_place'] ;?> </option>
-                                        
+
                                         <?php    } ?>
                                 <?php    } ?>
                                         <option value="other" class="c-other hidden"> Other </option>
@@ -119,7 +119,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     </select>
                                 <?php } ?>
                             </div>
-                            
+
                             <div class="form-group">
                                 <label>Date of appoint</label>
                                 <input type="text" class="form-control date-picker" name="work_date" id="work_date" placeholder="yyyy-mm-dd">
@@ -138,6 +138,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </div>
                         </div>
                         <div class="form-actions fluid">
+                            <div class="form-group">
+                                <label>Set Prefered Language for letter</label>
+                                <select class="select2 " name="language" id="language" required>
+                                    <option value="si" selected> Sinhala </option>
+                                    <option value="ta" > Tamil </option>
+                                </select>
+                            </div>
                             <div class="col-md-offset-3 col-md-9">
                                 <?php if($type){ ?>
                                 <button type="submit" class="btn btn-success "> Save </button>
@@ -160,14 +167,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <script src="<?php echo base_url()."assets/plugins/validation/additional-methods.js"?>"></script>
 
     <script>
-    $(document).ready(function(){ 
-        
+    $(document).ready(function(){
+
         $("#addPlacementForm").validate({
             errorElement: 'span', //default input error message container
             errorClass: 'help-block error', // default input error message class
             focusInvalid: false, // do not focus the last invalid input
             ignore: "",
-            
+
             rules: {
                 work_place: "required",
                 official_letter_no: "required",
@@ -175,9 +182,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 appoint_date: "required"
             }
         });
-        
+
         $('#menu_placement').addClass('active');
-        
+
         $('#work_place').change(function(){
             var id = $(this).val();
             switch(id){
@@ -189,9 +196,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     $(".province_list").addClass("hidden");
                     $(".designation").removeClass("hidden");
                     getMainDivision(id);
-                    getMainBranch(id); 
+                    getMainBranch(id);
                     break;
-                    
+
                 case '16':
                     $(".province_list").removeClass("hidden");
                     $(".schools").removeClass("hidden");
@@ -199,7 +206,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     $(".designation").removeClass("hidden");
                     $("#designation").rules( "add", { required: true });
                     break;
-                    
+
                 case '18':
                     $(".province_list").removeClass("hidden");
                     $(".schools").addClass("hidden");
@@ -212,7 +219,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     $("#designation").rules( "add", { required: false });
                      }
         });
-        
+
         function getMainDivision(workPlace_id){
             var post_url = "index.php/FormControl/getMainDivision/"+workPlace_id;
             var dataarray = {'<?php echo $this->security->get_csrf_token_name(); ?>':'<?php echo $this->security->get_csrf_hash(); ?>',workplace_id: workPlace_id};
@@ -229,7 +236,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 }
             });
         }
-            
+
         function getMainBranch(workPlace_id){
             var post_url = "index.php/FormControl/getMainBranch/"+workPlace_id;
             var dataarray = {'<?php echo $this->security->get_csrf_token_name(); ?>':'<?php echo $this->security->get_csrf_hash(); ?>',workplace_id: workPlace_id};
@@ -324,8 +331,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 }
             });
         });
-            
-        
-        
+
+
+
     });
 </script>
