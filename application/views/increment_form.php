@@ -84,6 +84,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </div>
 
                         <div class="form-actions fluid">
+                            <div class="form-group">
+                                <label>Set Prefered Language for letter</label>
+                                <select class="select2 " name="language" id="language" required>
+                                    <option value="si" selected> Sinhala </option>
+                                    <option value="ta" > Tamil </option>
+                                </select>
+                            </div>
                             <div class=" col-md-6">
                                 <button type="reset" id="reset-button" class="btn btn-info form-reset">Clear</button>
                                 <button type="button" id="calc-button" class="btn btn-success"> Calculate Increment </button>

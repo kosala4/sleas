@@ -3,7 +3,7 @@
 # @Date:   2017-12-29T09:59:47+05:30
 # @Email:  kosala4@gmail.com
 # @Last modified by:   Kosala Gangabadage
-# @Last modified time: 2018-01-03T09:32:22+05:30
+# @Last modified time: 2018-05-25T14:25:00+05:30
 
 
 
@@ -58,13 +58,19 @@ class Increment extends CI_Controller {
 		$this->load->view('head');
 		$this->load->view('sclerk_sidebar');
 
-        $search_array = array('ID'=> $id);
-        $search_array_general = array('person_id'=> $id);
-        $this->response['result'] = $this->Form_data_model->searchdb('Personal_Details', $search_array);
-        $this->response['general'] = $this->Form_data_model->searchdb('General_Service', $search_array_general);
-        $this->response['method'] = 'increment_add';
-		$this->load->view('increment_form', $this->response);
+        $permision = $this->checkPermision( $id );
+        if ($permision == '0') {
+            $this->error['error_msg'] = "You don't have permision to change this officer's profile";
+            $this->load->view('service_change', $this->error);
+        } else if ($permision == '1') {
 
+            $search_array = array('ID'=> $id);
+            $search_array_general = array('person_id'=> $id);
+            $this->response['result'] = $this->Form_data_model->searchdb('Personal_Details', $search_array);
+            $this->response['general'] = $this->Form_data_model->searchdb('General_Service', $search_array_general);
+            $this->response['method'] = 'increment_add';
+    		$this->load->view('increment_form', $this->response);
+        }
 		$this->load->view('footer');
     }
 
@@ -156,7 +162,7 @@ class Increment extends CI_Controller {
         //$res = '1';
 
         if($res == '1'){
-            $view_data_array = array('increment_date' => $increment_date, 'current_salary'=>$current_salary, 'increment' => $increment, 'new_salary'=>$new_salary, 'work_place' => $officer_details[0]['work_place'], 'name' => $officer_details[0]['in_name'], 'designation' => $officer_details[0]['designation'], 'grade' => $grade);
+            $view_data_array = array('increment_date' => $increment_date, 'current_salary'=>$current_salary, 'increment' => $increment, 'new_salary'=>$new_salary, 'work_place' => $officer_details[0]['work_place'], 'name' => $officer_details[0]['si_in_name'], 'designation' => $officer_details[0]['designation'], 'grade' => $grade);
 
             $this->load->view('head');
             $this->load->view('sclerk_sidebar');
@@ -185,6 +191,35 @@ class Increment extends CI_Controller {
         //download it.
         $this->m_pdf->pdf->Output($pdfFileName, "D");
 
+    }
+
+    public function checkPermision($personID){
+        $permision = 0;
+
+        $result = $this->Form_data_model->get_Officer_recent_service($personID);
+
+        switch ($this->session->workplace) {
+            case 1:
+                $permision = 1;
+                    break;
+            case 2:
+            case 3:
+            case 4:
+                break;
+            case 5:
+            case 6:
+                if ( $this->session->location == $result['0']['province']) {
+                    $permision = 1;
+                }
+                break;
+            case 7:
+                if ($result['0']['work_place_id'] == '7' && $this->session->location == $result['0']['sub_location_id']) {
+                    $permision = 1;
+                }
+                break;
+        }
+
+        return $permision;
     }
 
     //TcPDF Sample

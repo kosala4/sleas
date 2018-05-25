@@ -10,7 +10,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		margin-right: 2cm;
 		background-color: white;
 	}
-    
+
     .header-definitions{
         line-height: 1;
     }
@@ -20,10 +20,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     table {
         font-size: 13px;
     }
-    
-</style>       
+
+</style>
 <section id="content" style="font-size:13px;">
-    
+
     <div class="col-md-8">  </div>
     <div class="col-md-4" style="color:#000;margin-top:10px;">
         <table border="0" width="100%">
@@ -55,7 +55,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </tr>
             <tr>
                 <td valign="top"> ශ්‍රේණිය </td>
-                <td valign="top"> : <?php echo $grade; ?></td>
+                <td valign="top"> : <?php //echo $grade; ?> II ශ්‍රේණිය  </td>
             </tr>
         </table>
     </div>
@@ -67,9 +67,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         යථෝක්ත චක්‍රලේඛය පරිදි ඔබගේ වැටුප <?php echo $revision_date; ?> දිනට පහත සඳහන් පරිදි පරිවර්තනය කරනු ලැබේ.
     </div>
 
-    <div class="col-md-8" style="color:#000;margin-top:10px; margin-left: 20px;">            
+    <div class="col-md-8" style="color:#000;margin-top:10px; margin-left: 20px;">
     1. රා.ප.ච.6/2006 වර්ගීකරණය අනුව <?php echo date("Y-m-d", strtotime("$revision_date -1 days")); ?> දිනට අදාළ,
-        <div style="color:#000;margin-top:0px; margin-left:10px; margin-bottom:10px;">     
+        <div style="color:#000;margin-top:0px; margin-left:10px; margin-bottom:10px;">
             <table border="0" width="90%">
                 <tr>
                     <td valign="top" width="50%"> (අ)	සේවා ගණය </td>
@@ -101,8 +101,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </tr>
             </table>
         </div>
-    2. රා.ප.ච.03/2006 වර්ගීකරණය අනුව <?php echo $revision_date; ?> දිනට උපලේඛන I හි සඳහන් පරිදි 
-        <div style="color:#000;margin-top:0px; margin-left:10px; margin-bottom:10px;">     
+    2. රා.ප.ච.03/2006 වර්ගීකරණය අනුව <?php echo $revision_date; ?> දිනට උපලේඛන I හි සඳහන් පරිදි
+        <div style="color:#000;margin-top:0px; margin-left:10px; margin-bottom:10px;">
             <table border="0" width="90%">
                 <tr>
                     <td valign="top" width="50%"> (අ)	සේවා ගණය </td>
@@ -131,7 +131,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </table>
         </div>
     3. ඉහත 1 (ඊ) හි වැටුප් තලයට අනුරූපි උපලේඛන II අනුව <?php echo $revision_date; ?> දින සිට ගෙවිය යුතු වැටුප
-        <div style="color:#000;margin-top:0px; margin-left:10px; margin-bottom:10px;">     
+        <div style="color:#000;margin-top:0px; margin-left:10px; margin-bottom:10px;">
             <table border="0" width="90%">
                 <tr>
                     <td valign="top" width="50%"> (අ)	මුලික වැටුප </td>
@@ -143,8 +143,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </tr>
             </table>
         </div>
-    4. 2016.01.18 දිනට වැටුප වර්ධකය සමඟ වැටුප 
-        <div style="color:#000;margin-top:0px; margin-left:10px; margin-bottom:20px;">     
+    4. 2016.01.18 දිනට වැටුප වර්ධකය සමඟ වැටුප
+        <div style="color:#000;margin-top:0px; margin-left:10px; margin-bottom:20px;">
             <table border="0" width="90%">
                 <tr>
                     <td valign="top" width="50%"> (අ)	උපලේඛන I අනුව වැටුප් තලය </td>
@@ -209,11 +209,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <td valign="top"> නිල මුද්‍රාව </td>
                 <td valign="top"> :  </td>
                 <td valign="top">  </td>
-            </tr>   
+            </tr>
         </table>
     </div>
-    
-    <div class="col-md-8" style="color:#000;margin-top:10px;"> 
+
+    <div class="col-md-8" style="color:#000;margin-top:10px;">
         පිටපත්
         <ol style="color:#000;margin-left:10px;">
             <li> විගණකාධිපති 		-කරු.අ.ක.ස.</li>
@@ -221,5 +221,5 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <li> පෞද්ගලික ලිපි ගොනුවට </li>
         </ol>
     </div>
-    
+
 </section>

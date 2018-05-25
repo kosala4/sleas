@@ -2,7 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Promotion extends CI_Controller {
-    
+
     public function __construct()
     {
         parent::__construct();
@@ -10,91 +10,104 @@ class Promotion extends CI_Controller {
         $this->load->model('Form_data_model'); //load database model.
         #$this->load->model('District_model'); //load database model.
     }
-    
+
     public $response = array("result"=>"none", "data"=>"none", "register"=>"x", "sidemenu" => "menu_promotion", "class" => "Promotion");
     public $view_data_array = array();
-    
+
     public function check_sess($user_logged)
 	{
 		if ($user_logged != "in") {
 			redirect('/login/index');
 		}//Redirect to login page if admin session not initiated.
 	}
-    
+
     public function newpromotion()
     {
         $this->check_sess($this->session->user_logged);
 		$this->load->view('head');
 		$this->load->view('sclerk_sidebar');
-        
+
 		$this->load->view('search_officer', $this->response);
 
 		$this->load->view('footer');
     }
-    
+
     public function add($id)
     {
         $this->check_sess($this->session->user_logged);
-        
+
+        $permision = $this->checkPermision( $id );
+
 		$this->load->view('head');
 		$this->load->view('sclerk_sidebar');
-        
-        $this->response['result'] = $this->Form_data_model->get_Officer_Details($id);
-        $this->response['workPlaces'] = $this->Form_data_model->select('workplace');
-        $this->response['provinceList'] = $this->Form_data_model->select('province_list');
-        $this->response['designation'] = $this->Form_data_model->select('designation');
-        $this->response['service_type'] = 'promo';
-        $this->response['method'] = 'promotion_add';
-        
-        $current_grade = $this->response['result']['general'][0]['grade']; 
-        switch ($current_grade) {
-            case 'Grade III':
-                $this->response['new_grade'] = 'Grade II';
-                break;
-            case 'Grade II':
-                $this->response['new_grade'] = 'Grade I';
-                break;
-            case 'Grade I':
-                $this->response['new_grade'] = 'Special Grade';
-                break;
+
+        if ($permision == '0') {
+            $this->error['error_msg'] = "You don't have permision to change this officer's profile";
+            $this->load->view('promotion_form', $this->error);
+        } else if ($permision == '1') {
+            $this->response['result'] = $this->Form_data_model->get_Officer_Details($id);
+            $this->response['workPlaces'] = $this->Form_data_model->select('workplace');
+            $this->response['provinceList'] = $this->Form_data_model->select('province_list');
+            $this->response['designation'] = $this->Form_data_model->select('designation');
+            $this->response['service_type'] = 'promo';
+            $this->response['method'] = 'promotion_add';
+
+            $current_grade = $this->response['result']['general'][0]['grade'];
+            switch ($current_grade) {
+                case 'Grade III':
+                    $this->response['new_grade'] = 'Grade II';
+                    break;
+                case 'Grade II':
+                    $this->response['new_grade'] = 'Grade I';
+                    break;
+                case 'Grade I':
+                    $this->response['new_grade'] = 'Special Grade';
+                    break;
+            }
+            $this->load->view('promotion_form', $this->response);
         }
-		$this->load->view('promotion_form', $this->response);
 
 		$this->load->view('footer');
     }
-    
+
     public function addHistory($id)
     {
         $this->check_sess($this->session->user_logged);
-        
+
 		$this->load->view('head');
 		$this->load->view('sclerk_sidebar');
-        
-        $this->response['result'] = $this->Form_data_model->get_Officer_Details($id);
-        $this->response['workPlaces'] = $this->Form_data_model->select('workplace');
-        $this->response['provinceList'] = $this->Form_data_model->select('province_list');
-        $this->response['designation'] = $this->Form_data_model->select('designation');
-        $this->response['service_type'] = 'promo';
-        $this->response['method'] = 'promotion_add';
-        $this->response['type'] = 'history';
-        
-        $current_grade = $this->response['result']['general'][0]['grade']; 
-        switch ($current_grade) {
-            case 'Grade III':
-                $this->response['new_grade'] = 'Grade II';
-                break;
-            case 'Grade II':
-                $this->response['new_grade'] = 'Grade I';
-                break;
-            case 'Grade I':
-                $this->response['new_grade'] = 'Special Grade';
-                break;
-        }
-		$this->load->view('promotion_form', $this->response);
 
+        $permision = $this->checkPermision( $id );
+        if ($permision == '0') {
+            $this->error['error_msg'] = "You don't have permision to change this officer's profile";
+            $this->load->view('promotion_form', $this->error);
+        } else if ($permision == '1') {
+
+            $this->response['result'] = $this->Form_data_model->get_Officer_Details($id);
+            $this->response['workPlaces'] = $this->Form_data_model->select('workplace');
+            $this->response['provinceList'] = $this->Form_data_model->select('province_list');
+            $this->response['designation'] = $this->Form_data_model->select('designation');
+            $this->response['service_type'] = 'promo';
+            $this->response['method'] = 'promotion_add';
+            $this->response['type'] = 'history';
+
+            $current_grade = $this->response['result']['general'][0]['grade'];
+            switch ($current_grade) {
+                case 'Grade III':
+                    $this->response['new_grade'] = 'Grade II';
+                    break;
+                case 'Grade II':
+                    $this->response['new_grade'] = 'Grade I';
+                    break;
+                case 'Grade I':
+                    $this->response['new_grade'] = 'Special Grade';
+                    break;
+            }
+    		$this->load->view('promotion_form', $this->response);
+        }
 		$this->load->view('footer');
     }
-    
+
     public function promotion_add()
     {
         //Get form data
@@ -108,44 +121,44 @@ class Promotion extends CI_Controller {
         $official_letter_no = $this->security->xss_clean($_REQUEST['official_letter_no']);
         $psc_letter = $this->security->xss_clean($_REQUEST['psc_letter']);
         $appoint_date = date("Y-m-d", strtotime($this->security->xss_clean($_REQUEST['appoint_date'])));
-        
+
         $eb_1_date = $this->security->xss_clean($_REQUEST['eb_1_date']);
         $eb_2_grade3_date = $this->security->xss_clean($_REQUEST['eb_2_grade3_date']);
         $eb_2_date = $this->security->xss_clean($_REQUEST['eb_2_date']);
         $eb_3_date = $this->security->xss_clean($_REQUEST['eb_3_date']);
-        
+
         $present_grade = $this->security->xss_clean($_REQUEST['present_grade']);
         $date_promoted = date("Y-m-d", strtotime($this->security->xss_clean($_REQUEST['date_promoted'])));
         $date_assumed = date("Y-m-d", strtotime($this->security->xss_clean($_REQUEST['date_assumed'])));
-        
+
         $province_office_id = $this->security->xss_clean($_REQUEST['sub_location']);
         $zonal_office_id = $this->security->xss_clean($_REQUEST['sub_location']);
         $divisional_office_id = $this->security->xss_clean($_REQUEST['sub_location']);
         $salary_drawn = $this->security->xss_clean($_REQUEST['salary_drawn']);
         $submit = $this->security->xss_clean($_REQUEST['submit']);
-        
+
         $type = $this->security->xss_clean($_REQUEST['type']);
-        
-        
+
+
         //Get Data from database
         $service_id_array = $this->Form_data_model->get_recent_service_id();
         $service_id = $service_id_array['0']['ID'] + 1;
-        
+
         $search_array = array('ID'=> $person_id);
         $personal_details = $this->Form_data_model->searchdb('Personal_Details', $search_array);
-        
-        
+
+
         $work_place = $this->Form_data_model->searchdbvalue('Work_Place', 'ID', $work_place_id);
         $main_division = $this->Form_data_model->searchdbvalue('Main_Office_Divisions', 'ID', $main_division_id);
         $main_branch = $this->Form_data_model->searchdbvalue('Main_Office_Branches', 'ID', $main_branch_id);
         $designation = $this->Form_data_model->searchdbvalue('Designation', 'ID', $designation_id);
         $province = $this->Form_data_model->searchdbvalue('Province_List', 'province_id', $province_id);
         $institute = $this->Form_data_model->searchdbvalue('Institute', 'ID', $institute_id);
-        
+
         $service = array('ID' => $service_id, 'person_id' => $person_id, 'service_mode' => '2', 'work_place_id'=>$work_place_id, 'designation_id'=>$designation_id , 'duty_date'=>$work_date, 'off_letter_no'=>$official_letter_no, 'user_updated' => $this->session->username);
-        
+
         $general_service = array('grade'=>$present_grade);
-        
+
         switch ($work_place_id) {
             case '1':
             case '2':
@@ -178,20 +191,20 @@ class Promotion extends CI_Controller {
 
             default:
         }
-        
+
         if($present_grade == 'Grade I'){
             $general_service['eb_2_pass'] = $eb_2_date;
         } else if($present_grade == 'Grade II'){
             $general_service['eb_1_pass'] = $eb_1_date;
             $general_service['pg_dip_pass'] = $eb_2_grade3_date;
         }
-        
+
         //generate barcode
         $barcode = $this->generate_barcode($person_id);
         $this->view_data_array['barcode'] = $barcode;
-        
+
         $service['barcode'] = $this->view_data_array['barcode'];
-        
+
         if($submit == '1'){
             $res = $this->Form_data_model->insertData('Service', $service);
             $resupd = $this->Form_data_model->update('General_Service', 'person_id', $person_id, $general_service);
@@ -199,7 +212,7 @@ class Promotion extends CI_Controller {
             $res = '1';
             $resupd = '1';
         }
-        
+
         //$res = '1';
         if ($res == '1' AND $resupd = '1'){
             if ($type){
@@ -216,24 +229,24 @@ class Promotion extends CI_Controller {
                 //Generate Letter pdf
                 $this->generate_letter($letter_html, $pdfFilePath, $pdfFileName);
             }
-            
+
         }else {
             echo ('alert("Please Check the Data and Try Again!");');
         }
     }
-    
+
     public function generate_letter_data($view_data_array, $person_id, $work_place_id, $present_grade)
     {
-        
+
 		$this->load->view('head');
 		$this->load->view('sclerk_sidebar');
         $this->load->view('letter/letter-header',$this->view_data_array);
         $this->load->view('letter/promotion/province',$this->view_data_array);
 		$this->load->view('footer');
-        
+
         $html = $this->load->view('letter/letter-header',$this->view_data_array,true);
         $html = $html . $this->load->view('letter/promotion/grade1',$this->view_data_array,true);
-        
+
         /*if($present_grade == 'Grade I'){
             $html = $html . $this->load->view('letter/promotion/grade1',$this->view_data_array,true);
         }else if($present_grade == 'Grade II'){
@@ -241,10 +254,10 @@ class Promotion extends CI_Controller {
         }else if($present_grade == 'Grade III' || $work_place_id == '2' || $work_place_id == '3') {
             $html = $html . $this->load->view('letter/promotion/main_office',$this->view_data_array,true);
         }*/
-        
+
         return $html;
     }
-    
+
     public function generate_letter($letter_html, $pdfFilePath, $pdfFileName){
         $this->load->library('m_pdf');
 
@@ -257,7 +270,7 @@ class Promotion extends CI_Controller {
         if(is_writable($barcode_image)){
             unlink($barcode_image);
         }
-        
+
         //save it.
         if (!file_exists($pdfFilePath)) {
             mkdir($pdfFilePath, 0777, true);
@@ -266,22 +279,51 @@ class Promotion extends CI_Controller {
 
         //download it.
         $this->m_pdf->pdf->Output($pdfFileName, "D");
-        
+
     }
-    
+
     public function generate_barcode($person_id){
-        
+
        //$codeID =  hexdec(uniqid());
        $codeID =  uniqid($person_id);
        echo $codeID;
-        
+
        $barcode_path = 'generated/barcode.png';
        include APPPATH . 'third_party/barcode.php';
-        
+
        barcode( $barcode_path, $codeID, '20', 'horizontal', 'code128', 'false', '1' );
-        
+
        return $codeID;
-       
+
+    }
+
+    public function checkPermision($personID){
+        $permision = 0;
+
+        $result = $this->Form_data_model->get_Officer_recent_service($personID);
+
+        switch ($this->session->workplace) {
+            case 1:
+                $permision = 1;
+                    break;
+            case 2:
+            case 3:
+            case 4:
+                break;
+            case 5:
+            case 6:
+                if ( $this->session->location == $result['0']['province']) {
+                    $permision = 1;
+                }
+                break;
+            case 7:
+                if ($result['0']['work_place_id'] == '7' && $this->session->location == $result['0']['sub_location_id']) {
+                    $permision = 1;
+                }
+                break;
+        }
+
+        return $permision;
     }
 }
 ?>

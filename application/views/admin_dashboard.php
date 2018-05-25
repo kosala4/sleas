@@ -1,8 +1,8 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-?>            
+?>
         <section id="content">   <!-- Start: Content -->
-            
+
             <div class="container">
                 <div class="row">
 
@@ -17,7 +17,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </div>
                             <div class="panel-body">
                                 <?php echo form_open('admin/registerUser', 'role="form" id="addUserForm"'); ?>
-                                
+
                                 <div class="form-group">
                                     <label class="control-label"><span style="color:red;">*</span> Name with Initials </label>
                                     <div class="controls">
@@ -27,7 +27,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="form-group">
                                     <label class="control-label"><span style="color:red;">*</span> Username </label>
                                     <div class="controls">
@@ -37,9 +37,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="form-group">
-                                    <label class="control-label"><span style="color:red;">*</span> Password <span style="opacity:0.7; font-size:12px;">- minimum 6 characters </span> </label>
+                                    <label class="control-label"><span style="color:red;">*</span> Password <span style="opacity:0.7; font-size:12px;">- Passwords are 8-25 characters with uppercase letters, lowercase letters and at least one number. </span> </label>
                                     <div class="controls">
                                         <div class="input-icon left">
                                             <i class="fs-key-2"></i>
@@ -47,7 +47,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="form-group">
                                     <label class="control-label"><span style="color:red;">*</span> Re type Password </label>
                                     <div class="controls">
@@ -57,7 +57,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="form-group">
                                     <label><span style="color:red;">*</span> User Type </label>
                                     <select class="select2 " style="width:100%" name="type" id="type" >
@@ -66,20 +66,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         <option value="2"> Subject Clerk </option>
                                     </select>
                                 </div>
-                                
+
                                 <div class="form-group ">
                                     <label><span style="color:red;">*</span> Working place </label>
                                     <?php if ($workPlaces) { ?>
                                         <select class="select2 workPlaces" name="work_place" id="work_place" style="width:100%" >
                                             <option value="" hidden selected> ---------Please Select--------- </option>
-                                            <?php foreach ($workPlaces as $row) { 
+                                            <?php foreach ($workPlaces as $row) {
                                                  switch($row['ID']){
                                                       case 1:
-                                                      case 2: 
+                                                      case 2:
                                                       case 3:
-                                                      case 4: 
+                                                      case 4:
                                                       case 5:
-                                                      case 6: 
+                                                      case 6:
                                                       case 7: ?>
                                                         <option value="<?php echo $row['ID'];?>" > <?php echo $row['work_place'] ;?> </option>
                                                         break;
@@ -89,7 +89,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         </select>
                                     <?php } ?>
                                 </div>
-                                
+
                                 <div class="province_office hidden">
                                     <div class="form-group ">
                                         <label>Province</label>
@@ -99,7 +99,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     </div>
 
                                 </div>
-                                
+
                                 <div class="zone_office hidden" >
                                     <div class="form-group">
                                         <label>Province</label>
@@ -129,11 +129,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                                 </div> <!--End of work-institute--> <!--Hidden when loading-->
 
-                                        
+
                                 <div class="form-actions fluid">
                                     <button type="button" class="btn btn-success form-reset pull-right" id="newusersubmit">Submit</button>
                                 </div>
-                                
+
                                 <?php echo form_close()?>
                             </div>
                         </div>
@@ -149,19 +149,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 </div>
                             </div>
                             <div class="panel-body">
-                                
+
                             </div>
                         </div>
                     </div>-->
 
                 </div>
-                                
+
             </div>
         </section>
 
     <script src="<?php echo base_url()."assets/plugins/select2/select2.min.js"?>"></script>
     <script src="<?php echo base_url()."assets/plugins/validation/jquery.validate.min.js"?>"></script>
-    <script src="<?php echo base_url()."assets/plugins/validation/additional-methods.js"?>"></script>    
+    <script src="<?php echo base_url()."assets/plugins/validation/additional-methods.js"?>"></script>
 
     <script src="<?php echo base_url()."assets/plugins/flot/excanvas.min.js"?>"></script>
     <script src="<?php echo base_url()."assets/plugins/datatables/js/jquery.dataTables.min.js"?>"></script>
@@ -172,9 +172,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <script src="<?php echo base_url()."assets/plugins/morris/morris.min.js"?>"></script>
 
     <script>
-        
+
         $(document).ready(function(){
-        
+
+            $.validator.addMethod("PASSWORD",function(value,element){
+                return this.optional(element) || /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,25}$/i.test(value);
+            },"Passwords are 8-25 characters with uppercase letters, lowercase letters and at least one number.");
+
             $('#username').focusout(function(){
                 var vald = $(this).valid();
                 //$(this).valid();
@@ -182,10 +186,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 console.log(vald);
 
             });
-            
+
             $('#work_place').change(function(){
                 var work_place = $(this).val();
-                
+
                 if ($.inArray(work_place, ['5','6']) >=0){
                     $('.province_office').removeClass('hidden');
                     $('.zone_office').addClass('hidden');
@@ -201,7 +205,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         success: function(res){
                             $('#province_office').empty();
                             $.each(res, function(ID,province_office){
-                                $('#province_office').append('<option value='+res[ID].ID+'>'+res[ID].province_office+'</option>');
+                                $('#province_office').append('<option value='+res[ID].province_id+'>'+res[ID].province_office+'</option>');
                             });
                         }
                     });
@@ -209,13 +213,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     $('.province_office').addClass('hidden');
                     $('.zone_office').removeClass('hidden');
                 } else {
-                    
+
                     $('.province_office').addClass('hidden');
                     $('.zone_office').addClass('hidden');
                 }
-                
+
             });
-            
+
             $('#province').change(function(){
                 var id = $(this).val();
                 var post_url = "index.php/FormControl/getDistricts/"+id;
@@ -234,7 +238,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     }
                 });
             });
-            
+
             $('#district').change(function(){
                 var id = $(this).val();
                 var dataarray = {'<?php echo $this->security->get_csrf_token_name(); ?>':'<?php echo $this->security->get_csrf_hash(); ?>',district_id: id};
@@ -253,7 +257,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     }
                 });
             });
-            
+
             $('#newusersubmit').click(function(){
                 if( $("#addUserForm").valid()){
                     var post_url = "index.php/admin/registerUser/"+'2';
@@ -292,9 +296,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     });
                 }
             });
-            
 
-            
+
+
             $("#addUserForm").validate({
                 errorElement: 'span', //default input error message container
                 errorClass: 'help-block error', // default input error message class
@@ -319,7 +323,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     },
                     passwd: {
                         required: true,
-                        minlength: 5
+                        PASSWORD: true
                     },
                     passwdrt: {
                         required: true,
@@ -337,16 +341,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         remote: "User name is already taken",
                     },
                     email: "Please enter Correct E-mail Address",
-                    passwd: "Please enter password",
+                    passwd: "Passwords are 8-25 characters with uppercase letters, lowercase letters and at least one number.",
                     passwdrt: "Please enter password",
                     type: "Please select user type",
                     work_place: "Please select user's working place"
 
                 }
             });
-            
+
         });
-        
+
         $('.menu_dashboard').addClass('active');
   // Draggable Portlets
     </script>

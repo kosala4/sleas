@@ -23,15 +23,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <span class="title">GRADE III</span><br>
                         <span class="time">SLEAS Officers</span>
                     </div>
-                
+
                     <div class="col-xs-6 col-sm-3 stater" data-grade="sp">
                         <span class="count"><?php echo $countspecial; ?></span>
                         <span class="title"> Special Cadre </span><br>
                         <span class="time">SLEAS Officers</span>
                     </div>
-                
+
                 </div>
-                
+
                 <div class="col-md-12" style="margin-top:20px; padding-left:0; padding-right:0;">
                     <div class="panel panel-default">
                         <div class="panel-heading">
@@ -43,7 +43,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <div id="columnchart_material" style="width: 100%; height: 350px; padding-left:20px; padding-right:20px;"></div>
                     </div>
                 </div>
-                
+
                 <div class="col-md-6" style="margin-top:20px; padding-left:0; padding-right:0;">
                     <div class="panel panel-default">
                         <div class="panel-heading">
@@ -55,7 +55,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <div id="piechart_div" style="width: 100%; height: 350px; padding-left:20px; padding-right:20px;"></div>
                     </div>
                 </div>
-                
+
                 <div class="col-md-6" style="margin-top:20px; padding-left:0; padding-right:0;">
                     <div class="panel panel-default">
                         <div class="panel-heading">
@@ -67,7 +67,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <div id="table_div" style="width: 100%; height: 350px; padding-left:20px; padding-right:20px;"></div>
                     </div>
                 </div>
-                
+
             <!-- Modal to update Work Places dates-->
                 <div id="GradeModal" class="modal fade" role="dialog">
                   <div class="modal-dialog">
@@ -79,7 +79,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                           <h4 id="modal_title">  </h4>
                       </div>
 
-                    <?php echo form_open() ?> 
+                    <?php echo form_open() ?>
                       <div class="modal-body">
                         <div class="col-md-12">
                             <table style="width:100%" border="1" class="table DataTable">
@@ -106,7 +106,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
     <script src="<?php echo base_url()."assets/plugins/select2/select2.min.js"?>"></script>
     <script src="<?php echo base_url()."assets/plugins/validation/jquery.validate.min.js"?>"></script>
-    <script src="<?php echo base_url()."assets/plugins/validation/additional-methods.js"?>"></script>    
+    <script src="<?php echo base_url()."assets/plugins/validation/additional-methods.js"?>"></script>
 
     <script src="<?php echo base_url()."assets/plugins/flot/excanvas.min.js"?>"></script>
     <script src="<?php echo base_url()."assets/plugins/datatables/js/jquery.dataTables.min.js"?>"></script>
@@ -118,9 +118,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 
     <script>
-        
+
     $(document).ready(function(){
-       
+
     });
     </script>
 
@@ -135,23 +135,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             if (selGrade == '01'){
                 modalTitle = "GRADE I Officers Details.";
                 cadreSize[selGrade] = {'moe' : 100, 'exam' : 8, 'epub' : 2, 'service': 3, 'west' : 20, 'cent' : 11, 'sout' : 11, 'nort' : 18, 'east' : 10, 'nw' : 11, 'nc' : 15, 'uva' : 14, 'saba' : 15}
-                
+
             }else if (selGrade == '02'){
                 modalTitle = "General Cadre GRADE II Officers Details.";
                 cadreSize[selGrade] = {'moe' : 0, 'exam' : 0, 'epub' : 0, 'service': 0, 'west' : 72, 'cent' : 36, 'sout' : 36, 'nort' : 65, 'east' : 32, 'nw' : 36, 'nc' : 52, 'uva' : 48, 'saba' : 52}
-                
+
             }else if (selGrade == '03'){
                 modalTitle = "General Cadre GRADE II/III Officers Details.";
                 cadreSize[selGrade] = {'moe' : 281, 'exam' : 64, 'epub' : 8, 'service': 0, 'west' : 49, 'cent' : 32, 'sout' : 32, 'nort' : 65, 'east' : 32, 'nw' : 24, 'nc' : 34, 'uva' : 60, 'saba' : 52}
-                
+
             }else if (selGrade == 'sp'){
                 modalTitle = "Special Cadre GRADE II/III Officers Details.";
                 cadreSize[selGrade] = {'moe' : 43, 'exam' : 0, 'epub' : 30, 'service': 7, 'west' : 146, 'cent' : 120, 'sout' : 112, 'nort' : 232, 'east' : 84, 'nw' : 85, 'nc' : 125, 'uva' : 115, 'saba' : 168}
-                
+
             }
-            
-            console.log(JSON.stringify(cadreSize[selGrade]));
-            
+
             var post_url = "index.php/Management/countOfficers/2";
             var dataarray = {'<?php echo $this->security->get_csrf_token_name(); ?>':'<?php echo $this->security->get_csrf_hash(); ?>'};
             $.ajax({
@@ -160,7 +158,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 dataType :'json',
                 data: dataarray,
                 success: function(res){
-                    
+
                 if (selGrade == '02'){
                     res[selGradeg].moe = 0;
                     res[selGradeg].exam = 0;
@@ -174,7 +172,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 }else if (selGrade == 'sp'){
 
                 }
-                    
+
                     $('#cadre_details').empty();
                     $('#cadre_details').append('<tr><th> Ministry of Education </th> <td>'+cadreSize[selGrade]['moe']+'</td> <td>'+res[selGradeg].moe+'</td> <td>'+ (parseInt(cadreSize[selGrade]['moe']) - parseInt(res[selGradeg].moe))+'</td> </tr>');
                     $('#cadre_details').append('<tr><th> Department of Examinations </th> <td>'+cadreSize[selGrade]['exam']+'</td> <td>'+res[selGradeg].exam+'</td> <td>'+ (parseInt(cadreSize[selGrade]['exam']) - parseInt(res[selGradeg].exam))+'</td> </tr>');
@@ -189,18 +187,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     $('#cadre_details').append('<tr><th> North Central Province </th> <td>'+cadreSize[selGrade]['nc']+'</td> <td>'+res.provinces[selGrade].P06+'</td> <td>'+ (parseInt(cadreSize[selGrade]['nc']) - parseInt(res.provinces[selGrade].P06)) +'</td> </tr>');
                     $('#cadre_details').append('<tr><th> Uva Province </th> <td>'+cadreSize[selGrade]['uva']+'</td> <td>'+res.provinces[selGrade].P04+'</td> <td>'+ (parseInt(cadreSize[selGrade]['uva']) - parseInt(res.provinces[selGrade].P04)) +'</td> </tr>');
                     $('#cadre_details').append('<tr><th> Sabaragamuwa Province </th> <td>'+cadreSize[selGrade]['saba']+'</td> <td>'+res.provinces[selGrade].P08+'</td> <td>'+ (parseInt(cadreSize[selGrade]['saba']) - parseInt(res.provinces[selGrade].P08)) +'</td> </tr>');
-                    
+
                 },
                 error: function(){
                     $('#cadre_details').empty();
                 }
             });
-            
-            
+
+
             $('#modal_title').text(modalTitle);
             $('#GradeModal').modal('toggle');
         });
-        
+
         google.charts.load('current', {'packages':['corechart', 'table']});
         google.charts.setOnLoadCallback(drawChart);
         //google.charts.setOnLoadCallback(drawPieChart);
@@ -232,7 +230,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             };
             var chart = new google.visualization.ColumnChart(document.getElementById('columnchart_material'));
             chart.draw(data, options);
-            
+
             var PieOptions = {
                 chart: {
                     title: 'SLEAS Officers',
@@ -244,19 +242,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             };
             var piechart = new google.visualization.PieChart(document.getElementById('piechart_div'));
             piechart.draw(data, PieOptions);
-            
+
             google.visualization.events.addListener(piechart, 'select', selectHandler);
-            
+
             var table = new google.visualization.Table(document.getElementById('table_div'));
             table.draw(data, {showRowNumber: true, width: '100%', height: '100%'});
-            
+
             function selectHandler(){
                 var selection = piechart.getSelection();
                 alert(data.getValue(selection[0].row, 4));
-                
+
             }
         }
-        
+
         function drawPieChart() {
           var jsonData = $.ajax({
               url: "<?php echo base_url(); ?>" + "index.php/Management/getData",

@@ -3,7 +3,7 @@
 # @Date:   2017-12-29T09:59:47+05:30
 # @Email:  kosala4@gmail.com
 # @Last modified by:   Kosala Gangabadage
-# @Last modified time: 2018-01-10T09:32:45+05:30
+# @Last modified time: 2018-05-22T22:38:59+05:30
 
 
 
@@ -88,9 +88,9 @@ class Admin extends CI_Controller {
 		$this->load->view('head');
 		$this->load->view('sclerk_sidebar');
 
-    //Get relavent data from database
-    $this->response['requests'] = $this->getChangeRequests($this->session->username);
-    $this->response['officers_list'] = $this->Form_data_model->get_Officers_List();
+        //Get relavent data from database
+        $this->response['requests'] = $this->getChangeRequests($this->session->username);
+        $this->response['officers_list'] = $this->Form_data_model->get_Officers_List();
 		$this->load->view('sclerk_dashboard', $this->response);
 
 		$this->load->view('footer');
@@ -117,7 +117,20 @@ class Admin extends CI_Controller {
         $this->response['designation'] = $this->Form_data_model->select('designation');
         $this->response['leavetype'] = $this->Form_data_model->select('leavetype');
 
-		$this->load->view('officer_profile', $this->response);
+        if($this->session->workplace == '7'){
+
+            if ( $this->response['user_details']['0']['sub_location_id'] == $this->session->location) {
+                $this->response['test'] = $this->response['user_details']['0']['sub_location_id'];
+                $this->load->view('officer_profile', $this->response);
+            } else {
+                $this->error['error_msg'] = "You do not have permissions to view this officer's details";
+                $this->load->view('officer_profile', $this->error);
+            }
+
+        }else {
+            $this->load->view('officer_profile', $this->response);
+        }
+        //$this->load->view('officer_profile', $this->response);
 		$this->load->view('footer');
     }
 
@@ -152,6 +165,8 @@ class Admin extends CI_Controller {
     {
         $person_id = $this->security->xss_clean($_REQUEST['id']);
         $initname = $this->security->xss_clean($_REQUEST['initname']);
+        $si_initname = $this->security->xss_clean($_REQUEST['si_initname']);
+        $ta_initname = $this->security->xss_clean($_REQUEST['ta_initname']);
         $fname = $this->security->xss_clean($_REQUEST['fname']);
         $mname = $this->security->xss_clean($_REQUEST['mname']);
         $lname = $this->security->xss_clean($_REQUEST['lname']);
@@ -163,7 +178,7 @@ class Admin extends CI_Controller {
         $address_2 = $this->security->xss_clean($_REQUEST['address2']);
         $address_3 = $this->security->xss_clean($_REQUEST['address3']);
 
-        $personal_details = array('f_name' => $fname, 'm_name' => $mname, 'l_name' => $lname, 'in_name' => $initname, 'dob' => $dob, 'user_updated' => $this->session->user_name);
+        $personal_details = array('f_name' => $fname, 'm_name' => $mname, 'l_name' => $lname, 'in_name' => $initname, 'si_in_name' => $si_initname, 'ta_in_name' => $ta_initname, 'dob' => $dob, 'user_updated' => $this->session->user_name);
 
         $contact_details = array('address_1' => $address_1, 'address_2' => $address_2, 'address_3' => $address_3, 'mobile' => $mobile, 'telephone' => $telephone, 'email' => $email);
 
@@ -299,14 +314,14 @@ class Admin extends CI_Controller {
         $zonal_office = $this->security->xss_clean($this->input->post('zonal_office'));
 
         $user_array = array('name' => $name, 'user_name' => $uname, 'passwd' => $passwd, 'level' => $utype, 'workplace_id' => $work_place);
-        $res = $this->Form_data_model->insertData('User', $user_array);
 
         if($work_place == '5' OR $work_place =='6'){
             $user_array['sub_location_id'] = $province_office;
-        } else if($$work_place == '7'){
+        } else if($work_place == '7'){
             $user_array['sub_location_id'] = $zonal_office;
         }
 
+        $res = $this->Form_data_model->insertData('User', $user_array);
         if(res == '1'){
             echo "Success";
         }
@@ -492,7 +507,8 @@ class Admin extends CI_Controller {
 
 
 
-    public function addLeave(){
+    public function addLeave()
+    {
         header('Content-Type: application/x-json; charset=utf-8');
         $person_id = $this->security->xss_clean($this->input->post('person_id'));
         $l_year = $this->security->xss_clean($this->input->post('l_year'));
@@ -507,7 +523,8 @@ class Admin extends CI_Controller {
         }
     }
 
-    public function editLeave(){
+    public function editLeave()
+    {
         header('Content-Type: application/x-json; charset=utf-8');
         $l_id = $this->security->xss_clean($this->input->post('l_id'));
         $l_year = $this->security->xss_clean($this->input->post('l_year'));
@@ -522,7 +539,8 @@ class Admin extends CI_Controller {
         }
     }
 
-    public function deleteLeave(){
+    public function deleteLeave()
+    {
         header('Content-Type: application/x-json; charset=utf-8');
         $l_id = $this->security->xss_clean($this->input->post('l_id'));
 

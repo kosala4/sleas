@@ -38,14 +38,20 @@ class Placement extends CI_Controller {
 		$this->load->view('head');
 		$this->load->view('sclerk_sidebar');
 
-        $search_array = array('ID'=> $id);
-        $this->response['result'] = $this->Form_data_model->searchdb('Personal_Details', $search_array);
-        $this->response['workPlaces'] = $this->Form_data_model->select('workplace');
-        $this->response['provinceList'] = $this->Form_data_model->select('province_list');
-        $this->response['designation'] = $this->Form_data_model->select('designation');
-        $this->response['service_type'] = 'placement';
-		$this->load->view('new_placement_form', $this->response);
+        $permision = $this->checkPermision( $id );
+        if ($permision == '0') {
+            $this->error['error_msg'] = "You don't have permision to change this officer's profile";
+            $this->load->view('service_change', $this->error);
+        } else if ($permision == '1') {
 
+            $search_array = array('ID'=> $id);
+            $this->response['result'] = $this->Form_data_model->searchdb('Personal_Details', $search_array);
+            $this->response['workPlaces'] = $this->Form_data_model->select('workplace');
+            $this->response['provinceList'] = $this->Form_data_model->select('province_list');
+            $this->response['designation'] = $this->Form_data_model->select('designation');
+            $this->response['service_type'] = 'placement';
+    		$this->load->view('new_placement_form', $this->response);
+        }
 		$this->load->view('footer');
     }
 
@@ -56,15 +62,21 @@ class Placement extends CI_Controller {
 		$this->load->view('head');
 		$this->load->view('sclerk_sidebar');
 
-        $search_array = array('ID'=> $id);
-        $this->response['result'] = $this->Form_data_model->searchdb('Personal_Details', $search_array);
-        $this->response['workPlaces'] = $this->Form_data_model->select('workplace');
-        $this->response['provinceList'] = $this->Form_data_model->select('province_list');
-        $this->response['designation'] = $this->Form_data_model->select('designation');
-        $this->response['service_type'] = 'placement';
-        $this->response['type'] = 'history';
+        $permision = $this->checkPermision( $id );
+        if ($permision == '0') {
+            $this->error['error_msg'] = "You don't have permision to change this officer's profile";
+            $this->load->view('service_change', $this->error);
+        } else if ($permision == '1') {
 
-		$this->load->view('new_placement_form', $this->response);
+            $search_array = array('ID'=> $id);
+            $this->response['result'] = $this->Form_data_model->searchdb('Personal_Details', $search_array);
+            $this->response['workPlaces'] = $this->Form_data_model->select('workplace');
+            $this->response['provinceList'] = $this->Form_data_model->select('province_list');
+            $this->response['designation'] = $this->Form_data_model->select('designation');
+            $this->response['service_type'] = 'placement';
+            $this->response['type'] = 'history';
+    		$this->load->view('new_placement_form', $this->response);
+        }
 
 		$this->load->view('footer');
     }
@@ -189,7 +201,6 @@ class Placement extends CI_Controller {
 
         //remove generated barcode image
         $barcode_image = 'generated/barcode.png';
-        echo $barcode_image;
         if(is_writable($barcode_image)){
             unlink($barcode_image);
         }
@@ -217,6 +228,34 @@ class Placement extends CI_Controller {
 
        return $codeID;
 
+    }
+
+    public function checkPermision($personID){
+        $permision = 0;
+
+        $result = $this->Form_data_model->get_Officer_recent_service($personID);
+
+        switch ($this->session->workplace) {
+            case 1:
+                $permision = 1;
+                    break;
+            case 2:
+            case 3:
+            case 4:
+                break;
+            case 5:
+            case 6:
+                if ( $this->session->location == $result['0']['province']) {
+                    $permision = 1;
+                }
+                break;
+            case 7:
+                if ($result['0']['work_place_id'] == '7' && $this->session->location == $result['0']['sub_location_id']) {
+                    $permision = 1;
+                }
+                break;
+        }
+        return $permision;
     }
 }
 ?>

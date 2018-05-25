@@ -294,19 +294,26 @@ class Form_data_model extends CI_Model{
 
     public function get_Officers_List(){
 
-        $this->db->select('Personal_Details.ID AS person_id, Personal_Details.NIC, Personal_Details.title, UPPER(Personal_Details.in_name) AS in_name, Designation.designation, Work_Place.work_place, s1.ID');
+        $this->db->select('Personal_Details.ID AS person_id, Personal_Details.NIC, Personal_Details.title, UPPER(Personal_Details.in_name) AS in_name, Designation.designation, Work_Place.work_place, s1.ID, s1.work_place_id, s1.sub_location_id');
         $this->db->from('Personal_Details');
         $this->db->join('Service s1', 'Personal_Details.ID = s1.person_id', 'inner');
         $this->db->join('Designation', 's1.designation_id = Designation.ID', 'left');
         $this->db->join('Work_Place', 's1.work_place_id = Work_Place.ID');
-        $this->db->join('Service s2', 'Personal_Details.ID = s2.person_id AND
-    (s1.time_updated < s2.time_updated OR s1.time_updated = s2.time_updated AND s1.time_updated < s2.time_updated)', 'left outer');
+        $this->db->join('Service s2', 'Personal_Details.ID = s2.person_id AND (s1.time_updated < s2.time_updated OR s1.time_updated = s2.time_updated AND s1.time_updated < s2.time_updated)', 'left outer');
         $this->db->where('s2.person_id is NULL');
+
+        if($this->session->workplace == '7'){
+            $this->db->where('s1.work_place_id', '7');
+            $this->db->where('s1.sub_location_id', $this->session->location);
+        }
 
         $this->db->order_by('Personal_Details.NIC', 's1.NIC');
         $query = $this->db->get();
         $res  = $query->result_array();
-        return $res;
+        if ($query->num_rows() >= 1){
+            return $res;
+        }
+
     }
 
     public function search_officers($searchField, $searchKey){
@@ -316,9 +323,14 @@ class Form_data_model extends CI_Model{
         $this->db->join('Service s1', 'Personal_Details.ID = s1.person_id');
         $this->db->join('Designation', 'Designation.ID = s1.designation_id', 'left');
         $this->db->join('Work_Place', 'Work_Place.ID = s1.work_place_id');
-        $this->db->join('Service s2', 'Personal_Details.ID = s2.person_id AND
-    (s1.time_updated < s2.time_updated OR s1.time_updated = s2.time_updated AND s1.time_updated < s2.time_updated)', 'left outer');
+        $this->db->join('Service s2', 'Personal_Details.ID = s2.person_id AND (s1.time_updated < s2.time_updated OR s1.time_updated = s2.time_updated AND s1.time_updated < s2.time_updated)', 'left outer');
         $this->db->where('s2.person_id is NULL');
+
+        if($this->session->workplace == '7'){
+            $this->db->where('s1.work_place_id', '7');
+            $this->db->where('s1.sub_location_id', $this->session->location);
+        }
+
         $this->db->like('LOWER(Personal_Details.'.$searchField.')', $searchKey, after);
         $this->db->order_by('Personal_Details.NIC', 'Service.ID');
         $query = $this->db->get();
@@ -336,14 +348,16 @@ class Form_data_model extends CI_Model{
 
     public function get_Officer_Details($personID){
         $this->db->cache_off();
-        $this->db->select('*, UPPER(p.in_name) AS in_name, s1.work_place_id, p.ID, s1.ID AS service_id');
+        $this->db->select('*, UPPER(p.in_name) AS in_name, s1.work_place_id, p.ID, s1.ID AS service_id'); //ta_work_place.work_place AS ta_work_place, si_Work_Place.work_place AS si_work_place
         $this->db->from('Service s1');
         $this->db->join('Personal_Details p', 'p.ID = s1.person_id');
         $this->db->join('Main_Office_Branches br', 's1.work_branch_id = br.ID','left');
         $this->db->join('Main_Office_Divisions div', 's1.work_division_id = div.ID','left');
         $this->db->join('Service_Mode smood', 'smood.ID = s1.service_mode');
         $this->db->join('Work_Place', 'Work_Place.ID = s1.work_place_id');
-        $this->db->join('Designation', 'Designation.ID = s1.designation_id', 'left');
+        //$this->db->join('si_Work_Place', 'si_Work_Place.ID = s1.work_place_id');
+        //$this->db->join('ta_Work_Place', 'ta_Work_Place.ID = s1.work_place_id', 'left');
+        $this->db->join('si_Designation', 'si_Designation.ID = s1.designation_id', 'left');
         $this->db->where('p.ID', $personID);
         $this->db->order_by('s1.duty_date', 'DESC');
         $query = $this->db->get();
@@ -469,10 +483,103 @@ class Form_data_model extends CI_Model{
                 $i++;
             }
             //return $query;
-			return $res;
+
+            return $res;
 		} else{
 			return 0;
 		}
+
+    }
+
+    public function get_Officer_recent_work_location($personID)
+    {
+        $this->db->cache_off();
+        $this->db->select('s1.person_id, s1.work_place_id, s1.sub_location_id');
+        $this->db->from('Service s1');
+
+        $this->db->where('s1.person_id', $personID);
+        $this->db->order_by('s1.duty_date', 'DESC');
+        $this->db->limit(1);
+        $query = $this->db->get();
+        $res = $query->result_array();
+
+        //Output Officer details
+        if ($query->num_rows() >= 1) {
+			//$res = $query->result_array();
+            $i=0;
+            foreach($res as $row){
+                //print_r($row);
+                switch ($row['work_place_id']) {
+                    case 1:
+                    case 2:
+                    case 3:
+                    case 4:
+                    case 5:
+                    case 6:
+                        $this->db->select('province_id AS province');
+                        $this->db->from('province_offices');
+                        $this->db->where('ID', $row['sub_location_id']);
+                        $sub_loc_query = $this->db->get();
+
+                        $sub_loc = $sub_loc_query->result_array();
+                        $res[0]['rel_zoneID'] = '';
+                        $res[0]['rel_provinceID'] = $sub_loc['0']['province'];
+                        break;
+                    case 7:
+                        break;
+                    case 8:
+                        $this->db->select('z.ID AS zone, p.province_id AS province');
+                        $this->db->from('Divisional_Offices i');
+                        $this->db->join('zone_list z', 'z.zone_id = i.zone_id');
+                        $this->db->join('district_list d', 'd.dist_id = z.dist_id');
+                        $this->db->join('province_list p', 'p.province_id = d.province_id');
+                        $this->db->where('i.ID', $row['sub_location_id']);
+                        $sub_loc_query = $this->db->get();
+
+                        $sub_loc = $sub_loc_query->result_array();
+                        $res[0]['rel_zoneID'] = $sub_loc['0']['zone'];
+                        $res[0]['rel_provinceID'] = $sub_loc['0']['province'];
+                        //if (isset($sub_loc)){  }
+
+                        break;
+                    case 9:
+                    case 10:
+                    case 11:
+                    case 12:
+                    case 13:
+                    case 14:
+                    case 15:
+                    case 16:
+                    case 17:
+                        $this->db->select('z.ID AS zone, p.province_id AS province');
+                        $this->db->from('Institute i');
+                        $this->db->join('division_list dl', 'dl.div_id = i.div_id');
+                        $this->db->join('zone_list z', 'z.zone_id = dl.zone_id');
+                        $this->db->join('district_list d', 'd.dist_id = z.dist_id');
+                        $this->db->join('province_list p', 'p.province_id = d.province_id');
+                        $this->db->where('i.ID', $row['sub_location_id']);
+                        $sub_loc_query = $this->db->get();
+
+                        $sub_loc = $sub_loc_query->result_array();
+                        $res[0]['rel_zoneID'] = $sub_loc['0']['zone'];
+                        $res[0]['rel_provinceID'] = $sub_loc['0']['province'];
+                        break;
+
+                    case 18:
+                        $this->db->select('province_id AS province');
+                        $this->db->from('Province_List');
+                        $this->db->where('province_id', $row['sub_location_id']);
+                        $sub_loc_query = $this->db->get();
+
+                        $sub_loc = $sub_loc_query->result_array();
+                        $res[0]['rel_zoneID'] = '';
+                        $res[0]['rel_provinceID'] = $sub_loc['0']['province'];
+                        break;
+                }
+                $i++;
+            }
+        }
+            //return $query;
 
     }
 

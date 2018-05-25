@@ -27,7 +27,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <?php echo form_open('Register/register_new', 'role="form" id="addMemberForm"'); ?>
 		                            <div class="form-body">
                                         <div class="panel-group" id="accordion">
-                                            
+
                                             <div class="panel panel-default">
                                                 <div class="panel-heading reg-sec-panel">
                                                   <h4 class="panel-title">
@@ -75,12 +75,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                             <input type="text" class="form-control " name="lname" id="lname" placeholder="Last Name" data-prompt-position="topLeft" />
                                                         </div>
 
+                                                        <div class="form-group">
+                                                            <label><span style="color:red;">*</span>Name with Intials</label>
+                                                            <input type="text" class="form-control " name="inname" id="inname" placeholder="Name with Intials" data-prompt-position="topLeft" required/>
+                                                        </div>
+
                                                     </div>
                                                     <div class="col-md-6">
 
                                                         <div class="form-group">
-                                                            <label><span style="color:red;">*</span>Name with Intials</label>
-                                                            <input type="text" class="form-control " name="inname" id="inname" placeholder="Name with Intials" data-prompt-position="topLeft" />
+                                                            <label> මුලකුරු සහිත නම - සිංහල  </label>
+                                                            <input type="text" class="form-control " name="inname" id="si_inname" placeholder="මුලකුරු සහිත නම - සිංහල " data-prompt-position="topLeft" />
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label> தலைப்புகள் கொண்ட பெயர் - தமிழ்  </label>
+                                                            <input type="text" class="form-control " name="inname" id="ta_inname" placeholder="தலைப்புகள் கொண்ட பெயர் - தமிழ் " data-prompt-position="topLeft" />
                                                         </div>
 
                                                         <div class="form-group">
@@ -109,7 +119,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                                 <option value="Male">Male</option>
                                                                 <option value="Female">Female</option>
                                                             </select>
-                                                        </div>  
+                                                        </div>
 
                                                         <div class="form-group">
                                                             <label><span style="color:red;">*</span>Civil Status</label>
@@ -125,12 +135,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                 </div><!--End of Personal details-->
                                                 </div>
                                             </div><!--End of Personal details-->
-                                            
+
                                             <div class="panel panel-default">
                                                 <div class="panel-heading reg-sec-panel">
                                                   <h4 class="panel-title">
-                                                      <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
-        Contact Information (Permanent)</a>
+                                                      <a data-toggle="collapse" data-parent="#accordion" href="#collapse2"> Contact Information (Permanent) </a>
                                                     </h4>
                                                 </div>
                                                 <div id="collapse2" class="panel-collapse collapse">
@@ -180,7 +189,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                 </div> <!--End of Contact details Permanent-->
                                                 </div>
                                             </div><!--End of Contact details Permanent-->
-                                            
+
                                             <div class="panel panel-default">
                                                 <div class="panel-heading reg-sec-panel">
                                                   <h4 class="panel-title">
@@ -226,7 +235,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                 </div> <!--End of Contact details Tempory-->
                                                 </div>
                                             </div><!--End of Contact details Tempory-->
-                                            
+
                                             <div class="panel panel-default"><!--General Service-->
                                                 <div class="panel-heading reg-sec-panel">
                                                   <h4 class="panel-title">
@@ -275,7 +284,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                                         <option value="Special Cadre">Special Cadre</option>
                                                                     </select>
                                                                 </div>
-                                                                
+
                                                                     <div class="form-group gen-serv-set1-general hidden">
                                                                         <label>SLEAS Grade  when joining the SLEAS</label>
                                                                         <select class="select2 " name="grade_general" id="grade_general" style="width:100%;">
@@ -304,7 +313,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                                                         <option value=<?php echo $row['ID'];?> > <?php echo $row['sub_name'] ;?> </option>
                                                                             <?php    } ?>
                                                                                 <?php } ?>
-                                                                        
+
                                                                             </select>
                                                                     </div>
                                                             </div>
@@ -366,7 +375,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                 </div><!--End of General-Service-->
                                                 </div>
                                             </div><!--End of General-Service-->
-                                            
+
                                             <div class="panel panel-default"><!--Current Service-->
                                                 <div class="panel-heading reg-sec-panel">
                                                   <h4 class="panel-title">
@@ -378,7 +387,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                                                     <div class="current-service">
                                         <!--<h3>Current service information</h3><hr>-->
-                                        
+
                                                         <div class="col-md-12">
                                                         <div class="col-md-6">
 
@@ -560,7 +569,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                                     <?php } ?>
                                                                 </div>
 
-                                                            </div><!--End of first appointment block--> 
+                                                            </div><!--End of first appointment block-->
                                                         </div>
                                                         <div class="col-md-6">
                                                             <div class="c-releasement_block hidden">
@@ -619,12 +628,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                                     </div>
 
                                                                 </div>
-                                                                
+
                                                                 <div class="form-group">
                                                                     <label>Respective official letter no.</label>
                                                                     <input type="text" class="form-control " name="rel_official_letter_no" id="rel_official_letter_no" placeholder="Respective official letter no." data-prompt-position="topLeft" />
                                                                 </div>
-                                                                
+
                                                                 <div class="form-group">
                                                                     <label>Place where salary drawn</label>
                                                                     <?php if ($workPlaces) { ?>
@@ -645,9 +654,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     </div><!--End of current-service-->
                                                 </div>
                                             </div><!--End of current-service-->
-                                          
+
                                         </div><!--End of accordian-->
-                                        
+
                                         <div class="form-actions fluid">
                                             <div class="col-md-offset-3 col-md-9">
                                                 <button type="reset" id="reset-button" class="btn btn-info">Clear</button>
@@ -659,11 +668,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		                      </div><!--End of panel-body-->
                             </div>
-                    
+
                     </div>
                 </div><!--End of row-->
                 <div class="row" id="selected_profile">
-                    
+
                 </div>
 
             </div><!--End of container-->
@@ -679,19 +688,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <script src="<?php echo base_url()."assets/plugins/datatables/js/DT_bootstrap.js"?>"></script>
 
     <script>
-        $(document).ready(function(){ 
+        $(document).ready(function(){
             FormValidationInline.init();
-            
+
             /*$('#addMemberForm').validate({
                 rules: {
                     nic: "required"
                 }
-                
+
             });*/
-            
+
             //$('.menu').removeClass('active');
             $('#menu_add_officer').addClass('active');
-            
+
             //Check Way joind in general service
             $('#way_joined').change(function(){
                 var gr = $(this).val();
@@ -701,11 +710,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 }else if(gr == "Super Numeral (PVC)"){
                     $(".gen-serv-set1").addClass("hidden");
                     $(".gen-serv-set2").removeClass("hidden");
-                    
+
                 }
             });
-            
-            
+
+
             //Check When joining SLEAS
             $('.gen-serv-set1-cadre').change(function(){
                 var gr = $(this).val();
@@ -715,10 +724,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 }else if(gr == "Special Cadre"){
                     $(".gen-serv-set1-general").addClass("hidden");
                     $(".gen-serv-set1-special").removeClass("hidden");
-                    
+
                 }
             });
-            
+
             $('#service_mood').change(function(){
                 var gr = $(this).find(':selected').data('val');
                 $('.date_appoint').removeClass("hidden");
@@ -728,7 +737,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 }else if(gr == "release"){
                     $(".c-firstapp_block").addClass("hidden");
                     $(".c-releasement_block").removeClass("hidden");
-                    
+
                 }
                 switch(gr){
                     case 'firstappoint':
@@ -779,11 +788,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         break;
                          }
             });
-            
+
             $('#work_place').change(function(){
                 var gr = $(this).find(':selected').data('code');
                 var workplace_id = $(this).val();
-                
+
                 if ($.inArray(gr, ['moe','exam','epd']) >=0){
                     $(".c-firstapp-work-institute").addClass("hidden");
                     $(".province_office").addClass("hidden");
@@ -791,8 +800,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     $(".divisional_office").addClass("hidden");
                     $(".zonal_office").addClass("hidden");
                     getMainDivision(workplace_id);
-                    getMainBranch(workplace_id);    
-                    
+                    getMainBranch(workplace_id);
+
                 }else if($.inArray(gr, ['zone','division','ncoe','ttc','nschool','pschool']) >=0){
                     $(".c-firstapp-work-main-institue").addClass("hidden");
                     $(".province_office").addClass("hidden");
@@ -815,14 +824,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         $(".divisional_office").addClass("hidden");
                         $(".zonal_office").addClass("hidden");
                     }
-                    
+
                 }else if($.inArray(gr, ['provinced','provincem']) >=0){
                     $(".c-firstapp-work-main-institue").addClass("hidden");
                     $(".c-firstapp-work-institute").addClass("hidden");
                     $(".province_office").removeClass("hidden");
                     $(".divisional_office").addClass("hidden");
                     $(".zonal_office").addClass("hidden");
-                    
+
                     var post_url = "index.php/FormControl/getProvinceOffices/"+workplace_id;
                     var dataarray = {'<?php echo $this->security->get_csrf_token_name(); ?>':'<?php echo $this->security->get_csrf_hash(); ?>',workplace_id: workplace_id};
                     $.ajax({
@@ -839,11 +848,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     });
                 }
             });
-            
+
             $('#release_type').change(function(){
                 var gr = $(this).find(':selected').data('type');
                 var id = $(this).val();
-                
+
                 if(gr == "Study"){
                     $(".release_study_block").removeClass("hidden");
                     $(".release_work_block").addClass("hidden");
@@ -851,7 +860,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     $(".release_work_block").removeClass("hidden");
                     $(".release_study_block").addClass("hidden");
                 }
-                
+
                 var post_url = "index.php/FormControl/getReleaseWorkPlaces/";
                 var dataarray = {'<?php echo $this->security->get_csrf_token_name(); ?>':'<?php echo $this->security->get_csrf_hash(); ?>', rel_type_id: id};
                 $.ajax({
@@ -866,10 +875,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         });
                     }
                 });
-                
+
 
             });
-            
+
             $('#province').change(function(){
                 var id = $(this).val();
                 var post_url = "index.php/FormControl/getDistricts/"+id;
@@ -888,7 +897,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     }
                 });
             });
-            
+
             $('#district').change(function(){
                 var id = $(this).val();
                 var dataarray = {'<?php echo $this->security->get_csrf_token_name(); ?>':'<?php echo $this->security->get_csrf_hash(); ?>',district_id: id};
@@ -924,7 +933,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     });
                 }
             });
-            
+
             $('#zone').change(function(){
                 var id = $(this).val();
                 var dataarray = {'<?php echo $this->security->get_csrf_token_name(); ?>':'<?php echo $this->security->get_csrf_hash(); ?>',zone_id: id};
@@ -960,7 +969,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     });
                 }
             });
-            
+
             $('#division').change(function(){
                 var id = $(this).val();
                 var work_place_id = $('#work_place').val();
@@ -980,7 +989,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     }
                 });
             });
-            
+
             function getMainDivision(workPlace_id){
                 var post_url = "index.php/FormControl/getMainDivision/"+workPlace_id;
                 var dataarray = {'<?php echo $this->security->get_csrf_token_name(); ?>':'<?php echo $this->security->get_csrf_hash(); ?>',workplace_id: workPlace_id};
@@ -997,7 +1006,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     }
                 });
             }
-            
+
             function getMainBranch(workPlace_id){
                 var post_url = "index.php/FormControl/getMainBranch/"+workPlace_id;
                 var dataarray = {'<?php echo $this->security->get_csrf_token_name(); ?>':'<?php echo $this->security->get_csrf_hash(); ?>',workplace_id: workPlace_id};
@@ -1014,12 +1023,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     }
                 });
             }
-            
+
 
             $('#reset-button').click(function(){
-               //$('.formErrorContent').addClass('hidden'); 
-               //$('.formErrorArrow').remove(); 
-               validater.resetForm(); 
+               //$('.formErrorContent').addClass('hidden');
+               //$('.formErrorArrow').remove();
+               validater.resetForm();
             });
 
             $('#list-staff').on('click','tr', function(e){
@@ -1035,9 +1044,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             }
 
             function get_province(){
-                
+
             }
-            
+
             DataTabels.init();
-        });    
+        });
     </script>

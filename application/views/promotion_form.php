@@ -1,8 +1,15 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-?>            
+?>
         <section id="content">
             <div class="container" style="padding-top: 20px;">
+
+            <?php if ($error_msg){ ?>
+                <h3> <?php echo $error_msg; ?>! </h3>
+                <h6>Please return to your <a href="<?php echo base_url()."index.php/admin/sclerk"?>"> dashboard </a></h6>
+            <?php } else { ?>
+
+
             <div class="col-md-12">
                 <div class="panel panel-info">
                     <div class="panel-heading reg-main-panel">
@@ -20,34 +27,34 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <?php if ($result) { ?>
                                 <label><?php echo $result[0]['title'] . ' ' ;?> <?php echo $result[0]['in_name'] ;?></label>
                             <?php    } ?>
-                                    
+
                                 <input type="hidden" name="person_id" value="<?php echo $result[0]['ID'] ;?>">
                                 <input type="hidden" name="type" value="<?php echo $type ;?>">
                                 <input type="hidden" name="submit" id="submit" value="">
                             </div>
                         </div>
-                        
+
                         <div class="col-md-6">
-                            
+
                             <div class="form-group">
                                 <label>NIC Number</label>
                                 <input type="text" class="form-control " name="nic" id="nic" value="<?php echo $result[0]['NIC'] ;?>" readonly>
                             </div>
-                            
+
                             <div class="form-group ">
                                 <label><span style="color:red;">*</span>Working place</label>
                                 <select class="select2 " name="work_place" id="work_place" style="width:100%" readonly>
                                     <option value="<?php echo $result[0]['work_place_id']; ?>"> <?php echo $result[0]['work_place']; ?> </option>
                                 </select>
                             </div>
-                            
+
                             <div class="form-group ">
                                 <label><span style="color:red;">*</span>Branch / Institute</label>
                                 <select class="select2 " name="sub_location" id="sub_location" style="width:100%">
                                     <option value="<?php echo $result[0]['work_branch_id'] . $result[0]['sub_location_id'] ; ?>"> <?php echo $result[0]['office_branch'] . $result[0]['sub_location'] ; ?> </option>
                                 </select>
                             </div>
-                            
+
                             <div class="form-group">
                                 <label><span style="color:red;">*</span>Designation</label>
                                 <select class="select2 " name="designation" id="designation" style="width:100%">
@@ -115,7 +122,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <input type="text" class="form-control date-picker" name="appoint_date" id="appoint_date" placeholder="yyyy-mm-dd">
                             </div>
                         </div>
-                        
+
                         <div class="form-actions fluid">
                             <div class="col-md-offset-3 col-md-9">
                                 <?php if($type){ ?>
@@ -125,13 +132,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <?php } ?>
                             </div>
                         </div>
-                            
+
                     <?php echo form_close(); ?>
-                        
-                        <?php //print_r($result); ?>
+
+                        <?php //print_r($error_msg); ?>
                     </div>
                 </div>
             </div>
+            <?php } ?>
             </div>
         </section>
 
@@ -142,8 +150,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <script src="<?php echo base_url()."assets/plugins/validation/additional-methods.js"?>"></script>
 
     <script>
-    $(document).ready(function(){ 
-                
+    $(document).ready(function(){
+
         var grade = $(present_grade).val();
         if(grade == 'Grade II'){
             $("#eb_1_date_div").removeClass("hidden");
@@ -153,13 +161,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         }else if(grade == 'Special Grade'){
             $('#eb_3_date_div').removeClass('hidden');
         }
-        
+
         $("#addPromotionForm").validate({
             errorElement: 'span', //default input error message container
             errorClass: 'help-block error', // default input error message class
             focusInvalid: false, // do not focus the last invalid input
             ignore: "",
-            
+
             rules: {
                 work_place: "required",
                 designation: "required",
@@ -169,10 +177,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 appoint_date: "required"
             }
         });
-        
+
         $('#<?php echo $sidemenu ?>').addClass('active');
-        
-        
+
+
         $('#work_place').change(function(){
             var gr = $(this).find(':selected').data('code');
             var workplace_id = $(this).val();
@@ -184,7 +192,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 $(".divisional_office").addClass("hidden");
                 $(".zonal_office").addClass("hidden");
                 getMainDivision(workplace_id);
-                getMainBranch(workplace_id);    
+                getMainBranch(workplace_id);
 
             }else if($.inArray(gr, ['zone','division','ncoe','ttc','nschool','pschool', 'tc']) >=0){
                 $(".c-firstapp-work-main-institue").addClass("hidden");
@@ -232,7 +240,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 });
             }
         });
-        
+
         function getMainDivision(workPlace_id){
             var post_url = "index.php/FormControl/getMainDivision/"+workPlace_id;
             var dataarray = {'<?php echo $this->security->get_csrf_token_name(); ?>':'<?php echo $this->security->get_csrf_hash(); ?>',workplace_id: workPlace_id};
@@ -249,7 +257,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 }
             });
         }
-            
+
         function getMainBranch(workPlace_id){
             var post_url = "index.php/FormControl/getMainBranch/"+workPlace_id;
             var dataarray = {'<?php echo $this->security->get_csrf_token_name(); ?>':'<?php echo $this->security->get_csrf_hash(); ?>',workplace_id: workPlace_id};
@@ -344,13 +352,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 }
             });
         });
-        
+
         $('#addPromotionForm').submit(function(e){
-            
+
             var submitCount = $('#submit').val() + 1;
             $('#submit').val(submitCount);
-            
+
         });
-        
+
     });
 </script>

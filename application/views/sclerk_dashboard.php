@@ -1,6 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-?>            
+?>
         <section id="content">   <!-- Start: Content -->
             <div class="row">
 
@@ -26,25 +26,25 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <div class="title text-center"> <i class="fa fs-users"> </i> Add SLEAS Officer </div>
                     </div>
                 </a>
-                
+
                 <a href="<?php echo base_url()."index.php/transfer/newtransfer"?>">
                     <div class="col-xs-6 col-sm-4 stater" style="height:auto">
                         <div class="title text-center"> <i class="fa fs-transfer"> </i> Add Transfer </div>
                     </div>
                 </a>
-                
+
                 <a href="<?php echo base_url()."index.php/promotion/newpromotion"?>">
                     <div class="col-xs-6 col-sm-4 stater" style="height:auto">
                         <div class="title text-center"> <i class="fa fa-level-up"> </i> Add Promotion </div>
                     </div>
                 </a>
-                
+
             </div>
 
             <div class="container" style="padding-top: 100px;">
                 <div class="row">
                     <div class="col-md-6">
-                        
+
                         <div class="panel panel-default">
                             <div class="panel-heading reg-main-panel">
                                 <h3 class="panel-title">Officer's change requests</h3>
@@ -54,9 +54,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <?php foreach($requests as $row){ ?>
                                         <label><?php echo $row['message_title'] ?> - from <?php echo $row['f_name'] . ' ' . $row['l_name']?></label> <button class="btn btn-danger btn-xs messagetoggle" data-toggle="modal" data-target="#messageModal" data-message='{"id":"<?php echo $row['person_id'] ?>","message_sender":"<?php echo $row['in_name'] ?>","message":"<?php echo $row['message']?>","message_title":"<?php echo $row['message_title']  ?>"}' data-msgID="<?php echo $row['msg_id'] ?>"> View </button>
 
-                                    <?php }  ?> 
+                                    <?php }  ?>
                                 <?php }  ?>
-                            
+
                             <!-- Modal -->
                                 <div id="messageModal" class="modal fade" role="dialog">
                                   <div class="modal-dialog">
@@ -78,7 +78,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                                   </div>
                                 </div>
-                            
+
 
                             </div>
                         </div>
@@ -89,7 +89,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <h3 class="panel-title">Officer's who did not inform the date of duty assumed</h3>
                             </div><!--End of panel-heading-->
                             <div class="panel-body">
-                                
+
                                 <?php //print_r($requests['0']); ?>
 
                             </div>
@@ -134,16 +134,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="col-md-6">
-                        
+
                     </div>
 
                 </div>
-                                
+                <?php //print_r($officers_list); ?>
             </div>
         </section>
-    
+
     <script src="<?php echo base_url()."assets/plugins/flot/excanvas.min.js"?>"></script>
     <script src="<?php echo base_url()."assets/plugins/flot/jquery.flot.min.js"?>"></script>
     <script src="<?php echo base_url()."assets/plugins/flot/jquery.flot.time.min.js"?>"></script>
@@ -163,8 +163,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         $(document).ready(function(){
             DataTabels.init();
             $('#menu_dashboard').addClass('active');
-            
-            
+
+
         /*$('#messageModal').on('show.bs.modal', function(e) {
             var person_id = $('#messagetoggle').data('message').id;
             var message_body = $('#messagetoggle').data('message').message;
@@ -174,11 +174,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             $('#messagetitle').text(message_title);
             $('.modal-title').text(message_sender);
         });*/
-            
+
             $('#verify_letter').click(function(){
                 $('#verifyLetter').modal('toggle');
             });
-            
+
             $('.messagetoggle').click(function(){
                 var person_id = $(this).data('message').id;
                 var message_body = $(this).data('message').message;
@@ -190,11 +190,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 $('#messageModal').modal('toggle');
 
             });
-            
+
             $('#verify_submit').click(function(){
                 var barcode = $('#verify_barcode').val();
                 $('#verified-letter').addClass('hidden');
-                
+
                 var post_url = "index.php/Admin/verifyBarcode/2";
                 var dataarray = {'<?php echo $this->security->get_csrf_token_name(); ?>':'<?php echo $this->security->get_csrf_hash(); ?>', 'barcode' : barcode};
                 $.ajax({
@@ -210,12 +210,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             $('#notverified-letter').removeClass('hidden');
                             $('#verified-letter').addClass('hidden');
                         }
-                        
+
                     }
                 });
             });
 
-            
+
         });
     </script>
-

@@ -9,12 +9,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         #content{ margin-left: 0; }
         .sidebar-toggle{display: none;}
     </style>
-        <div class="main-wrapper"> 
+        <div class="main-wrapper">
 <?php } ?>
+
+
 
         <section id="content">   <!-- Start: Content -->
 	        <div class="container" style="padding-top: 20px;">
-                
+
+            <?php if ($error_msg){ ?>
+                <h3> <?php echo $error_msg; ?>! </h3>
+                <h6>Please return to your <a href="<?php echo base_url()."index.php/admin/sclerk"?>"> dashboard </a></h6>
+            <?php } else { ?>
+
             <?php if ($this->session->flashdata('update')=="success"){ ?>
                 <div class="col-md-12">
                         <div class="col-md-6">
@@ -25,7 +32,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </div>
                 </div>
             <?php } ?>
-                
+
                 <div class="col-md-3 col-sm-4">
                     <div style="text-align:center;text-align:-moz-center;">
                         <?php if ($user_details[0]['profile_pic']){ ?>
@@ -35,7 +42,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <?php } ?>
                         <a role="button" class="btn btn-white btn-xs" style="margin-top:10px; margin-left:auto; margin-right:auto;" data-toggle="modal" data-target="#profilePicModal" >Change/ Add Profile picture</a>
                     </div>
-                    
+
                     <!-- Modal -->
                         <div id="profilePicModal" class="modal fade" role="dialog">
                           <div class="modal-dialog">
@@ -45,10 +52,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                               <div class="modal-header">
                                   <button type="button" class="close" data-dismiss="modal">&times;</button>
                                   <h4 class="modal-title">Upload profile image</h4>
-                                  
+
                               </div>
-                                
-                            <?php echo form_open() ?> 
+
+                            <?php echo form_open() ?>
                               <div class="modal-body">
                                 <div class="col-md-12">
                                     <div class="fileinput fileinput-new" data-provides="fileinput">
@@ -66,7 +73,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                           </div>
                         </div>
-                    
+
                     <div class="panel panel-success" style="margin-top:20px;">
                         <div class="panel-heading reg-main-panel">
                             <h3 class="panel-title">Salary Details</h3>
@@ -100,20 +107,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <?php } ?>
                         </div>
                     </div>
-                    
+
                     <div class="panel panel-success">
                         <div class="panel-heading reg-main-panel">
                             <h3 class="panel-title">Change Request</h3>
                         </div><!--End of panel-heading-->
                         <div class="panel-body">
-                            
+
                             <?php if($this->session->user_level == '1'){ ?>
                                 <?php echo form_open("admin/changeRequest", 'role="form" id="changeRequestForm"'); ?>
                                 <input type="hidden" name="person_id" id="request_person_id" value="<?php echo $user_details[0]['ID']; ?>">
                                 <input type="hidden" name="sclerk" id="request_sclerk" value="<?php echo $user_details[0]['user_updated']; ?>">
                                 <div class="form-group">
                                     <label>Title</label>
-                                    <input type="text" class="form-control" name="title" id="request_title" placeholder="Title" >  
+                                    <input type="text" class="form-control" name="title" id="request_title" placeholder="Title" >
                                 </div>
                                 <div class="form-group">
                                     <label>Message</label>
@@ -127,12 +134,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <?php }else { ?>
                             <?php if($requests){ ?>
                                     <?php foreach($requests as $row){ ?>
-                                        <label><?php echo $row['message_title'] ?> </label> 
+                                        <label><?php echo $row['message_title'] ?> </label>
                                         <button class="btn btn-danger btn-xs messagetoggle" data-toggle="modal" data-target="#messageModal" data-message='{"id":"<?php echo $row['person_id'] ?>","message_title":"<?php echo $row['message_title'] ?>","message":"<?php echo $row['message'] ?>"}' data-msgID="<?php echo $row['msg_id'] ?>"> View </button>
 
                                     <?php }  ?>
                             <?php }  ?>
-                            
+
                             <!-- Modal -->
                                 <div id="messageModal" class="modal fade" role="dialog">
                                   <div class="modal-dialog">
@@ -153,27 +160,30 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                                   </div>
                                 </div>
-                            
+
                             <?php } ?>
-                            
+
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="col-md-9 col-sm-8">
-                    
+
                     <div class="tabbable tabbable-custom">
                         <ul class="nav nav-tabs">
                             <li class="active"><a href="#tab_1_1" data-toggle="tab">OVERVIEW</a></li>
                             <li><a href="#tab_1_2" data-toggle="tab">EDIT</a></li>
                         </ul>
                         <div class="tab-content">
-                            
+
                             <div class="tab-pane active" id="tab_1_1">
                                 <h3><?php echo $user_details[0]['title'] . ' ' . $user_details[0]['in_name']?></h3>
-                                
+
                                 <div class="col-md-6">
                                     <table border="0" width="100%">
+                                        <tr valign="top">
+                                            <td ><label style="margin-bottom:15px;"> <?php echo $user_details[0]['si_in_name'] ;?> </label></td>
+                                        </tr>
                                         <tr valign="middle">
                                             <td><label style="margin-bottom:15;"> Active/ inactive </label></td>
                                             <td>
@@ -212,9 +222,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         </tr>
                                     </table>
                                 </div>
-                                
+
                                 <div class="col-md-6">
                                     <table border="0" width="100%">
+                                        <tr valign="top">
+                                            <td><label style="margin-bottom:15px;"> <?php echo $user_details[0]['ta_in_name'] ;?> </label></td>
+                                        </tr>
                                         <tr valign="top">
                                             <td width="130px"><label style="margin-bottom:15px;"> Address 1 </label></td>
                                             <td><label>- <?php echo $user_details['contact'][0]['address_1'] ;?> </label></td>
@@ -241,9 +254,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         </tr>
                                     </table>
                                 </div>
-                                
+
                             </div>
-                            
+
                             <div class="tab-pane" id="tab_1_2">
                                 <?php echo form_open("admin/updateProfile", 'role="form" id="updateOfficerForm"'); ?>
                                     <div class="form-body">
@@ -251,59 +264,69 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Name with intials</label>
-                                                <input type="text" class="form-control" name="initname" placeholder="Name with intials" value="<?php echo $user_details[0]['in_name'] ;?>">  
+                                                <input type="text" class="form-control" name="initname" placeholder="Name with intials" value="<?php echo $user_details[0]['in_name'] ;?>">
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label> මුලකුරු සහිත නම - සිංහල  </label>
+                                                <input type="text" class="form-control " name="si_initname" id="si_initname" placeholder="මුලකුරු සහිත නම - සිංහල " value="<?php echo $user_details[0]['si_in_name'] ;?>"/>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label> தலைப்புகள் கொண்ட பெயர் - தமிழ்  </label>
+                                                <input type="text" class="form-control " name="ta_initname" id="ta_initname" placeholder="தலைப்புகள் கொண்ட பெயர் - தமிழ் " value="<?php echo $user_details[0]['ta_in_name'] ;?>" />
                                             </div>
 
                                             <div class="form-group">
                                                 <label>First Name</label>
-                                                <input type="text" class="form-control" name="fname" placeholder="First Name" value="<?php echo $user_details[0]['f_name'] ;?>">                                            
+                                                <input type="text" class="form-control" name="fname" placeholder="First Name" value="<?php echo $user_details[0]['f_name'] ;?>">
                                             </div>
 
                                             <div class="form-group">
                                                 <label>Middle Name</label>
-                                                <input type="text" class="form-control" name="mname" placeholder="Middle Name" value="<?php echo $user_details[0]['m_name'] ;?>">                                            
+                                                <input type="text" class="form-control" name="mname" placeholder="Middle Name" value="<?php echo $user_details[0]['m_name'] ;?>">
                                             </div>
 
                                             <div class="form-group">
                                                 <label>Last Name</label>
-                                                <input type="text" class="form-control" name="lname" placeholder="Last Name" value="<?php echo $user_details[0]['l_name'] ;?>">  
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label>Date of birth</label>
-                                                <input type="text" class="form-control date-picker" name="dob" id="dob" value="<?php echo $user_details[0]['dob'] ;?>">
+                                                <input type="text" class="form-control" name="lname" placeholder="Last Name" value="<?php echo $user_details[0]['l_name'] ;?>">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
 
                                             <div class="form-group">
+                                                <label>Date of birth</label>
+                                                <input type="text" class="form-control date-picker" name="dob" id="dob" value="<?php echo $user_details[0]['dob'] ;?>">
+                                            </div>
+
+                                            <div class="form-group">
                                                 <label>Mobile</label>
-                                                <input type="text" class="form-control" name="mobile" placeholder="Mobile" value="<?php echo $user_details['contact'][0]['mobile'] ;?>">  
+                                                <input type="text" class="form-control" name="mobile" placeholder="Mobile" value="<?php echo $user_details['contact'][0]['mobile'] ;?>">
                                             </div>
 
                                             <div class="form-group">
                                                 <label>Telephone</label>
-                                                <input type="text" class="form-control" name="telephone" placeholder="Telephone" value="<?php echo $user_details['contact'][0]['telephone'] ;?>">  
+                                                <input type="text" class="form-control" name="telephone" placeholder="Telephone" value="<?php echo $user_details['contact'][0]['telephone'] ;?>">
                                             </div>
 
                                             <div class="form-group">
                                                 <label>Email</label>
-                                                <input type="email" class="form-control" name="email" placeholder="Email" value="<?php echo $user_details['contact'][0]['email'] ;?>">  
+                                                <input type="email" class="form-control" name="email" placeholder="Email" value="<?php echo $user_details['contact'][0]['email'] ;?>">
                                             </div>
 
                                             <div class="form-group">
                                                 <label>Address line 1</label>
-                                                <input type="text" class="form-control" name="address1" placeholder="Address line 1" value="<?php echo $user_details['contact'][0]['address_1'] ;?>">  
+                                                <input type="text" class="form-control" name="address1" placeholder="Address line 1" value="<?php echo $user_details['contact'][0]['address_1'] ;?>">
                                             </div>
 
                                             <div class="form-group">
                                                 <label>Address line 2</label>
-                                                <input type="text" class="form-control" name="address2" placeholder="Address line 2" value="<?php echo $user_details['contact'][0]['address_2'] ;?>">  
+                                                <input type="text" class="form-control" name="address2" placeholder="Address line 2" value="<?php echo $user_details['contact'][0]['address_2'] ;?>">
                                             </div>
 
                                             <div class="form-group">
                                                 <label>Address line 3</label>
-                                                <input type="text" class="form-control" name="address3" placeholder="Address line 3" value="<?php echo $user_details['contact'][0]['address_3'] ;?>">  
+                                                <input type="text" class="form-control" name="address3" placeholder="Address line 3" value="<?php echo $user_details['contact'][0]['address_3'] ;?>">
                                             </div>
                                         </div>
 
@@ -326,7 +349,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                                   </div>
 
-                                <?php echo form_open() ?> 
+                                <?php echo form_open() ?>
                                   <div class="modal-body">
                                     <div class="col-md-12">
                                         <div class="form-group">
@@ -356,7 +379,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                               </div>
                             </div>
-                                
+
                         </div>
                     </div> <!--Basic Details --Personal and Contact -->
                     <div class="panel panel-info">
@@ -413,35 +436,35 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 </thead>
                                 <tr valign="top">
                                     <th> Grade III </th>
-                                    <td><?php if($user_details[general][0]['eb_1_pass'])echo "<span>" . date("Y-m-d", strtotime($user_details[general][0]['eb_1_pass']))  .  "</span>"  .   '<button class="delete_requirements btn btn-xs btn-danger pull-right" data-field="eb_1"><i class="fa fs-remove"></i></button>';?> 
+                                    <td><?php if($user_details[general][0]['eb_1_pass'])echo "<span>" . date("Y-m-d", strtotime($user_details[general][0]['eb_1_pass']))  .  "</span>"  .   '<button class="delete_requirements btn btn-xs btn-danger pull-right" data-field="eb_1"><i class="fa fs-remove"></i></button>';?>
                                         <button class="edit_requirements btn btn-xs btn-success pull-right" data-field="eb_1"><i class="fa fa-edit"></i></button></td>
-                                    
-                                    <td><?php if($user_details[general][0]['pg_dip_pass'])echo "<span>" . date("Y-m-d", strtotime($user_details[general][0]['pg_dip_pass']))  .  "</span>"  .   '<button class="delete_requirements btn btn-xs btn-danger pull-right" data-field="pg_dip"><i class="fa fs-remove"></i></button>' ;?> 
+
+                                    <td><?php if($user_details[general][0]['pg_dip_pass'])echo "<span>" . date("Y-m-d", strtotime($user_details[general][0]['pg_dip_pass']))  .  "</span>"  .   '<button class="delete_requirements btn btn-xs btn-danger pull-right" data-field="pg_dip"><i class="fa fs-remove"></i></button>' ;?>
                                         <button class="edit_requirements btn btn-xs btn-success pull-right" data-field="pg_dip"><i class="fa fa-edit"></i></button></td>
-                                    
-                                    <td><?php if($user_details[general][0]['cb_1_date'])echo "<span>" . date("Y-m-d", strtotime($user_details[general][0]['cb_1_date']))  .  "</span>"  .   '<button class="delete_requirements btn btn-xs btn-danger pull-right" data-field="cb_1"><i class="fa fs-remove"></i></button>' ;?> 
+
+                                    <td><?php if($user_details[general][0]['cb_1_date'])echo "<span>" . date("Y-m-d", strtotime($user_details[general][0]['cb_1_date']))  .  "</span>"  .   '<button class="delete_requirements btn btn-xs btn-danger pull-right" data-field="cb_1"><i class="fa fs-remove"></i></button>' ;?>
                                         <button class="edit_requirements btn btn-xs btn-success pull-right" data-field="cb_1"><i class="fa fa-edit"></i></button></td>
                                 </tr>
                                 <tr valign="top">
                                     <th> Grade II </th>
-                                    <td><?php if($user_details[general][0]['eb_2_pass'])echo "<span>" . date("Y-m-d", strtotime($user_details[general][0]['eb_2_pass']))  .  "</span>"  .   '<button class="delete_requirements btn btn-xs btn-danger pull-right" data-field="eb_2"><i class="fa fs-remove"></i></button>'  ;?> 
+                                    <td><?php if($user_details[general][0]['eb_2_pass'])echo "<span>" . date("Y-m-d", strtotime($user_details[general][0]['eb_2_pass']))  .  "</span>"  .   '<button class="delete_requirements btn btn-xs btn-danger pull-right" data-field="eb_2"><i class="fa fs-remove"></i></button>'  ;?>
                                         <button class="edit_requirements btn btn-xs btn-success pull-right" data-field="eb_2"><i class="fa fa-edit"></i></button></td>
-                                    
-                                    <td><?php if($user_details[general][0]['pg_deg_pass'])echo "<span>" . date("Y-m-d", strtotime($user_details[general][0]['pg_deg_pass']))  .  "</span>"  .   '<button class="delete_requirements btn btn-xs btn-danger pull-right" data-field="pg_deg"><i class="fa fs-remove"></i></button>' ;?> 
+
+                                    <td><?php if($user_details[general][0]['pg_deg_pass'])echo "<span>" . date("Y-m-d", strtotime($user_details[general][0]['pg_deg_pass']))  .  "</span>"  .   '<button class="delete_requirements btn btn-xs btn-danger pull-right" data-field="pg_deg"><i class="fa fs-remove"></i></button>' ;?>
                                         <button class="edit_requirements btn btn-xs btn-success pull-right" data-field="pg_deg"><i class="fa fa-edit"></i></button></td>
-                                    
-                                    <td><?php if($user_details[general][0]['cb_2_date'])echo "<span>" . date("Y-m-d", strtotime($user_details[general][0]['cb_2_date'])) .  "</span>"  .   '<button class="delete_requirements btn btn-xs btn-danger pull-right" data-field="cb_2"><i class="fa fs-remove"></i></button>'; ?> 
+
+                                    <td><?php if($user_details[general][0]['cb_2_date'])echo "<span>" . date("Y-m-d", strtotime($user_details[general][0]['cb_2_date'])) .  "</span>"  .   '<button class="delete_requirements btn btn-xs btn-danger pull-right" data-field="cb_2"><i class="fa fs-remove"></i></button>'; ?>
                                         <button class="edit_requirements btn btn-xs btn-success pull-right" data-field="cb_2"><i class="fa fa-edit"></i></button>
                                         </td>
                                 </tr>
                                 <tr valign="top">
                                     <th> Grade I </th>
-                                    <td><?php if($user_details[general][0]['eb_3_pass'])echo "<span>" . date("Y-m-d", strtotime($user_details[general][0]['eb_3_pass']))  .  "</span>"  .   '<button class="delete_requirements btn btn-xs btn-danger pull-right" data-field="eb_3"><i class="fa fs-remove"></i></button>' ; ?> 
+                                    <td><?php if($user_details[general][0]['eb_3_pass'])echo "<span>" . date("Y-m-d", strtotime($user_details[general][0]['eb_3_pass']))  .  "</span>"  .   '<button class="delete_requirements btn btn-xs btn-danger pull-right" data-field="eb_3"><i class="fa fs-remove"></i></button>' ; ?>
                                         <button class="edit_requirements btn btn-xs btn-success pull-right" data-field="eb_3"><i class="fa fa-edit"></i></button></td>
-                                    
+
                                     <td> N/A </td>
-                                    
-                                    <td><?php if($user_details[general][0]['cb_3_date'])echo "<span>" . date("Y-m-d", strtotime($user_details[general][0]['cb_3_date'])) . "</span>"  .  '<button class="delete_requirements btn btn-xs btn-danger pull-right" data-field="cb_3"><i class="fa fs-remove"></i></button>' ;?> 
+
+                                    <td><?php if($user_details[general][0]['cb_3_date'])echo "<span>" . date("Y-m-d", strtotime($user_details[general][0]['cb_3_date'])) . "</span>"  .  '<button class="delete_requirements btn btn-xs btn-danger pull-right" data-field="cb_3"><i class="fa fs-remove"></i></button>' ;?>
                                         <button class="edit_requirements btn btn-xs btn-success pull-right" data-field="cb_3"><i class="fa fa-edit"></i></button></td>
                                 </tr>
                             </table>
@@ -460,7 +483,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                           </div>
 
-                        <?php echo form_open() ?> 
+                        <?php echo form_open() ?>
                           <div class="modal-body">
                             <div class="col-md-12">
                                 <div class="form-group">
@@ -480,7 +503,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </div>
                 </div>
                 <div class="col-md-12">
-                                
+
                     <div class="panel panel-info">
                         <div class="panel-heading reg-main-panel">
                             <h3 class="panel-title">Service Details</h3>
@@ -668,7 +691,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                       </div>
 
-                    <?php echo form_open() ?> 
+                    <?php echo form_open() ?>
                       <div class="modal-body">
                         <input type="text" class="form-control hidden" name="q_type" id="q_type">
                         <div class="col-md-12">
@@ -735,7 +758,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                       </div>
 
-                    <?php echo form_open() ?> 
+                    <?php echo form_open() ?>
                       <div class="modal-body">
                         <input type="text" class="form-control hidden" name="q_type" id="q_type">
                         <div class="col-md-12">
@@ -782,14 +805,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <script src="<?php echo base_url()."assets/plugins/datatables/js/DT_bootstrap.js"?>"></script>
     <script src="<?php echo base_url()."assets/plugins/validation/jquery.validate.min.js"?>"></script>
     <script src="<?php echo base_url()."assets/plugins/bootstrap-toggle/js/bootstrap-toggle.min.js"?>"></script>
-            
+
         <script>
-            
-            $(document).ready(function(){ 
+
+            $(document).ready(function(){
                 if("<?php echo $user_details[general][0]['status'];?>" == "Active"){
                     $('#toggle-status').bootstrapToggle('on');
                 }//Check whether officer is ACtive, If so show him as active
-                
+
                 $('.messagetoggle').click(function(){
                     var person_id = $(this).data('message').id;
                     var message_body = $(this).data('message').message;
@@ -852,20 +875,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             $('#request_message').val("");
                             },
                         error: function (response) {
-                            
+
                             alert("not success");
                         }
                     });
                 });
-                
+
                 $('#toggle-status').change(function(){
                     if($(this).prop('checked') == false){
                         $('#deactivationModal').modal('toggle');
                     }
                 });
-                
+
                 $('#deactive_submit').click(function(){
-                    
+
                     var post_url = "index.php/Admin/deactivateOfficer/"+'2';
                     var form_data = new FormData();
                     var deactivate_reason = $('#deactivate_reason').val();
@@ -889,13 +912,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         }
                     });
                 });
-                
+
                 $('#deactivationModal').on('hidden.bs.modal', function () {
                     if("<?php echo $user_details[general][0]['status'];?>" == "Active"){
                         $('#toggle-status').bootstrapToggle('on')
                     }
                 })
-                
+
                 $(document).on('click', '.edit_requirements', function(){
                     var field = $(this).data("field");
                     if(field == "eb_1"){
@@ -920,7 +943,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     $('#require_date').data("field", field);
                     $('#requiredateModal').modal('toggle');
                 });
-                
+
                 $(document).on('click', '.delete_requirements', function(){
                     var post_url = "index.php/Admin/deleteDateUpdate/"+'2';
                     var form_data = new FormData();
@@ -947,7 +970,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         }
                     });
                 });
-                
+
                 $('#promotion_requirement_submit').click(function(){
                     var post_url = "index.php/Admin/requiredDateUpdate/"+'2';
                     var form_data = new FormData();
@@ -972,14 +995,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             //obj.siblings("span2").text(field_date);
                             var html ="<span>"+ field_date + "</span><button class='delete_requirements btn btn-xs btn-danger pull-right' data-field="+ field +"><i class='fa fs-remove'></i></button> <button class='edit_requirements btn btn-xs btn-success pull-right' data-field=" + field +"><i class='fa fa-edit'></i></button>"
                             obj.parent().html(html);
-                            
+
                             },
                         error: function (response) {
                             alert("Error Updating! Please try again.");
                         }
                     });
                 });
-                
+
                 $('.add_qualification').click(function(){
                     var qual_type = $(this).data("type");
                     if(qual_type == 'academic'){
@@ -994,7 +1017,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         $('#qualificationsModal').modal('toggle');
                     }
                     $('#qualification_submit').data('action', 'add');
-                    
+
                     var post_url = "index.php/FormControl/getQualifications/"+'2';
                     var dataarray = {'<?php echo $this->security->get_csrf_token_name(); ?>':'<?php echo $this->security->get_csrf_hash(); ?>',q_type: q_type};
                     $.ajax({
@@ -1011,7 +1034,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         }
                     });
                 });
-                
+
                 $(document).on('click', '.edit_qualification', function(){
                     var qual_id = $(this).data("id");
                     var qual_type = $(this).data("type");
@@ -1025,9 +1048,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         var q_type = '2';
                         $('#qualificationsModal-title').text("Edit Qualifications of <?php echo $user_details[0]['title'] . ' ' . $user_details[0]['in_name']?>");
                         $('#q_type').val('2');
-                        
+
                     }
-                    
+
                     var post_url = "index.php/FormControl/getQualifications/"+'2';
                     var dataarray = {'<?php echo $this->security->get_csrf_token_name(); ?>':'<?php echo $this->security->get_csrf_hash(); ?>',q_type: q_type};
                     $.ajax({
@@ -1044,7 +1067,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             });
                         }
                     });
-                    
+
                     var post_url = "index.php/FormControl/getQualificationDetails/2";
                     var dataarray = {'<?php echo $this->security->get_csrf_token_name(); ?>':'<?php echo $this->security->get_csrf_hash(); ?>',q_id: qual_id};
                     $.ajax({
@@ -1065,14 +1088,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             //$('#q_name').val(res[0].qualification_id);
                         }
                     });
-                    
+
                     $('#qualificationsModal').modal('toggle');
                     console.log($('#qualification_submit').data('action'));
                 });
-                
+
                 $(document).on('click', '.delete_qualification', function(){
                     var qual_id = $(this).data("id");
-                    
+
                     var post_url = "index.php/FormControl/deleteQualification/2";
                     var dataarray = {'<?php echo $this->security->get_csrf_token_name(); ?>':'<?php echo $this->security->get_csrf_hash(); ?>',qual_id: qual_id};
                     $.ajax({
@@ -1086,10 +1109,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             console.log(qual_id);
                         }
                     });
-                    
-                    
+
+
                 });
-                
+
                 $('#q_name').change(function(){
                     var id = $(this).val();
                     var post_url = "index.php/FormControl/getQSubjects/"+id;
@@ -1109,10 +1132,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         }
                     });
                 });
-                
+
                 $('#qualification_submit').click(function(){
                     var action = $(this).data('action');
-                    
+
                     var form_data = new FormData();
                     var file_data = $('#certificate').prop('files')[0];
                     var q_date = $('#qualified_date').val();
@@ -1134,7 +1157,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     form_data.append('user_id', '<?php echo $user_details[0]['ID'] ?>');
                     form_data.append('nic', '<?php echo $user_details[0]['NIC'] ?>');
                     form_data.append('file', file_data);
-                    
+
                     if (action == 'add'){
                         var post_url = "index.php/FormControl/addQualification/"+'2';
                         $.ajax({
@@ -1145,7 +1168,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             contentType: false,
                             processData: false,
                             success: function(response){
-                                
+
                                 $('#q_'+q_type_id+' tbody').append('<tr><th>'+q_name+'</th>'+
                                                            '<td>'+ q_date +'</td>' +
                                                            '<td>'+ q_grade +'</td>' +
@@ -1160,7 +1183,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     }else if (action == 'edit'){
                         var qual_id = $(this).data('qual_id');
                         form_data.append('qual_id', qual_id);
-                        
+
                         var post_url = "index.php/FormControl/editQualification/2";
                         $.ajax({
                             type: "POST",
@@ -1177,22 +1200,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             }
                         });
                     }
-                    
+
                 });
-                
+
                 $('.add_leave').click(function(){
-                    
+
                     $('#leaveModal').modal('toggle');
                     $('#leave_submit').data('action', 'add');
-                    
+
                 });
-                
+
                 $(document).on('click', '.edit_leave', function(){
                     var l_id = $(this).data("id");
                     var l_type = $(this).data("type");
                     var l_year = $(this).data("year");
                     var l_count = $(this).data("count");
-                    
+
                     $('#l_year').val(l_year);
                     $('#l_type').val(l_type).trigger('change');
                     $('#l_count').val(l_count);
@@ -1200,7 +1223,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     $('#leave_submit').data('l_id', l_id);
                     $('#leaveModal').modal('toggle');
                 });
-                
+
                 $(document).on('click', '.delete_leave', function(){
                     var post_url = "index.php/Admin/deleteLeave/2/";
                     var form_data = new FormData();
@@ -1223,22 +1246,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         }
                     });
                 });
-                
+
                 $('#leave_submit').click(function(){
                     var action = $(this).data('action');
                     var l_id = $(this).data('l_id');
-                    
+
                     var form_data = new FormData();
                     var leve_year = $('#l_year').val();
                     var leve_type_id = $('#l_type').val();
                     var leve_count = $('#l_count').val();
-                    
+
                     form_data.append('<?php echo $this->security->get_csrf_token_name(); ?>','<?php echo $this->security->get_csrf_hash(); ?>');
                     form_data.append('l_year', leve_year);
                     form_data.append('l_type', leve_type_id);
                     form_data.append('l_count', leve_count);
                     form_data.append('person_id', '<?php echo $user_details[0]['ID'] ?>');
-                    
+
                     if(action == 'add'){
                         var post_url = "index.php/Admin/addLeave/2";
                         var errorMessage = "Error Adding Leave Details";
@@ -1255,16 +1278,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 contentType: false,
                                 processData: false,
                                 success: function(response){
-                                    
+
                                     location.reload();
                                     },
                                 error: function (response) {
                                     alert(errorMessage);
                                 }
                             });
-                    
+
                 });
-                
+
             });
         </script>
-            
+<?php } ?>

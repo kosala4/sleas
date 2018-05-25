@@ -2,8 +2,8 @@
 # @Author: Kosala Gangabadage <Kosala>
 # @Date:   2017-12-29T09:59:47+05:30
 # @Email:  kosala4@gmail.com
-# @Last modified by:   Kosala
-# @Last modified time: 2017-12-29T13:55:50+05:30
+# @Last modified by:   Kosala Gangabadage
+# @Last modified time: 2018-05-22T20:03:48+05:30
 
 
 
@@ -69,7 +69,9 @@ class Login extends CI_Controller {
             $name = $data[0]['name'];
             $level = $data[0]['level'];
             $id = $data[0]['person_id'];
-			$userData = array('username' => $uname, 'name' => $name, 'user_level'=>$level, 'officer_ID' =>$id, 'user_logged' => "in");
+            $workplace = $data[0]['workplace_id'];
+            $location = $data[0]['sub_location_id'];
+			$userData = array('username' => $uname, 'name' => $name, 'user_level'=>$level, 'officer_ID' =>$id, 'workplace' => $workplace, 'location' => $location, 'user_logged' => "in");
 			$this->session->set_userdata($userData);
 
             $this->redirect_user($data[0]['level']);

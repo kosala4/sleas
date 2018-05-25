@@ -10,18 +10,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		margin-right: 2cm;
 		background-color: white;
 	}
-    
+
     .header-definitions{
         line-height: 1;
     }
     .header-values{
         line-height: 1.4;
     }
-    
-    
-</style>       
+
+
+</style>
 <section id="content">
-    
+
 <!--mpdf
 
 <htmlpagefooter name="myfooter">
@@ -32,7 +32,7 @@ This is a SLEAS-HRM System generated letter.
 
 <sethtmlpagefooter name="myfooter" value="on" />
 mpdf-->
-    
+
     <div class="col-md-8" style="color:#000;margin-top:20px;">
         <table border="0" width="100%">
             <tr>
@@ -51,11 +51,11 @@ mpdf-->
         <?php echo $work_place ?> දෙපාර්තමේන්තුවේ සේවයෙහි නියුක්ත මෙහි පහත නම් සදහන් වන නිලධාරින්/ සේවකයන් විසින් ස්වකීය රාජකාරි සතුටු දායක ලෙස ඉෂ්ට කරන ලද බව ද ඵ් ඵ් පුද්ගලයාගේ නමට ඉදිරියෙන් සදහන් කර ඇති පඩි වැඩි වීම ඵ් ඵ් පුද්ගලයා විසින් උපයා ගන්නා ලද බව ද මම මෙයින් සහතික කරමි.
     </div>
 
-    <div class="col-md-8" style="color:#000;margin-top:20px;">            
+    <div class="col-md-8" style="color:#000;margin-top:20px;">
     I hereby certify that the under- mentioned officers / employees borne on the Establishment of the <?php echo $work_place ?> has / have discharged his /their duties satisfactorily and earned the increment noted against his/their respective names.
     </div>
-    
-    <div class="col-md-8" style="color:#000;margin-top:20px;"> 
+
+    <div class="col-md-8" style="color:#000;margin-top:20px;">
         <table border="0" width="100%">
             <tr>
                 <td valign="top" width="50px">
@@ -78,8 +78,8 @@ mpdf-->
             </tr>
         </table>
     </div>
-    
-    <div class="col-md-8" style="color:#000;margin-top:20px;"> 
+
+    <div class="col-md-8" style="color:#000;margin-top:20px;">
         <table cellspacing="0px" border="1" cellpading="2px" width="100%">
             <tr>
                 <th valign="middle">
@@ -116,7 +116,7 @@ mpdf-->
             </tr>
             <tr>
                 <td align="center">&nbsp; </td>
-                <td align="center"> <?php echo $grade ?> </td>
+                <td align="center"> <?php //echo $grade ?> II ශ්‍රේණිය </td>
                 <td align="center"> </td>
                 <td align="center"> </td>
             </tr>

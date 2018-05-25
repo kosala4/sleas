@@ -11,6 +11,17 @@ class User_model extends CI_Model
 		//SELECT * FROM user
 
 		$data  = $query->result_array();
+		// if ($query->num_rows() == 1) {
+        //     if( $data['0']['workplace_id'] == '5' OR $data['0']['workplace_id'] == '6' ){
+        //         $this->db->select('province_id');
+        //         $this->db->from('province_offices');
+        //         $this->db->where('ID', $data['0']['sub_location_id'] );
+        //         $sub_loc_query = $this->db->get();
+        //
+        //         $sub_loc = $sub_loc_query->result_array();
+        //         $data['0']['sub_location_id'] = $sub_loc['0']['province_id'];
+        //     }
+		// }
 		return $data;
 	}
 
